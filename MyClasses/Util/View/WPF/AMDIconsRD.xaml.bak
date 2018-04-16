@@ -1,0 +1,142 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+	<System:Double x:Key="DiameterIcon">19</System:Double>
+
+	<System:Double x:Key="ScaleIcon">14</System:Double>
+	<System:Double x:Key="ScaleMargin">4</System:Double>
+
+	<System:Double x:Key="ScaleCross">0.07</System:Double>
+	<System:Double x:Key="ScalePadLock">0.12</System:Double>
+
+	<SolidColorBrush x:Key="IconBlueBackground">#FF71c5FF</SolidColorBrush>
+	<SolidColorBrush x:Key="IconPurpleBackground">#F791058F</SolidColorBrush>
+	<SolidColorBrush x:Key="IconRedBackground">Red</SolidColorBrush>
+	<SolidColorBrush x:Key="IconGreenBackground">Green</SolidColorBrush>
+	<SolidColorBrush x:Key="IconOrangeBackground">Orange</SolidColorBrush>
+	<SolidColorBrush x:Key="IconGrayBackground">Gray</SolidColorBrush>
+
+
+	<Style x:Key="elRed" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconRedBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="elGreen" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconGreenBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="elOrange" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconOrangeBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="elGray" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconGrayBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="elBlue" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconBlueBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="elPurple" TargetType="Ellipse">
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Height" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Width" Value="{StaticResource DiameterIcon}" />
+		<Setter Property="Fill" Value="{StaticResource IconPurpleBackground}" />
+		<Setter Property="Stroke" Value="DarkGray" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+	<Style x:Key="pCross" TargetType="Path">
+		<Setter Property="Data" Value="M0,0 l30,-30 l50,50 l50,-50 l30,30 l-50,50 l50,50 l-30,30 l-50,-50 l-50,50 l-30,-30 l50,-50 l-50,-50" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Uniform" />
+	</Style>
+	<!--<Style x:Key="pCross" TargetType="{x:Type Path}">
+		<Setter Property="Data" Value="M5,7 L7,5 L13,11 L19,5 L21,7 L15,13 L21,19 L19,21 L13,15 L7,21 L5,19 L11,13 L5,7" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Width" Value="12" />
+		<Setter Property="Margin" Value="6" />
+	</Style>-->
+	<Style x:Key="pCheck" TargetType="Path">
+		<Setter Property="Data" Value="M5,14 L8,17 L20,5 L22,7 L8,21 L3,16 L5,14" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Width" Value="15" />
+		<Setter Property="Margin" Value="4, 6" />
+	</Style>
+	<Style x:Key="pLine" TargetType="Path">
+		<Setter Property="Data" Value="M5,15 h16 v-3 h-16 v3" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Fill" />
+		<Setter Property="Width" Value="{StaticResource ScaleIcon}" />
+		<Setter Property="Width" Value="14" />
+		<Setter Property="Height" Value="2" />
+		<Setter Property="Margin" Value="5, 11, 4, 4" />
+	</Style>
+	<Style x:Key="pHourGlass" TargetType="Path">
+		<Setter Property="Data" Value="M7,5 h12 l-5,8 l5,8 h-12 l5,-8 l-5,-8" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Fill" />
+		<Setter Property="Width" Value="12" />
+		<Setter Property="Height" Value="14" />
+		<Setter Property="Margin" Value="6, 5, 4, 4" />
+	</Style>
+	<Style x:Key="pCog" TargetType="Path">
+		<Setter Property="Data" Value="M0,0 v-4 h4 l2,-4 l-3,-3 l3,-3 l3,3 l4,-2 v-4 h4 v4 l4,2 l3,-3 l3,3 l-3,3 l2,4 h4 v4 h-4 l-2,4 l3,3 l-3,3 l-3,-3 l-4,2 v4 h-4 v-4 l-4,-2 l-3,3 l-3,-3 l3,-3 l-2,-4 l5,-2 c0,0 0,5.5 6,6 c0,0 5.5,0 6,-6 c0,0 0,-5.5 -6,-6 c0,0 -5.5,0 -6,6 l-5,2 h-4 " />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Uniform" />
+		<Setter Property="Width" Value="16" />
+		<Setter Property="Margin" Value="4" />
+	</Style>
+	<Style x:Key="pPadLockTop" TargetType="Path">
+		<Setter Property="Data" Value="M0,0 v-20 c0,-40 60,-40 60,0 v20 h-10 v-18 c0,-30 -40,-30 -40,0 v18 h-20 v50 h80 v-50 h-80" />
+		<Setter Property="Fill" Value="White" />
+		<Setter Property="Stretch" Value="Uniform" />
+	</Style>
+	<Style x:Key="styleIcon" TargetType="Canvas">
+		<Setter Property="Height" Value="27" />
+		<Setter Property="Visibility" Value="Hidden" />
+	</Style>
+	<ControlTemplate x:Key="ctPadLock">
+		<Canvas Margin="0, -10">
+			<Ellipse Style="{StaticResource elOrange}" />
+			<Path RenderTransformOrigin="0.0665, 0.030" Style="{StaticResource pPadLockTop}">
+				<Path.RenderTransform>
+					<ScaleTransform ScaleX="{StaticResource ScalePadLock}" ScaleY="{StaticResource ScalePadLock}"/>
+				</Path.RenderTransform>
+			</Path>
+		</Canvas>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ctCross">
+		<Canvas Margin="0, -10">
+			<Ellipse Style="{StaticResource elRed}" />
+			<Path RenderTransformOrigin="0.0265, 0.0265" Style="{StaticResource pCross}">
+				<Path.RenderTransform>
+					<ScaleTransform ScaleX="{StaticResource ScaleCross}" ScaleY="{StaticResource ScaleCross}"/>
+				</Path.RenderTransform>
+			</Path>
+		</Canvas>
+	</ControlTemplate>
+
+</ResourceDictionary>

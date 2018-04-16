@@ -1,0 +1,109 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <ResourceDictionary.MergedDictionaries>
+    <!-- Resource Dictionary containing brushes used for the Mac Window titlebar buttons-->
+    <ResourceDictionary Source="MacStyledButtonBrushes.xaml" />
+    <ResourceDictionary Source="AMDIconsRD.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- Close Button -->
+  <Style x:Key="CloseRadialButton" TargetType="Button">
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="MinHeight" Value="13" />
+    <Setter Property="MinWidth" Value="13" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Canvas>
+            <Ellipse Stroke="{x:Null}" Fill="{StaticResource CloseButtonOnStateColor}" HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center" Width="13" Height="13" x:Name="Ellipse" />
+            <Path Name="pCross" Style="{StaticResource pCross}" Fill="{StaticResource CloseButtonIconColor}" Opacity="0" Width="13" Height="13" Margin="3">
+              <Path.RenderTransform>
+                <ScaleTransform ScaleX="0.62" ScaleY="0.62" />
+              </Path.RenderTransform>
+            </Path>
+          </Canvas>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource CloseButtonOnStateColor}" />
+              <Setter TargetName="pCross" Property="Opacity" Value="0.8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource CloseButtonPressedStateColor}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Minimize Button -->
+  <Style x:Key="MinimizeRadialButton" TargetType="Button">
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="MinHeight" Value="13" />
+    <Setter Property="MinWidth" Value="13" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Ellipse Stroke="{x:Null}" Fill="{StaticResource MinimizeButtonOnStateColor}" HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center" Width="13" Height="13" x:Name="Ellipse" />
+            <TextBlock x:Name="minimizeTextBlock" RenderTransformOrigin="0.5,0.5" Text="-" HorizontalAlignment="Center"
+                                VerticalAlignment="Center" Opacity="0" Margin="0,-2,0,0" FontWeight="Bold" FontSize="10"
+                                Foreground="{StaticResource MinimizeButtonIconColor}">
+              <TextBlock.RenderTransform>
+                <TransformGroup>
+                  <ScaleTransform ScaleX="3" ScaleY="1.5" />
+                </TransformGroup>
+              </TextBlock.RenderTransform>
+            </TextBlock>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource MinimizeButtonOnStateColor}" />
+              <Setter TargetName="minimizeTextBlock" Property="Opacity" Value="0.8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource MinimizeButtonPressedStateColor}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Maximize Button -->
+  <Style x:Key="MaximizeRadialButton" TargetType="Button">
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="MinHeight" Value="13" />
+    <Setter Property="MinWidth" Value="13" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Canvas>
+            <Ellipse Stroke="{x:Null}" Fill="{StaticResource MaximizeButtonOnStateColor}" HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center" Width="13" Height="13" x:Name="Ellipse" />
+            <Path Name="pTriangle1" Style="{StaticResource pTriangle2}" Fill="{StaticResource MaximizeButtonIconColor}" Opacity="0" Width="13" Canvas.Left="3" Canvas.Top="4">
+              <Path.RenderTransform>
+                <ScaleTransform ScaleX="0.5" ScaleY="0.55" />
+              </Path.RenderTransform>
+            </Path>
+          </Canvas>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource MaximizeButtonOnStateColor}" />
+              <Setter TargetName="pTriangle1" Property="Opacity" Value="0.6" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource MaximizeButtonPressedStateColor}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

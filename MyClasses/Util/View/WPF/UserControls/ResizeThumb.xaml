@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="AMD.Util.View.WPF.UserControls.ResizeThumb"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="20" d:DesignWidth="20">
+    <Viewbox Grid.Row="1" Width="20" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+      <Thumb Name="thumbFloatingMenuResize" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						 Background="Yellow"
+             DragDelta="thumbFloatingMenuResize_DragDelta"
+             MouseEnter="thumbFloatingMenuResize_MouseEnter"
+             MouseLeave="thumbFloatingMenuResize_MouseLeave"
+             >
+        <Thumb.Template>
+          <ControlTemplate>
+            <Canvas>
+              <Path Fill="Transparent" Data="M0,25 l25,-25 v25 z" />
+              <Path Name="pathLine" Fill="DarkGray" Data="M6,22 l16,-16 l1,1 l-16,16 z" />
+              <Path Fill="{Binding Fill, ElementName=pathLine, Mode=OneWay}" Data="M12,22 l10,-10 l1,1 l-10,10 z" />
+              <Path Fill="{Binding Fill, ElementName=pathLine, Mode=OneWay}" Data="M18,22 l4,-4 l1,1 l-4,4 z" />
+            </Canvas>
+          </ControlTemplate>
+        </Thumb.Template>
+      </Thumb>
+    </Viewbox>
+</UserControl>

@@ -1,0 +1,96 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					          xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+  <SolidColorBrush x:Key="DisabledButton">#FF474747</SolidColorBrush>
+  <SolidColorBrush x:Key="DisabledThumb">#FF98B783</SolidColorBrush>
+  <!--Right part of the slider-->
+  <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+    <Setter Property="SnapsToDevicePixels"   Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="RenderTransformOrigin" Value="2,2"/>
+    <Setter Property="Focusable"  Value="False"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="RepeatButton">
+          <Border SnapsToDevicePixels="True" Background="Transparent" Height="20px" CornerRadius="0,10,10,0"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--Left part of the slider-->
+  <Style x:Key="SliderRepeatButton2" TargetType="RepeatButton">
+    <Setter Property="SnapsToDevicePixels"   Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="RenderTransformOrigin" Value="2,2"/>
+    <Setter Property="Focusable"  Value="False"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="RepeatButton">
+          <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Foreground}" Height="20px" CornerRadius="10,0,0,10" Margin="-10,0,0,0"/>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledThumb}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+
+  </Style>
+
+  <!--Thumb of the slider-->
+  <Style x:Key="SliderThumb" TargetType="Thumb">
+    <Setter Property="Height" Value="20px"/>
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="RenderTransformOrigin" Value="2,2"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Thumb">
+          <Border x:Name="Border" Background="{TemplateBinding Foreground}" CornerRadius="0,10,10,0" Width="10px"/>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledThumb}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--Slider Constructor (RepeatButton2+Thumb+RepeatButton1)-->
+  <ControlTemplate x:Key="ctGreenFullSliderNoThumb"  TargetType="Slider">
+    <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="0,10,10,0">
+      <Track Grid.Row="1" x:Name="PART_Track">
+        <Track.DecreaseRepeatButton>
+          <RepeatButton Style="{StaticResource SliderRepeatButton2}"  Command="Slider.DecreaseLarge" />
+        </Track.DecreaseRepeatButton>
+        <Track.Thumb>
+          <Thumb Style="{StaticResource SliderThumb}" Margin="0" Padding="50,0,0,0" />
+        </Track.Thumb>
+        <Track.IncreaseRepeatButton>
+          <RepeatButton Style="{StaticResource SliderRepeatButton1}" Command="Slider.IncreaseLarge"/>
+        </Track.IncreaseRepeatButton>
+      </Track>
+    </Border>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledButton}"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <!--Slider Style-->
+  <Style x:Key="StyleGreenFullSliderNoThumb" TargetType="Slider">
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="SnapsToDevicePixels"  Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="IsSnapToTickEnabled"  Value="true" />
+    <Setter Property="TickPlacement" Value="BottomRight" />
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Template"  Value="{StaticResource ctGreenFullSliderNoThumb}"/>
+  </Style>
+</ResourceDictionary>

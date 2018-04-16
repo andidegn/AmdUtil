@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B57ACFD3-FC24-4441-BA91-B75C15657529}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMD</RootNamespace>
+    <AssemblyName>AMDUtil</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\AMDUtil.XML</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\AMDUtil.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Util\CH341\CH341NativeFunctions.cs" />
+    <Compile Include="Util\Collections\ArrayStack\ArrayDropOutStack.cs" />
+    <Compile Include="Util\Collections\Dictionary\Dictionary3D.cs" />
+    <Compile Include="Util\Collections\Dictionary\SerializableDictionary.cs" />
+    <Compile Include="Util\Collections\IStack.cs" />
+    <Compile Include="Util\Colour\ColorChangedEventArgs.cs" />
+    <Compile Include="Util\Colour\Conversion.cs" />
+    <Compile Include="Util\Colour\Devcorp\CIELab.cs" />
+    <Compile Include="Util\Colour\Devcorp\CIEXYZ.cs" />
+    <Compile Include="Util\Colour\Devcorp\CMYK.cs" />
+    <Compile Include="Util\Colour\Devcorp\ColorSpaceHelper.cs" />
+    <Compile Include="Util\Colour\Devcorp\HSB.cs" />
+    <Compile Include="Util\Colour\Devcorp\HSL.cs" />
+    <Compile Include="Util\Colour\Devcorp\RGB.cs" />
+    <Compile Include="Util\Colour\Devcorp\YUV.cs" />
+    <Compile Include="Util\Colour\RGB.cs" />
+    <Compile Include="Util\Colour\Temperature.cs" />
+    <Compile Include="Util\Data\SerializationHelper.cs" />
+    <Compile Include="Util\Data\StreamHelper.cs" />
+    <Compile Include="Util\Data\StringFormatHelper.cs" />
+    <Compile Include="Util\Data\ValueHelper.cs" />
+    <Compile Include="Util\Diagnostics.cs" />
+    <Compile Include="Util\Display\Display.cs" />
+    <Compile Include="Util\Extensions\ExtensionArray.cs" />
+    <Compile Include="Util\Extensions\ExtensionByte.cs" />
+    <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
+    <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
+    <Compile Include="Util\HID\Keyboard.cs" />
+    <Compile Include="Util\Sort\BubbleSortIList.cs" />
+    <Compile Include="Util\Types\TypeHelper.cs" />
+    <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
+    <Compile Include="Util\View\WPF\UserControls\ColorPickerDialog.xaml.cs">
+      <DependentUpon>ColorPickerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\RichTextBoxRibbon.xaml.cs">
+      <DependentUpon>RichTextBoxRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\_Random\Cast.cs" />
+    <Compile Include="Util\Extensions\WPF\ExtensionRichTextBox.cs" />
+    <Compile Include="Util\Extensions\ExtensionString.cs" />
+    <Compile Include="Util\Extensions\WPF\ExtensionUIElement.cs" />
+    <Compile Include="Util\Files\FileHelper.cs" />
+    <Compile Include="Util\GraphicsCard\EDID.cs" />
+    <Compile Include="Util\GraphicsCard\GraphicsName.cs" />
+    <Compile Include="Util\HID\Modifier.cs" />
+    <Compile Include="Util\Log\Log.cs" />
+    <Compile Include="Util\Log\LogEventArgs.cs" />
+    <Compile Include="Util\Memoize\MemoizeTemplet.cs" />
+    <Compile Include="Util\HID\Mouse.cs" />
+    <Compile Include="Util\Permissions\Permission.cs" />
+    <Compile Include="Util\Serial\TeleComm\AT_commands.cs" />
+    <Compile Include="Util\Serial\Baudrates.cs" />
+    <Compile Include="Util\Collections\IQueue.cs" />
+    <Compile Include="Util\Collections\ArrayQueue\ArrayQueue.cs" />
+    <Compile Include="Util\LiniarAlgebra\Vector.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LiniarAlgebra\Vector3D.cs" />
+    <Compile Include="Util\Extensions\WinForms\ExtensionRichTextBox.cs" />
+    <Compile Include="Util\Log\LogWriter.cs" />
+    <Compile Include="Util\Serial\SerialPortConnector.cs" />
+    <Compile Include="Util\Sort\BubbleSort.cs" />
+    <Compile Include="Util\Sort\ISort.cs" />
+    <Compile Include="Util\Sort\MergeSort.cs" />
+    <Compile Include="Util\SystemControl\SystemControl.cs" />
+    <Compile Include="Util\Tasks\ITask.cs" />
+    <Compile Include="Util\Tasks\TaskHandler.cs" />
+    <Compile Include="Util\Validation\StringValidater.cs" />
+    <Compile Include="Util\Versioning\RunningVersion.cs" />
+    <Compile Include="Util\View\Winforms\IsicAboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Util\View\Winforms\IsicAboutForm.designer.cs">
+      <DependentUpon>IsicAboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Helper\ImageHelper.cs" />
+    <Compile Include="Util\View\WPF\ListViewFunc\ColumnAdjust.cs" />
+    <Compile Include="Util\View\WPF\InvokeControl\InvokeControl.cs" />
+    <Compile Include="Util\View\WPF\Helper\PanelHelper.cs" />
+    <Compile Include="Util\View\WPF\Spinners\AppleSpinner.xaml.cs">
+      <DependentUpon>AppleSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Spinners\CircleSpinner.xaml.cs">
+      <DependentUpon>CircleSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Spinners\CogSpinner.xaml.cs">
+      <DependentUpon>CogSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Spinners\PistonSpinner.xaml.cs">
+      <DependentUpon>PistonSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Spinners\SomeLoadingAnimation.xaml.cs">
+      <DependentUpon>SomeLoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\Spinners\SwirlSpinner.xaml.cs">
+      <DependentUpon>SwirlSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\Block.xaml.cs">
+      <DependentUpon>Block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\DebugPane.xaml.cs">
+      <DependentUpon>DebugPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\DebugPanel - Copy.xaml.cs">
+      <DependentUpon>DebugPanel - Copy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\DebugPanel.xaml.cs">
+      <DependentUpon>DebugPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\ExtendedTextBox.cs" />
+    <Compile Include="Util\View\WPF\UserControls\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\ResizeThumb.xaml.cs">
+      <DependentUpon>ResizeThumb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TextInputDialog.xaml.cs">
+      <DependentUpon>TextInputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TitleBar.xaml.cs">
+      <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\ValueConverters\ValueConverters.cs" />
+    <Compile Include="Vector3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Util\Serial\BaudRates\" />
+    <Folder Include="Util\Serial\Connection\" />
+    <Folder Include="Util\View\WPF\UserControls\BaseControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Util\View\WPF\AMDCommonBrushesRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDComboBoxesRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDSliderHorizontalWithText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDSliderSimpleRoundThumb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDGreenFullSliderNoThumbRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDToggleButtonsRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDButtonsRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDSlidersRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDIconsRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\AMDStylesRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\MacStyledButtonBrushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\MacStyledTitleBarButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\AppleSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\CircleSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\CogSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\PistonSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\SomeLoadingAnimation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\Spinners\SwirlSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\ColorPickerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\Block.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\DebugPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\DebugPanel - Copy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\DebugPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\LoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\LoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\ResizeThumb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\RichTextBoxRibbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TextInputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Util\CH341\CH341DLL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Util\View\Winforms\IsicAboutForm.resx">
+      <DependentUpon>IsicAboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

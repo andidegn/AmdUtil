@@ -1,0 +1,311 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="AMDCommonBrushesRD.xaml" />
+    <ResourceDictionary Source="AMDGreenFullSliderNoThumbRD.xaml" />
+    <ResourceDictionary Source="AMDSliderSimpleRoundThumb.xaml" />
+    <ResourceDictionary Source="AMDSliderHorizontalWithText.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <System:Double x:Key="variable_opacity_low">0.9</System:Double>
+
+  <!--<SolidColorBrush x:Key="HorizontalSliderTrackNormalBackgroundGreen" Color="#997cfc00"/>-->
+  <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBackgroundGreen" EndPoint="0,1" StartPoint="0,0">
+    <GradientStop Color="LawnGreen" Offset=".5"/>
+    <GradientStop Color="DarkGreen" Offset=".5"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="HorizontalSliderTrackNormalBackgroundGreen" Color="#FFE7EAEA"/>-->
+  <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBorder" EndPoint="0,1" StartPoint="0,0">
+    <GradientStop Color="#44AEB1AF" Offset="0.1"/>
+    <GradientStop Color="#44ffffff" Offset=".9"/>
+  </LinearGradientBrush>
+
+  <!--Storyboard-->
+  <Storyboard x:Key="opacity_fade_in">
+    <DoubleAnimation To="1" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity" />
+  </Storyboard>
+  <Storyboard x:Key="opacity_fade_out">
+    <DoubleAnimation To="{StaticResource variable_opacity_low}" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity" />
+  </Storyboard>
+
+
+  <Style x:Key="slider_progress_style" TargetType="{x:Type Thumb}">
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="Height" Value="15" />
+    <Setter Property="Width" Value="12" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Ellipse x:Name="Ellipse" StrokeThickness="0.5">
+            <Ellipse.Stroke>
+              <LinearGradientBrush StartPoint="0,0"
+                                   EndPoint="0,1">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStopCollection>
+                    <GradientStop Color="{StaticResource BorderLightColor}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource BorderDarkColor}" Offset="1.0" />
+                  </GradientStopCollection>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </Ellipse.Stroke>
+            <Ellipse.Fill>
+              <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                <GradientStop Color="{StaticResource ControlMediumColor}" Offset="0.9" />
+                <GradientStop Color="{StaticResource ControlLightColorGreen}" />
+              </LinearGradientBrush>
+            </Ellipse.Fill>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="MouseOver">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource ControlPressedColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Disabled">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledControlDarkColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Ellipse>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  <Style x:Key="slider_repeat_button_increase" TargetType="{x:Type RepeatButton}">
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="IsTabStop" Value="false"/>
+    <Setter Property="Focusable" Value="false"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Rectangle Fill="Transparent"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="slider_repeat_button_decrease" TargetType="{x:Type RepeatButton}">
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="IsTabStop" Value="false"/>
+    <Setter Property="Focusable" Value="false"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Rectangle Fill="Transparent"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="StyleGreenCircleSlider" TargetType="{x:Type Slider}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Slider}">
+          <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <TickBar x:Name="TopTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Top" Height="4" Grid.Row="0"/>
+              <TickBar x:Name="BottomTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Bottom" Height="4" Grid.Row="0"/>
+              <Border x:Name="TrackBackground" 
+                      Background="{StaticResource HorizontalSliderTrackNormalBackgroundGreen}"
+                      BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}"
+                      BorderThickness="1" CornerRadius="1"
+                      Margin="5,0" VerticalAlignment="Center" Height="5.0" Grid.Row="1" >
+                <Canvas Margin="-6,-1">
+                  <Rectangle Visibility="Visible" 
+                             x:Name="PART_SelectionRange" 
+                             Height="4.0" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+                             Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                             StrokeThickness="1.0"/>
+                </Canvas>
+              </Border>
+
+              <Track x:Name="PART_Track" Grid.Row="1">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource slider_repeat_button_decrease}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource slider_repeat_button_increase}"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb x:Name="Thumb" Style="{StaticResource slider_progress_style}" Background="Black"/>
+                </Track.Thumb>
+              </Track>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+              <BeginStoryboard Storyboard="{StaticResource opacity_fade_in}" />
+            </EventTrigger>
+            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+              <BeginStoryboard Storyboard="{StaticResource opacity_fade_out}" />
+            </EventTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  
+  
+  
+  
+  
+  
+
+  <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBackgroundBlue" EndPoint="0,1" StartPoint="0,0">
+    <GradientStop Color="#FF0071C5" Offset=".5"/>
+    <GradientStop Color="{StaticResource ControlDarkColor}" Offset=".5"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="HorizontalSliderTrackNormalBackgroundGreen" Color="#FFE7EAEA"/>-->
+  <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBorder1" EndPoint="0,1" StartPoint="0,0">
+    <GradientStop Color="#44AEB1AF" Offset="0.1"/>
+    <GradientStop Color="#44ffffff" Offset=".9"/>
+  </LinearGradientBrush>
+
+  <Style x:Key="slider_progress_style_blue" TargetType="{x:Type Thumb}">
+    <Setter Property="SnapsToDevicePixels" Value="true" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="Height" Value="15" />
+    <Setter Property="Width" Value="12" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Border x:Name="Ellipse" BorderThickness="0.5" CornerRadius="4" >
+            <Border.BorderBrush>
+              <LinearGradientBrush StartPoint="0,0"
+                                   EndPoint="0,1">
+                <LinearGradientBrush.GradientStops>
+                  <GradientStopCollection>
+                    <GradientStop Color="{StaticResource BorderLightColor}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource BorderDarkColor}" Offset="1.0" />
+                  </GradientStopCollection>
+                </LinearGradientBrush.GradientStops>
+              </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+              <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                <GradientStop Color="{StaticResource ControlDarkColor}" Offset="0.95" />
+                <GradientStop Color="{StaticResource ControlLightColorBlue}" />
+              </LinearGradientBrush>
+            </Border.Background>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="MouseOver">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource ControlPressedColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Disabled">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                      <EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledControlDarkColor}" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="StyleBlueRoundedRectangleSlider" TargetType="{x:Type Slider}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Slider}">
+          <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <TickBar x:Name="TopTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Top" Height="4" Grid.Row="0"/>
+              <TickBar x:Name="BottomTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Bottom" Height="4" Grid.Row="0"/>
+              <Border x:Name="TrackBackground" 
+                      Background="{StaticResource HorizontalSliderTrackNormalBackgroundBlue}"
+                      BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}"
+                      BorderThickness="1" CornerRadius="1"
+                      Margin="5,0" VerticalAlignment="Center" Height="5.0" Grid.Row="1" >
+                <Canvas Margin="-6,-1">
+                  <Rectangle Visibility="Visible" 
+                             x:Name="PART_SelectionRange" 
+                             Height="4.0" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+                             Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" 
+                             StrokeThickness="1.0"/>
+                </Canvas>
+              </Border>
+
+              <Track x:Name="PART_Track" Grid.Row="1">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource slider_repeat_button_decrease}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource slider_repeat_button_increase}"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb x:Name="Thumb" Style="{StaticResource slider_progress_style_blue}" Background="Black"/>
+                </Track.Thumb>
+              </Track>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+              <BeginStoryboard Storyboard="{StaticResource opacity_fade_in}" />
+            </EventTrigger>
+            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+              <BeginStoryboard Storyboard="{StaticResource opacity_fade_out}" />
+            </EventTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

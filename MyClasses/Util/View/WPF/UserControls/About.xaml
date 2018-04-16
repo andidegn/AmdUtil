@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="AMD.Util.View.WPF.UserControls.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignHeight="350"
+        d:DesignWidth="440">
+  <UserControl.Resources>
+    <ResourceDictionary>
+		<Style TargetType="Label">
+			<Setter Property="Margin" Value="0, 0, 5, 0" />
+			<Setter Property="Padding" Value="0" />
+    </Style>
+    <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="pack://application:,,,/AMDUtil;component/Util/View/WPF/MacStyledTitleBarButtons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+	<Border BorderThickness="1" BorderBrush="#FFE0E0FF">
+    <Grid Margin="10">
+			<Grid.RowDefinitions>
+				<RowDefinition Name="rowLogo" Height="80" />
+				<RowDefinition Height="58" />
+				<RowDefinition />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+			<Canvas Name="canvasLogoBackground" Panel.ZIndex="1" />
+			<!--Source="/ISIC SB15 FW Config DB;component/Resources/logo_isic3.png"-->
+			<Image Name="imgLogo" Grid.Row="0" Stretch="Uniform" Panel.ZIndex="2" Margin="0, 0, 0, 7" />
+			<Canvas Name="canvasInfoBackground" Grid.Row="1" Panel.ZIndex="1" />
+      <!--<Control Name="iconCfgError" Grid.Column="2" Template="{DynamicResource ctCrossInRedCircle}" Margin="0, 3" ToolTip="This Part Number is locked" Visibility="Visible" />-->
+      <Button Name="btnClose" Style="{StaticResource CloseRadialButton}" HorizontalAlignment="Right" Margin="-3" Click="Exit_EventHandler" />
+      <Grid Grid.Row="1" Panel.ZIndex="2">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="64" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<!--Source="Resources/icon.ico"-->
+				<Image Name="imgIcon" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Center" />
+				<StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+					<Label Name="lblApplicationName" Content="XXXXXXXXXXXXX" />
+					<Label Name="lblVersionLabel" Content="Version" />
+					<Label Name="lblVersion" Content="XXXXXXXXXXXXX" />
+				</StackPanel>
+				<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+					<Label Name="lblCopyRightLabel" Content="Copyright ©" />
+					<Label Name="lblCopyRightYear" Content="XXXXXXXXXXXXX" />
+					<Label Name="lblCopyRightCompany" Content="XXXXXXXXXXXXX" />
+					<Label Name="lblCopyRightAllRightsReserved" Content="All rights reserved" />
+				</StackPanel>
+				<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+					<Label Name="lblDeveloperLabel" Content="Developed by:" />
+					<Label Name="lblDeveloper" Content="XXXXXXXXXXXXX" />
+				</StackPanel>
+			</Grid>
+			<RichTextBox Name="rtbDescription" Grid.Row="2" IsReadOnly="True" HorizontalAlignment="Stretch" Margin="0,10,0,0" />
+
+      <Grid Name="PropGridBottomCustom" Grid.Row="3" />
+    </Grid>
+	</Border>
+</UserControl>

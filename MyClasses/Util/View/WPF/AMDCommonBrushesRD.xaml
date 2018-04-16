@@ -1,0 +1,182 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+  <!--Colours-->
+  <!--<SolidColorBrush x:Key="ExitButtonBackground">#FFFF1020</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="ExitButtonBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFFF1020"/>
+    <GradientStop Color="#FF202020" Offset="1"/>
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="TitleBarBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop  Color="#50909090"/>
+    <GradientStop Color="#90000000" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="TitleBarForeground">#FFFF0000</SolidColorBrush>
+
+  <!--<SolidColorBrush x:Key="TitleBarBackgroundSpecator">#50FF2050</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="TitleBarBackgroundSpecator" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#50FF2050"/>
+    <GradientStop Color="#90000000" Offset="1"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="TitleBarBackgroundEditor">#50909090</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="TitleBarBackgroundEditor" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop  Color="#50909090"/>
+    <GradientStop Color="#90000000" Offset="1"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="TitleBarBackgroundAdmin">#80000000</SolidColorBrush>-->
+  <!--<SolidColorBrush x:Key="TitleBarBackgroundAdmin">#FFFFCC00</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="TitleBarBackgroundAdmin" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFFFCC00"/>
+    <GradientStop Color="#90000000" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="TitleBarForegroundSpecator">#FFFF0000</SolidColorBrush>
+  <SolidColorBrush x:Key="TitleBarForegroundEditor">#FF000000</SolidColorBrush>
+  <!--<SolidColorBrush x:Key="TitleBarForegroundAdmin">#FFFFFFFF</SolidColorBrush>-->
+  <SolidColorBrush x:Key="TitleBarForegroundAdmin">#FFFF0000</SolidColorBrush>
+
+  <SolidColorBrush x:Key="BackgroundColor">#FFFFEEDD</SolidColorBrush>
+
+  <SolidColorBrush x:Key="BorderBackground">#FFF0F0FA</SolidColorBrush>
+  <SolidColorBrush x:Key="BorderBrush">#AAF0F0FA</SolidColorBrush>
+
+
+  <SolidColorBrush x:Key="TabSquareActiveBackground">#FCCC</SolidColorBrush>
+  <SolidColorBrush x:Key="TabSquareNotActiveBackground">#FFEEEEEE</SolidColorBrush>
+  
+  <SolidColorBrush x:Key="TabActiveBorderBrush">#FFFFFFFF</SolidColorBrush>
+  <SolidColorBrush x:Key="TabNotActiveBorderBrush">#FFFFFFFF</SolidColorBrush>
+  <SolidColorBrush x:Key="TabActiveBackground">#AA00FF55</SolidColorBrush>
+  <SolidColorBrush x:Key="TabNotActiveBackground">#55EEEEEE</SolidColorBrush>
+
+  <SolidColorBrush x:Key="LightText">#FFFFFFFF</SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxBorderBrush">#20000000</SolidColorBrush>
+  <SolidColorBrush x:Key="TextBoxBackground">#55FFFFFF</SolidColorBrush>
+
+  <SolidColorBrush x:Key="ListBoxTestBackground">#A0FFFFFF</SolidColorBrush>
+
+  <SolidColorBrush x:Key="GridSplitterLines">#20000000</SolidColorBrush>
+  <SolidColorBrush x:Key="GridSplitterFill">#40FFFFFF</SolidColorBrush>
+  <SolidColorBrush x:Key="GridSplitterBorderBrush">#10909090</SolidColorBrush>
+
+  <SolidColorBrush x:Key="ConsoleBackgroundDark">#FF1A1A1A</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsoleGreen">#FFA6E22D</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsoleRed">#FFF92672</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsoleOrange">#FFFF5F1A</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsoleLightBlue">#FF66D9EF</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsoleBlue">#FF66D9EF</SolidColorBrush>
+  <SolidColorBrush x:Key="ConsolePurple">#FF7300FF</SolidColorBrush>
+  <SolidColorBrush x:Key="WarningYellow">#FFFFCC00</SolidColorBrush>
+
+  <SolidColorBrush x:Key="ButtonBorderBrush">#20000000</SolidColorBrush>
+
+  <SolidColorBrush x:Key="ComboBoxContentBackground">#FFDDDDDD</SolidColorBrush>
+  <SolidColorBrush x:Key="ComboBoxNormalBorderBrush">#E3E9EF</SolidColorBrush>
+  <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush">#77FFFFFF</SolidColorBrush>
+  <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush">#FF444444</SolidColorBrush>
+  <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush">#FFEEEEEE</SolidColorBrush>
+  <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush">#FF888888</SolidColorBrush>
+
+  <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+  <Color x:Key="ControlLightColorGreen">LawnGreen</Color>
+  <Color x:Key="ControlLightColorBlue">#FF0071C5</Color>
+  <Color x:Key="ControlMediumColor">Black</Color>
+  <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+  <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+  <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+  <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+  <Color x:Key="BorderDarkColor">#FF444444</Color>
+
+  <SolidColorBrush x:Key="ToggleButtonBorderBrush">LightGray</SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonBorderBackground">#FF000000</SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonThumbBackground"></SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonOnForeColor">#FF37FDFC</SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonOffForeColor">Gray</SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonInactiveOnForeColor">Red</SolidColorBrush>
+  <SolidColorBrush x:Key="ToggleButtonInactiveOffForeColor">LightGray</SolidColorBrush>
+  <Color x:Key="ToggleButtonThumbGlowStart">#FF37FDFC</Color>
+  <Color x:Key="ToggleButtonThumbGlowEnd">#44006400</Color>
+  <Color x:Key="ToggleButtonThumbShineStart">#99FFFFFF</Color>
+  <Color x:Key="ToggleButtonThumbShineEnd">#33FFFFFF</Color>
+
+
+  <!--<SolidColorBrush x:Key="IconBlueBackground">#FF71C5FF</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconBlueBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FF71C5FF"/>
+    <GradientStop Color="#FF1E77B3" Offset="1"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="IconPurpleBackground">#F791058F</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconPurpleBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FF91058F"/>
+    <GradientStop Color="#FF400040" Offset="1"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="IconRedBackground">Red</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconRedBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFFF0000"/>
+    <GradientStop Color="#FF2A0000" Offset="1.2"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="IconGreenBackground">Green</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconGreenBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FF00FF00"/>
+    <GradientStop Color="#FF0E5200" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="IconDarkGreenBackground">#FF0B650D</SolidColorBrush>
+  <!--<SolidColorBrush x:Key="IconOrangeBackground">Orange</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconOrangeBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFFFCC00"/>
+    <GradientStop Color="#FF524E00" Offset="1"/>
+  </LinearGradientBrush>
+  <!--<SolidColorBrush x:Key="IconYellowBackground">#FFEED202</SolidColorBrush>-->
+  <LinearGradientBrush x:Key="IconYellowBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFEED202"/>
+    <GradientStop Color="#FFB8A10E" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="IconGrayBackground">Gray</SolidColorBrush>
+
+  <SolidColorBrush x:Key="IconFillColorWhite">White</SolidColorBrush>
+  <SolidColorBrush x:Key="IconFillColorBlack">Black</SolidColorBrush>
+
+  <LinearGradientBrush x:Key="MouseOverHideBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Color="#FF510000" Offset="0" />
+    <GradientStop Color="#FFB64505" Offset="0.5" />
+    <GradientStop Color="#FFF9CC00" Offset="0.8" />
+    <GradientStop Color="White" Offset="0.9" />
+    <GradientStop Color="White" Offset="1" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="MouseOverBrush" StartPoint="0.5, 0" EndPoint="0.5, 1">
+    <GradientStop Color="#22000000" Offset="0" />
+    <GradientStop Color="#44000000" Offset="0.4" />
+    <GradientStop Color="#55000000" Offset="0.6" />
+    <GradientStop Color="#33000000" Offset="0.9" />
+    <GradientStop Color="#22000000" Offset="1" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="TextBoxGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Color="#77000000" Offset="0" />
+    <GradientStop Color="#10000000" Offset="0.02" />
+    <GradientStop Color="#00000000" Offset="0.4" />
+    <GradientStop Color="#00000000" Offset="0.6" />
+    <GradientStop Color="#05000000" Offset="0.98" />
+    <GradientStop Color="#55000000" Offset="1" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="TextBoxTallGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Color="#77000000" Offset="0" />
+    <GradientStop Color="#10000000" Offset="0.01" />
+    <GradientStop Color="#00000000" Offset="0.2" />
+    <GradientStop Color="#00000000" Offset="0.8" />
+    <GradientStop Color="#05000000" Offset="0.99" />
+    <GradientStop Color="#55000000" Offset="1" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="TopShadowGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Color="#77000000" Offset="0" />
+    <GradientStop Color="#22000000" Offset="0.05" />
+    <GradientStop Color="#00000000" Offset="0.2" />
+    <GradientStop Color="#00000000" Offset="1" />
+  </LinearGradientBrush>
+
+</ResourceDictionary>
