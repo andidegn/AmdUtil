@@ -1,0 +1,1 @@
+Path to lib: /MyClasses/bin/Release/AMDUtil.*
