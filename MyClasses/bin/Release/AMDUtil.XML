@@ -1,0 +1,2218 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AMDUtil</name>
+    </assembly>
+    <members>
+        <member name="M:AMD.Util.CH341.CH341NativeFunctions.CH341OpenDevice(System.Int32)">
+            <summary>
+            Attempts to open the device
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.CH341.CH341NativeFunctions.CH341CloseDevice(System.Int32)">
+            <summary>
+            Attempts to close the device
+            </summary>
+            <param name="iIndex"></param>
+        </member>
+        <member name="F:AMD.Util.Collections.ArrayStack.ArrayDropOutStack`1.DEFAULT_CAPACITY">
+            constant to represent the default capacity of the array
+        </member>
+        <member name="T:AMD.Util.Collections.IStack`1">
+            <summary>
+            Interface defining Stack
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AMD.Util.Collections.IStack`1.Count">
+            <summary>
+            The number of elements in this stack. 
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Push(`0)">
+            <summary>
+            Adds one element to the top of this stack. 
+            </summary>
+            <param name="element">element to be pushed onto stack</param>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Pop">
+            <summary>
+            Removes and returns the top element from this stack. 
+            </summary>
+            <returns>T element removed from the top of the stack</returns>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Peek">
+            <summary>
+            Returns without removing the top element of this stack. 
+            </summary>
+            <returns>T element on top of the stack</returns>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Clear">
+            <summary>
+            Clears the stack
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.IsEmpty">
+            <summary>
+            Returns true if this stack contains no elements. 
+            </summary>
+            <returns>boolean whether or not this stack is empty</returns>
+        </member>
+        <member name="P:AMD.Util.Colour.ColorChangedEventArgs.OriginalColor">
+            <summary>
+            The original color
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.ColorChangedEventArgs.SelectedColor">
+            <summary>
+            The selected color
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.ColorChangedEventArgs.#ctor(System.Windows.Media.Color,System.Windows.Media.Color)">
+            <summary>
+            Instantiates and sets original and selected color
+            </summary>
+            <param name="originalColor"></param>
+            <param name="selectedColor"></param>
+        </member>
+        <member name="P:AMD.Util.Colour.BrushChangedEventArgs.OriginalBrush">
+            <summary>
+            The original Brush
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.BrushChangedEventArgs.SelectedBrush">
+            <summary>
+            The selected Brush
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.BrushChangedEventArgs.#ctor(System.Windows.Media.Brush,System.Windows.Media.Brush)">
+            <summary>
+            Instantiates and sets original and selected Brush
+            </summary>
+            <param name="originalBrush"></param>
+            <param name="selectedBrush"></param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CIELab">
+            <summary>
+            Structure to define CIE L*a*b*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIELab.Empty">
+            <summary>
+            Gets an empty CIELab structure.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CIEXYZ">
+            <summary>
+            Structure to define CIE XYZ.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIEXYZ.Empty">
+            <summary>
+            Gets an empty CIEXYZ structure.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIEXYZ.D65">
+            <summary>
+            Gets the CIE D65 (white) structure.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.X">
+            <summary>
+            Gets or sets X component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.Y">
+            <summary>
+            Gets or sets Y component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.Z">
+            <summary>
+            Gets or sets Z component.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CMYK">
+            <summary>
+            Structure to define CMYK.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CMYK.Empty">
+            <summary>
+            Gets an empty CMYK structure;
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.CMYK.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a CMYK structure.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.ColorSpaceHelper">
+            <summary>
+            Provides methods to convert from a color space to an other.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gets the "distance" between two colors.
+            RGB colors must be normalized (eg. values in [0.0, 1.0]).
+            </summary>
+            <param name="r1">First color red component.</param>
+            <param name="g1">First color green component.</param>
+            <param name="b1">First color blue component.</param>
+            <param name="r2">Second color red component.</param>
+            <param name="g2">Second color green component.</param>
+            <param name="b2">Second color blue component.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Double[],System.Double[])">
+            <summary>
+            Gets the "distance" between two colors.
+            RGB colors must be normalized (eg. values in [0.0, 1.0]).
+            </summary>
+            <param name="color1">First color [r,g,b]</param>
+            <param name="color2">Second color [r,g,b]</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Gets the "distance" between two colors.
+            </summary>
+            <param name="color1">First color.</param>
+            <param name="color2">Second color.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetWheelColors(System.Int32)">
+            <summary>
+            Gets visible colors (color wheel).
+            </summary>
+            <param name="alpha">
+            The alpha value used for each colors.
+            </param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetSpectrumColors(System.Int32)">
+            <summary>
+            Gets visible spectrum colors.
+            </summary>
+            <param name="alpha">The alpha value used for each colors.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetSpectrumColors">
+            <summary>
+            Gets visible spectrum colors.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetIntFromHex(System.String)">
+            <summary>
+            Gets the int equivalent for a hexadecimal value.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HexToColor(System.String)">
+            <summary>
+            Converts a Hex color to a .net Color.
+            </summary>
+            <param name="hexColor">The desired hexadecimal color to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBToHex(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts a RGB color format to an hexadecimal color.
+            </summary>
+            <param name="r">The Red value.</param>
+            <param name="g">The Green value.</param>
+            <param name="b">The Blue value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBToHex(System.Drawing.Color)">
+            <summary>
+            Converts a RGB color format to an hexadecimal color.
+            </summary>
+            <param name="r">The color to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoRGB(AMD.Util.Colour.Devcorp.HSB)">
+            <summary>
+            Converts HSB to RGB.
+            </summary>
+            <param name="hsv">The HSB structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to RGB.
+            </summary>
+            <param name="H">Hue value.</param>
+            <param name="S">Saturation value.</param>
+            <param name="V">Brigthness value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(AMD.Util.Colour.Devcorp.HSB)">
+            <summary>
+            Converts HSB to Color.
+            </summary>
+            <param name="hsv">the HSB structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(System.Double,System.Double,System.Double)">
+            <summary> 
+            Converts HSB to a .net Color.
+            </summary>
+            <param name="h">Hue value (must be between 0 and 360).</param>
+            <param name="s">Saturation value (must be between 0 and 1).</param>
+            <param name="b">Brightness value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts HSB to Color.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="b">Brightness value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoHSL(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoYUV(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to RGB.
+            </summary>
+            <param name="h">Hue, must be in [0, 360].</param>
+            <param name="s">Saturation, must be in [0, 1].</param>
+            <param name="l">Luminance, must be in [0, 1].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoRGB(AMD.Util.Colour.Devcorp.HSL)">
+            <summary>
+            Converts HSL to RGB.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoColor(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to .net Color.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoColor(AMD.Util.Colour.Devcorp.HSL)">
+            <summary>
+            Converts HSL to .net Color.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoHSB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to HSB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoYUV(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(System.Int32,System.Int32,System.Int32)">
+            <summary> 
+            Converts RGB to HSL.
+            </summary>
+            <param name="red">Red value, must be in [0,255].</param>
+            <param name="green">Green value, must be in [0,255].</param>
+            <param name="blue">Blue value, must be in [0,255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(AMD.Util.Colour.Devcorp.RGB)">
+            <summary> 
+            Converts RGB to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(System.Drawing.Color)">
+            <summary> 
+            Converts Color to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(System.Int32,System.Int32,System.Int32)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(AMD.Util.Colour.Devcorp.RGB)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(System.Drawing.Color)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+            <param name="red">Red vaue must be in [0, 255].</param>
+            <param name="green">Green vaue must be in [0, 255].</param>
+            <param name="blue">Blue vaue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+            <param name="red">red must be in [0, 255].</param>
+            <param name="green">green must be in [0, 255].</param>
+            <param name="blue">blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(System.Drawing.Color)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIE XYZ (CIE 1931 color space)
+            </summary>
+            <param name="red">Red must be in [0, 255].</param>
+            <param name="green">Green must be in [0, 255].</param>
+            <param name="blue">Blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(AMD.Util.Colour.Devcorp.CMYK)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="cmyk"></param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoRGB(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoRGB(AMD.Util.Colour.Devcorp.CMYK)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="cmyk"></param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoHSL(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoHSB(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to HSB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoYUV(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to RGB.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoRGB(AMD.Util.Colour.Devcorp.YUV)">
+            <summary>
+            Converts YUV to RGB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoColor(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to a .net Color.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoColor(AMD.Util.Colour.Devcorp.YUV)">
+            <summary>
+            Converts YUV to a .net Color.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoHSL(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to HSL.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoHSB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to HSB.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to CMYK.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.Fxyz(System.Double)">
+            <summary>
+            XYZ to L*a*b* transformation function.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoLab(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to CIELab structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoLab(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to CIELab structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoXYZ(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIELab to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoXYZ(AMD.Util.Colour.Devcorp.CIELab)">
+            <summary>
+            Converts CIELab to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIELab to RGB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoRGB(AMD.Util.Colour.Devcorp.CIELab)">
+            <summary>
+            Converts CIELab to RGB.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.HSB">
+            <summary>
+            Structure to define HSB.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.HSB.Empty">
+            <summary>
+            Gets an empty HSB structure;
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Hue">
+            <summary>
+            Gets or sets the hue component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Saturation">
+            <summary>
+            Gets or sets saturation component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Brightness">
+            <summary>
+            Gets or sets the brightness component.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.HSB.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a HSB structure.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="b">Brightness value.</param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.HSL">
+            <summary>
+            Structure to define HSL.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.HSL.Empty">
+            <summary>
+            Gets an empty HSL structure;
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Hue">
+            <summary>
+            Gets or sets the hue component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Saturation">
+            <summary>
+            Gets or sets saturation component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Luminance">
+            <summary>
+            Gets or sets the luminance component.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.HSL.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a HSL structure.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="l">Lightness value.</param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.RGB">
+            <summary>
+            Structure to define RGB.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.RGB.Empty">
+            <summary>
+            Gets an empty RGB structure;
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.YUV">
+            <summary>
+            Structure to define YUV.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.YUV.Empty">
+            <summary>
+            Gets an empty YUV structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.YUV.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a YUV structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[])">
+            <summary>
+            Gets a formatted memory string from a word array
+            </summary>
+            <param name="startAddr"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetStringFromRtf(System.String)">
+            <summary>
+            Strip RTF Tags from RTF Text
+            </summary>
+            <param name="inputRtf">RTF formatted text</param>
+            <returns>Plain text from RTF</returns>
+        </member>
+        <member name="T:AMD.Util.Diagnostics">
+            <summary>
+            Small timing class designed for measure how long time an operation takes
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Diagnostics.Measure(System.Int32,System.Action)">
+            <summary>
+            Measures how long time an action takes to perform
+            </summary>
+            <param name="repetitions">The number of times to run the action</param>
+            <param name="action">the action to be run</param>
+            <returns>The result of the measurement</returns>
+        </member>
+        <member name="M:AMD.Util.Diagnostics.MeasureAndPrintToConsole(System.String,System.Int32,System.Action)">
+            <summary>
+            Measures an action and prints it to console
+            </summary>
+            <param name="what">A descriptive string of what is being measured</param>
+            <param name="repetitions">The number of times to run the action</param>
+            <param name="action">the action to be run</param>
+        </member>
+        <member name="T:AMD.Util.Measurement">
+            <summary>
+            Wrapper class for measurement
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Min">
+            <summary>
+            Minimum value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Max">
+            <summary>
+            Maximum value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Avg">
+            <summary>
+            Average value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Measurement.#ctor(System.TimeSpan[])">
+            <summary>
+            Storing the min, max and average values from double array
+            </summary>
+            <param name="measurements"></param>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetText(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets all the text in plain text
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetRtf(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets the formatted text as RTF
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.LoadRtf(System.Windows.Controls.RichTextBox,System.String)">
+            <summary>
+            Loads an RTF formatted string
+            </summary>
+            <param name="rtb"></param>
+            <param name="rtf"></param>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetCurrentLine(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets the current line of text in the RichTextBox
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.SetCaretOnMousePosition(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Sets the caret position to the position of the mouse
+            </summary>
+            <param name="rtb"></param>
+        </member>
+        <member name="F:AMD.Util.Extensions.ExtensionString.DoubleFixedPoint">
+            <summary>
+            Constant for fixing ToString rounding issues
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.GetBytes(System.String)">
+            <summary>
+            Returns a byte array with the char ASCII values of the string letters
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.GetBytesFromHex(System.String)">
+            <summary>
+            Returns a byte array with the parsed hex string value
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.ExcludeAll(System.String,System.Char)">
+            <summary>
+            Returns a string where all toExclude chars have been removed
+            </summary>
+            <param name="s"></param>
+            <param name="toExclude"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook">
+            <summary>
+            Low-level keyboard intercept class to trap and suppress system keys.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.Parameters">
+            <summary>
+            Parameters accepted by the KeyboardHook constructor.
+            </summary>
+        </member>
+        <member name="E:AMD.Util.HID.KeyboardHook.KeyIntercepted">
+            <summary>
+            Event triggered when a keystroke is intercepted by the 
+            low-level hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor">
+            <summary>
+            Sets up a keyboard hook to trap all keystrokes without 
+            passing any to other applications.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor(System.String)">
+            <summary>
+            Sets up a keyboard hook with custom parameters.
+            </summary>
+            <param name="param">A valid name from the Parameter enum; otherwise, the 
+            default parameter Parameter.None will be used.</param>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor(AMD.Util.HID.KeyboardHook.Parameters)">
+            <summary>
+            Sets up a keyboard hook with custom parameters.
+            </summary>
+            <param name="param">A value from the Parameters enum.</param>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.CheckModifiers">
+            <summary>
+            Checks whether Alt, Shift, Control or CapsLock
+            is enabled at the same time as another key.
+            Modify the relevant sections and return type 
+            depending on what you want to do with modifier keys.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.HookCallback(System.Int32,System.IntPtr,AMD.Util.HID.KeyboardHook.KBDLLHOOKSTRUCT@)">
+            <summary>
+            Processes the key event captured by the hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.OnKeyIntercepted(AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs)">
+            <summary>
+            Raises the KeyIntercepted event.
+            </summary>
+            <param name="e">An instance of KeyboardHookEventArgs</param>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.KeyboardHookEventHandler">
+            <summary>
+            Delegate for KeyboardHook event handling.
+            </summary>
+            <param name="e">An instance of InterceptKeysEventArgs.</param>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs">
+            <summary>
+            Event arguments for the KeyboardHook class's KeyIntercepted event.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.KeyName">
+            <summary>
+            The name of the key that was pressed.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.KeyCode">
+            <summary>
+            The virtual key code of the key that was pressed.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.PassThrough">
+            <summary>
+            True if this key combination was passed to other applications,
+            false if it was trapped.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.Dispose">
+            <summary>
+            Releases the keyboard hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Sort.BubbleSort`1.Sort(System.Int32[])">
+            int array
+        </member>
+        <member name="M:AMD.Util.Sort.BubbleSort`1.Sort(`0[])">
+            Object array
+        </member>
+        <member name="M:AMD.Util.Sort.MergeSort`1.Sort(System.Int32[])">
+            int array
+        </member>
+        <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
+            Object array
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPickerDialog">
+            <summary>
+            Interaction logic for UserControl1.xaml
+            </summary>
+            <summary>
+            ColorPickerDialog
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPickerDialog.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPickerDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker">
+            <summary>
+            Interaction logic for ColorPicker.xaml
+            </summary>
+            <summary>
+            ColorPicker
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPicker.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon">
+            <summary>
+            Interaction logic for RichTextBoxRibbon.xaml
+            </summary>
+            <summary>
+            RichTextBoxRibbon
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.About">
+            <summary>
+            Interaction logic for About.xaml
+            </summary>
+            <summary>
+            About
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.About.ExitHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.About.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.Block">
+            <summary>
+            Interaction logic for Block.xaml
+            </summary>
+            <summary>
+            Block
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.Block.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPane">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPane
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPane.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPane.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPane.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPane.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPanel1">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPanel1
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.AnimationTime">
+            <summary>
+            Defines the animation time of the slide in/out
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.DesiredWidth">
+            <summary>
+            Sets the animation goto width
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.DebugPanel1.busy">
+            <summary>
+            Determines which way the DebugPanel is displayed. Either as a 
+            slider from "behind" the main window or as a seperate window
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.#ctor(System.Windows.Window,AMD.Util.Log.LogWriter,System.Double)">
+            <summary>
+            This class attaches a debug panel to the right side of the owner application which enables the option to have a simultaneous display of the LogWriter log
+            </summary>
+            <param name="owner"></param>
+            <param name="log"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Hide">
+            <summary>
+            Hides the panel by sliding it to the left
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Show">
+            <summary>
+            Displays the panel by sliding it to the right
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPanel">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPanel
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.AnimationTime">
+            <summary>
+            Defines the animation time of the slide in/out
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.DesiredWidth">
+            <summary>
+            Sets the animation goto width
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.#ctor(System.Windows.Window,AMD.Util.Log.LogWriter,System.Double)">
+            <summary>
+            This class attaches a debug panel to the right side of the owner application which enables the option to have a simultaneous display of the LogWriter log
+            </summary>
+            <param name="owner"></param>
+            <param name="log"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Hide">
+            <summary>
+            Hides the panel by sliding it to the left
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Show">
+            <summary>
+            Displays the panel by sliding it to the right
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.LoadingAnimation">
+            <summary>
+            Interaction logic for LoadingAnimation.xaml
+            </summary>
+            <summary>
+            LoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.LoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.LoginDialog">
+            <summary>
+            Interaction logic for Window1.xaml
+            </summary>
+            <summary>
+            LoginDialog
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.LoginDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ResizeThumb">
+            <summary>
+            Interaction logic for ResizeThumb.xaml
+            </summary>
+            <summary>
+            ResizeThumb
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ResizeThumb.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.StatusBar">
+            <summary>
+            Interaction logic for StatusBar.xaml
+            </summary>
+            <summary>
+            StatusBar
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.StatusBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TextInputDialog">
+            <summary>
+            Interaction logic for TextInputDialog.xaml
+            </summary>
+            <summary>
+            TextInputDialog
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TextInputDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar">
+            <summary>
+            Interaction logic for TitleBar.xaml
+            </summary>
+            <summary>
+            TitleBar
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.ExitHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.MinimizeHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.MaximizeHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.TitleBarMouseLeftDownHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.TitleBarMouseLeftUpHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.TitleBar.POINT.x">
+            <summary>x coordinate of point.</summary>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.TitleBar.POINT.y">
+            <summary>y coordinate of point.</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.POINT.#ctor(System.Int32,System.Int32)">
+            <summary>Construct a point of coordinates (x,y).</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.GetHashCode">
+            <summary>Return the HashCode for this struct (not garanteed to be unique)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.op_Equality(AMD.Util.View.WPF.UserControls.TitleBar.RECT,AMD.Util.View.WPF.UserControls.TitleBar.RECT)">
+            <summary> Determine if 2 RECT are equal (deep compare)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.op_Inequality(AMD.Util.View.WPF.UserControls.TitleBar.RECT,AMD.Util.View.WPF.UserControls.TitleBar.RECT)">
+            <summary> Determine if 2 RECT are different(deep compare)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.AboutWindow">
+            <summary>
+            Interaction logic for UserControl1.xaml
+            </summary>
+            <summary>
+            AboutWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.AboutWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.InvokeControl.InvokeControl.GetBrush(System.String)">
+            <summary>
+            Gets the brush in the WPF resources with the specific key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            AppleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
+            <summary>
+            Interaction logic for Circles.xaml
+            </summary>
+            <summary>
+            CircleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
+            <summary>
+            Interaction logic for CogSpinner.xaml
+            </summary>
+            <summary>
+            CogSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
+            <summary>
+            Interaction logic for PistonSpinner.xaml
+            </summary>
+            <summary>
+            PistonSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
+            <summary>
+            Interaction logic for SomeLoadingAnimation.xaml
+            </summary>
+            <summary>
+            SomeLoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
+            <summary>
+            Interaction logic for SwirlSpinner.xaml
+            </summary>
+            <summary>
+            SwirlSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter">
+            <summary>
+            Converts LogMsgType to predefined SolidColorBrush
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert LogMsgType to SolidColorBrush
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert SolidColorBrush to LogMsgType (Not implemented)
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
+            <summary>
+            Checks if the path is too long, if file exists and if path is null
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.AttachedToDesktop">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.PrimaryDevice">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.MirroringDriver">
+            <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.VGACompatible">
+            <summary>The device is VGA compatible.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.Removable">
+            <summary>The device is removable; it cannot be the primary display.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.ModesPruned">
+            <summary>The device has more display modes than its output devices support.</summary>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGCName">
+            <summary>
+            Wrap the graphics card name retrieval
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGraphicsCardNameWMI">
+            <summary>
+            Attempts to retrieve the graphics card name from the WMI
+            </summary>
+            <returns>Graphics card name or null</returns>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGraphicsCardNameRegistry">
+            <summary>
+            Attempts to retrieve the graphics card name from the registry
+            </summary>
+            <returns>Graphics card name</returns>
+        </member>
+        <member name="T:AMD.Util.Log.LogEntry">
+            <summary>
+            A LogEntry class to store the message and the Date and Time the log entry was created
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.MessageType">
+            <summary>
+            The message type
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.Message">
+            <summary>
+            The message for the log
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogEntryDateTime">
+            <summary>
+            The complete DateTime of the log entry
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogTime">
+            <summary>
+            The time of the log entry
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogDate">
+            <summary>
+            The date of the log entry
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogEntry.#ctor(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Constructor taking a formatted string and a number of parameters to generate a log entry
+            </summary>
+            <param name="msgType"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:AMD.Util.Log.LogEventArgs">
+            <summary>
+            Eventargs associated with the LogWriter class
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEventArgs.Log">
+            <summary>
+            The LogEntry object
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogEventArgs.#ctor(AMD.Util.Log.LogEntry)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:AMD.Util.Log.LogType">
+            <summary>
+            Enum describing which type of log is kept
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.OneFile">
+            <summary>
+            Keeps one file only. Every log entries are appended to one file
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.DateCoded">
+            <summary>
+            Date codes the log file. Every log entry created the same date is stored in the same file. A new file is created every day
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.DateTimeCoded">
+            <summary>
+            Date and time codes the log file. A new log file is created every second
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Log.LogWriter">
+            <summary>
+            A Logging class implementing the Singleton pattern and an internal Queue to be flushed periodically
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.Type">
+            <summary>
+            The type of log
+            </summary>
+            <remarks>
+            Default: LogType.OneFile
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.LogDir">
+            <summary>
+            The directory where the file should be located. Should be the path without the filename
+            </summary>
+            <example>
+            "c:\some_dir\"
+            </example>
+            <remarks>
+            Default: @"\" - The root directory of the application
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.logFile">
+            <summary>
+            The filename of the log. Should be the filename only, without the extension
+            </summary>
+            <example>
+            "some_file"
+            </example>
+            <remarks>
+            Default: "log"
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.logExtension">
+            <summary>
+            The extension of the file. Should be formatted as: ".ext"
+            </summary>
+            <example>
+            ".ext"
+            </example>
+            <remarks>
+            Default: ".txt"
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.MaxLogAgeInSeconds">
+            <summary>
+            The maximum age of the log in seconds
+            </summary>
+            <remarks>
+            Default: 1
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.QueueSize">
+            <summary>
+            The maximum number of entires of the log before it should be written to file
+            </summary>
+            <remarks>
+            Default: 1
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.LogTypesToLog">
+            <summary>
+            Determines what types of log messages to log
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.#ctor">
+            <summary>
+            Singleton constructor (private)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.Instance">
+            <summary>
+            Getting the instance of the LogWriter singleton
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.ComposeAndWriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.FlushLog">
+            <summary>
+            Flushes the Queue to the physical log file
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.TimerElapsed(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            EventHandler for the timer controlled flush of the log
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:AMD.Util.Permissions.Impersonator">
+             <summary>
+             Allows code to be executed under the security context of a specified user account.
+             </summary>
+             <remarks> 
+            
+             Implements IDispose, so can be used via a using-directive or method calls;
+              ...
+            
+              var imp = new Impersonator( "myUsername", "myDomainname", "myPassword" );
+              imp.UndoImpersonation();
+            
+              ...
+            
+               var imp = new Impersonator();
+              imp.Impersonate("myUsername", "myDomainname", "myPassword");
+              imp.UndoImpersonation();
+            
+              ...
+            
+              using ( new Impersonator( "myUsername", "myDomainname", "myPassword" ) )
+              {
+               ...
+               
+               ...
+              }
+            
+              ...
+             </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.#ctor(System.String,System.String,System.String,AMD.Util.Permissions.LogonType,AMD.Util.Permissions.LogonProvider)" -->
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.#ctor(System.String,System.String,System.String)" -->
+        <member name="M:AMD.Util.Permissions.Impersonator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AMD.Util.Permissions.Impersonator"/> class.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Permissions.Impersonator.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.Impersonate(System.String,System.String,System.String)" -->
+        <member name="M:AMD.Util.Permissions.Impersonator.Impersonate(System.String,System.String,System.String,AMD.Util.Permissions.LogonType,AMD.Util.Permissions.LogonProvider)">
+            <summary>
+            Impersonates the specified user account.
+            </summary>
+            <param name = "userName" > Name of the user.</param>
+            <param name = "domainName" > Name of the domain.</param>
+            <param name = "password" > The password. <see cref = "T:System.String" /></param >
+            <param name="logonType">Type of the logon.</param>
+            <param name = "logonProvider" > The logon provider. <see cref = "!:Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></param >
+        </member>
+        <member name="M:AMD.Util.Permissions.Impersonator.UndoImpersonation">
+            <summary>
+            Stops impersonation.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.LinearAlgebra.Vector.Item(System.Int32)">
+            <summary>
+            Indexer
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(System.Int32)">
+            <summary>
+            Constructor 1
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(System.Double[])">
+            <summary>
+            Constructor 2
+            </summary>
+            <param name="components"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Constructor 3
+            </summary>
+            <param name="v1"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Length">
+            <summary>
+            Returns the length of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Size">
+            <summary>
+            returns the R (dimension) of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.DotProduct(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the DOT (scalar) product of two vectors
+            a DOT b = a1*b1 + a2*b2 + ... an*bn
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.DotProduct(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the DOT (scalar) product of two vectors
+            a DOT b = a1*b1 + a2*b2 + ... an*bn
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleR(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in radians between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass PI and the angle is always possitive
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleR(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in radians between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass PI the angle is always possitive
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleD(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in degrees between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass 180 degrees the angle is always possitive
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleD(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in degrees between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass 180 degrees the angle is always possitive
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Projection(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the projected vector when projecting v1 onto v2
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Projection(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the projected vector when projecting the vector onto v2
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.ProjectionLenght(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the length of the projected vector v1 onto v2
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Equals(System.Object)">
+            <summary>
+            Checks if two vectors are equal
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.GetHashCode">
+            <summary>
+            Returns the hashcode of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.ToString">
+            <summary>
+            Returns a String with the component values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AMD.Util.LinearAlgebra.Vector3D.Length">
+            <summary>
+            Property for the magnitude (aka. length or absolute value) of the Vector3
+            </summary>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.CrossProduct(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns the Cross (X) product of two vectors
+                    |a2  b2|
+                    |      |
+                    |a3  b3|
+            
+                    |a3  b3|
+            a X b = |      |
+                    |a1  b1|
+                    
+                    |a1  b1|
+                    |      |
+                    |a2  b2|
+                    
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.CrossProduct(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns the Cross (X) product of two vectors
+                    |a2  b2|
+                    |      |
+                    |a3  b3|
+            
+                    |a3  b3|
+            a X b = |      |
+                    |a1  b1|
+                    
+                    |a1  b1|
+                    |      |
+                    |a2  b2|
+                    
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.ProjectionOnPlane(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a vector projected onto a plane where 'normal' is the normal to the plane
+            projectionOnPlane = v1 - (v1 DOT normal) * normal
+            </summary>
+            <param name="v1"></param>
+            <param name="normal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.ProjectionOnPlane(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a vector projected onto a plane where 'normal' is the normal to the plane
+            projectionOnPlane = vector - (vector DOT normal) * normal
+            </summary>
+            <param name="normal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Normalize(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a normalized vector of v
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Normalize">
+            <summary>
+            Returns the vector normalized
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateY(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'y' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateY(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'y'
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateX(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'x' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateX(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'x' axis
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateZ(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'z' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateZ(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'z' axis
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Rotate(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around 'axis'
+            </summary>
+            <param name="axis"></param>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Rotate(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around 'axis'
+            </summary>
+            <param name="v"></param>
+            <param name="axis"></param>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.SystemControl.SystemControl">
+            <summary>
+            Contains functions to control some system functions like restart and shutdown
+            </summary>
+        </member>
+        <member name="M:AMD.Util.SystemControl.SystemControl.Restart">
+            <summary>
+            Initiates a restart of the system
+            </summary>
+        </member>
+        <member name="M:AMD.Util.SystemControl.SystemControl.Shutdown">
+            <summary>
+            Initiates a shutdown of the system
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.ProgressHandler">
+            <summary>
+            Progress changed delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:AMD.Util.Tasks.ITask">
+            <summary>
+            Interface for tasks handled by the TaskHandler
+            </summary>
+        </member>
+        <member name="E:AMD.Util.Tasks.ITask.OnProgressChanged">
+            <summary>
+            Progress changed eventhandler
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.ITask.UserCancel">
+            <summary>
+            Set to cancel current task
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.ITask.Execute(AMD.Util.Tasks.TaskHandler)">
+            <summary>
+            Execute function which contains the work to be executed
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskResult">
+            <summary>
+            The result of an executed task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.Success">
+            <summary>
+            Success of a task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.Error">
+            <summary>
+            Error in a task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.UserCancel">
+            <summary>
+            User cancel
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler">
+            <summary>
+            Class for handling sequential execution of tasks
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler.OverallProgressHandler">
+            <summary>
+            Overall progress changed delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="E:AMD.Util.Tasks.TaskHandler.OnOverallProgressChanged">
+            <summary>
+            Overall progress eventhandler
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler.FinishedHandler">
+            <summary>
+            All tasks finished delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="E:AMD.Util.Tasks.TaskHandler.OnFinished">
+            <summary>
+            All tasks finished eventhandler
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskHandler.UserCancel">
+            <summary>
+            Set this to safely cancel the task execution
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskHandler.IsExecuting">
+            <summary>
+            Is true if task handler is executing tasks
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.#ctor">
+            <summary>
+            Zero argument constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.#ctor(System.Collections.Generic.IEnumerable{AMD.Util.Tasks.ITask})">
+            <summary>
+            Constructor taking a collection of tasks and adds them to the task queue
+            </summary>
+            <param name="Tasks"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.Add(AMD.Util.Tasks.ITask)">
+            <summary>
+            Add a task to the taks queue
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.Add(System.Collections.Generic.IEnumerable{AMD.Util.Tasks.ITask})">
+            <summary>
+            Adds a collection of tasks to the task queue
+            </summary>
+            <param name="Tasks"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.ExecuteTasks">
+            <summary>
+            Executes all the tasks in the task queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AMD.Util.Tasks.FinishedArgs.Result">
+            <summary>
+            Result of the task execution
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.FinishedArgs.Message">
+            <summary>
+            Finish message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.FinishedArgs.#ctor(System.String,AMD.Util.Tasks.TaskResult)">
+            <summary>
+            2 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="result"></param>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskProgressArgs.Progress">
+            <summary>
+            Progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskProgressArgs.Message">
+            <summary>
+            Progress message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskProgressArgs.#ctor(System.String,System.Int32)">
+            <summary>
+            2 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="progress"></param>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.ProgressOverall">
+            <summary>
+            Overall progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.ProgressIndividual">
+            <summary>
+            Individual progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.Message">
+            <summary>
+            Progress message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.OverallTaskProgressArgs.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            3 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="progressOverall"></param>
+            <param name="progressIndividual"></param>
+        </member>
+        <member name="T:AMD.Util.Versioning.RunningVersion">
+            <summary>
+            Class containing the running version of the uploader
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_MAJOR">
+            <summary>
+            The major version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_MINOR">
+            <summary>
+            The minor version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_BUILD">
+            <summary>
+            The build number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_REVISION">
+            <summary>
+            The revision number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.GetRunningVersion">
+            <summary>
+            Get the current running version number
+            </summary>
+            <returns>The current running version</returns>
+        </member>
+        <member name="M:AMD.Util.Versioning.RunningVersion.SetStaticVersion(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the static version
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="build"></param>
+            <param name="revision"></param>
+        </member>
+        <member name="M:AMD.Util.Versioning.RunningVersion.SetStaticVersion(System.Version)">
+            <summary>
+            Sets the static version
+            </summary>
+            <param name="version"></param>
+        </member>
+        <member name="F:Isic.Util.Winforms.IsicAboutForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Isic.Util.Winforms.IsicAboutForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Isic.Util.Winforms.IsicAboutForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
