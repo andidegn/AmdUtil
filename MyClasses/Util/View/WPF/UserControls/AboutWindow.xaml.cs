@@ -82,6 +82,18 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    public String PropCodeName
+    {
+      get
+      {
+        return about.lblCodeName.Content as String;
+      }
+      set
+      {
+        about.lblCodeName.Content = value;
+      }
+    }
+
     public String PropDeveloper
     {
       get

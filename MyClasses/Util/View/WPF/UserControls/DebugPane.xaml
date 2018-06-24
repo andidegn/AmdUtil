@@ -56,6 +56,10 @@
           </Trigger>
         </Style.Triggers>
       </Style>
+
+      <ContextMenu x:Key="livCtxMenu">
+        <MenuItem Name="miShowStackTrace" Header="Show StackTrace" Click="miShowStackTrace_Click" />
+      </ContextMenu>
     </ResourceDictionary>
   </UserControl.Resources>
   <Grid Margin="2, 5" Background="{Binding BrushBackground}">
@@ -144,8 +148,10 @@
           <Setter Property="Margin" Value="0"/>
           <Setter Property="Padding" Value="0"/>
           <Setter Property="FontFamily" Value="InputMono" />
+          <Setter Property="Tag" Value="{Binding}" />
           <!--<Setter Property="ToolTip" Value="{Binding Message}" />-->
           <!--<Setter Property="VerticalAlignment" Value="Stretch" />-->
+          <Setter Property="ContextMenu" Value="{StaticResource livCtxMenu}" />
           <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
               <!--<Setter Property="Background" Value="#FF5080FF" />-->
@@ -219,7 +225,21 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn x:Name="col2" Width="80">
+          <!--<GridViewColumn x:Name="col2" Width="80">
+            <GridViewColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Source}" Foreground="{StaticResource ConsoleGreen}" />
+              </DataTemplate>
+            </GridViewColumn.CellTemplate>
+          </GridViewColumn>
+          <GridViewColumn x:Name="col3" Width="80">
+            <GridViewColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding StackTracePath}" Foreground="{StaticResource ConsoleBlue}" />
+              </DataTemplate>
+            </GridViewColumn.CellTemplate>
+          </GridViewColumn>-->
+          <GridViewColumn x:Name="col4" Width="80">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding MessageType}" Foreground="{Binding MessageType, Converter={StaticResource logMsgToColor}}" />
@@ -240,7 +260,9 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="{Binding ElementName=col0, Path=Width}" />
         <ColumnDefinition Width="{Binding ElementName=col1, Path=Width}" />
-        <ColumnDefinition Width="{Binding ElementName=col2, Path=Width}" />
+        <!--<ColumnDefinition Width="{Binding ElementName=col2, Path=Width}" />
+        <ColumnDefinition Width="{Binding ElementName=col3, Path=Width}" />-->
+        <ColumnDefinition Width="{Binding ElementName=col4, Path=Width}" />
         <ColumnDefinition Width="*" />
         <!--Correction Width to avoid hiding behind scrollbar-->
         <ColumnDefinition Width="15"/>

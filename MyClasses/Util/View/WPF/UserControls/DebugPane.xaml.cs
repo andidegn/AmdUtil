@@ -226,5 +226,12 @@ namespace AMD.Util.View.WPF.UserControls
 			Clipboard.SetDataObject(sb.ToString());
 		}
     #endregion // EventHandlers
+
+    private void miShowStackTrace_Click(object sender, RoutedEventArgs e)
+    {
+      LogEntry le = lvLog.SelectedItem as LogEntry;
+      MessageBox.Show(le.StackTrace.ToString());
+      // ToDo: Make a visualization of the stacktrace from the log
+    }
   }
 }

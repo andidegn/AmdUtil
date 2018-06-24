@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WpfUITest"
         xmlns:spinners="clr-namespace:AMD.Util.View.WPF.Spinners;assembly=AMDUtil"
         xmlns:usercontrols ="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
-        mc:Ignorable="d" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" 
+        mc:Ignorable="d" 
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="600" Width="525">
   <Window.Resources>
     <SolidColorBrush x:Key="BrushForeground" Color="White" />
@@ -39,16 +40,18 @@
               <RowDefinition />
             </Grid.RowDefinitions>
             <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" />
-            <usercontrols:ColorPicker Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" SelectedBrushChanged="ColorPicker_BrushChanged" />
+            <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" SelectedBrushChanged="ColorPicker_BrushChanged" />
             <StackPanel Grid.Column="1" Orientation="Vertical">
               <Button Name="btnColorPickerDialogTest" Content="Dialog" Click="btnColorPickerDialogTest_Click" />
               <!--<Button Name="btnTestTabBackgroundBinding" Content="Background binding" Click="btnTestTabBackgroundBinding_Click" />-->
+              <Button Name="btnTestException" Content="Exception Test" Click="btnTestException_Click" />
             </StackPanel>
           </Grid>
         </TabItem>
         <TabItem Header="Spinners WhiteBg" >
           <Grid>
             <Grid.ColumnDefinitions>
+              <ColumnDefinition />
               <ColumnDefinition />
               <ColumnDefinition />
               <ColumnDefinition />
@@ -74,6 +77,7 @@
             <Viewbox Stretch="Uniform" Grid.Column="5" Margin="5">
               <spinners:SomeLoadingAnimation HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             </Viewbox>
+            <spinners:DuckSpinner Grid.Column="6" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
           </Grid>
         </TabItem>
         <TabItem Header="Spinners BlackBg">
@@ -121,6 +125,12 @@
             <Control Template="{StaticResource ctYellowNote}" />
           </Grid>
         </TabItem>
+        <TabItem Header="Duck!!!!!">
+          <spinners:DuckSpinner HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </TabItem>
+        <!--<TabItem Header="About">
+          <usercontrols:About Name="about" />
+        </TabItem>-->
       </TabControl>
     </Grid>
   </Grid>

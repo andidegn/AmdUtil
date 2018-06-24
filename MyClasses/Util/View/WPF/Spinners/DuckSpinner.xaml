@@ -1,0 +1,960 @@
+﻿<UserControl x:Class="AMD.Util.View.WPF.Spinners.DuckSpinner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AMD.Util.View.WPF.Spinners"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <Storyboard x:Key="Wing">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="groupWing" RepeatBehavior="Forever">
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="5"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="BeakLower">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="groupBeakLower" RepeatBehavior="Forever">
+        <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="12"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="12"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:2.0" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="Waves" RepeatBehavior="Forever">
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[9].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="288.959051316614,14.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="288.959051316614,15.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="288.959051316614,16.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="288.959051316614,17.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="288.959051316614,18.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="288.959051316614,17.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="288.959051316614,16.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="288.959051316614,15.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="288.959051316614,14.5347986230263"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[9].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="298.314620687542,8.92163829432655"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="298.314620687542,9.92163829432655"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="298.314620687542,10.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="298.314620687542,11.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="298.314620687542,12.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="298.314620687542,11.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="298.314620687542,10.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="298.314620687542,9.9216382943266"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="298.314620687542,8.9216382943266"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[10].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="307.670180058632,3.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="307.670180058632,4.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="307.670180058632,5.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="307.670180058632,6.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="307.670180058632,7.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="307.670180058632,6.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="307.670180058632,5.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="307.670180058632,4.30847796562682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="307.670180058632,3.30847796562682"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[10].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="324.509958930263,1.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="324.509958930263,2.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="324.509958930263,3.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="324.509958930263,4.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="324.509958930263,5.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="324.509958930263,4.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="324.509958930263,3.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="324.509958930263,2.43742452272693"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="324.509958930263,1.43742452272693"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[10].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="332.929963364227,7.98611657245823"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="332.929963364227,8.98611657245823"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="332.929963364227,9.98611657245823"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="332.929963364227,10.9861165724582"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="332.929963364227,11.9861165724582"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="332.929963364227,10.9861165724582"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="332.929963364227,9.9861165724582"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="332.929963364227,8.9861165724582"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="332.929963364227,7.9861165724582"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[11].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="341.349957798352,14.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="341.349957798352,15.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="341.349957798352,16.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="341.349957798352,17.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="341.349957798352,18.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="341.349957798352,17.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="341.349957798352,16.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="341.349957798352,15.5347986230263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="341.349957798352,14.5347986230263"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="210.057411544575,8.48592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="210.057411544575,7.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="210.057411544575,8.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="209.307411544575,9.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="207.307411544575,11.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="208.807411544575,9.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="209.807411544575,8.9859265883549"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="210.057411544575,8.48592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="210.057411544575,7.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="210.057411544575,8.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="209.307411544575,9.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="207.307411544575,11.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="208.807411544575,9.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="209.807411544575,8.9859265883549"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[7].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="210.057411544575,8.48592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="210.057411544575,7.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="210.057411544575,8.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="209.307411544575,9.98592658835485"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="207.307411544575,11.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="208.307411544575,10.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="208.807411544575,9.9859265883549"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="209.807411544575,8.9859265883549"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[7].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="228.147520410894,-4.61109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="228.147520410894,-5.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="228.147520410894,-4.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="228.147520410894,-3.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="228.147520410894,-2.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="228.147520410894,-1.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="228.147520410894,-2.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="228.147520410894,-3.11109754122765"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="228.147520410894,-4.11109754122765"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[7].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="246.858609153555,4.74391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="246.858609153555,4.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="246.858609153555,5.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="246.858609153555,6.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="246.858609153555,7.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="246.858609153555,8.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="246.858609153555,7.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="246.858609153555,6.24391969418843"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="246.858609153555,5.24391969418843"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[8].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="265.569697896217,14.0989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="265.569697896217,13.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="265.569697896217,14.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="265.569697896217,15.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="265.569697896217,16.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="265.569697896217,17.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="265.569697896217,16.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="265.569697896217,15.5989369296045"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="265.569697896217,14.5989369296045"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="115.412665495137,13.2276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="115.412665495137,12.2276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="115.412665495137,11.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="115.412665495137,12.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="115.412665495137,13.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="115.412665495137,14.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="115.412665495137,15.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="115.412665495137,14.7276535059478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="115.412665495137,13.7276535059478"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="121.02596511837,8.55026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="121.02596511837,7.55026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="121.02596511837,7.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="121.02596511837,8.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="121.02596511837,9.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="121.02596511837,10.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="121.02596511837,11.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="121.02596511837,10.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="121.02596511837,9.0502648781999"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="126.639264741603,3.87287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="126.639264741603,2.87287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="126.639264741603,2.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="126.639264741603,3.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="126.639264741603,4.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="126.639264741603,5.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="126.639264741603,6.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="126.639264741603,5.37287625045184"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="126.639264741603,4.37287625045184"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="140.672518799606,1.06644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="140.672518799606,0.06644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="140.672518799606,-0.43355892602961"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="140.672518799606,0.56644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="140.672518799606,1.56644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="140.672518799606,2.56644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="140.672518799606,3.56644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="140.672518799606,2.56644107397039"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="140.672518799606,1.56644107397039"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="150.0280281715,4.80835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="150.0280281715,3.80835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="150.0280281715,3.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="150.0280281715,4.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="150.0280281715,5.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="150.0280281715,6.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="150.0280281715,7.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="150.0280281715,6.30835797566681"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="150.0280281715,5.30835797566681"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="159.383527543555,8.55026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="159.383527543555,7.55026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="159.383527543555,7.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="159.383527543555,8.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="159.383527543555,9.05026487819987"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="159.383527543555,10.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="159.383527543555,11.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="159.383527543555,10.0502648781999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="159.383527543555,9.0502648781999"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[0].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="23.7284776537297,19.8405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="23.7284776537297,18.8405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="23.7284776537297,17.8405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="23.7284776537297,17.3405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="23.7284776537297,18.3405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="23.7284776537297,19.3405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="23.7284776537297,20.3405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="23.7284776537297,21.3405138597474"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="23.7284776537297,20.3405138597474"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[0].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="38.6971246514653,8.61479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="38.6971246514653,7.61479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="38.6971246514653,6.61479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="38.6971246514653,6.11479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="38.6971246514653,7.11479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="38.6971246514653,8.11479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="38.6971246514653,9.11479315214825"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="38.6971246514653,10.1147931521483"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="38.6971246514653,9.1147931521483"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="53.6657726491848,-2.61093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="53.6657726491848,-3.61093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="53.6657726491848,-4.61093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="53.6657726491848,-5.11093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="53.6657726491848,-4.11093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="53.6657726491848,-3.11093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="53.6657726491848,-2.11093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="53.6657726491848,-1.11093755461428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="53.6657726491848,-2.11093755461428"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point2)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="66.5701625810186,7.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="65.8201625810186,6.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="65.3201625810186,5.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="65.8201625810186,5.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="65.5701625810186,6.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="66.5701625810186,7.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="67.0701625810186,8.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="68.3201625810186,9.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="67.3201625810186,8.17956140601677"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point3)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="66.5701625810186,7.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="65.8201625810186,6.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="65.3201625810186,5.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="65.8201625810186,5.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="65.5701625810186,6.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="66.5701625810186,7.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="67.0701625810186,8.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="68.3201625810186,9.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="67.3201625810186,8.17956140601677"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point1)" Storyboard.TargetName="pathWaves">
+        <EasingPointKeyFrame KeyTime="0" Value="66.5701625810186,7.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="65.8201625810186,6.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="65.3201625810186,5.67956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="65.8201625810186,5.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="65.5701625810186,6.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="66.5701625810186,7.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.6" Value="67.0701625810186,8.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.7" Value="68.3201625810186,9.17956140601677"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.8" Value="67.3201625810186,8.17956140601677"/>
+      </PointAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="pathWaves">
+        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="EyeBlink" RepeatBehavior="Forever">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:2.988" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.152" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:2.988" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.152" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:2.885" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:2.988" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="10.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:2.885" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:2.988" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="8.161"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="0.504"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="0.057"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="4"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="65.747"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ellipseEyePupil">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="-14.214000000000002"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="-1.539"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="-14.214000000000002"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="0.505"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="1"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="0.057"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="1"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="3.063"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="65.029"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="0"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0:0:3.01" Value="-13.712000000000002"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.031" Value="-1.482"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:3.127" Value="-13.712000000000002"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="TailFeather" RepeatBehavior="Forever">
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.StartPoint)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="6.14915645387755,81.3751288329077"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="6.14915645387755,88.0417954995737"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="6.14915645387755,81.3751288329077"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[0].(BezierSegment.Point1)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="6.21303505050662,81.1343741713849"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="6.21303505050662,87.8010408380509"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="6.21303505050662,81.1343741713849"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[20].(BezierSegment.Point2)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="-3.22297776587558,103.444986237072"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="-3.22297776587558,110.111652903732"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="-3.22297776587558,103.444986237072"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[20].(BezierSegment.Point3)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="1.52100911631764,90.000470626021"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="1.52100911631764,96.667137292687"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="1.52100911631764,90.000470626021"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[21].(BezierSegment.Point1)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="1.52100911631764,90.000470626021"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="1.52100911631764,96.667137292687"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="1.52100911631764,90.000470626021"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[22].(BezierSegment.Point2)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="2.88457880137588,93.6872814173056"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="2.88457880137588,100.353948083971"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="2.88457880137588,93.6872814173056"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[22].(BezierSegment.Point3)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="6.14915645387755,81.3751288329077"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="6.14915645387755,88.0417954995737"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="6.14915645387755,81.3751288329077"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.StartPoint)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="0,9.9373978259989"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="0,15.687"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="0,9.9373978259989"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[0].(BezierSegment.Point1)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="0,9.9373978259989"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="0,15.687"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="0,9.9373978259989"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point2)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="23.9375627537847,20.5002892208192"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="24.4166666666667,21.7703333333333"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="23.9375627537847,20.5002892208192"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point3)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="5.06250327166193,1.3988810110277E-14"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="5.06250327166193,6.66666666666662"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="5.06250327166193,1.3988810110277E-14"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point1)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="5.06250327166193,1.3988810110277E-14"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="5.06250327166193,6.66666666666662"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="5.06250327166193,1.3988810110277E-14"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point2)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="3.10416813776661,15.3333423461589"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="6.41666666666666,20.7703333333333"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="3.10416813776661,15.3333423461589"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point3)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="0.187500491544005,10.2494946170927"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="0.5,16.1869999999998"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="0.187500491544005,10.2494946170927"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[21].(BezierSegment.Point2)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="5.47480822409032,98.8103309694806"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="5.47480822409032,102.810330969478"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="5.47480822409032,98.8103309694806"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[21].(BezierSegment.Point3)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="13.0730242813351,104.999562034982"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="13.0730242813351,108.999562034978"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="13.0730242813351,104.999562034982"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[22].(BezierSegment.Point1)" Storyboard.TargetName="pathBody">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="13.1862896138655,105.09137525336"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="13.1862896138655,109.091375253356"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="13.1862896138655,105.09137525336"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point2)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="4.83333267087718,6.35363467341378"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="4.83333267087718,10.3536346734137"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="4.83333267087718,6.35363467341378"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point3)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="11.5833303664089,14.4373515585267"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="11.5833303664089,18.4373515585263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="11.5833303664089,14.4373515585267"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point1)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="11.5833303664089,14.4373515585267"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="11.5833303664089,18.4373515585263"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="11.5833303664089,14.4373515585267"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point2)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="13.333334954153,17.4373207135453"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="13.333334954153,21.4373207135449"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="13.333334954153,17.4373207135453"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point3)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="11.7500308034243,18.520309578507"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="11.7500308034243,22.5203095785066"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="11.7500308034243,18.520309578507"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point1)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="10.1667266526957,19.6032984434686"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="10.1667266526957,23.6032984434682"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="10.1667266526957,19.6032984434686"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point2)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="8.91662337547348,19.3533010138838"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="9.53750442175339,22.9229395266371"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="8.91662337547348,19.3533010138838"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point3)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="7.33331922474482,18.1873130022999"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="7.75,22.1036666666667"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="7.33331922474482,18.1873130022999"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point1)" Storyboard.TargetName="pathTailFeatherHighlight">
+        <EasingPointKeyFrame KeyTime="0:0:0.1" Value="5.74998507393751,17.0203250009977"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.3" Value="4.75,20.7286666666666"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.5" Value="5.74998507393751,17.0203250009977"/>
+      </PointAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="CrazyEye" RepeatBehavior="Forever">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-3.667"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-3.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-2.333"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1.667"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-5.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-4.333"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="-2.166"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipseEyeHighlight">
+        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-4.5"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.833"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-7.667"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-3.167"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-1.667"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-7"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="-3"/>
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+  </UserControl.Resources>
+  <UserControl.Triggers>
+    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+      <BeginStoryboard Storyboard="{StaticResource Wing}"/>
+      <BeginStoryboard Storyboard="{StaticResource BeakLower}"/>
+      <BeginStoryboard Storyboard="{StaticResource Waves}"/>
+      <BeginStoryboard Storyboard="{StaticResource EyeBlink}"/>
+      <BeginStoryboard Storyboard="{StaticResource TailFeather}"/>
+      <!--<BeginStoryboard Storyboard="{StaticResource CrazyEye}"/>-->
+    </EventTrigger>
+  </UserControl.Triggers>
+
+  <Viewbox Stretch="Uniform">
+    <Grid Name="gridWrapper" Width="360" Height="215">
+      <Grid Name="gridYellowRubberDuck" Width="210.5" Height="189" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Path Name="pathBody" StrokeThickness="0" Stroke="#FFFF8F1F" UseLayoutRounding="False" Margin="1.152,0,11.256,0">
+          <Path.Data>
+            <PathGeometry>
+              <PathFigure IsClosed="True" StartPoint="6.14915645387755,80.8751288329077">
+                <BezierSegment Point3="43.2198129015091,107.943705904281" Point2="24.2484417498081,104.821036332582" Point1="6.21303505050662,80.6343741713849"/>
+                <BezierSegment Point3="86.0775841801678,94.6185474771208" Point2="79.7516962901096,95.7682530005789" Point1="43.2198129015091,107.943705904281"/>
+                <BezierSegment Point3="112.961892653998,93.2311477327525" Point2="104.920816773854,92.0130923689468" Point1="95.4391355279422,92.9179626433988"/>
+                <BezierSegment Point3="113.317515288963,89.9330128992652" Point2="116.501911001516,91.0684363665313" Point1="114.89159831933,93.5229097378182"/>
+                <BezierSegment Point3="88.7814603001687,33.2393706981444" Point2="76.4576582102073,69.0883518870022" Point1="101.575294451893,85.7483704350014"/>
+                <BezierSegment Point3="78.0794118350738,26.9935214813098" Point2="78.0794118350738,30.6369760305829" Point1="88.7814603001687,33.2393706981444"/>
+                <LineSegment Point="86.8355466327069,25.9520535408498"/>
+                <BezierSegment Point3="77.1069317072879,12.4196012695304" Point2="77.1069317072879,20.2268872869018" Point1="86.8355466327069,25.9520535408498"/>
+                <BezierSegment Point3="103.86157616408,10.3374815061071" Point2="90.7273739676304,22.8291799397761" Point1="77.1069317072879,12.4196012695304"/>
+                <BezierSegment Point3="148.783484184558,1.66613108911805" Point2="124.233128017414,-4.96482357146578" Point1="103.86157616408,10.3374815061071"/>
+                <BezierSegment Point3="186.919959784006,39.9213327022711" Point2="182.629606279068,25.384545836591" Point1="173.333840351703,8.29708574970187"/>
+                <BezierSegment Point3="179.05431169162,75.6274933292087" Point2="179.05431169162,75.6274933292087" Point1="191.210313288943,54.4584256120126"/>
+                <LineSegment Point="172.14207548922,82.7685214252221"/>
+                <BezierSegment Point3="171.665369544227,91.1847331098092" Point2="168.328427929275,87.3591823440878" Point1="172.14207548922,82.7685214252221"/>
+                <BezierSegment Point3="190.495254371454,112.352780680134" Point2="180.246076554102,99.0908713589669" Point1="175.002311159178,95.0102838755307"/>
+                <BezierSegment Point3="196.215725711371,155.198949256214" Point2="198.36090246384,149.07806803106" Point1="200.744432188805,125.614690001302"/>
+                <BezierSegment Point3="158.31760308442,184.528171793412" Point2="185.013136004033,178.917364003687" Point1="194.070548958902,161.319830481369"/>
+                <BezierSegment Point3="68.6959320138298,185.038245228842" Point2="89.6709935935257,190.649053018566" Point1="131.622070164807,190.138979583137"/>
+                <BezierSegment Point3="17.8371281544071,146.75009287176" Point2="29.5164238067378,167.153030288941" Point1="47.7208704341339,179.427437439117"/>
+                <BezierSegment Point3="6.81311249406393,119.375471739128" Point2="9.19664221902937,124.476206093423" Point1="6.15773716088744,126.347155454579"/>
+                <BezierSegment Point3="1.52100911631764,89.5004706260209" Point2="-3.22297776587558,102.944986237072" Point1="4.42958276909849,114.274737384833"/>
+                <BezierSegment Point3="13.0730242813351,104.999562034982" Point2="5.47480822409032,98.8103309694806" Point1="1.52100911631764,89.5004706260209"/>
+                <BezierSegment Point3="6.14915645387755,80.8751288329077" Point2="2.88457880137588,93.1872814173056" Point1="13.1862896138655,105.09137525336"/>
+              </PathFigure>
+            </PathGeometry>
+          </Path.Data>
+          <Path.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                  <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-90"/>
+                </TransformGroup>
+              </LinearGradientBrush.RelativeTransform>
+              <GradientStop Color="#FFFE9D02" Offset="0.163"/>
+              <GradientStop Color="#FFFBEB47" Offset="1"/>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Path Name="pathTailFeatherHighlight" HorizontalAlignment="Left" Margin="4,87.563,0,52.083" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" Width="37.938">
+          <Path.Data>
+            <PathGeometry>
+              <PathFigure IsClosed="True" StartPoint="0,9.93739782599891">
+                <BezierSegment Point3="25.8333677237533,49.3539925537875" Point2="3.58333939394336,27.3542187503182" Point1="0,9.93739782599891"/>
+                <BezierSegment Point3="37.9379994567857,22.3122705904504" Point2="26.8753704554272,26.6872256081858" Point1="25.8333677237533,49.3539925537875"/>
+                <BezierSegment Point3="5.06250327166193,0" Point2="23.9375627537847,20.5002892208192" Point1="37.9379994567857,22.3122705904504"/>
+                <BezierSegment Point3="11.5833303664089,14.4373515585267" Point2="4.83333267087718,6.35363467341378" Point1="5.06250327166193,0"/>
+                <BezierSegment Point3="11.7500308034243,18.520309578507" Point2="13.333334954153,17.4373207135453" Point1="11.5833303664089,14.4373515585267"/>
+                <BezierSegment Point3="7.33331922474482,18.1873130022999" Point2="8.91662337547348,19.3533010138838" Point1="10.1667266526957,19.6032984434686"/>
+                <BezierSegment Point3="0.187500491544005,10.2494946170927" Point2="3.10416813776661,15.3333423461589" Point1="5.74998507393751,17.0203250009977"/>
+              </PathFigure>
+            </PathGeometry>
+          </Path.Data>
+          <Path.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                  <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="12"/>
+                </TransformGroup>
+              </LinearGradientBrush.RelativeTransform>
+              <GradientStop Color="#FFFEE743" Offset="0"/>
+              <GradientStop Color="#FFFF9E02" Offset="0.774"/>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Path Name="pathBodyHighlightBack" Data="M47.8333,110.667 C50.9886,109 86.4889,94.3746 116.368,95.417 C116.368,95.417 130.164,97.0005 122.718,104.167 C115.272,111.334 82.0885,124.334 47.8336,113.833 C47.8336,113.833 44.678,112.334 47.8333,110.667 z" Height="22.412" Margin="46.481,0,92.961,71.224" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" VerticalAlignment="Bottom">
+          <Path.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <!--<LinearGradientBrush.RelativeTransform>
+              <CompositeTransform CenterY="0.5" CenterX="0.5"/>
+            </LinearGradientBrush.RelativeTransform>-->
+              <GradientStop Color="#FFFFEC79"/>
+              <GradientStop Color="#FFFCBD1F" Offset="0.795"/>
+              <GradientStop Color="#FFF7D91E" Offset="0.469"/>
+              <GradientStop Color="#FFFCB013" Offset="0.958"/>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Grid Name="groupWing" Height="61" Margin="62,0,46,17" VerticalAlignment="Bottom" RenderTransformOrigin="0.766,0.487">
+          <Grid.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform/>
+              <SkewTransform/>
+              <RotateTransform Angle="5"/>
+            </TransformGroup>
+          </Grid.RenderTransform>
+          <Path Data="M116.822,117.189 C142.655,104.522 159.558,115.667 161.747,117.5 C163.936,119.333 186.137,137.961 164.596,158.067 C142.882,178.334 93.485,164.667 89.2303,162.667 C84.9756,160.667 76.882,158 69.8686,149.5 C69.8686,149.5 73.579,152.834 89.1328,152.667 C89.1328,152.667 67.9681,150.167 65.5107,138.167 C65.5107,138.167 74.0625,141.334 86.1251,141.167 C86.1251,141.167 63.9594,137 61.4494,121.5 C61.4494,121.5 90.9883,129.856 116.822,117.189 z" Margin="1.669,3.167,-0.348,0.027" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" Fill="#FFFF870C"/>
+          <Path Data="M116.822,117.189 C142.655,104.522 159.558,115.667 161.747,117.5 C163.936,119.333 186.137,137.961 164.596,158.067 C142.882,178.334 99.6437,165.751 95.389,163.751 C91.1343,161.751 76.882,158 69.8686,149.5 C69.8686,149.5 76.6711,152.793 92.2249,152.626 C92.2249,152.626 67.9681,150.167 65.5107,138.167 C65.5107,138.167 77.5972,141.418 89.6598,141.251 C89.6598,141.251 63.9594,137 61.4494,121.5 C61.4494,121.5 90.9883,129.856 116.822,117.189 z" Margin="0,0,3.446,2.777" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-40"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFDDF00"/>
+                <GradientStop Color="#FFFDC10A" Offset="1"/>
+                <GradientStop Color="#FFFDCF04" Offset="0.498"/>
+                <GradientStop Color="#FFFFAD0C" Offset="0.787"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Grid x:Name="groupWingHighlight" Margin="5,3,13,14">
+            <Grid x:Name="groupWingHighlightTop" Margin="0,0,0,18">
+              <Path Data="M66.5,125.562 C66.5,125.562 97.6012,133.127 140.643,116.753 C152.081,112.402 180.801,114.254 183.579,122.128 C186.388,130.091 172.792,133.363 167.358,135.502 C152.197,141.471 95.2047,142.084 79.9244,135.377 C70.62,131.293 66.5,125.562 66.5,125.562 z" Margin="0,0,0.469,0.26" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+                <Path.Fill>
+                  <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                      <TransformGroup>
+                        <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-40"/>
+                      </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFFCF476"/>
+                    <GradientStop Color="#FFFEE62C" Offset="1"/>
+                  </LinearGradientBrush>
+                </Path.Fill>
+              </Path>
+              <Ellipse HorizontalAlignment="Left" Height="3" Margin="5,0,0,9" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Bottom" Width="8" Fill="#FFFFF7C7"/>
+              <Ellipse HorizontalAlignment="Right" Height="5.451" Margin="0,2.187,19.671,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="16.148" Fill="#FFFFF7C7" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <Ellipse.RenderTransform>
+                  <TransformGroup>
+                    <RotateTransform Angle="-13.05"/>
+                  </TransformGroup>
+                </Ellipse.RenderTransform>
+              </Ellipse>
+            </Grid>
+            <Grid x:Name="groupWingHighlightMiddle" HorizontalAlignment="Left" Height="7" Margin="3,0,0,10" VerticalAlignment="Bottom" Width="29">
+              <Path Data="M69.3125,140.938 C69.3125,140.938 73.8639,143.731 91.0005,142.875 C94.7506,142.688 97.938,142.75 98.0005,145 C98.063,147.25 95.0006,148.75 87.6881,148.375 C80.3756,148 73.313,144.938 69.8755,141.625 z" Margin="0,0,0.311,-0.494" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+                <Path.Fill>
+                  <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                      <TransformGroup>
+                        <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-40"/>
+                      </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFFBF169"/>
+                    <GradientStop Color="#FFFDE62F" Offset="1"/>
+                  </LinearGradientBrush>
+                </Path.Fill>
+              </Path>
+              <Ellipse HorizontalAlignment="Left" Margin="4.746,2.1,0,3.476" Stroke="#FFFF8F1F" StrokeThickness="0" Width="3.946" Fill="#FFFFF7C7" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <Ellipse.RenderTransform>
+                  <TransformGroup>
+                    <RotateTransform Angle="5"/>
+                  </TransformGroup>
+                </Ellipse.RenderTransform>
+              </Ellipse>
+
+            </Grid>
+            <Path Data="M74.625,152.688 C74.625,152.688 77.9046,154.946 85,154 C88.7496,153.5 91.8125,153.75 91.8125,155.188 C91.8125,156.626 90.3746,158.75 83.7497,157.125 C77.1249,155.5 75.6875,153.563 74.8125,153.125 z" HorizontalAlignment="Left" Height="5.022" Margin="8.625,0,0,0.29" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" VerticalAlignment="Bottom" Width="17.188">
+              <Path.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                  <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                      <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-40"/>
+                    </TransformGroup>
+                  </LinearGradientBrush.RelativeTransform>
+                  <GradientStop Color="#FFFAF069"/>
+                  <GradientStop Color="#FFFCE52F" Offset="1"/>
+                </LinearGradientBrush>
+              </Path.Fill>
+            </Path>
+          </Grid>
+        </Grid>
+        <Grid Name="groupHeadFeathers" HorizontalAlignment="Left" Height="19" Margin="81,14,0,0" VerticalAlignment="Top" Width="17">
+          <Path Data="M81,14.1667 C80.8749,13.8751 87.8333,18.333 97.5,17.333 L93.5,24.1672 C93.5,24.1672 85.4958,24.6481 81,14.1667 z" Margin="-0.334,1.002,0.832,7.981" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-90"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFECDD32"/>
+                <GradientStop Color="#FFFFCC00" Offset="1"/>
+                <GradientStop Color="#FFFFF06D" Offset="0.406"/>
+                <GradientStop Color="#FFFFD00C" Offset="0.816"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Path Data="M81.9375,28.3125 C81.9375,28.3125 87.812,29.0005 91.687,27.8755 L90.8115,32.5023 C90.8115,32.5023 84.2494,31.5644 81.3745,28.1256 z" Height="4.625" Margin="0.377,0,6.31,0.653" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" VerticalAlignment="Bottom">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-78"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFDDD05"/>
+                <GradientStop Color="#FFFEC101" Offset="1"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+        </Grid>
+        <Grid Name="groupHeadHighlight" Height="47" Margin="95,4,40,0" VerticalAlignment="Top">
+          <Ellipse Margin="0,0,-0.012,0" Stroke="#FFFF8F1F" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="-10.738"/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+            <Ellipse.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="17"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFF19E"/>
+                <GradientStop Color="#FFFBC829" Offset="1"/>
+              </LinearGradientBrush>
+            </Ellipse.Fill>
+          </Ellipse>
+          <Ellipse Height="6" Margin="32,1,26,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Fill="#FFFDF9D4"/>
+        </Grid>
+        <Grid Name="groupEye" HorizontalAlignment="Right" Height="24" Margin="0,26,44,0" VerticalAlignment="Top" Width="17">
+          <Ellipse Margin="0,0,0.437,0.278" Stroke="#FFFF8F1F" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFFEF75E" Offset="0"/>
+                <GradientStop Color="#FFF4A604" Offset="1"/>
+              </LinearGradientBrush>
+            </Ellipse.Fill>
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="-14.214"/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+          <Ellipse Name="ellipseEyePupil" Fill="Black" Margin="2.466,2.223,2.364,1.932" Stroke="#FFFF8F1F" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-14.214000000000002"/>
+                <TranslateTransform/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+          <Ellipse Name="ellipseEyeHighlight" Fill="White" Margin="8.286,10.621,4.278,5.379" Stroke="#FFFF8F1F" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-13.712000000000002"/>
+                <TranslateTransform/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+
+        </Grid>
+        <Grid Name="groupBeakLower" HorizontalAlignment="Right" Height="13" Margin="0,64,-2,0" VerticalAlignment="Top" Width="24" RenderTransformOrigin="0.152,0.691">
+          <Grid.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform/>
+              <SkewTransform/>
+              <RotateTransform/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </Grid.RenderTransform>
+          <Path Data="M199.673,63.5164 C199.673,63.5164 209.07,64.5379 213.07,71.2879 C213.07,71.2879 215.375,75.625 210.75,76.375 C206.125,77.125 206.125,74.875 196,73.75 L188.75,72.625 z" Margin="-0.334,-0.443,-0.559,0.434" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-43"/>
+                  </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFDF3E21" Offset="0.167"/>
+                <GradientStop Color="#FFC02D33" Offset="1"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Path Data="M201.5,65 C201.5,65 207.125,65.25 211.375,70.125 C211.375,70.125 214.962,74.4828 208,73.75 C205.625,73.5 199.125,70.875 196.625,69.75 C194.125,68.625 201.5,65 201.5,65 z" Margin="7.649,1.041,0.161,3.126" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" Fill="#FFE54A36"/>
+          <Ellipse HorizontalAlignment="Right" Height="2.458" Margin="0,0,0.484,3.479" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Bottom" Width="4.138" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFE54D3F" Offset="0"/>
+                <GradientStop Color="#FFFED2CB" Offset="1"/>
+              </LinearGradientBrush>
+            </Ellipse.Fill>
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="-15.363"/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+          <Path Data="M1.024602E-06,11.103333 C1.024602E-06,11.103333 7.1549517,0.87500077 9.9049522,1.2957258E-06 C9.9049522,1.2957258E-06 19.165004,5.9763356 19.853004,6.7888352 C19.853004,6.7888352 11.188003,9.9783332 2.7510015,11.728332 z" Margin="1.687,-2.478,2.46,3.75" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" Fill="#FFB71C08"/>
+
+        </Grid>
+        <Grid Name="groupBeakUpper" HorizontalAlignment="Right" Height="36" Margin="0,40,-9,0" VerticalAlignment="Top" Width="47">
+          <Path Data="M189.25,40.375 C189.25,40.375 192.875,48.125 200.375,48.25 C207.875,48.375 212.375,45.5 217.125,43.25 C217.125,43.25 218.439,42.8552 218.875,44.375 C220.249,49.1665 223.167,70.6661 180.25,76.1247 C180.25,76.1247 172.5,77.4997 173.125,69.8748 C173.75,62.2499 183.75,64.8745 184.625,47.8749 C184.625,47.8749 185.375,42.9999 188.75,40.625 z" Margin="0,0,0.582,0.153" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFF46E29" Offset="0"/>
+                <GradientStop Color="#FFD54035" Offset="1"/>
+                <GradientStop Color="#FFC73621" Offset="0.502"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Path Data="M218.083,43.5 C218.083,43.5 222.243,68.9599 181.679,69.9145 C181.647,69.9152 181.615,69.916 181.583,69.9167 C181.583,69.9167 181,66.7497 179.833,65.9997 C178.666,65.2497 175.917,64.6664 174.5,69.583 C173.083,74.4996 177.333,75.4996 180.333,75.1663 C183.333,74.833 224.999,71.1662 218.999,44.5 z" Margin="1.13,3.125,0.499,1.15" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                <LinearGradientBrush.RelativeTransform>
+                  <TransformGroup>
+                    <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="40"/>
+                    <TranslateTransform X="-0.2" />
+                  </TransformGroup>
+                  <!--<CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="40" TranslateX="-0.2"/>-->
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFE54330" Offset="0"/>
+                <GradientStop Color="#FFF2702A" Offset="0.946"/>
+                <GradientStop Color="#FFD2402B" Offset="0.837"/>
+                <GradientStop Color="#FFE2422F" Offset="0.469"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Path Data="M188.583,43.4167 C188.583,43.4167 196.917,57.083 216.583,45.7497 C216.583,45.7497 217,45.083 217.333,46.1664 C217.666,47.2497 217.75,50.4997 208.25,55.1664 C198.75,59.8331 192,60.5826 183.167,60.5826 C183.167,60.5826 186.417,55.4163 186.25,50.6663 C186.083,45.9163 188.167,43.9164 188.167,43.9164 z" Margin="10.078,3.042,2.653,15.792" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False">
+            <Path.Fill>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFFBBE10" Offset="0.531"/>
+                <GradientStop Color="#FFF26228" Offset="1"/>
+              </LinearGradientBrush>
+            </Path.Fill>
+          </Path>
+          <Ellipse HorizontalAlignment="Right" Height="2.475" Margin="0,8.638,7.362,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="5.37" Fill="White" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="-15.831"/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+          <Ellipse Fill="White" HorizontalAlignment="Right" Height="1.296" Margin="0,10.602,14.442,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="3.294" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+            <Ellipse.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="-9.240"/>
+              </TransformGroup>
+            </Ellipse.RenderTransform>
+          </Ellipse>
+
+        </Grid>
+        <Path Data="M172.5,102.375 C172.5,102.375 176.188,99.251 180.5,103.375 C180.5,103.375 187.125,108.874 190.625,115.997 C190.625,115.997 193.375,120.871 189.75,123.37 C186.125,125.869 183.375,125.245 181.375,123.12 C181.375,123.12 172.609,112.63 171.375,109.623 C169.375,104.75 172.5,102.375 172.5,102.375 z" HorizontalAlignment="Right" Height="23.759" Margin="0,0,19.376,64" Stretch="Fill" Stroke="#FFFF8F1F" StrokeThickness="0" UseLayoutRounding="False" VerticalAlignment="Bottom" Width="20.918">
+          <Path.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                  <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-90"/>
+                </TransformGroup>
+              </LinearGradientBrush.RelativeTransform>
+              <GradientStop Color="#FFFFCE05"/>
+              <GradientStop Color="#FFFEC909" Offset="1"/>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+
+      </Grid>
+      <Path Name="pathWaves" HorizontalAlignment="Left" Height="47.715" Margin="2.001,166.949,0,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="353.99" RenderTransformOrigin="0.5,0.5">
+        <Path.RenderTransform>
+          <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform Y="4.516023415490622E-05"/>
+          </TransformGroup>
+        </Path.RenderTransform>
+        <Path.Data>
+          <PathGeometry>
+            <PathFigure IsClosed="True" StartPoint="0.339631525164655,17.7755556217755">
+              <BezierSegment Point3="38.6971246514653,5.61479315214825" Point2="23.7284776537297,16.8405138597474" Point1="0.339631525164655,17.7755556217755"/>
+              <BezierSegment Point3="65.999,6.05099999999998" Point2="65.999,6.05099999999998" Point1="53.6657726491848,-5.61093755461428"/>
+              <BezierSegment Point3="89.2171422553954,15.9050421336959" Point2="75.1839031971515,15.9050421336959" Point1="65.999,6.05099999999998"/>
+              <BezierSegment Point3="121.02596511837,6.55026487819987" Point2="115.412665495137,11.2276535059478" Point1="103.250381313639,15.9050421336959"/>
+              <BezierSegment Point3="150.0280281715,2.80835797566681" Point2="140.672518799606,-0.933558926029607" Point1="126.639264741603,1.87287625045184"/>
+              <BezierSegment Point3="179.030351220444,17.7759955849624" Point2="166.868187037013,17.7759955849624" Point1="159.383527543555,6.55026487819987"/>
+              <BezierSegment Point3="211.307411544575,7.48592658835485" Point2="211.307411544575,7.48592658835485" Point1="191.192525403713,17.7759955849624"/>
+              <BezierSegment Point3="246.858609153555,3.74391969418843" Point2="228.147520410894,-5.61109754122765" Point1="211.307411544575,7.48592658835485"/>
+              <BezierSegment Point3="272.118822452228,17.7764555464758" Point2="262.763273080977,17.7764555464758" Point1="265.569697896217,13.0989369296045"/>
+              <BezierSegment Point3="298.314620687542,8.42163829432655" Point2="288.959051316614,14.0347986230263" Point1="281.474381823317,17.7764555464758"/>
+              <BezierSegment Point3="332.929963364227,7.48611657245823" Point2="324.509958930263,0.937424522726929" Point1="307.670180058632,2.80847796562682"/>
+              <BezierSegment Point3="349.770292227003,17.7769055088261" Point2="341.350287793039,17.7769055088261" Point1="341.349957798352,14.0347986230263"/>
+              <BezierSegment Point3="178.563628734895,47.7150104906418" Point2="373.159545649011,47.7150104906418" Point1="358.190306660807,17.7769055088261"/>
+              <BezierSegment Point3="0.339631525164655,17.7755556217755" Point2="0.339631525164655,17.7755556217755" Point1="-16.0322871792358,47.7150104906418"/>
+            </PathFigure>
+          </PathGeometry>
+        </Path.Data>
+        <Path.OpacityMask>
+          <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Offset="0.858"/>
+            <GradientStop Color="#FF171717" Offset="0.464"/>
+          </LinearGradientBrush>
+        </Path.OpacityMask>
+        <Path.Fill>
+          <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+              <TransformGroup>
+                <RotateTransform  CenterY="0.5" CenterX="0.5" Angle="-90"/>
+              </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FF028BFE"/>
+            <GradientStop Color="#FF0835FF" Offset="0.134"/>
+            <GradientStop Color="#FF028BFE" Offset="0.243"/>
+            <GradientStop Color="#FF0835FF" Offset="0.351"/>
+            <GradientStop Color="#FF028BFE" Offset="0.46"/>
+            <GradientStop Color="#FF0835FF" Offset="0.544"/>
+            <GradientStop Color="#FF028BFE" Offset="0.661"/>
+            <GradientStop Color="#FF0835FF" Offset="0.762"/>
+            <GradientStop Color="#FF028BFE" Offset="0.854"/>
+            <GradientStop Color="#FF0835FF" Offset="0.937"/>
+            <GradientStop Color="#FF028BFE" Offset="1"/>
+          </LinearGradientBrush>
+        </Path.Fill>
+      </Path>
+    </Grid>
+  </Viewbox>
+</UserControl>

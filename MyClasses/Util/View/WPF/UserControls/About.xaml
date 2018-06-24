@@ -47,6 +47,7 @@
 					<Label Name="lblApplicationName" Content="XXXXXXXXXXXXX" />
 					<Label Name="lblVersionLabel" Content="Version" />
 					<Label Name="lblVersion" Content="XXXXXXXXXXXXX" />
+					<Label Name="lblCodeName" Content="XXXXXXXXXXXXX" />
 				</StackPanel>
 				<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
 					<Label Name="lblCopyRightLabel" Content="Copyright ©" />

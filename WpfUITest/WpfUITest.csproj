@@ -100,6 +100,19 @@
       <Name>AMDUtil</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Changelog\changelog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\drive_16x16.png" />
+    <Resource Include="Resources\Images\file_16x16.png" />
+    <Resource Include="Resources\Images\folder.png" />
+    <Resource Include="Resources\Images\folder_16x16.png" />
+    <Resource Include="Resources\Images\Intel_Icon_TarmacTool.png" />
+    <Resource Include="Resources\Images\Intel_Icon_TarmacTool_64x64.png" />
+    <Resource Include="Resources\Images\logo_intel.png" />
+    <Resource Include="Resources\Images\logo_intel_white_27x18.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,2042 @@
+/**
+@mainpage Intel TarmacParser
+
+@section Copyright
+    [INTEL CONFIDENTIAL]
+
+    Copyright (first published date)-(most recent published date) Intel Corporation
+
+    This software and the related documents are Intel copyrighted materials, and your use of them is governed by the express license under which they were provided to you (License). Unless the License provides otherwise, you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents without Intel's prior written permission.
+
+    This software and the related documents are provided as is, with no express or implied warranties, other than those that are expressly stated in the License.
+
+
+    AMDUtil.dll:
+    BSD 3-Clause License
+
+    Copyright (c) 2013, Andi Degn All rights reserved.
+
+    * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+    Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+// ******************************************************************************
+// ------------------------------------------------------------------------------
+//                               INTEL CONFIDENTIAL
+// ------------------------------------------------------------------------------
+//    Copyright (C) 2018        Intel Corporation
+//    Copyright (C) 2015 - 2017 Intel Deutschland GmbH
+// ------------------------------------------------------------------------------
+
+
+
+@section Abstract
+    This is a tool for parsing RTL tarmac memory to be able to see memory 
+    values at any given time in the test run
+
+
+@section Changelog
+=======================================
+Version 0.11.4.226 - 2018/06/20 by Andi
+=======================================
+New Features, Improvements
+--------------------------
+- Added the Duck
+- Added option to select loading animation in SETTINGS/Options/Program
+
+
+Fixed Bugs, Changes
+-------------------
+- 
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+
+
+
+=======================================
+Version 0.10.3.225 - 2018/06/11 by Andi
+=======================================
+New Features, Improvements
+--------------------------
+- Added copyright notice for AMDUtil.dll
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with Tarmac Analysis view where if memory failed and variable passed, no error would be 
+    shown on the instruction containing the error
+- Fixed issue where if you deleted one of multiple memory tests with the same address and size, it would 
+    remove the first one every time
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+
+
+
+=======================================
+Version 0.10.3.224 - 2018/06/01 by Andi
+=======================================
+New Features, Improvements
+--------------------------
+- Added the option to switch between current line and whole timestamp highlighting in Tarmac View. This option is 
+    switchable from the Program tab in Options
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue when stepping at the end of tarmac and 2 or more instructions has the same timestamp
+- Changed file type of variableList and variableListType to .val and .vat respectable to avoid loading of the wrong file
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+
+
+
+======================================
+Version 0.9.2.223 - 2018/05/31 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added refresh (context menu and 'F5') in FileExplorer View
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with sorting of added/changed files in FileExplorer View
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+
+
+
+======================================
+Version 0.9.2.222 - 2018/05/18 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added option to append file from FileExplorer View
+
+
+Fixed Bugs, Changes
+-------------------
+- Removed detection of "NOT_A_FUNCTION" and not branchable instructions in branch view
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+- Add append option in main FileExplorer View - Done
+
+
+
+======================================
+Version 0.9.2.221 - 2018/05/18 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- 
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with stepping instructions where stepping to an instruction not present in disassembler was not possible
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+- Add generic FileExplorer view to slide-out pane - Done
+- Add append option in main FileExplorer View
+
+
+
+======================================
+Version 0.9.2.220 - 2018/04/19 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added settings retention functionality when application update has taken place
+- Added support fore separate variable files. VariableListTypes and VariableListContexts are now
+    separate files and can be managed accordingly
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed AMDUtil library to be acquired from official source with license
+- Changed save analysis file on exit to include current filename in save dialog box
+- Fixed crash when putting invalid start of path in path textbox in FileExplorer View
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+- Add generic FileExplorer view to slide-out pane - Done
+
+
+
+======================================
+Version 0.9.2.214 - 2018/04/03 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added Intel Confidential headers in all .cs files
+- Added FileExplorerView to main window to allow loading of BootROM and Tarmac files directly
+- Added delete functionality directly from VariableView in AnalysisView
+- Added option to en/disable the stack check and stack view from Options/Addresses menu
+- Added support for functionality when only the disassembler file is present
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue BootROM and Tarmac version/checksum messagebox swapped values
+- Fixed issue with populating panes when stepping backwards in tarmac in the start
+- Fixed issue with variables not being checked correctly if not selected
+- Added NoteInSubInstruction in AnalysisResult enum and updated corrosponding implementations
+- Changed KeyUp to KeyDown event in FileExplorerView
+- Changed the way memory information is clearred. In the event that file is not present, the content 
+    from the previous file of that type is clearred
+- Minor bug fixes
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix performance issue with VariableView when many sub nodes
+
+
+ToDo
+----
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for boot-time view
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Add file extension definitions for taf, log etc. in options
+- Add max stack depth detection: main view - Done, code coverage batch
+- Add generic FileExplorer view to slide-out pane - Done
+
+
+
+======================================
+Version 0.9.1.208 - 2018/03/18 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added framework for dynamic struct/variable generation (manual)
+- Implemented binding across the line for VariableView
+- Implemented automatic validation functions
+- Added save of settings when changes have been made in options
+- Implemented support for manually created variables in AnalysisView including add, verify and edit
+- Added crude autocomplete for path textbox in FileExplorerView
+- Implemented search function for line and function coverage list views
+- Implemented copy handling of line and function coverage list views
+- Made bindings to enable code coverage view to update while traversing tarmacs
+- Implemented option to merge previous csv result with current loaded code coverage result (function only)
+- Added feature to select what to show in DisassemblerView (assembler, c code)
+- Added support for adding struct pointers to variables
+- Added option to en/dis-able members in variable check in AnalysisView
+- Implemented user cancel functionality
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with TimeFormat not being saved
+- Fixed issue with first node not default expanding in VariableView
+- Moved most classes to own files/folders/namespaces
+- Removed redundant .h/.c translated files
+- Eliminated the rest of Context/ContextList/RC_Version throughout the application
+- Optimized lookup of functions as linq was way too slow (memioziation)
+- Fixed issue with C_Enum not working properly when binding to combobox (missing GetHashCode implementation)
+- Fixed issue with arrays being editable in AnalysisView
+- Fixed issue with Bit not being editable in AnalysisView (VariableView)
+- Fixed issue with enums being overwritten when saving with new name (missing check for TypeDefName in Equals)
+- Fixed issues with size and position of fullscreen handling
+- Minor bug fixes
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt - Redundant due to new variable framework
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix issue with edit variable after edit, member goes to top - Redundant due to new variable framework
+- Fix color of listview in validation tab - Done
+- Fix expanding of Actual VariableView in AnalysisView - Done
+- Fix issue with adding sub-member of variable not being found in the C_VariableList.collection - Done
+- Fix performance issue with VariableView when many sub nodes
+- Fix issue with variable list being saved when pressing no when closing options - Done
+- Fix issue with editing bit in AnalysisView (value converter issue) - Done
+- Fix so that it is not possible to edit an array header in AnalysisView - Done
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created - Done
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Done
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Consider implementing task cancel to avoid waiting for time expencive tasks executed by mistake - Done
+
+- Make members movable - Done
+- Add support for pointers in structs - Done
+- Make keyboard movements work in VariableView - Done
+- Change size of arrays etc to hex in VariableView - Done
+- Add array index number to arrays in VariableView - Done
+- Change checksum/version warning to only occur when tarmac/BootROM files are loaded - Done (maybe)
+- Move edit variable functions to VariableView itself - Done
+- Add file extension definitions for taf, log etc. in options
+- Implement search function for code coverage listviews - Done
+- Add settings storage of last used setRoot method (recursive or regular) - Done
+- Add Intel copyright notice in all files
+- Add max stack depth detection: main view and code coverage batch
+
+
+
+======================================
+Version 0.7.2.189 - 2018/01/13 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added option to rename file in explorer tab
+- Added expand all menu item in BranchView
+
+
+Fixed Bugs, Changes
+-------------------
+- Minor bug fixes
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix issue with edit variable after edit, member goes to top
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Investigate option to use memorymapped file
+- Consider implementing task cancel to avoid waiting for time expencive tasks executed by mistake
+
+
+
+======================================
+Version 0.7.2.184 - 2018/02/11 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added option to edit variable in AnalysisView
+- Added option to add/remove instructions and sub-instructions in AnalysisView
+- Added register check to AnalysisView
+- Added note in AnalysisView for manual checks and other useful information
+- Added visual indication of pass/fail for everything in AnalysisView
+- Added support for copy/paste of checks and instructions in AnalysisView
+- Added dark theme for application
+- Added support for loading RTL images as memory check
+- Added version check in analyzer file to avoid invalid and corrupt data
+- Added check for unsaved progress in docks
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with analyzer not failing on variable check on variable that is not loaded in tarmac
+- Fixed issue with xml tags being deserialized instead of objects in variable analysis, added type list
+    to deserializer
+- Fixed issue where icons in AnalysisView did not display correctly
+- Fixed performance issue with richtextbox in memory validateion in AnalysisView
+- Fixed issue with left VariableView in AnalysisView did not show differences when in edit mode
+- Fixed issue with Bit class not serializing correctly, BoolValue was private
+- Fixed issue with note changed handling in AnalysisView
+- Fixed issue with loading .taf file if tarmac file was not loaded, no types was registered in 
+    ContextList.IncludedXmlTypes, so deserialization of .taf file loaded XmlNodes instead of actual object types
+- Fixed issue with locking clipboard, now displays blocking window when clipboard is blocked
+- Fixed issue with scrolling in tarmac and disassembler
+- Fixed a lot of minor bugs
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix issue with 'Create New From Loaded Tarmac' loadint live and not a copy of live tarmac - Done
+- Fix issue with edit variable not always propagate through - Done
+- Fix issue with edit variable after edit, member goes to top
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically - Done
+- Add lookup for irq
+- Make treeview binding work properly - Done in ValidationBranchView
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- See if it is possible to easily make tabs detachable form tc - Done
+- Make tabs fill out width - Done
+- Investigate option to use memorymapped file
+- Implement undo/redo functionality - Done
+- Implement functionality for sequence analysis of memory (include multiple memory areas pr instruction) - Done
+- Implement functionality for sequence analysis of Variables (regular memory check with context info: base addr, name, size etc.) - Done
+- Implement functionality for static analysis - Redundant, set static check on last node in BranchView
+- Implement view and functionality for compare in analysis - Done
+- Implement functionality for adding manual check enforcement. Just a visual indicator - Done, note added
+- Finish implementation of initial creation of analysis file - Done
+- Add set-as-root to context menu - Done
+- Add copy paste functionality for various things like analysis/variables - Done
+- Add support for editing arrays in AnalysisView - Done
+- Add support for linking edit of union_context and Bit[] in AnalysisView - Done, oneway - from union_context to Bit[]
+- Consider support for loading an image to check if image is correctly loaded in tarmac - Done
+- Consider implementing task cancel to avoid waiting for time expencive tasks executed by mistake
+
+
+
+======================================
+Version 0.6.3.158 - 2017/12/22 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added file explorer view with support for file events and bound properly with treeview (waoo a lot of work)
+- Added undo/redo functionality on time (Ctrl + z/y). So it is now possible to go back to previous time if 
+    jumping by mistake
+- Added preliminary view for automatic tarmac analysis
+- Added functionality for analyzing tarmac instruction sequence, including memory and variables checks 
+    pr. instruction
+- Added massive improvements in FileExplorerView
+- Added classes to incorperate functionality for save/load of analysis files
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed tab style, now fill whole width
+- Removed binding of BootROM version to tab color
+- Changed loading animation and added descriptive text
+- Fixed issue with HistoryView when updating on re-populate
+- Fixed issue with DisassemblerView not updating correctly when stepping/jumping to time with timestamp
+- Fixed issues and bugs in FileExplorerView
+- Refactored Struct to Variable
+- Changed all UIntPtr to UInt32 for serialization to work
+- Changed 'F9' (Toggle Bookmark) functionality to be application wide
+- Fixed issue with tabs not being dragable from outside the text, background was transparent
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix issue with branch nodes with no return time always being green when in the past
+- Fix issue with DisassemblerView not updating correctly when stepping/jumping to time with bookmark - Done
+- Fix issue with tabs not being dragable if dragged from outside the text - Done
+- Fix issue with variables when removing in AnalysisView where storred variable check is displayed, whole
+    tarmac variable tree loads - Done
+- Fix issue with variables not being properly removed when deleting from variable tree - Done
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- See if it is possible to easily make tabs detachable form tc - Done
+- Make tabs fill out width - Done
+- Investigate option to use memorymapped file
+- Implement undo/redo functionality - Done
+- Implement functionality for sequence analysis of memory (include multiple memory areas pr instruction) - Done
+- Implement functionality for sequence analysis of Variables (regular memory check with context info: base addr, name, size etc.) - Done
+- Implement functionality for static analysis
+- Implement view and functionality for compare in analysis
+- Implement functionality for adding manual check enforcement. Just a visual indicator
+- Finish implementation of initial creation of analysis file - Done
+- Add set-as-root to context menu - Done
+
+
+
+======================================
+Version 0.6.3.157 - 2017/12/05 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added support for movable tabs
+- Added option to reset view back to default View\Main View\Reset View
+- Added option to change the format tarmac time is displayed. Options are:
+    ns, µs, ms, s, m, h, d, w, M, Y. Month and year are approximations and should not be used for accurate measurements.
+- Added option to copy loaded files from context menu on title bar
+- Added option to open log dir in Help context menu
+- Added option to change ToolTip display time in options
+- Added handling of caret in tarmac and DisassemblerView:
+    - Caret is default at last current time line
+    - Caret is default hidden
+    - Caret becomes visible when up, down, left, right, pageUp or pageDown is clicked
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with version and checksum check not working correctly after context version change
+- Fixed issue that latest context version would always load regardless of last used
+- Fixed issue with text in HistoryView when viewing history for registers
+- Fixed issue with branches always expanding if 'Auto Expand' was disabled
+- Fixed issue with navigating branches with collapsed instructions
+- Fixed issue with drop files. It will now correctly detect if a BootROM file is dropped and load all related BootROM files
+- Improved handling of appended files
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue - Removed, have not been able to reproduce
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix that no scrollbar comes up in HistoryView if list is longer than height of treeview - Implicitly fixed by implemting tabs
+- Fix issue with height of structs view when HistoryView is hidden after gridsplitter between the two have 
+    been moved - Implicitly fixed by implemting tabs
+- Fix issue with file paths not being updated correctly in settings when drag/drop files - Removed, was not an issue after all
+- Fix issue with not loading all boot-rom files when dropping files - Done
+- Fix issue with auto-collapse in branches - Done
+- Fix issue with branch nodes with no return time always being green when in the past
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- See if it is possible to easily make tabs detachable form tc
+- Create option to change times to ms - Done
+
+
+
+======================================
+Version 0.5.2.106 - 2017/11/21 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added union_content fields in places where Bit[] are used to allow for quick view of the word value
+- Added tooltip on title bar if ctrl is pressed showing currently loaded files
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed allignment of Bit[] when start of word address was other than Bit[]
+- Fixed text offset in comboboxes in structs option
+- Changed reset of settings on startup (hold ctrl on startup) to have:
+    Yes:    Reset all (.xml, .bak and settings)
+    No:     Reset all but .bak
+    Cancel: Do nothing
+- Added sec_ctx and scu_ctx to default structs
+- Fixed issue with missing data in logs
+- Fixed issue with crash when trying to add struct without typing in a name
+- Fixed issue with fixed address checkbox not being updated when struct is selected
+- Fixed issue with arrays not being populated in structs
+- Fixed issue with fullscreen toggling
+- Fixed issue with HistoryView when a new file is loaded, now the entries in HistoryView updates
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix that no scrollbar comes up in HistoryView if list is longer than height of treeview
+- Fix issue with height of structs view when HistoryView is hidden after gridsplitter between the two have
+    been moved
+- Fix issue with text position in comboboxes in options window - Done
+- Fix data offset in fai_info - Done
+- Fix missing data in field - Done
+- Fix crash when adding struct without name - Done
+- Fix fixed address not being checked when selecting struct with fixed address - Done
+- Fix issue with arrays not being populated in structs - Done
+- Fix issue with fullscreen toggling - Done
+- Fix behaviour of HistoryView when a new file is loaded - Done
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+- Finish tooltip on titlebar to show all loaded filenames - Done
+
+
+
+======================================
+Version 0.5.1.105 - 2017/11/13 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added functionality for jumping to either return time of branch or block of branches, if branches 
+    are collapsed because they are equal
+- Added first option pages
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with jumping to time '0' if stepping to return address of branch with no valid return
+    time. Jumping not allowed
+- Fixed crash when trying to close MemoryViews on main page
+- Fixed issue with save as in BranchView, did not write collapsed branch count
+
+    
+Known Issues
+------------
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix that no scrollbar comes up in HistoryView if list is longer than height of treeview
+- Fix issue with height of structs view when HistoryView is hidden after gridsplitter between the two have
+    been moved
+
+
+ToDo
+----
+- Create options page with entries for: - Option window created
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0) - Skipped, not relevant anymore
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Add hal\inc\scu_bcfg.h - Done
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+
+
+
+======================================
+Version 0.5.1.103 - 2017/11/10 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added initial options window
+- Added hal\inc\scu_bcfg.h
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with delta time not updating in bookmarks view
+- Fixed issue with Bit class not being displayed correctly in structs view
+- Fixed issue with corrupt contextList.xml crash
+- Manage Structs menu item is moved to Settings menu point
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash - Done
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix issue with updating of delta time in bookmarks view - Done
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix that no scrollbar comes up in HistoryView if list is longer than height of treeview
+- Fix issue with height of structs view when HistoryView is hidden after gridsplitter between the two have
+    been moved
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0) - Skipped, not relevant anymore
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Add hal\inc\scu_bcfg.h - Done
+- Analyse if it is possible to change parsing to work with delegates containing the checks and functionality of each if/else
+    so that only the needed parsing criterias are used. Eg. if stack varname is empty, no need to keep checking it
+- Add corrupt file handling for memoryAreaList.xml file like contextList.xml
+
+
+
+======================================
+Version 0.5.0.101 - 2017/11/07 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added support for expanding collapsed branches
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed performance issue in branch collapse feature
+- Fixed issue with struct version not loading correctly after 2nd start of tool
+- Fixed issue with stepping backwards going to first instruction in timestamp
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix issue with updating of delta time in bookmarks view
+- Fix issue reported by Heino:
+    Tarmac:   RC3.03_SPEC2.9.9.7\RC303_regression\I386_NAND_OPEN_OO3\eccinit\tarmac_cpu0.log
+    BootROM:  RC3.03_SPEC2.9.9.7\bootrom_XG766_rtl_debug_release.axf
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix issue with stepping back to previous instructino block (same timestamp), it goes to the first
+    instead of the last instructions - Done
+- Fix struct version loading wrong 2nd time after reset of tool - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Add hal\inc\scu_bcfg.h
+
+
+
+=====================================
+Version 0.4.3.98 - 2017/11/07 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- 
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed allignment issue with USB structs
+- Re-wrote structs/context parsing in TarmacParserLogic and StructsView
+- Fixed issues in usb structs translation
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix issue with updating of delta time in bookmarks view
+- Fix issue reported by Heino: - Done
+    Tarmac:   RC3.03_SPEC2.9.9.7\RC303_regression\I386_NAND_OPEN_OO3\eccinit\tarmac_cpu0.log
+    BootROM:  RC3.03_SPEC2.9.9.7\bootrom_XG766_rtl_debug_release.axf
+- Fix offset issue in some (if not all) usb related files - Done, awaiting verification form rwt
+- Fix issue with stepping back to previous instructino block (same timestamp), it goes to the first
+    instead of the last instructions
+- Fix struct version loading wrong 2nd time after reset of tool
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Add hal\inc\scu_bcfg.h
+
+
+
+=====================================
+Version 0.4.2.92 - 2017/11/06 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added extended register change feature. Register now slowly changes color based on when it
+    was updated.
+- Added formatted status register in RegisterView
+- Added stack in RegisterView
+- Added option to see register value history
+- Added messagebox at startup to choose to reload last tarmac, if tarmac is bigger than 
+    defined size
+
+
+Fixed Bugs, Changes
+-------------------
+- Added RomStack and have done parsing of variables (varName, baseAddr and size) in mapping
+- Changed the return time of merged branches to be the time of the last branch
+- Added offset address in entries in branches view
+- Fixed issue with RomStack not being storred in xml file
+- Fixed issue with cransh when stepping forward at the end of tarmac
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix issue with updating of delta time in bookmarks view
+- Fix issue reported by Heino:
+    Tarmac:   RC3.03_SPEC2.9.9.7\RC303_regression\I386_NAND_OPEN_OO3\eccinit\tarmac_cpu0.log
+    BootROM:  RC3.03_SPEC2.9.9.7\bootrom_XG766_rtl_debug_release.axf
+- Fix issue with crash when stepping forward at the end of tarmac - Done
+- Fix offset issue in some (if not all) usb related files
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Add color coding or similar on validatable fields - Ongoing
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable - Redundant, bookmarks now in bottom tabbed view
+- Make remove option in bookmarks pane - Done
+- Add HistoryView for RegisterView - Done
+- Add BX handling, look-up register - Skipped, not reliable
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Remove branch depth checking when parsing tarmac - Redundant
+- Add translation for status register - Done
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Implement a way to view stack depth - Done
+- Implement stack view - Done
+- Make merged branches jump to last merged return address - Done
+
+
+
+=====================================
+Version 0.4.1.82 - 2017/10/27 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added option to remove bookmarks from context menu
+- Added Bit class to handle byte with bit anotation from structs
+- Added catch if boot_ctx is present in structs and version or checksum does not match.
+    Messagebox will show and structs tab will be selected
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed stepping to step between functions instead of timestamps
+- Changed search in tarmac and disassembler to ignore case
+- Fixed issue with branches not loading correctly when structs view is selected and tarmac
+    is loaded
+- Fixed display of invalid times in BookmarkView
+- Changed RegisterView to be shown as default
+- Fixed issue with close button not visible on MemoryViews
+- Fixed issue with fWDT_Handling missing from B_BOOT_CTX, was not public
+- Fixed issue with execution time in branches view tooltip
+- Fixed issue with logs trace print have to be named "logs"
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix issue with crash in certain wrongly loaded files - Done
+- Fix issue with branches not loading correctly (sometimes) when structs view is selected - Done
+- Fix issue with closing button not visible on MemoryView on additional views - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl) - Done
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+- Add support for 'B' branches - Done, only registers, don't have sub-instructnions
+- Add support for boot-time view
+- Remove branch depth checking when parsing tarmac
+- Add translation for status register
+- Make stepping step between instructions instead of time - Done
+- Add support for B.W branches - Done, only registers, don't have sub-instructnions
+- Add file src\BIC_FAIFunctions.c - Done
+- Check if fWDT_Handler is missing in boot_ctx - Done
+- Update search to be not be case sensetive - Done
+- Implement a way to view stack depth
+
+
+
+======================================
+Version 0.3.10.80 - 2017/10/16 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Added Time Watch view for displaying instructions time info
+
+
+Fixed Bugs, Changes
+-------------------
+- Moved bookmark management to bottom center view
+- Fixed issue with crash on max branches reached and time changed
+- Fixed issue with highlighted entry in branches. Green highlighted entry should now correctly
+    be the current function
+- Fixed issue with memory passed to history not being correct
+- Fixed issue with wrong value passed in RegisterView context menu
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix split in disassembler, no need for double string split - Done
+- Fix issue with offset on view history in MemoryView - Done
+- Fix value passed in context menu for registers, currently only passes value at populate - Done
+- Fix issue with crash when max branches have been reached.. Empty tree nodes (null) - Done
+- Fix issue with crash in certain wrongly loaded files
+- Fix issue with branches not loading correctly (sometimes) when structs view is selected
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+- Add boot time view
+- Add support for 'B' branches
+- Add support for boot-time view
+- Remove branch depth checking when parsing tarmac
+- Add translation for status register
+- Make stepping step between instructions instead of time
+- Add support for B.W branches
+- Add file src\BIC_FAIFunctions.c 
+
+
+
+=====================================
+Version 0.3.9.78 - 2017/10/09 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added better error handling
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed performance issue with tarmac parsing
+- Fixed issue with bookmarks not being displayed when scrolling out of view in tarmac
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac - Done
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix split in disassembler, no need for double string split
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add reload tarmac messagebox on BootROM load
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+
+
+
+=====================================
+Version 0.3.8.76 - 2017/10/09 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added option to select auto load of last files on startup
+- Added option to set maximum # of branches to map
+- Added collapsed view for BranchView when same branches are called concurrently
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed way disassembler is parsed. Instructions are now storred in a collection so that 
+    lookup of next instruciton is faster to lookup
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac
+- Fix issue with maximizing. Have Alan reproduce the issue
+- Fix split in disassembler, no need for double string split
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add reload tarmac messagebox on BootROM load
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+
+
+
+=====================================
+Version 0.3.7.75 - 2017/10/06 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added support for detecting exception vectors in BranchView
+- Added escape for parsing tarmac if function names are not valid in branch detection
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed BranchView so that when a reset is detected, branch resets to root
+- Fixed issue with structs not being updated when not selected on change and then selected
+    afterwards
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac
+- Fix issue with maximizing. Have Alan reproduce the issue
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add reload tarmac messagebox on BootROM load
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+- Make treeview binding work properly..............
+
+
+
+=====================================
+Version 0.3.6.73 - 2017/10/05 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added option to auto reload tarmac after BootROM has changed
+- Added option to load single BootROM files
+- Added Ctrl+F hotkeys to memory, tarmac and DisassemblerView to focus search bar
+- Added hotkeys for jumping 1000 and 10000 ns in tarmac (ref manual)
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with which function in branches is highlighted at a given time
+- Fixed issue with paths handling on auto-loading
+- Fixed issue with path not being saved for mapper; wrong setting
+- Fixed issue where BranchView would not color nodes correctly
+- Fixed issue with incomplete last line in tarmac
+- Fixed issues with parsing time in tarmac lines various places
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac
+- Fix issue with program stability, mouse_move in tbTarmac related - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add reload tarmac messagebox on BootROM load
+- Add HistoryView for RegisterView
+- Add BX handling, look-up register
+- Add lookup for irq
+- Add registration for reset entry; create setable offset value (currently just 0)
+
+
+
+=====================================
+Version 0.3.5.69 - 2017/10/04 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added BL functionality with colorcoding based on time and option to expand automatically
+    or hide future
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed name "Marker" to "Bookmark"
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add BL view - Done
+- Make bookmarks popup hidable
+- Make remove option in bookmarks pane
+- Add reload tarmac messagebox on BootROM load
+
+
+
+=====================================
+Version 0.3.4.64 - 2017/09/28 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added check for multiple mappings of the same struct name. If multiple exists,
+    output displays additional addresses for fixed address mapping
+- Added search functionality for disassembler
+- Added sort functionality for ManageStructs. This propergates to the structs view as well
+- Added support for setting markers in the tarmac to quickly navigate between timestamps
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with stepping at the end of a tarmac
+- Fixed issue with tarmac and disassembler line colors didn't match. Simplified logic
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with stepping at the end of a tarmac - Done
+- Fix issue with bookmarks not being displayed when scrolling out of view in tarmac
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add BL view
+- Add option to set markers in tarmac - Done
+- Make bookmarks popup hidable
+
+
+
+=====================================
+Version 0.3.3.63 - 2017/09/27 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added copy capability for OutputView
+- Added parsing of logs struct
+- Added option to track time break point to see elapsed time between two points
+- Converted boot_ctx\images\XXX\validation_status to enum for printout
+
+
+Fixed Bugs, Changes
+-------------------
+- Changed T_IMG_CTX\validation_status to be an enum for readability.
+    Remember to check alingment if this struct is changed as the enum
+    takes up 4 bytes instead of just one byte
+
+    
+Known Issues
+------------
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix focus issue with TimeBreakPoint
+- Fix issue with stepping at the end of a tarmac - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add BL view
+- Add option to set markers in tarmac
+- Add parsing of logs struct - Done
+- Add copy for OutputView - Done
+- Convert boot_ctx\images\XXX\validation_status to enum for printout - Done
+
+
+
+=====================================
+Version 0.3.3.61 - 2017/09/26 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added \Target\hal\src\usb\inc\emc\usb\driver\dwc3\context.h and all associated
+    files
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with loading of files would throw exception. Couldn't parse filename
+- Fixed issue with oversized maximize. Doesn't cover start bar on main monitor or any
+    other monitor with same resulution height as main monitor
+- Fixed sorting of structs in ManageStructs
+- Improved BootROM version check
+- Fixed issue with byte endianess in structs view when toggeling view on an array
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Done
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix endianess when changing view between word and byte array in struct - Done
+- Fix issue with scrolling outside bounds does not work when in start or end
+    of document - Done
+- Fix issue with loading wrong files throwing exception - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add \Target\hal\src\usb\inc\emc\usb\driver\dwc3\context.h - Done
+- Add BL view
+- Add option to set markers in tarmac
+- Add parsing of logs struct
+- Add copy for OutputView
+
+
+
+=====================================
+Version 0.3.2.57 - 2017/09/25 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added drag-drop capability for BootROM and tarmac files
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with crash when typing too large number in textboxes
+- Added better error handling in tarmac parser
+- Fixed issue with scrolling outside bounds when in start or end of document
+- Finished search in TarmacView
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix endianess when changing view between word and byte array in struct
+- Fix crash when typing in too large number in MemoryView tbAddr - Done
+- Fix issue with scrolling outside bounds does not work when in start or end
+    of document - Done
+
+
+ToDo
+----
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add search function to tarmac file - Done
+- Add \Target\hal\src\usb\inc\emc\usb\driver\dwc3\context.h
+- Add BL view
+- Add option to set markers in tarmac
+- Add parsing of logs struct
+- Add copy for OutputView
+
+
+
+=====================================
+Version 0.3.2.56 - 2017/09/22 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added functionality to scroll out of view for both tarmac and DisassemblerView
+- Added functionality to print "????????" when displaying not-yet-accessed memory
+    in MemoryView
+- Added \Target\sc\src\sc_ErrMsgSystem.c
+- Added hotkeys to jump to time and address (F5: Jump to time, F6: Jump to address)
+- Added functionality to check for rom version and checksum
+- Added functionality to automatically load all related files when browsing for either
+    a mapping or a disassembler file. (.bin, .dis, _mapping.txt automatically loads)
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed start of timeline when loading tarmac. Timeline now starts at start
+    of tarmac rather than 0
+- Fixed issue with window not being resizable after have been maximized
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix endianess when changing view between word and byte array in struct
+- Fix start of timeline to tarmac - Done
+- Fix crash when typing in too large number in MemoryView tbAddr
+
+
+ToDo
+----
+- PRIO >>>>>> Create check for rom_version to match tool version <<<<<<<<<<<< - Done
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window - Done
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add search function to tarmac file
+- Add progress updates for disassembler traversing - done
+- Add support for loading .axf file - Depricated, same result as .dis and .bin
+    - Add browsing to fromelf
+- Add \Target\hal\src\usb\inc\emc\usb\driver\dwc3\context.h
+- Add number of lines to load in tarmac/disassembler - Depricated, implemented dynamic scroll
+- Make load of disassembler or mapping load other relevant files in directory - Done
+- Add BL view
+- Add option to set markers in tarmac
+- Add \Target\sc\src\sc_ErrMsgSystem.c\ logs struct - Done
+- Add parsing of logs struct
+
+
+
+=====================================
+Version 0.3.1.55 - 2017/09/20 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added updated header files for BootROM RC1.20
+- Added \hal\src\usb\inc\emc\usb\driver\dwc3\context.h
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue where loading the disassembler file would clear tarmac info
+- Fixed MemoryView address alignment when queried address was not word aligned
+- Fixed issue with FileDialog InitialDirectory format
+- Fixed issue with jump to address not working
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+- If you close MemoryViews in wrong order, strange stuff happens - Fixed
+- Fix issue with search in MemoryView. Marked text is wrong
+- Fix alignment issue - Done
+
+
+ToDo
+----
+- PRIO >>>>>> Create check for rom_version to match tool version <<<<<<<<<<<<
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add serach function to tarmac file
+- Add progress updates for disassembler traversing
+- Add support for loading .axf file
+    - Add browsing to fromelf
+- Add \Target\hal\src\usb\inc\emc\usb\driver\dwc3\context.h
+
+
+
+=====================================
+Version 0.3.0.47 - 2017/09/15 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added memory history to context menu
+- Added DisassemblerView and functionality
+- Added RegisterView and functionality
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with MemoryViews, only latest one can be closed now
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files - Done, changed binary target to x64
+- If you close MemoryViews in wrong order, strange stuff happens - Fixed
+- Fix issue with search in MemoryView. Marked text is wrong
+
+
+ToDo
+----
+- PRIO >>>>>>>>>>> Add MemoryView of registers <<<<<<<<<<<< - Done
+- PRIO >>>>>>>>>>> Merge disassembler with tarmac or as seperate tab <<<<<<<<<<<< - Done
+- PRIO >>>>>> Create check for rom_version to match tool version <<<<<<<<<<<<
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Add way to update colors on all the views dynamically
+- Add serach function to tarmac file
+- Add progress updates for disassembler traversing
+- Add support for loading .axf file
+    - Add browsing to fromelf
+
+
+
+=====================================
+Version 0.2.0.43 - 2017/09/15 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added option to have multiple MemoryViews
+- Added framework to choose between different BootROM releases
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Rewrote whole GUI to be more modular. All panes have been extracted into
+    seperate UserControls
+- Moved DebugPanel to be part of buttom center part
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+- If you close MemoryViews in wrong order, strange stuff happens
+- Fix output textbox format and text - Done
+
+
+ToDo
+----
+- PRIO >>>>>>>>>>> Add MemoryView of registers <<<<<<<<<<<<
+- PRIO >>>>>>>>>>> Merge disassembler with tarmac or as seperate tab <<<<<<<<<<<<
+- PRIO >>>>>> Create check for rom_version to match tool version <<<<<<<<<<<<
+- Try and create framework which scans folders for .h/.c files for specific typedefs and
+    map them to generic object and use instead of hardcoded headers
+- Add option to see memory address timeline in separate view (PopUp) - Done
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Make generic function to save active pane to file - Removed due to copyright
+- Add way to update colors on all the views dynamically
+
+
+
+=====================================
+Version 0.1.8.28 - 2017/09/11 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added feature to see timeline for memory address. This also allows jumping to
+    selected time by using double-click or context menu
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Minor bug fixes and improvements
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+
+
+ToDo
+----
+- Add option to see memory address timeline in separate view (PopUp) - Done
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+
+- Make generic function to save active pane to file
+
+
+
+=====================================
+Version 0.1.7.23 - 2017/09/11 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added more header files for extended functionality
+- Added function in context menu on memory, tarmac and structs view
+    to map a given address to a struct
+- Added function in context menu on struct view to manage structs
+    and to delete directly
+- Added function in context menu on arrays to change between byte view and
+    word view
+- Added colored and weighted text to the treeview to ease navigation and overview
+- Added text completion to ManageStruct combobox
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with timeline end time not being update correctly if an image
+    with shorter runtime is loaded
+- Added struct layout directive to ensure structs/classes are always read
+    correctly through reflection
+- Added check on selected text on context menu openeing to en/disable access to
+    jump/map feature
+- Fixed issue with oversized maximize when snapping using aero snap
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+- Fix issues with timeline not updating correctly when loading new tarmac - Done
+
+
+ToDo
+----
+- Add option to see memory address timeline in separate view (PopUp)
+- Add a way to take a generic address (from tbMemory or tvStructs) and map
+    it to a struct to be shown in tvStructs - Done
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+- Figure out generic way of printing bit values (ex psi headers usage ctrl and app ctrl)
+- Add color coding or similar on validatable fields
+- Add functionality to highlight selected object in tvStruct highlight in tbMemory, if in range
+- Fix size to be more telling and in hex
+
+
+
+=====================================
+Version 0.1.6.20 - 2017/09/09 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- 
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with parsing of non-initialized memory
+- Fixed load percent stops at 99% issue
+- Fixed issue when time less than first timestamp, exception would be thrown
+- Fixed issue with gridsplitter overgrowing, but position is no longer storred
+
+
+Known Issues
+------------
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+- Fix issues with timeline not updating correctly when loading new tarmac
+
+
+ToDo
+----
+- Add option to see memory address timeline in separate view (PopUp)
+- Add a way to take a generic address (from tbMemory or tvStructs) and map
+    it to a struct to be shown in tvStructs
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Change icon to a more visual one
+- Create functionality to update memory/tarmac when scrolling up and down inside window
+
+
+
+=====================================
+Version 0.1.5.18 - 2017/09/08 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added TarmacView
+- Added step-in-time like functionality by using ctrl+left/right
+- Added jump to address and time in context menus various places
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue where draggin down anywhere would exit fullscreen
+
+
+Known Issues
+------------
+- Fix load percent, stops at 99%
+- Fix ComboBox list sorted and relevance in ManageStructs - Relevance fixed
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with large files
+
+
+ToDo
+----
+- Add option to see memory address timeline in separate view (PopUp)
+- Add a way to take a generic address (from tbMemory or tvStructs) and map
+    it to a struct to be shown in tvStructs
+- Create options page with entries for:
+    - Color Chooser for line colors
+    - Font size etc
+- Change icon to a more visual one - Done
+
+
+
+=====================================
+Version 0.1.4.11 - 2017/09/07 by Andi
+=====================================
+New Features, Improvements
+--------------------------
+- Added posibility to jump to address of struct
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue of ListView in ManageStructs view. Headers now show expected format
+- Adjusted time for slider timer to allow for more dynamic time adjustment
+- Re-written TreeView to include updating only so structure of tree can remain the same
+- Fixed issue where UInt32 arrays would not be mappen in structs
+
+
+Known Issues
+------------
+- Fix load percent, stops at 99%
+- Fix ComboBox list sorted and relevance in ManageStructs
+- Fix issue with corrupt contextList.xml file makes application crash
+- Fix issue with exiting maximized if mouse is dragged anywhere
+
+
+ToDo
+----		
+- See if it is possible to bind to treeview - Redundant
+- Add option to have tarmac file along structs and to have it follow time
+- Add option to see memory address timeline
+- Add a way to take a generic address (from tbMemory or tvStructs) and map
+    it to a struct to be shown in tvStructs
+
+
+
+====================================
+Version 0.1.3.7 - 2017/09/04 by Andi
+====================================
+New Features, Improvements
+--------------------------
+- Added functionality to store structs tree to file (File\Save structs as)
+
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with slider not going to end on tarmac load
+- Changed contextList.xml file path to "%USERPROFILE%\Documents\TarmacParser\contextList.xml"
+- Styled slider and made time textbox light up when slider is moved
+- Fixed closing not working as intended
+
+
+Known Issues
+------------
+- Fix load percent, stops at 99%
+- Fix format of ListView in ManageStructs view (class header and time header)
+- Fix ComboBox list sorted and relevance in ManageStructs
+
+
+ToDo
+----		
+- See if it is possible to bind to treeview
+
+
+
+====================================
+Version 0.1.2.2 - 2017/09/04 by Andi
+====================================
+New Features, Improvements
+--------------------------
+- Added load mapping functionalty to allow for automatically
+    address mapping to structs
+- Added struct management and storage in .xml file
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue with mapping of memory
+
+
+Known Issues
+------------
+- Fix load percent, stops at 99%
+- Fix issue with slider not being at max after load
+- Fix header classes, add time
+- Fix crash if no address is given when adding struct
+- Fix slider doesn't go to end of timeline
+- Fix ComboBox list sorted and relevance in ManageStructs
+
+
+ToDo
+----		
+- Add scrollbar to memory text field - Done
+- Create tabbed view for contexts - Redundant
+- FIgure out how to get internal classes listed - Done
+- Move time slider, style it as well
+- Have mapping re-loaded when structs have been updated - Redundant
+- Move where .xml is stored- Done
+- Make contexts saveable to file - Done
+
+
+
+====================================
+Version 0.0.0.1 - 2017/08/23 by Andi
+====================================
+New Features, Improvements
+--------------------------
+- Changelog added
+
+
+Fixed Bugs, Changes
+-------------------
+- 
+
+
+Known Issues
+------------
+- Fix tbAddr initial value after load, not hex - Fixed
+- Fix memory printout on load, does not start at 0x0 - Fixed
+- Fix load percent, stops at 99%
+
+
+ToDo
+----		
+- Make field for memory size loaded at any given time - Done
+- Add scrollbar to memory text field
+- Create tabbed view for contexts
+- Create textbox validation for addr, time, length and startaddr - Done
+
+
+
+*/

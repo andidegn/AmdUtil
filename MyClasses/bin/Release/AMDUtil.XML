@@ -882,6 +882,117 @@
         <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
             Object array
         </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.DuckSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            DuckSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.DuckSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            AppleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
+            <summary>
+            Interaction logic for Circles.xaml
+            </summary>
+            <summary>
+            CircleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
+            <summary>
+            Interaction logic for CogSpinner.xaml
+            </summary>
+            <summary>
+            CogSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
+            <summary>
+            Interaction logic for PistonSpinner.xaml
+            </summary>
+            <summary>
+            PistonSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
+            <summary>
+            Interaction logic for SomeLoadingAnimation.xaml
+            </summary>
+            <summary>
+            SomeLoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
+            <summary>
+            Interaction logic for SwirlSpinner.xaml
+            </summary>
+            <summary>
+            SwirlSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker2">
+            <summary>
+            Interaction logic for ColorPicker2.xaml
+            </summary>
+            <summary>
+            ColorPicker2
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker2.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPicker2.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:AMD.Util.View.WPF.UserControls.ColorPickerDialog">
             <summary>
             Interaction logic for UserControl1.xaml
@@ -1265,84 +1376,6 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
-            <summary>
-            Interaction logic for AppleSpinner.xaml
-            </summary>
-            <summary>
-            AppleSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
-            <summary>
-            Interaction logic for Circles.xaml
-            </summary>
-            <summary>
-            CircleSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
-            <summary>
-            Interaction logic for CogSpinner.xaml
-            </summary>
-            <summary>
-            CogSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
-            <summary>
-            Interaction logic for PistonSpinner.xaml
-            </summary>
-            <summary>
-            PistonSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
-            <summary>
-            Interaction logic for SomeLoadingAnimation.xaml
-            </summary>
-            <summary>
-            SomeLoadingAnimation
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
-            <summary>
-            Interaction logic for SwirlSpinner.xaml
-            </summary>
-            <summary>
-            SwirlSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter">
             <summary>
             Converts LogMsgType to predefined SolidColorBrush
@@ -1426,6 +1459,16 @@
             The message for the log
             </summary>
         </member>
+        <member name="P:AMD.Util.Log.LogEntry.Source">
+            <summary>
+            The source of the log message
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.StackTrace">
+            <summary>
+            The stack trace of the log source
+            </summary>
+        </member>
         <member name="P:AMD.Util.Log.LogEntry.LogEntryDateTime">
             <summary>
             The complete DateTime of the log entry
@@ -1441,12 +1484,13 @@
             The date of the log entry
             </summary>
         </member>
-        <member name="M:AMD.Util.Log.LogEntry.#ctor(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+        <member name="M:AMD.Util.Log.LogEntry.#ctor(AMD.Util.Log.LogMsgType,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
             <summary>
             Constructor taking a formatted string and a number of parameters to generate a log entry
             </summary>
             <param name="msgType"></param>
             <param name="format"></param>
+            <param name="source"></param>
             <param name="args"></param>
         </member>
         <member name="T:AMD.Util.Log.LogEventArgs">
@@ -1562,6 +1606,15 @@
             Getting the instance of the LogWriter singleton
             </summary>
         </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
         <member name="M:AMD.Util.Log.LogWriter.WriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
@@ -1580,16 +1633,17 @@
             <summary>
             Writes an error description to the log and the full exception
             </summary>
-            <param name="ex"></param>
-            <param name="format"></param>
-            <param name="args"></param>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
         </member>
-        <member name="M:AMD.Util.Log.LogWriter.ComposeAndWriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+        <member name="M:AMD.Util.Log.LogWriter.ComposeAndWriteToLog(AMD.Util.Log.LogMsgType,System.String,System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
-            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
             <param name="args">The arguments corresponding to the formatted String</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.FlushLog">

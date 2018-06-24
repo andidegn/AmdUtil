@@ -84,6 +84,12 @@
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
+    <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
+      <DependentUpon>DuckSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\ColorPicker2.xaml.cs">
+      <DependentUpon>ColorPicker2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\View\WPF\UserControls\ColorPickerDialog.xaml.cs">
       <DependentUpon>ColorPickerDialog.xaml</DependentUpon>
     </Compile>
@@ -246,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Util\View\WPF\Spinners\DuckSpinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\Spinners\AppleSpinner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\ColorPicker2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
