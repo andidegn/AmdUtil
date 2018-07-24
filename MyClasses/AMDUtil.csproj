@@ -35,6 +35,12 @@
     <DocumentationFile>bin\Release\AMDUtil.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>adegn.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
@@ -81,6 +87,7 @@
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
     <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
     <Compile Include="Util\HID\Keyboard.cs" />
+    <Compile Include="Util\Network\NetworkHelper.cs" />
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
@@ -352,6 +359,9 @@
     <EmbeddedResource Include="Util\View\Winforms\IsicAboutForm.resx">
       <DependentUpon>IsicAboutForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="adegn.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

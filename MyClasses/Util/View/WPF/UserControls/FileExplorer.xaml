@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="AMD.Util.View.WPF.UserControls.FileExplorer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             xmlns:vConverter="clr-namespace:AMD.Util.View.WPF.ValueConverters"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+  <UserControl.Resources>
+    <vConverter:BoolToVisibility x:Key="boolToVisibility" />
+    <vConverter:InvertBool x:Key="invertBool" />
+    <local:FileTypeIsDirOrDriveToBool x:Key="fileTypeIsDirOrDriveToBool" />
+    <local:FileTypeToImageConverter x:Key="fileTypeToImageConverter" />
+
+    <SolidColorBrush x:Key="BrushForeground" Color="Black" />
+
+    <ContextMenu x:Key="cmTreeViewItem">
+      <MenuItem Name="ccRenameFile" Header="Rename" InputGestureText="F2" Click="ccRenameFile_Click" />
+      <Separator />
+      <MenuItem Name="ccRefresh" Header="Refresh" InputGestureText="F5" Click="ccRefresh_Click" />
+      <Separator />
+      <MenuItem Name="ccSetRecursiveRoot" Header="Set as Root (Recursive search for files)" InputGestureText="Ctrl+Enter" IsEnabled="{Binding FileType, Converter={StaticResource fileTypeIsDirOrDriveToBool}}" Click="ccSetRecursiveRoot_Click" />
+      <MenuItem Name="ccSetAsRoot" Header="Set as Root" InputGestureText="Shift+Enter" IsEnabled="{Binding FileType, Converter={StaticResource fileTypeIsDirOrDriveToBool}}" Click="ccSetAsRoot_Click" />
+    </ContextMenu>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="30" />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Button Name="btnLevelUp" Grid.Column="0" Style="{x:Null}" Background="Transparent" BorderThickness="0" Width="{Binding ElementName=btnLevelUp, Path=ActualHeight}" Focusable="False" Click="btnLevelUp_Click">
+        <Path Data="m15,12.5 h-5 v-5 h2 l-4,-5 l-4,5 h2 v9 h9 v-4" Width="20" Height="20" StrokeThickness="5" Fill="{DynamicResource BrushForeground}" />
+        <!--<Path Data="m0,9 h5 v-5 h-2 l4,-5 l4,5 h-2 v9 h-9 v-4" StrokeThickness="5" Fill="{DynamicResource BrushForeground}" />-->
+      </Button>
+      <TextBox Name="tbPath" 
+               Grid.Column="1" 
+               TabIndex="100"
+               IsReadOnly="False" 
+               Margin="0" 
+               KeyUp="tbPath_KeyUp" 
+               GotFocus="tbPath_GoToEnd" 
+               SelectionChanged="tbPath_GoToEnd" 
+               TextChanged="tbPath_TextChanged" 
+               PreviewKeyDown="tbPath_PreviewKeyDown" />
+    </Grid>
+    <TreeView Name="tvFileExplorer" 
+              Grid.Row="1" 
+              TabIndex="101"
+              FontFamily="null"
+              Width="Auto"
+              Focusable="False"
+              PreviewKeyDown="tvFileExplorer_PreviewKeyDown"
+              KeyDown="tvFileExplorer_KeyDown">
+      
+              <!--VirtualizingPanel.IsVirtualizing="True"
+              VirtualizingPanel.VirtualizationMode="Recycling"-->
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+          <!--<Setter Property="Visibility" Value="{Binding Visibility, Mode=TwoWay}" />-->
+          <Setter Property="IsSelected" Value="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+          <Setter Property="Tag" Value="{Binding FullPath}" />
+          <Setter Property="ToolTip" Value="{Binding ToolTipString}" />
+          <Setter Property="Foreground" Value="{DynamicResource BrushForeground}" />
+          <Setter Property="Background" Value="Transparent" />
+          <Setter Property="ContextMenu" Value="{StaticResource cmTreeViewItem}" />
+          <Setter Property="HeaderTemplate">
+            <Setter.Value>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <TextBox Text="{Binding}" Margin="0" />
+                  <TextBlock Text="WHASSSUP!!!!" />
+                </StackPanel>
+              </DataTemplate>
+            </Setter.Value>
+          </Setter>
+          <EventSetter Event="Expanded" Handler="tvi_Expanded" />
+          <!--<EventSetter Event="PreviewKeyDown" Handler="TreeViewItem_PreviewKeyDown" />-->
+          <EventSetter Event="KeyUp" Handler="TreeViewItem_KeyUp" />
+          <EventSetter Event="PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown" />
+          <EventSetter Event="MouseLeftButtonDown" Handler="FireMouseLeftButtonDown" />
+          <EventSetter Event="MouseDoubleClick" Handler="FireMouseDoubleClick" />
+          <EventSetter Event="Selected" Handler="TreeViewItem_Selected" />
+        </Style>
+      </TreeView.ItemContainerStyle>
+      <TreeView.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel IsItemsHost="True" />
+        </ItemsPanelTemplate>
+      </TreeView.ItemsPanel>
+      <TreeView.Resources>
+        <Style TargetType="TextBox">
+          <Setter Property="BorderThickness" Value="0" />
+          <Setter Property="Background" Value="Transparent" />
+          <Setter Property="Foreground" Value="{DynamicResource BrushForeground}" />
+          <Setter Property="Margin" Value="0" />
+          <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+      </TreeView.Resources>
+      <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding SubFiles}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="20" />
+              <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <CheckBox Name="chkSelectedForAnalysis" 
+                      Grid.Column="0" 
+                      IsChecked="{Binding IsSelectedForAnalysis}"
+                      Focusable="False"
+                      Visibility="{Binding IsValidForAnalysis, Converter={StaticResource boolToVisibility}}"
+                      Click="chkSelectedForAnalysis_Click"/>
+            <Image Name="img" Grid.Column="1" Width="16" Height="16" Stretch="Fill" Source="{Binding FileType, Converter={StaticResource fileTypeToImageConverter}}" />
+            <TextBox Name="tbTvi"
+                     Grid.Column="2" 
+                     Text="{Binding FileName}" 
+                     Focusable="{Binding ElementName=tbTvi, Path=IsReadOnly, Converter={StaticResource invertBool}}"
+                     IsHitTestVisible="{Binding ElementName=tbTvi, Path=Focusable}"
+                     KeyUp="tbFileName_KeyUp" 
+                     PreviewTextInput="tbTvi_PreviewTextInput"
+                     PreviewLostKeyboardFocus="tbFileName_PreviewLostKeyboardFocus" />
+          </Grid>
+          <!--<TreeViewItem Header="{Binding FileName}" Tag="{Binding FullPath}" />-->
+        </HierarchicalDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView>
+  </Grid>
+</UserControl>

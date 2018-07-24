@@ -28,10 +28,10 @@ namespace AMD.Util.Extensions
 			}
 			else
 			{
-				foreach (byte b in bArr)
-				{
-					sb.AppendFormat("{0:X2}{1}", b, seperator);
-				}
+        for (int i = 0; i < bArr.Length; i++)
+        {
+          sb.AppendFormat("{0:X2}{1}", bArr[i], (i < bArr.Length - 1) ? seperator.ToString() : "");
+        }
 			}
 			return sb.ToString();
 		}
