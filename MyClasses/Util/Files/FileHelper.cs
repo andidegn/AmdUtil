@@ -22,6 +22,16 @@ namespace AMD.Util.Files
       return File.Exists(filePath) && filePath.Length <= MAX_PATH;
     }
 
+    /// <summary>
+    /// Checks if a file path contains any illegal characters
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static bool IsFilePathLegal(String filePath)
+    {
+       return filePath.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
+    }
+
 		public static string GetExecutePath(String fileName)
 		{
 			String path = String.Format(@"c:\Program Files\BurnInTest\{0}", fileName);

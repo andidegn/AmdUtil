@@ -46,6 +46,7 @@ namespace AMD.Util.Serial {
 			if (port == null)
 			{
 				log.WriteToLog(LogMsgType.Error, "Port null");
+        return false;
 			}
 			if (!port.IsOpen)
 			{

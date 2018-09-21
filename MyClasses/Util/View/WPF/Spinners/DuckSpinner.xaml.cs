@@ -1,5 +1,10 @@
-﻿using System.Windows;
+﻿using AMD.Util.HID;
+using AMD.Util.View.WPF.UserControls;
+using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace AMD.Util.View.WPF.Spinners
@@ -27,6 +32,34 @@ namespace AMD.Util.View.WPF.Spinners
     {
       this.DataContext = this;
       InitializeComponent();
+    }
+
+    private void gridWrapper_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+      if (canvasTarget.IsMouseOver)
+      {
+        Point mousePos = e.GetPosition(canvasTarget);
+        BulletHole bh = new BulletHole();
+        bh.Width = bh.Height = 10;
+        Canvas.SetLeft(bh, mousePos.X - bh.Width / 2);
+        Canvas.SetTop(bh, mousePos.Y - bh.Height / 2);
+        canvasTarget.Children.Add(bh);
+      }
+    }
+
+    private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+      if (Modifier.IsAltDown && Modifier.IsCtrlDown && Modifier.IsShiftDown)
+      {
+        if (canvasTarget.Visibility == Visibility.Visible)
+        {
+          canvasTarget.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+          canvasTarget.Visibility = Visibility.Visible;
+        }
+      }
     }
   }
 }

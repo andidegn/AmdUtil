@@ -404,7 +404,7 @@ namespace AMD.Util.Permissions
 		/// <param name = "userName" > Name of the user.</param>
 		/// <param name = "domainName" > Name of the domain.</param>
 		/// <param name = "password" > The password. <see cref = "System.String" /></ param >
-		/// < param name="logonType">Type of the logon.</param>
+		/// <param name="logonType">Type of the logon.</param>
 		/// <param name = "logonProvider" > The logon provider. <see cref = "Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></ param >
 		public Impersonator(string userName, string domainName, string password, LogonType logonType, LogonProvider logonProvider)
 		{

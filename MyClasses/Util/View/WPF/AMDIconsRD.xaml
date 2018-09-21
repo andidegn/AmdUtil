@@ -403,12 +403,12 @@
         </Path.RenderTransform>
       </Path>
 
-      <Path RenderTransformOrigin="0.1215, 0.012" Style="{StaticResource pExclamation1}" Fill="{StaticResource IconFillColorBlack}" >
+      <Path RenderTransformOrigin="0.1215, 0.012" Style="{StaticResource pExclamation1}" Fill="{StaticResource IconFillColorWhite}" >
         <Path.RenderTransform>
           <ScaleTransform ScaleX="{StaticResource ScaleExclamation}" ScaleY="{StaticResource ScaleExclamation}"/>
         </Path.RenderTransform>
       </Path>
-      <Ellipse RenderTransformOrigin="0.1215, 0.165" Style="{StaticResource pExclamation2}" Fill="{StaticResource IconFillColorBlack}" >
+      <Ellipse RenderTransformOrigin="0.1215, 0.165" Style="{StaticResource pExclamation2}" Fill="{StaticResource IconFillColorWhite}" >
         <Ellipse.RenderTransform>
           <ScaleTransform ScaleX="{StaticResource ScaleExclamation}" ScaleY="{StaticResource ScaleExclamation}"/>
         </Ellipse.RenderTransform>

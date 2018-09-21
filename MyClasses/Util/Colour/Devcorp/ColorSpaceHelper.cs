@@ -43,14 +43,14 @@ namespace AMD.Util.Colour.Devcorp
 		{
 			return GetColorDistance(color1[0], color1[1], color1[2], color2[0], color2[1], color2[2]);
 		}
-  
-	
-		/// <summary>
-		/// Gets the "distance" between two colors.
-		/// </summary>
-		/// <param name="color1">First color.</param>
-		/// <param name="color2">Second color.</param>
-		public static double GetColorDistance(Color c1, Color c2)
+
+
+    /// <summary>
+    /// Gets the "distance" between two colors.
+    /// </summary>
+    /// <param name="c1">First color.</param>
+    /// <param name="c2">Second color.</param>
+    public static double GetColorDistance(Color c1, Color c2)
 		{
 			double[] rgb1 = new double[]{
 											(double)c1.R/255.0,

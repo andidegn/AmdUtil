@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.Spinners"
+             MouseDoubleClick="UserControl_MouseDoubleClick"
              mc:Ignorable="d">
   <UserControl.Resources>
     <Storyboard x:Key="Wing">
@@ -898,6 +899,19 @@
         </Path>
 
       </Grid>
+      <!--<Canvas Name="canvasTarget" Width="{Binding ElementName=gridWrapper, Path=ActualWidth, Mode=OneWay}" Height="{Binding ElementName=gridWrapper, Path=ActualHeight, Mode=OneWay}">-->
+      <MediaElement Name="soundShot" LoadedBehavior="Manual" Source="pack://siteoforigin:,,,/Resources/Sounds/PIstol_Shot_Silenced_one_shot_short.mp3" Visibility="Collapsed" />
+      <Canvas Name="canvasTarget" Width="90" Height="90" Margin="20, 60, 0, 0" Visibility="Collapsed" MouseLeftButtonDown="gridWrapper_MouseLeftButtonDown">
+          <Canvas.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=ellipseTarget1}" />
+          </Canvas.OpacityMask>
+          <Ellipse Name="ellipseTarget1" Fill="Red" Width="90" Height="90" Canvas.Left="0" Canvas.Top="0" />
+          <Ellipse Name="ellipseTarget2" Fill="White" Width="70" Height="70" Canvas.Left="10" Canvas.Top="10" />
+          <Ellipse Name="ellipseTarget3" Fill="Red" Width="50" Height="50" Canvas.Left="20" Canvas.Top="20" />
+          <Ellipse Name="ellipseTarget4" Fill="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="30" />
+          <Ellipse Name="ellipseTarget5" Fill="Red" Width="10" Height="10" Canvas.Left="40" Canvas.Top="40" />
+        </Canvas>
+      <!--</Canvas>-->
       <Path Name="pathWaves" HorizontalAlignment="Left" Height="47.715" Margin="2.001,166.949,0,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="353.99" RenderTransformOrigin="0.5,0.5">
         <Path.RenderTransform>
           <TransformGroup>

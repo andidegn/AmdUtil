@@ -661,6 +661,31 @@
             Creates an instance of a YUV structure.
             </summary>
         </member>
+        <member name="M:AMD.Util.DataType.Bit.#ctor">
+            <summary>
+            Empty constructor explicite to make XmlSerializer work
+            </summary>
+        </member>
+        <member name="M:AMD.Util.DataType.C_Variable.GetRangeWords(System.Collections.Generic.Dictionary{System.UInt32,System.Collections.Generic.SortedDictionary{System.Int64,System.UInt32}},System.UInt32,System.UInt32,System.Int64)">
+            <summary>
+            Gets a range of data. Non-accessed data is represented with null
+            </summary>
+            <param name="memory"></param>
+            <param name="startAddr"></param>
+            <param name="length">Length in bytes</param>
+            <param name="timeInNS"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.DataType.C_Variable.TryGet(System.Collections.Generic.Dictionary{System.UInt32,System.Collections.Generic.SortedDictionary{System.Int64,System.UInt32}},System.UInt32@,System.UInt32,System.Int64)">
+            <summary>
+            TryGet for trying to get value at specific time and address
+            </summary>
+            <param name="memory"></param>
+            <param name="value"></param>
+            <param name="addr"></param>
+            <param name="timeInNS"></param>
+            <returns></returns>
+        </member>
         <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[])">
             <summary>
             Gets a formatted memory string from a word array
@@ -782,6 +807,13 @@
             </summary>
             <param name="s"></param>
             <param name="toExclude"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
+            <summary>
+            Checks if the path is too long, if file exists and if path is null
+            </summary>
+            <param name="filePath"></param>
             <returns></returns>
         </member>
         <member name="T:AMD.Util.HID.KeyboardHook">
@@ -973,6 +1005,19 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.BulletHole">
+            <summary>
+            Interaction logic for BulletHole.xaml
+            </summary>
+            <summary>
+            BulletHole
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.BulletHole.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker2">
             <summary>
             Interaction logic for ColorPicker2.xaml
@@ -1029,6 +1074,47 @@
             <param name="args">The arguments of the progress</param>
         </member>
         <member name="M:AMD.Util.View.WPF.UserControls.ColorPicker.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer">
+            <summary>
+            Interaction logic for FileExplorerView.xaml
+            </summary>
+            <summary>
+            FileExplorer
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.TviMouseLeftButtonDown">
+            <summary>
+            Eventhandler for TreeViewItem double click
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.TviMouseDoubleClick">
+            <summary>
+            Eventhandler for TreeViewItem double click
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.EnterKeyUp">
+            <summary>
+            Eventhandler for Enter Key up
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.AppendFile">
+            <summary>
+            Eventhandler for Append File
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.FileExplorer.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1399,13 +1485,6 @@
             <param name="targetType"></param>
             <param name="parameter"></param>
             <param name="culture"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
-            <summary>
-            Checks if the path is too long, if file exists and if path is null
-            </summary>
-            <param name="filePath"></param>
             <returns></returns>
         </member>
         <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.AttachedToDesktop">

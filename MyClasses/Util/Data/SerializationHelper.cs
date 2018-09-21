@@ -13,11 +13,11 @@ namespace AMD.Util.Data
     public static object Clone(object toBeCloned, Type[] includedTypes)
     {
       return Deserialize(Serialize(toBeCloned, includedTypes), toBeCloned.GetType(), includedTypes);
-      XmlSerializer xml = new XmlSerializer(toBeCloned.GetType(), includedTypes);
-      MemoryStream ms = Serialize(toBeCloned, includedTypes);
-      object obj = xml.Deserialize(ms);
-      ms.Close();
-      return obj;
+      //XmlSerializer xml = new XmlSerializer(toBeCloned.GetType(), includedTypes);
+      //MemoryStream ms = Serialize(toBeCloned, includedTypes);
+      //object obj = xml.Deserialize(ms);
+      //ms.Close();
+      //return obj;
     }
 
     public static MemoryStream Serialize(object toBeSerialized, Type[] includedTypes)

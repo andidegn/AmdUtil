@@ -29,6 +29,7 @@ namespace AMD.Util.Collections.QueueArray.Tests
       stack.Push(5);
     }
 
+    [Fact()]
     public void testPush()
     {
       Assert.Equal(5, stack.Count);
@@ -47,6 +48,7 @@ namespace AMD.Util.Collections.QueueArray.Tests
       Assert.Equal(1, (int)stack.Pop());
     }
 
+    [Fact()]
     public void testPop()
     {
       Assert.Equal(5, (int)stack.Pop());
@@ -57,6 +59,7 @@ namespace AMD.Util.Collections.QueueArray.Tests
       Assert.Equal(0, stack.Count);
     }
 
+    [Fact()]
     public void testPeek()
     {
       Assert.Equal(5, (int)stack.Peek());
@@ -66,6 +69,7 @@ namespace AMD.Util.Collections.QueueArray.Tests
       Assert.Equal(5, (int)stack.Peek());
     }
 
+    [Fact()]
     public void testIsEmpty()
     {
       Assert.False(stack.IsEmpty());
@@ -83,6 +87,7 @@ namespace AMD.Util.Collections.QueueArray.Tests
       Assert.Equal(true, stack.IsEmpty());
     }
 
+    [Fact()]
     public void testSize()
     {
       Assert.Equal(5, stack.Count);

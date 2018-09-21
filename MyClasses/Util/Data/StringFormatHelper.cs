@@ -93,7 +93,61 @@ namespace AMD.Util.Data
       }
       return sb.ToString();
     }
+    
+    public static String GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian = true)
+    {
+      StringBuilder sb = new StringBuilder();
+      if (showAsWord)
+      {
+        UInt32 tmp = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+          int byteNo = i % 4;
+          int bitShift = 8 * (littleEndian ? byteNo : 3 - byteNo);
+          tmp |= (UInt32)(arr[i] << bitShift);
+          if (byteNo == 3 || i == arr.Length - 1)
+          {
+            sb.AppendFormat("{0}{1}", tmp.ToString("X8"), i % 31 == 0 ? "\n" : " ");
+            tmp = 0;
+          }
+        }
+      }
+      else
+      {
+        for (int i = 0; i < arr.Length; i++)
+        {
+          sb.AppendFormat("{0}{1}", arr[i].ToString("X2"), (i + 1) % 16 == 0 ? "\n" : " ");
+        }
+      }
+      return sb.ToString();
+    }
 
+    public static String GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian = true)
+    {
+      StringBuilder sb = new StringBuilder();
+      if (showAsByte)
+      {
+        for (int i = 0; i < arr.Length; i++)
+        {
+          for (int j = 3; j >= 0; j--)
+          {
+            sb.AppendFormat("{0} ", ((arr[i] >> 8 * (littleEndian ? 3 - j : j)) & 0xFF).ToString("X2"));
+          }
+          if (i < arr.Length - 1 && (i + 1) % 4 == 0)
+          {
+            sb.AppendLine();
+          }
+        }
+      }
+      else
+      {
+        for (int i = 0; i < arr.Length; i++)
+        {
+          sb.AppendFormat("{0}{1}", arr[i].ToString("X8"), (i + 1) % 8 == 0 ? "\n" : " ");
+        }
+      }
+      return sb.ToString();
+    }
     private static void AlignAddressAndData(ref UInt32?[] data, ref UInt32 addr)
     {
       if (addr % 0x10 != 0)
