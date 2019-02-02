@@ -65,6 +65,39 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    public Brush MainBackground
+    {
+      get
+      {
+        return statusBar.Background;
+      }
+      set
+      {
+        statusBar.Background = value;
+      }
+    }
+
+    public bool ProgressBarVisible
+    {
+      get
+      {
+        return sbProgress.Visibility == Visibility.Visible;
+      }
+      set
+      {
+        if (value)
+        {
+          sbProgress.Visibility = Visibility.Visible;
+          Grid.SetColumnSpan(sbiInfo, 1);
+        }
+        else
+        {
+          sbProgress.Visibility = Visibility.Hidden;
+          Grid.SetColumnSpan(sbiInfo, 2);
+        }
+      }
+    }
+
     public StatusBar()
     {
       InitializeComponent();

@@ -178,8 +178,8 @@
             <summary>
             Gets the "distance" between two colors.
             </summary>
-            <param name="color1">First color.</param>
-            <param name="color2">Second color.</param>
+            <param name="c1">First color.</param>
+            <param name="c2">Second color.</param>
         </member>
         <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetWheelColors(System.Int32)">
             <summary>
@@ -686,6 +686,20 @@
             <param name="timeInNS"></param>
             <returns></returns>
         </member>
+        <member name="T:AMD.Util.DataType.C_VariableListContexts.CollectionChangedHandler">
+            <summary>
+            Eventhandler for finished programming
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments</param>
+        </member>
+        <member name="T:AMD.Util.DataType.C_VariableListTypes.CollectionChangedHandler">
+            <summary>
+            Eventhandler for finished programming
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments</param>
+        </member>
         <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[])">
             <summary>
             Gets a formatted memory string from a word array
@@ -812,6 +826,13 @@
         <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
             <summary>
             Checks if the path is too long, if file exists and if path is null
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.IsFilePathLegal(System.String)">
+            <summary>
+            Checks if a file path contains any illegal characters
             </summary>
             <param name="filePath"></param>
             <returns></returns>

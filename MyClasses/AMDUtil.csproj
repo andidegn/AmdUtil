@@ -101,6 +101,7 @@
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
+    <Compile Include="Util\View\WPF\IconCollection.cs" />
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
     </Compile>

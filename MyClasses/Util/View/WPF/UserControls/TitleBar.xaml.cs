@@ -119,6 +119,18 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    public Brush MainBackground
+    {
+      get
+      {
+        return titleBar.Background;
+      }
+      set
+      {
+        titleBar.Background = value;
+      }
+    }
+
     #region Private Variables
     private Window parentWindow;
     private double mousePositionYStart;
