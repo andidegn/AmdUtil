@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="AMD.Util.View.WPF.UserControls.TearableTabDropDetector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             Background="Transparent"
+             d:DesignHeight="300" 
+             d:DesignWidth="300"
+             AllowDrop="True">
+  <UserControl.Resources>
+    <Style TargetType="Grid" x:Key="gridHighlightTemplate">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="Background" Value="{Binding HightlightColor}" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Setter Property="ShowGridLines" Value="True" />
+      <!--<Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="{Binding HightlightColor}" />
+        </Trigger>
+      </Style.Triggers>-->
+    </Style>
+  </UserControl.Resources>
+  <Grid Name="gridOuter">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid Name="gridContent" 
+          Background="Red" 
+          AllowDrop="True" 
+          DragOver="gridContent_DragOver" 
+          DragLeave="gridContent_DragLeave">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <local:TearableTabControl x:Name="tcMain" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+      <Grid Name="gridTop" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource gridHighlightTemplate}" />
+      <Grid Name="gridBottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource gridHighlightTemplate}" />
+      <Grid Name="gridLeft" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource gridHighlightTemplate}" />
+      <Grid Name="gridRight" Background="Red" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource gridHighlightTemplate}" />
+    </Grid>
+  </Grid>
+</UserControl>

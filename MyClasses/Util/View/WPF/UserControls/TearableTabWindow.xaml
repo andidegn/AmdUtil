@@ -1,0 +1,47 @@
+﻿<Window x:Class="AMD.Util.View.WPF.UserControls.TearableTabWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+        xmlns:UserControls="clr-namespace:AMD.Util.View.WPF.UserControls"
+        mc:Ignorable="d" 
+        d:DesignWidth="300"
+        d:DesignHeight="300"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        ShowInTaskbar="True"
+        SizeChanged="Window_SizeChanged"
+        AllowDrop="True"
+        Closing="Window_Closing">
+  <Window.Resources>
+    <Style TargetType="TabItem" BasedOn="{StaticResource TabItemStyle}">
+      <Setter Property="Background" Value="Red" />
+      <Setter Property="AllowDrop" Value="True"/>
+      <EventSetter Event="PreviewMouseLeftButtonDown" Handler="TabItem_PreviewMouseLeftButtonDown" />
+      <EventSetter Event="PreviewMouseLeftButtonUp" Handler="TabItem_PreviewMouseLeftButtonUp" />
+      <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
+      <EventSetter Event="DragEnter" Handler="TabItem_DragEnter" />
+      <EventSetter Event="DragLeave" Handler="TabItem_DragLeave" />
+      <EventSetter Event="Drop" Handler="TabItem_Drop"/>
+    </Style>
+    <Style TargetType="TabControl">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <EventSetter Event="Drop" Handler="TabControl_Drop"/>
+      <EventSetter Event="DragOver" Handler="DragOverHandler" />
+    </Style>
+  </Window.Resources>
+  <Border Background="{DynamicResource BrushMainBackground}" CornerRadius="5">
+    <Grid Name="Wrapper">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="20" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <UserControls:TitleBar x:Name="titleBar" ButtonType="Apple" WindowStyle="ThreeDBorderWindow" />
+      <TabControl Name="tcMain" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" />
+      <UserControls:ResizeThumb Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+    </Grid>
+  </Border>
+</Window>

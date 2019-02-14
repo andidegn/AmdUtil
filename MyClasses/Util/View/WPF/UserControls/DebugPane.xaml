@@ -141,7 +141,7 @@
         <ToggleButton Name="tbException" Grid.Row="1" IsChecked="True" Click="tbException_Click" />
       </Grid>
     </StackPanel>
-    <ListView Name="lvLog" Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+    <ListView Name="lvLog" Grid.Row="1" Background="Transparent" BorderThickness="0" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
       <ListView.ItemContainerStyle>
         <Style TargetType="ListViewItem">
           <Setter Property="BorderThickness" Value="0"/>
@@ -157,11 +157,70 @@
               <!--<Setter Property="Background" Value="#FF5080FF" />-->
               <Setter Property="Template">
                 <Setter.Value>
-                  <ControlTemplate TargetType="{x:Type ListViewItem}">
+                  <!--<ControlTemplate TargetType="{x:Type ListViewItem}">
                     <Border BorderBrush="Transparent" BorderThickness="0" Background="#20FFFFFF" Margin="1">
                       <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
                     </Border>
+                  </ControlTemplate>-->
+
+
+
+                  <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border CornerRadius="2" SnapsToDevicePixels="True"  
+                                BorderThickness="{TemplateBinding BorderThickness}"   
+                                BorderBrush="{TemplateBinding BorderBrush}"   
+                                Background="{TemplateBinding Background}">
+                      <Border Name="InnerBorder" CornerRadius="1" BorderThickness="1">
+                        <Grid>
+                          <Grid.RowDefinitions>
+                            <RowDefinition MaxHeight="11" />
+                            <RowDefinition />
+                          </Grid.RowDefinitions>
+
+                          <Rectangle Name="UpperHighlight" Visibility="Collapsed" Fill="#75FFFFFF" />
+                          <GridViewRowPresenter Grid.RowSpan="2"   
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                      </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#20FFFFFF" />
+                        <Setter Property="BorderBrush" Value="#FFCCF0FF" />
+                        <Setter TargetName="UpperHighlight" Property="Visibility" Value="Collapsed" />
+                      </Trigger>
+                      <!--<Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ListItemSelectedFill}" />
+                                <Setter Property="BorderBrush" Value="#FF98DDFB" />
+                                <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#80FFFFFF" />
+                                <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="UpperHighlight" Property="Fill" Value="#40FFFFFF" />
+                            </Trigger>-->
+                      <!--<MultiTrigger> 
+                <MultiTrigger.Conditions> 
+                    <Condition Property="IsSelected" Value="True" /> 
+                    <Condition Property="Selector.IsSelectionActive" Value="False" /> 
+                </MultiTrigger.Conditions> 
+                <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}" /> 
+                <Setter Property="BorderBrush" Value="#FFCFCFCF" /> 
+            </MultiTrigger>-->
+                      <!--<MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" Value="{StaticResource ListItemSelectedHoverFill}" />
+                                <Setter Property="BorderBrush" Value="#FF98DDFB" />
+                            </MultiTrigger>-->
+                      <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                      </Trigger>
+                    </ControlTemplate.Triggers>
                   </ControlTemplate>
+
+
+
                 </Setter.Value>
               </Setter>
             </Trigger>
@@ -214,7 +273,8 @@
           <GridViewColumn x:Name="col0" Width="50">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
-                <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource lviIndexToString}}" Foreground="White" />
+                <TextBlock Text="{Binding LogIndex}" Foreground="White" />
+                <!--<TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource lviIndexToString}}" Foreground="White" />-->
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>

@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfUITest"
         xmlns:spinners="clr-namespace:AMD.Util.View.WPF.Spinners;assembly=AMDUtil"
-        xmlns:usercontrols ="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
+        xmlns:usercontrols="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
         mc:Ignorable="d" 
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="600" Width="525">
+        KeyUp="Window_KeyUp"
+        Title="MainWindow" 
+        Height="600" 
+        Width="525"
+        MinWidth="640">
   <Window.Resources>
     <SolidColorBrush x:Key="BrushForeground" Color="White" />
     <LinearGradientBrush x:Key="brush1">
@@ -19,8 +23,9 @@
       <GradientStop Color="Black" Offset="1" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="brush" Color="#FF4D75FF"></SolidColorBrush>
-    <Style TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
 
+    <Style TargetType="usercontrols:TearableTabItem" BasedOn="{StaticResource StyleTearableTabItemBase}">
+      <Setter Property="Closeable" Value="{Binding ElementName=tbCloseableTabs, Path=IsChecked}" />
     </Style>
   </Window.Resources>
   <Grid>
@@ -28,11 +33,11 @@
       <RowDefinition />
     </Grid.RowDefinitions>
     <Grid Name="top" Grid.Row="0">
-      <TabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >
-        <TabItem Name="tabColorPicker" Header="ColorPicker" Foreground="{DynamicResource BrushForeground}">
+      <usercontrols:TearableTabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >
+        <usercontrols:TearableTabItem Name="tabColorPicker" Header="ColorPicker" Foreground="{DynamicResource BrushForeground}">
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition />
+              <ColumnDefinition MinWidth="500" />
               <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -41,10 +46,153 @@
             </Grid.RowDefinitions>
             <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" />
             <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" SelectedBrushChanged="ColorPicker_BrushChanged" />
-            <StackPanel Grid.Column="1" Orientation="Vertical">
+            <StackPanel Grid.Column="1" Orientation="Vertical" MinWidth="120">
               <Button Name="btnColorPickerDialogTest" Content="Dialog" Click="btnColorPickerDialogTest_Click" />
               <!--<Button Name="btnTestTabBackgroundBinding" Content="Background binding" Click="btnTestTabBackgroundBinding_Click" />-->
               <Button Name="btnTestException" Content="Exception Test" Click="btnTestException_Click" />
+              <Button Name="btnLogBurst" Content="Start Log Burst" Click="btnLogBurst_Click" />
+            </StackPanel>
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="Spinners WhiteBg" >
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Viewbox Stretch="Uniform" Grid.Column="0" Margin="5">
+              <spinners:AppleSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="1" Margin="5">
+              <spinners:CircleSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="2" Margin="5">
+              <spinners:CogSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="3" Margin="5">
+              <spinners:PistonSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="4" Margin="5">
+              <spinners:SwirlSpinner HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="5" Margin="5">
+              <spinners:SomeLoadingAnimation HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <spinners:DuckSpinner Grid.Column="6" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="Spinners BlackBg">
+          <Grid Background="Black">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Viewbox Stretch="Uniform" Grid.Column="0" Margin="5">
+              <spinners:AppleSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="1" Margin="5">
+              <spinners:CircleSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="2" Margin="5">
+              <spinners:CogSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="3" Margin="5">
+              <spinners:PistonSpinner Fill="{StaticResource brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="4" Margin="5">
+              <spinners:SwirlSpinner HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="5" Margin="5">
+              <spinners:SomeLoadingAnimation HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Viewbox>
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="RichTextBox">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition />
+            </Grid.RowDefinitions>
+            <usercontrols:RichTextBoxRibbon Name="editRibbon" Grid.Row="0" EditRichTextBox="{Binding ElementName=rtb, Path=AcceptsReturn}" />
+            <RichTextBox x:Name="rtb" Grid.Row="1" />
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="Note">
+          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Control Template="{StaticResource ctYellowNote}" />
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="Duck!!!!!">
+          <spinners:DuckSpinner HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Name="ttiFileExplorer" Header="File Explorer">
+          <usercontrols:FileExplorer />
+        </usercontrols:TearableTabItem>
+        <!--<usercontrols:TearableTabItem Header="About">
+          <usercontrols:About Name="about" />
+        </usercontrols:TearableTabItem>-->
+        <usercontrols:TearableTabItem Name="ttiTabControl" 
+                                      Header="Tearable Tab Control" >
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="25" />
+              <RowDefinition />
+              <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+              <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                  <Setter Property="MinWidth" Value="150" />
+                </Style>
+              </StackPanel.Resources>
+              <Button Name="btnNewTabTest" Content="New Tab" Click="btnNewTabTest_Click" />
+              <Button Name="btnNewWindowTabTest" Content="New Tab Window" Click="btnNewWindowTabTest_Click" />
+              <Button Name="btnClearAllTabs" Content="Clear All" Click="btnClearAllTabs_Click" />
+              <ToggleButton Name="tbCloseableTabs" Style="{StaticResource ToggleSwitchStyleNoTextLight}" />
+            </StackPanel>
+            <usercontrols:TearableTabControl Name="ttcTestFirst" Grid.Row="1" Grid.Column="0" />
+            <usercontrols:TearableTabControl Name="ttcTestSecond" Grid.Row="1" Grid.Column="1" />
+            <usercontrols:TearableTabControl Name="ttcTestThird" Grid.Row="2" Grid.Column="0" />
+            <usercontrols:TearableTabControl Name="ttcTestFourth" Grid.Row="2" Grid.Column="1" />
+
+
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="Splitable Tearable Tab">
+          <usercontrols:TearableTabDropDetector />
+        </usercontrols:TearableTabItem>
+      </usercontrols:TearableTabControl>
+      <!--<TabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >
+
+        <TabItem Name="tabColorPicker" Header="ColorPicker" Foreground="{DynamicResource BrushForeground}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition MinWidth="500" />
+              <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition />
+              <RowDefinition />
+            </Grid.RowDefinitions>
+            <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" />
+            <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" SelectedBrushChanged="ColorPicker_BrushChanged" />
+            <StackPanel Grid.Column="1" Orientation="Vertical" MinWidth="120">
+              <Button Name="btnColorPickerDialogTest" Content="Dialog" Click="btnColorPickerDialogTest_Click" />
+              <Button Name="btnTestException" Content="Exception Test" Click="btnTestException_Click" />
+              <Button Name="btnLogBurst" Content="Start Log Burst" Click="btnLogBurst_Click" />
             </StackPanel>
           </Grid>
         </TabItem>
@@ -128,10 +276,10 @@
         <TabItem Header="Duck!!!!!">
           <spinners:DuckSpinner HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </TabItem>
-        <!--<TabItem Header="About">
-          <usercontrols:About Name="about" />
-        </TabItem>-->
-      </TabControl>
+        <TabItem Header="File Explorer">
+          <usercontrols:FileExplorer />
+        </TabItem>
+      </TabControl>-->
     </Grid>
   </Grid>
 </Window>

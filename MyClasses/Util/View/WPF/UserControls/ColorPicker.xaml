@@ -176,13 +176,13 @@
         <Border BorderBrush="#FF555555" BorderThickness="1">-->
           <Canvas Name="canvasColorSaturation" Grid.Row="2" ClipToBounds="True" Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}" VerticalAlignment="Top">
             <Rectangle Name="rectColorSaturation" 
-                   SnapsToDevicePixels="True"
-                   Fill="{StaticResource BrushColorSaturation}" 
-                   Width="{Binding ElementName=canvasColorSaturation, Path=ActualWidth}"
-                   Height="{Binding ElementName=canvasColorSaturation, Path=ActualHeight}"
-                   MouseLeftButtonDown="rectColorSaturation_MouseLeftButtonDown" 
-                   MouseLeftButtonUp="rectColorSaturation_MouseLeftButtonUp" 
-                   MouseMove="rectColorSaturation_MouseMove" />
+                       SnapsToDevicePixels="True"
+                       Fill="{StaticResource BrushColorSaturation}" 
+                       Width="{Binding ElementName=canvasColorSaturation, Path=ActualWidth}"
+                       Height="{Binding ElementName=canvasColorSaturation, Path=ActualHeight}"
+                       MouseLeftButtonDown="rectColorSaturation_MouseLeftButtonDown" 
+                       MouseLeftButtonUp="rectColorSaturation_MouseLeftButtonUp" 
+                       MouseMove="rectColorSaturation_MouseMove" />
             <Ellipse Name="ellipseColorSelector" 
                      Height="9" 
                      Width="9" 

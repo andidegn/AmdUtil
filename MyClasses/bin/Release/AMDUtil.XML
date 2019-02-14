@@ -935,6 +935,38 @@
         <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
             Object array
         </member>
+        <member name="T:AMD.Util.View.WPF.Helper.TabHelper">
+            <summary>
+            Helper class for tab control and tab item
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.TabHelper.AdjustTabItemWidth(System.Windows.Controls.ItemCollection)">
+            <summary>
+            Function which adjusts the width of the tabs in an ItemCollection
+            </summary>
+            <param name="ic"></param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Helper.VisualHelper">
+            <summary>
+            Helper class for visual properties in WPF
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.VisualHelper.GetChildDependencyObjectFromVisualTree(System.Windows.DependencyObject,System.Type)">
+            <summary>
+            Gets the child of the startObject of a certian type 
+            </summary>
+            <param name="startObject"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.VisualHelper.GetChildDependencyObjectFromVisualTree(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Gets the child of the startObject with a specific name
+            </summary>
+            <param name="startObject"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="T:AMD.Util.View.WPF.Spinners.DuckSpinner">
             <summary>
             Interaction logic for AppleSpinner.xaml
@@ -1025,6 +1057,21 @@
             <summary>
             InitializeComponent
             </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TabControlAdorner.#ctor(System.Windows.UIElement,System.Windows.UIElement,System.Double)">
+            <summary>
+            Initializes a new instance of DragVisualAdorner.
+            </summary>
+            <param name="adornedElement">The element being adorned.</param>
+            <param name="size">The size of the adorner.</param>
+            <param name="brush">A brush to with which to paint the adorner.</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TabControlAdorner.GetDesiredTransform(System.Windows.Media.GeneralTransform)">
+            <summary>
+            Override.
+            </summary>
+            <param name="transform"></param>
+            <returns></returns>
         </member>
         <member name="T:AMD.Util.View.WPF.UserControls.BulletHole">
             <summary>
@@ -1149,6 +1196,19 @@
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabWindow">
+            <summary>
+            Interaction logic for TearableTab.xaml
+            </summary>
+            <summary>
+            TearableTabWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1508,6 +1568,28 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
+        <member name="T:AMD.Util.Cast`1">
+            <summary>
+            Cast helper
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AMD.Util.Cast`1.DirectCastTo``1(System.Object)">
+            <summary>
+            Directly casts the input the type of T
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Cast`1.ConvertTo``1(System.Object)">
+            <summary>
+            Converts input to the type of T
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.AttachedToDesktop">
             <summary>The device is part of the desktop.</summary>
         </member>
@@ -1584,7 +1666,7 @@
             The date of the log entry
             </summary>
         </member>
-        <member name="M:AMD.Util.Log.LogEntry.#ctor(AMD.Util.Log.LogMsgType,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
+        <member name="M:AMD.Util.Log.LogEntry.#ctor(System.Int64,AMD.Util.Log.LogMsgType,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
             <summary>
             Constructor taking a formatted string and a number of parameters to generate a log entry
             </summary>
@@ -1624,9 +1706,9 @@
             Date codes the log file. Every log entry created the same date is stored in the same file. A new file is created every day
             </summary>
         </member>
-        <member name="F:AMD.Util.Log.LogType.DateTimeCoded">
+        <member name="F:AMD.Util.Log.LogType.DateTimeAtStartCoded">
             <summary>
-            Date and time codes the log file. A new log file is created every second
+            Date and time coded from the initial time the log is instantiated
             </summary>
         </member>
         <member name="T:AMD.Util.Log.LogWriter">
@@ -1737,6 +1819,23 @@
             <param name="format">The message to write to the log</param>
             <param name="args">The arguments corresponding to the formatted String</param>
         </member>
+        <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+            <param name="source"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
         <member name="M:AMD.Util.Log.LogWriter.ComposeAndWriteToLog(AMD.Util.Log.LogMsgType,System.String,System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
@@ -1746,7 +1845,7 @@
             <param name="source">The source of the message</param>
             <param name="args">The arguments corresponding to the formatted String</param>
         </member>
-        <member name="M:AMD.Util.Log.LogWriter.FlushLog">
+        <member name="M:AMD.Util.Log.LogWriter.Flush">
             <summary>
             Flushes the Queue to the physical log file
             </summary>

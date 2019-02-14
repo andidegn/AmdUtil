@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AMD.Util.HID
@@ -30,7 +30,7 @@ namespace AMD.Util.HID
 
 		public static bool IsOver(Control sender, String name)
 		{
-			return (sender.Template.FindName(name, sender) as Control).IsMouseOver;
+			return (sender.Template.FindName(name, sender) as UIElement).IsMouseOver;
 		}
 
 		public static bool IsOver(Control sender, Control isOver)

@@ -297,7 +297,7 @@ namespace AMD.Util.View.WPF.UserControls
       }
       if (moving && parentWindow.WindowState == WindowState.Normal)
       {
-        System.Drawing.Point mousePosition = MouseUtil.GetMousePosition();
+        Point mousePosition = MouseUtil.GetMousePosition();
         List<ScreenInfo> screens = ScreenUtil.AllScreens;
         foreach (ScreenInfo siItem in screens)
         {
@@ -317,7 +317,7 @@ namespace AMD.Util.View.WPF.UserControls
         Mouse.LeftButton == MouseButtonState.Pressed &&
         parentWindow.WindowState == WindowState.Maximized)
       {
-        System.Drawing.Point mousePosition = MouseUtil.GetMousePosition();
+        Point mousePosition = MouseUtil.GetMousePosition();
         double delta = mousePositionYStart - mousePosition.Y;
         if (delta < -5)
         {

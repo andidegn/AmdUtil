@@ -1,13 +1,21 @@
 ﻿using AMD.Util.Colour;
 using AMD.Util.Data;
+using AMD.Util.HID;
 using AMD.Util.Log;
 using AMD.Util.Versioning;
+using AMD.Util.View.WPF.Helper;
 using AMD.Util.View.WPF.UserControls;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using WpfUITest.Properties;
 
@@ -19,10 +27,134 @@ namespace WpfUITest
   public partial class MainWindow : Window
   {
     private LogWriter log;
+    private DebugPanel dp;
+
     public MainWindow()
     {
       InitializeComponent();
       editRibbon.EditRichTextBox = rtb;
+    }
+    String GetRandomLoremIpsum()
+    {
+      return LoremIpsum(5, 10, 1, 2, 1);
+    }
+
+    string LoremIpsum(int minWords, int maxWords, int minSentences, int maxSentences, int numParagraphs)
+    {
+
+      var words = new[]{"lorem", "ipsum", "dolor", "sit", "amet", "consectetuer",
+        "adipiscing", "elit", "sed", "diam", "nonummy", "nibh", "euismod",
+        "tincidunt", "ut", "laoreet", "dolore", "magna", "aliquam", "erat"};
+
+      var rand = new Random();
+      int numSentences = rand.Next(maxSentences - minSentences)
+          + minSentences + 1;
+      int numWords = rand.Next(maxWords - minWords) + minWords + 1;
+
+      StringBuilder result = new StringBuilder();
+
+      for (int p = 0; p < numParagraphs; p++)
+      {
+        result.Append("<p>");
+        for (int s = 0; s < numSentences; s++)
+        {
+          for (int w = 0; w < numWords; w++)
+          {
+            if (w > 0) { result.Append(" "); }
+            result.Append(words[rand.Next(words.Length)]);
+          }
+          result.Append(". ");
+        }
+        result.Append("</p>");
+      }
+
+      return result.ToString();
+    }
+
+    private void StartLogBurst()
+    {
+      BackgroundWorker bw = new BackgroundWorker();
+      bw.DoWork += (s, e) =>
+      {
+
+        int i = 0;
+        int r;
+        Random rand = new Random();
+
+
+        Enumerable.Range(0, 10000).ToList().ForEach(x =>
+        {
+          r = rand.Next(0, 10);
+          log.WriteToLog((LogMsgType)r, "LogSniffer test #{0}, {1}", i++, GetRandomLoremIpsum());
+          if (i % 1000 == 0)
+          {
+            Console.WriteLine("progress: {0}", i);
+          }
+          Thread.Sleep(new TimeSpan(0, 0, 0, 0, 0));
+        });
+        //Console.WriteLine("Press key to start");
+        //Console.ReadKey();
+
+
+        while (true)
+        {
+          r = rand.Next(0, 10);
+          Console.WriteLine("Printing log type: {0}, value: {1}", Enum.GetName(typeof(LogMsgType), r), i);
+          log.WriteToLog((LogMsgType)r, "LogSniffer test #{0}, {1}", i++, GetRandomLoremIpsum());
+          Thread.Sleep(0);
+        }
+      };
+      bw.RunWorkerAsync();
+    }
+
+    private void CreateNewTabWindow()
+    {
+      TearableTabItemWindow ttiw = new TearableTabItemWindow(tabControlCount++);
+      tabWindows.Add(ttiw);
+      ttiw.Show();
+    }
+
+    private void CreateNewRandomTab()
+    {
+      Random r = new Random();
+      String name = String.Format("{0} test tab", tabCount++);
+      for (int i = 0; i < 1; i++)
+      {
+        TearableTabItem tti = new TearableTabItem()
+        {
+          Header = name,
+          Content = new TextBlock()
+          {
+            Text = name
+          },
+          Background = GetRandomBrush(10, 240)
+        };
+        int tabControlIndex = r.Next(4 + tabWindows.Count);
+        switch (tabControlIndex)
+        {
+          case 0:
+            ttcTestFirst.Items.Add(tti);
+            break;
+          case 1:
+            ttcTestSecond.Items.Add(tti);
+            break;
+          case 2:
+            ttcTestThird.Items.Add(tti);
+            break;
+          case 3:
+            ttcTestFourth.Items.Add(tti);
+            break;
+          default:
+            tabWindows[tabControlIndex - 4].Items.Add(tti);
+            break;
+        }
+      }
+    }
+
+    private SolidColorBrush GetRandomBrush(byte min, byte max)
+    {
+      Random r = new Random();
+      return new SolidColorBrush(Color.FromRgb((byte)r.Next(min, max), (byte)r.Next(min, max), (byte)r.Next(min, max)));
     }
 
     private void ColorPicker_BrushChanged(object sender, BrushChangedEventArgs args)
@@ -30,8 +162,8 @@ namespace WpfUITest
       StackTrace st = new StackTrace();
       log.WriteToLog(st.GetFrame(1).GetMethod().Name, LogMsgType.Notification, "This is a test: \"{0}\"", "test2");
       return;
-      tabColorPicker.Background = args.SelectedBrush;
-      tabColorPicker.UpdateLayout();
+      //tabColorPicker.Background = args.SelectedBrush;
+      //tabColorPicker.UpdateLayout();
     }
 
     private void btnTestTabBackgroundBinding_Click(object sender, RoutedEventArgs e)
@@ -59,13 +191,39 @@ namespace WpfUITest
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-      DebugPanel dp = new DebugPanel(this, log, 500);
+      dp = new DebugPanel(this, log, 500);
       StackTrace st = new StackTrace();
       log = LogWriter.Instance;
       log.WriteToLog(LogMsgType.Notification, st.GetFrame(1).GetMethod().Name, "This is a test: {0}", "Test1");
-      dp.Show();
+      dp.KeyUp += Window_KeyUp;
+      CreateNewTabWindow();
 
       //ShowAboutModal();
+    }
+
+    private void Window_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (Modifier.IsCtrlDown)
+      {
+        switch (e.Key)
+        {
+          case Key.D:
+            dp.Toggle();
+            break;
+          case Key.N:
+            if (Modifier.IsShiftDown)
+            {
+              CreateNewTabWindow();
+            }
+            else
+            {
+              CreateNewRandomTab();
+            }
+            break;
+          default:
+            break;
+        }
+      }
     }
 
     #region About Modal
@@ -130,6 +288,45 @@ namespace WpfUITest
       {
         log.WriteToLog(ex);
         log.WriteToLog(ex, "Testing exception");
+      }
+    }
+
+    private void btnLogBurst_Click(object sender, RoutedEventArgs e)
+    {
+      StartLogBurst();
+    }
+
+    private int tabCount, tabControlCount;
+    private List<TearableTabItemWindow> tabWindows = new List<TearableTabItemWindow>();
+
+    private void btnNewWindowTabTest_Click(object sender, RoutedEventArgs e)
+    {
+      CreateNewTabWindow();
+    }
+
+    private void btnNewTabTest_Click(object sender, RoutedEventArgs e)
+    {
+      CreateNewRandomTab();
+    }
+
+    private void btnClearAllTabs_Click(object sender, RoutedEventArgs e)
+    {
+      foreach (TearableTabControl tabControl in VisualHelper.FindVisualChildren<TearableTabControl>(this))
+      {
+        if (tabControl.Name.StartsWith("ttcTest"))
+        {
+          tabControl.Items.Clear();
+        }
+      }
+      foreach (TearableTabItemWindow tabWindow in tabWindows)
+      {
+        foreach (TearableTabControl tabControl in VisualHelper.FindVisualChildren<TearableTabControl>(tabWindow))
+        {
+          if (tabControl.Name.StartsWith("ttcTest"))
+          {
+            tabControl.Items.Clear();
+          }
+        }
       }
     }
   }

@@ -1,4 +1,5 @@
 ﻿using AMD.Util.Log;
+using AMD.Util.View.WPF.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -94,11 +95,16 @@ namespace AMD.Util.View.WPF.UserControls
 
 		public void ScrollToBottom()
 		{
-			int numOfEntries = lvLog.Items.Count;
-			if (numOfEntries > 0)
-			{
-				lvLog.ScrollIntoView(lvLog.Items[numOfEntries - 1]);
-			}
+      ScrollViewer svLvLog = VisualHelper.GetChildDependencyObjectFromVisualTree(lvLog, typeof(ScrollViewer)) as ScrollViewer;
+      if (null != svLvLog)
+      {
+        svLvLog.ScrollToEnd();
+      }
+   //   int numOfEntries = lvLog.Items.Count;
+			//if (numOfEntries > 0)
+			//{
+			//	lvLog.ScrollIntoView(lvLog.Items[numOfEntries - 1]);
+			//}
 		}
 
 		private void InitialiseLog()
@@ -160,8 +166,7 @@ namespace AMD.Util.View.WPF.UserControls
 
     private void log_Update(object sender, LogEventArgs e)
 		{
-			LogEntry logEntry = e.Log;
-			Dispatcher.BeginInvoke(DispatcherPriority.Background, new dgLogQueueUpdate(logQueue.Add), logEntry);
+      Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)(() => { logQueue.Add(e.Log); }));
 		}
 
 		private void LogQueue_Changed(object sender, EventArgs e)

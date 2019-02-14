@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMD</RootNamespace>
     <AssemblyName>AMDUtil</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -100,11 +101,18 @@
     <Compile Include="Util\Network\NetworkHelper.cs" />
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
+    <Compile Include="Util\View\WPF\Helper\TabHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
     <Compile Include="Util\View\WPF\IconCollection.cs" />
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabDropDetector.xaml.cs">
+      <DependentUpon>TearableTabDropDetector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabControlAdorner.cs" />
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTab.cs" />
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabControl.cs" />
     <Compile Include="Util\View\WPF\UserControls\BulletHole.xaml.cs">
       <DependentUpon>BulletHole.xaml</DependentUpon>
     </Compile>
@@ -122,6 +130,19 @@
     </Compile>
     <Compile Include="Util\View\WPF\UserControls\RichTextBoxRibbon.xaml.cs">
       <DependentUpon>RichTextBoxRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSharedHelper.cs" />
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitControl.xaml.cs">
+      <DependentUpon>TearableTabSplitControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitHorizontal.xaml.cs">
+      <DependentUpon>TearableTabSplitHorizontal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitVertical.xaml.cs">
+      <DependentUpon>TearableTabSplitVertical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabWindow.xaml.cs">
+      <DependentUpon>TearableTabWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\_Random\Cast.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionRichTextBox.cs" />
@@ -228,6 +249,10 @@
     <Folder Include="Util\View\WPF\UserControls\BaseControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Util\View\WPF\AMDTearableTabRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\AMDCommonBrushesRD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -363,6 +388,30 @@
     <Page Include="Util\View\WPF\UserControls\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabs\TearableTabDropDetector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitHorizontal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabs\TearableTabSplitVertical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\TearableTabWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Util\View\WPF\UserControls\TextInputDialog.xaml">
       <SubType>Designer</SubType>

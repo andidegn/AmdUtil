@@ -51,17 +51,16 @@
                TextChanged="tbPath_TextChanged" 
                PreviewKeyDown="tbPath_PreviewKeyDown" />
     </Grid>
-    <TreeView Name="tvFileExplorer" 
+    <TreeView Name="tvFileExplorer"
               Grid.Row="1" 
               TabIndex="101"
               FontFamily="null"
               Width="Auto"
               Focusable="False"
+              VirtualizingPanel.IsVirtualizing="True"
+              VirtualizingPanel.VirtualizationMode="Recycling"
               PreviewKeyDown="tvFileExplorer_PreviewKeyDown"
               KeyDown="tvFileExplorer_KeyDown">
-      
-              <!--VirtualizingPanel.IsVirtualizing="True"
-              VirtualizingPanel.VirtualizationMode="Recycling"-->
       <TreeView.ItemContainerStyle>
         <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
           <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
