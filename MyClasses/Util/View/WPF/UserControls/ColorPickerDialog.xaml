@@ -10,9 +10,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        Height="290"
+        Height="300"
         Width="465"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         KeyUp="Window_KeyUp">
   <Border CornerRadius="5" Background="{Binding Background}">

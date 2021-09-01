@@ -8,11 +8,23 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System;
 using System.Collections.Generic;
+using AMD.Util.View.WPF.UserControls.TearableTabs;
+using System.Windows.Media;
 
 namespace AMD.Util.View.WPF.UserControls
 {
-  public class TearableTabControl : TabControl
+  public class TearableTabControl : TabControl, IDisposable
   {
+    #region Interface
+    public void Dispose()
+    {
+      foreach (var item in this.Items)
+      {
+        (item as IDisposable)?.Dispose();
+      }
+    }
+    #endregion // Interface
+
     #region External EventHandlers
     public delegate void ItemsChangedEvent(object sender, NotifyCollectionChangedEventArgs e);
     public event ItemsChangedEvent ItemsChanged;
@@ -32,6 +44,8 @@ namespace AMD.Util.View.WPF.UserControls
     public TearableTabControl()
     {
       sharedData = TearableTabSharedHelper.Instance;
+
+      this.Background = Brushes.Purple;
 
       this.AllowDrop = true;
       this.SizeChanged += TearableTabControl_SizeChanged;
@@ -81,9 +95,13 @@ namespace AMD.Util.View.WPF.UserControls
         if (tabControlTarget != null)
         {
           TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
-          if (!tabControlTarget.IsChildOf(tabItemSource))
+          if (tabControlTarget != tabControlSource && !tabControlTarget.IsChildOf(tabItemSource))
           {
-            tabControlSource.Items.Remove(tabItemSource);
+            if (null != tabControlSource && tabControlSource.Items.Contains(tabItemSource))
+            {
+              tabControlSource.Items.Remove(tabItemSource);
+              // Should this be disposed if no items remain???
+            }
             tabControlTarget.Items.Insert(tabControlTarget.Items.Count, tabItemSource);
             tabItemSource.IsSelected = true;
             retVal = true;

@@ -30,7 +30,7 @@
           <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <Image Name="imgIcon" Grid.Column="1" Stretch="Uniform" Margin="2" Height="18" Width="Auto" />
-        <TextBlock Name="lblTitle" Grid.Column="3" Padding="0" Margin="0" HorizontalAlignment="Center" />
+        <TextBlock Name="lblTitle" Grid.Column="3" Text="title" Padding="0" Margin="0" HorizontalAlignment="Center" />
       </Grid>
     </Border>
     <!--Exit button-->

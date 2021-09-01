@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             xmlns:tearableTabs="clr-namespace:AMD.Util.View.WPF.UserControls.TearableTabs"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+  <Grid Name="gridContentSplitControl" Background="Yellow">
+    <local:TearableTabControl x:Name="ttcMain" Margin="2" />
+    <tearableTabs:TearableTabDropDetector x:Name="ttddMain" TabDrop="ttddMain_TabDrop" />
+  </Grid>
 </UserControl>

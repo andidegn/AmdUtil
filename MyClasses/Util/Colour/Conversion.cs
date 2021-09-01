@@ -82,7 +82,7 @@ namespace AMD.Util.Colour
     public byte R
     {
       get { return r; }
-      private set
+      set
       {
         if (r != value)
         {
@@ -99,7 +99,7 @@ namespace AMD.Util.Colour
     public byte G
     {
       get { return g; }
-      private set
+      set
       {
         if (g != value)
         {
@@ -116,7 +116,7 @@ namespace AMD.Util.Colour
     public byte B
     {
       get { return b; }
-      private set
+      set
       {
         if (b != value)
         {

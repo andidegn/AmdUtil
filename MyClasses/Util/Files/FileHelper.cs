@@ -10,7 +10,73 @@ namespace AMD.Util.Files
 {
 	public static class FileHelper
 	{
+    public static readonly String LogFileFilter = "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly String TextFileFilter = "Text File (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly String CsvFileFilter = "CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly String XmlFileFilter = "XML File (*.xml)|*.xml|All Files (*.*)|*.*";
+
     public static readonly int MAX_PATH = 260;
+
+    /// <summary>
+    /// Gets the filepath from OpenFileDialog
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <param name="initialDirectory"></param>
+    /// <param name="title"></param>
+    /// <param name="initialFileName"></param>
+    /// <returns></returns>
+    public static String GetLoadFilePath(String filter, String initialDirectory, String title, String initialFileName = null)
+    {
+      return GetFilePath(new OpenFileDialog(), filter, initialDirectory, title, initialFileName);
+    }
+
+    /// <summary>
+    /// Gets the filepath from SaveFileDialog
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <param name="initialDirectory"></param>
+    /// <param name="title"></param>
+    /// <param name="initialFileName"></param>
+    /// <returns></returns>
+    public static String GetSaveFilePath(String filter, String initialDirectory, String title, String initialFileName = null)
+    {
+      return GetFilePath(new SaveFileDialog(), filter, initialDirectory, title, initialFileName);
+    }
+
+    public static String GetFilePath(FileDialog fd, String filter, String initialDirectory, String title, String initialFileName)
+    {
+      String filePath = null;
+      fd.Title = title;
+      fd.FileName = initialFileName;
+      fd.Filter = filter;
+      if (!String.IsNullOrWhiteSpace(initialDirectory))
+      {
+        try
+        {
+          if ((File.GetAttributes(initialDirectory) & FileAttributes.Directory) != FileAttributes.Directory)
+          {
+            initialDirectory = Path.GetDirectoryName(initialDirectory);
+          }
+          if (Directory.Exists(initialDirectory))
+          {
+            fd.InitialDirectory = initialDirectory;
+          }
+        }
+        catch (Exception ex)
+        {
+          //LogWriter
+        }
+      }
+      if (fd.ShowDialog() == true && !String.IsNullOrWhiteSpace(fd.FileName))
+      {
+        filePath = fd.FileName;
+      }
+      if (filePath?.Length > FileHelper.MAX_PATH)
+      {
+        filePath = null;
+      }
+      return filePath;
+    }
 
     /// <summary>
     /// Checks if the path is too long, if file exists and if path is null

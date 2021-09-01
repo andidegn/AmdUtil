@@ -34,6 +34,18 @@ namespace AMD.Util.Extensions
         }
 			}
 			return sb.ToString();
-		}
-	}
+    }
+
+    public static byte[] Replace(this byte[] b, byte[] separators, byte newVal)
+    {
+      for (int i = 0; i < b.Length; i++)
+      {
+        if (separators.Contains(b[i]))
+        {
+          b[i] = newVal;
+        }
+      }
+      return b;
+    }
+  }
 }

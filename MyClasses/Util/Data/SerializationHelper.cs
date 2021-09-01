@@ -22,7 +22,15 @@ namespace AMD.Util.Data
 
     public static MemoryStream Serialize(object toBeSerialized, Type[] includedTypes)
     {
-      XmlSerializer xml = new XmlSerializer(toBeSerialized.GetType(), includedTypes);
+      XmlSerializer xml;
+      if (null == includedTypes)
+      {
+        xml = new XmlSerializer(toBeSerialized.GetType());
+      }
+      else
+      {
+        xml = new XmlSerializer(toBeSerialized.GetType(), includedTypes);
+      }
 
       MemoryStream ms = new MemoryStream();
 

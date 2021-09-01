@@ -1,32 +1,13 @@
-﻿using AMD.Util.HID;
+﻿using AMD.Util.Extensions.WPF;
 using AMD.Util.Log;
-using AMD.Util.View.WPF.Helper;
-using System;
-using System.Collections.Generic;
+using AMD.Util.View.WPF.UserControls.TearableTabs;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace AMD.Util.View.WPF.UserControls
+namespace AMD.Util.View.WPF.UserControls.TearableTabs
 {
-  internal enum DropLocation
-  {
-    Center,
-    Top,
-    Bottom,
-    Left,
-    Right
-  }
   /// <summary>
   /// Interaction logic for TearableTabControl.xaml
   /// </summary>
@@ -36,7 +17,9 @@ namespace AMD.Util.View.WPF.UserControls
     private Point mousePosition;
     private DropLocation dropLocation;
     private TearableTabSharedHelper sharedData;
-    private MainLocation currLocation;
+    //private MainLocation currLocation;
+
+    #region DependencyProperties
 
     public Brush HightlightColor
     {
@@ -49,46 +32,36 @@ namespace AMD.Util.View.WPF.UserControls
         DependencyProperty.Register("HightlightColor", typeof(Brush), typeof(TearableTabDropDetector), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0x40, 0x00, 0x20, 0xFF))));
 
 
+    private FrameworkElement detectorElement;
+    
+    #endregion // DependencyProperties
+
+    #region External EventHandlers
+    public delegate void TabDropEvent(object sender, TabDropEventArgs args);
+    public event TabDropEvent TabDrop;
+    private void OnTabDropChanged(TearableTabItem droppedTab)
+    {
+      TabDrop?.Invoke(this, new TabDropEventArgs(dropLocation, droppedTab));
+    }
+    #endregion // External EventHandlers
 
     public TearableTabDropDetector()
     {
       log = LogWriter.Instance;
       sharedData = TearableTabSharedHelper.Instance;
-      currLocation = new MainLocation() { ColumnIndex = 0, RowIndex = 0 };
+      //currLocation = new MainLocation() { ColumnIndex = 0, RowIndex = 0 };
       InitializeComponent();
-      AttachTcMain();
     }
 
-    private void AttachTcMain()
+    public TearableTabDropDetector(FrameworkElement detectorElement)
+      : this()
     {
-      tcMain.PreviewDrop += TcMain_PreviewDrop;
-      tcMain.ItemsChanged += TcMain_ItemsChanged;
-    }
-
-    public void AddTab(TearableTabItem tearableTabItem)
-    {
-      if (null != tearableTabItem)
-      {
-        if (null == tcMain)
-        {
-          AttachTcMain();
-        }
-        tcMain.Items.Add(tearableTabItem);
-      }
-    }
-
-    internal bool DropTab(TearableTabItem tabItemSource)
-    {
-      if (null == tcMain)
-      {
-        AttachTcMain();
-      }
-      return tcMain.DropTab(tabItemSource);
+      this.detectorElement = detectorElement;
     }
 
     private void HideHighlight()
     {
-      foreach (UIElement item in gridContent.Children)
+      foreach (UIElement item in gridOuter.Children)
       {
         if (item is Grid)
         {
@@ -98,32 +71,67 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
-    private void TcMain_ItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+    public void AttachDetectorElement(FrameworkElement detectorElement)
     {
-      if (0 == tcMain.Items.Count)
+      DetachDetectorHandlers(this.detectorElement);
+      this.detectorElement = detectorElement;
+      AttachDetectorHandlers(this.detectorElement);
+    }
+
+    public void DetachDetectorElement()
+    {
+      DetachDetectorHandlers(this.detectorElement);
+    }
+
+    private void DetachDetectorHandlers(FrameworkElement detectorElement)
+    {
+      if (null != detectorElement)
       {
-        currLocation.Teardown(this);
+        detectorElement.DragOver -= DetectorElement_DragOver;
+        detectorElement.DragLeave -= DetectorElement_DragLeave;
+        detectorElement.PreviewDrop -= DetectorElement_PreviewDrop;
+        detectorElement.Drop -= DetectorElement_Drop;
       }
     }
 
-    private void gridContent_DragOver(object sender, DragEventArgs e)
+    private void AttachDetectorHandlers(FrameworkElement detectorElement)
+    {
+      if (null != detectorElement)
+      {
+        detectorElement.DragOver += DetectorElement_DragOver;
+        detectorElement.DragLeave += DetectorElement_DragLeave;
+        detectorElement.PreviewDrop += DetectorElement_PreviewDrop;
+        detectorElement.Drop += DetectorElement_Drop;
+      }
+    }
+
+    private void DetectorElement_DragOver(object sender, DragEventArgs e)
     {
       mousePosition = e.GetPosition(sender as FrameworkElement);
-      double vertical = gridContent.ActualWidth / 3;
-      double horizontal = gridContent.ActualHeight / 3;
+      double vertical = detectorElement.ActualWidth / 3;
+      double horizontal = detectorElement.ActualHeight / 3;
       double opacity = 0.5;
-      dropLocation = DropLocation.Center;
+      dropLocation = DropLocation.NA;
 
       HideHighlight();
+      TearableTabItem tabItemTarget = e.Source as TearableTabItem;
+      if (this.IsChildOf(tabItemTarget))
+      {
 
-      if (null != tcMain)
+      }
+      TearableTabItem tabItemSource = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
+      if (this.IsChildOf(tabItemSource))
+      {
+
+      }
+      if (mousePosition.Y > 25)
       {
         if (mousePosition.X < vertical)
         {
           gridLeft.Opacity = opacity;
           dropLocation = DropLocation.Left;
         }
-        else if (mousePosition.X > gridContent.ActualWidth - vertical)
+        else if (mousePosition.X > detectorElement.ActualWidth - vertical)
         {
           gridRight.Opacity = opacity;
           dropLocation = DropLocation.Right;
@@ -133,159 +141,86 @@ namespace AMD.Util.View.WPF.UserControls
           gridTop.Opacity = opacity;
           dropLocation = DropLocation.Top;
         }
-        else if (mousePosition.Y > gridContent.ActualHeight - horizontal)
+        else if (mousePosition.Y > detectorElement.ActualHeight - horizontal)
         {
           gridBottom.Opacity = opacity;
           dropLocation = DropLocation.Bottom;
         }
+        else
+        {
+          gridTop.Opacity = opacity;
+          gridBottom.Opacity = opacity;
+          dropLocation = DropLocation.Center;
+        }
       }
     }
 
-    private void gridContent_DragLeave(object sender, DragEventArgs e)
+    private void DetectorElement_DragLeave(object sender, DragEventArgs e)
     {
       HideHighlight();
     }
 
-    private void TcMain_PreviewDrop(object sender, DragEventArgs e)
+    private void DetectorElement_PreviewDrop(object sender, DragEventArgs e)
     {
+      e.Handled = true;
       HideHighlight();
-      if (DropLocation.Center != dropLocation)
+      TearableTabItem droppedItem = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
+      if (DropLocation.NA == dropLocation)
       {
-        e.Handled = true;
-        CreateNewTearableTabControl(e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem, dropLocation);
+        e.Handled = false;
       }
       else
       {
-      }
-    }
-
-    private void CreateNewTearableTabControl(TearableTabItem tabItemSource, DropLocation dropLocation)
-    {
-      if (null != tabItemSource)
-      {
-        TearableTabDropDetector tmtc = new TearableTabDropDetector();
-        if (tmtc.DropTab(tabItemSource))
+        if (DropLocation.Center != dropLocation)
         {
-          switch (dropLocation)
-          {
-            case DropLocation.Top:
-              AddTearableTabItemToTop(tmtc);
-              break;
-            case DropLocation.Bottom:
-              AddTearableTabItemToBottom(tmtc);
-              break;
-            case DropLocation.Left:
-              break;
-            case DropLocation.Right:
-              break;
-            case DropLocation.Center:
-              AttachTcMain();
-              tcMain.DropTab(tabItemSource);
-              break;
-            default:
-              break;
-          }
+          if (null != droppedItem)
+					{
+						OnTabDropChanged(e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem);
+					}
+				}
+				else if (this.detectorElement is TearableTabControl)
+        {
+          (detectorElement as TearableTabControl)?.DropTab(droppedItem);
         }
       }
     }
 
-    private void RemoveTearableTabItemFromRow(TearableTabDropDetector tmtc, DropLocation location)
+    private void DetectorElement_Drop(object sender, DragEventArgs e)
     {
-      int rowLocation = Grid.GetRow(tmtc);
-      int rowLocationAdjust = location == DropLocation.Top ? 1 : -1;
-      if (-1 < rowLocation)
-      {
-        UIElement gridSplitter = null;
-        foreach (UIElement uiItem in gridOuter.Children)
-        {
-          if (rowLocation + rowLocationAdjust == Grid.GetRow(uiItem))
-          {
-            gridSplitter = uiItem;
-            break;
-          }
-        }
-        if (null != gridSplitter)
-        {
-          gridOuter.Children.Remove(tmtc);
-          gridOuter.Children.Remove(gridSplitter);
-          if (DropLocation.Top == location)
-          {
-            currLocation.RowIndex -= 2;
-            gridOuter.RowDefinitions.RemoveAt(rowLocation);
-            gridOuter.RowDefinitions.RemoveAt(rowLocation);
-            foreach (UIElement uiElement in gridOuter.Children)
-            {
-              int uiRow = Grid.GetRow(uiElement);
-              if (rowLocation + rowLocationAdjust <= uiRow)
-              {
-                Grid.SetRow(uiElement, uiRow - 2);
-              }
-            }
-          }
-          else
-          {
-            gridOuter.RowDefinitions.RemoveAt(rowLocation - 1);
-            gridOuter.RowDefinitions.RemoveAt(rowLocation - 1);
-          }
-        }
-      }
     }
 
-    private void AddTearableTabItemToBottom(TearableTabDropDetector tmtc)
-    {
-      tmtc.currLocation.Location = DropLocation.Bottom;
-      tmtc.currLocation.ParentContainer = this;
-      gridOuter.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(5) });
-      gridOuter.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
-      PanelHelper.AddToGrid(gridOuter, new GridSplitter() { HorizontalAlignment = HorizontalAlignment.Stretch }, currLocation.RowIndex + 1, 0, 1, gridOuter.ColumnDefinitions.Count);
-      PanelHelper.AddToGrid(gridOuter, tmtc, currLocation.RowIndex + 2, 0, 1, gridOuter.ColumnDefinitions.Count);
-      foreach (var item in gridOuter.Children)
-      {
-        int rowNr = Grid.GetRow(item as UIElement);
-      }
-    }
+    //private enum Orientation
+    //{
+    //  Horizontal,
+    //  Vertical
+    //}
 
-    private void AddTearableTabItemToTop(TearableTabDropDetector tmtc)
-    {
-      tmtc.currLocation.Location = DropLocation.Top;
-      tmtc.currLocation.ParentContainer = this;
-      gridOuter.RowDefinitions.Insert(currLocation.RowIndex, new RowDefinition() { Height = new GridLength(gridContent.ActualHeight / 2) });
-      gridOuter.RowDefinitions.Insert(currLocation.RowIndex + 1, new RowDefinition() { Height = new GridLength(5) });
+    //private class MainLocation
+    //{
+    //  internal int RowIndex { get; set; }
+    //  internal int ColumnIndex { get; set; }
+    //  internal DropLocation Location { get; set; }
+    //  internal TearableTabDropDetector ParentContainer { get; set; }
 
-      foreach (UIElement uiElement in gridOuter.Children)
-      {
-        int uiRow = Grid.GetRow(uiElement);
-        if (currLocation.RowIndex <= uiRow)
-        {
-          Grid.SetRow(uiElement, uiRow + 2);
-        }
-      }
-      PanelHelper.AddToGrid(gridOuter, tmtc, currLocation.RowIndex, 0, 1, gridOuter.ColumnDefinitions.Count);
-      PanelHelper.AddToGrid(gridOuter, new GridSplitter() { HorizontalAlignment = HorizontalAlignment.Stretch }, currLocation.RowIndex + 1, 0, 1, gridOuter.ColumnDefinitions.Count);
-      currLocation.RowIndex += 2;
-    }
+    //  internal MainLocation()
+    //  {
+    //  }
 
-    private enum Orientation
-    {
-      Horizontal,
-      Vertical
-    }
+    //  internal void Teardown(TearableTabDropDetector itemToRemove)
+    //  {
+    //    //ParentContainer?.RemoveTearableTabItemFromRow(itemToRemove, Location);
+    //  }
+    //}
 
-    private class MainLocation
-    {
-      internal int RowIndex { get; set; }
-      internal int ColumnIndex { get; set; }
-      internal DropLocation Location { get; set; }
-      internal TearableTabDropDetector ParentContainer { get; set; }
-
-      internal MainLocation()
-      {
-      }
-
-      internal void Teardown(TearableTabDropDetector itemToRemove)
-      {
-        ParentContainer?.RemoveTearableTabItemFromRow(itemToRemove, Location);
-      }
-    }
+    //private void gridContent_PreviewDrop(object sender, DragEventArgs e)
+    //{
+    //  HideHighlight();
+    //  TearableTabItem droppedTab = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
+    //  if (null != droppedTab)
+    //  {
+    //    OnTabDropChanged(droppedTab);
+    //  }
+    //  e.Handled = true;
+    //}
   }
 }

@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using AMD.Util.View.WPF.UserControls.TearableTabs;
+using System.Windows;
 using System.Windows.Documents;
 
-namespace AMD.Util.View.WPF.UserControls
+namespace AMD.Util.View.WPF.UserControls.TearableTabs
 {
-  internal class TearableTabSharedHelper
+  public class TearableTabSharedHelper
   {
     internal bool AllowTabDrag { get; set; }
     internal Point AdornerStartPoint { get; set; }
@@ -24,7 +25,7 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
-    internal TearableTabSharedHelper()
+    public TearableTabSharedHelper()
     {
     }
 

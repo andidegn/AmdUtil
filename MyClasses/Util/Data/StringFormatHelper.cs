@@ -148,6 +148,7 @@ namespace AMD.Util.Data
       }
       return sb.ToString();
     }
+
     private static void AlignAddressAndData(ref UInt32?[] data, ref UInt32 addr)
     {
       if (addr % 0x10 != 0)

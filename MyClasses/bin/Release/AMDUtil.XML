@@ -823,6 +823,26 @@
             <param name="toExclude"></param>
             <returns></returns>
         </member>
+        <member name="M:AMD.Util.Files.FileHelper.GetLoadFilePath(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets the filepath from OpenFileDialog
+            </summary>
+            <param name="filter"></param>
+            <param name="initialDirectory"></param>
+            <param name="title"></param>
+            <param name="initialFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.GetSaveFilePath(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets the filepath from SaveFileDialog
+            </summary>
+            <param name="filter"></param>
+            <param name="initialDirectory"></param>
+            <param name="title"></param>
+            <param name="initialFileName"></param>
+            <returns></returns>
+        </member>
         <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
             <summary>
             Checks if the path is too long, if file exists and if path is null
@@ -1058,7 +1078,33 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="M:AMD.Util.View.WPF.UserControls.TabControlAdorner.#ctor(System.Windows.UIElement,System.Windows.UIElement,System.Double)">
+        <member name="T:AMD.Util.View.WPF.UserControls.RichTextBoxWithLineNumbers">
+            <summary>
+            Interaction logic for RichTextBoxWithLineNumbers.xaml
+            </summary>
+            <summary>
+            RichTextBoxWithLineNumbers
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxWithLineNumbers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabDropDetector">
+            <summary>
+            Interaction logic for TearableTabControl.xaml
+            </summary>
+            <summary>
+            TearableTabDropDetector
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabDropDetector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabControlAdorner.#ctor(System.Windows.UIElement,System.Windows.UIElement,System.Double)">
             <summary>
             Initializes a new instance of DragVisualAdorner.
             </summary>
@@ -1066,12 +1112,38 @@
             <param name="size">The size of the adorner.</param>
             <param name="brush">A brush to with which to paint the adorner.</param>
         </member>
-        <member name="M:AMD.Util.View.WPF.UserControls.TabControlAdorner.GetDesiredTransform(System.Windows.Media.GeneralTransform)">
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabControlAdorner.GetDesiredTransform(System.Windows.Media.GeneralTransform)">
             <summary>
             Override.
             </summary>
             <param name="transform"></param>
             <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitHorizontal">
+            <summary>
+            Interaction logic for TearableTabSplitHorizontal.xaml
+            </summary>
+            <summary>
+            TearableTabSplitHorizontal
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitHorizontal.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitVertical">
+            <summary>
+            Interaction logic for TearableTabSplitVertical.xaml
+            </summary>
+            <summary>
+            TearableTabSplitVertical
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitVertical.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
         </member>
         <member name="T:AMD.Util.View.WPF.UserControls.BulletHole">
             <summary>
@@ -1196,6 +1268,19 @@
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabSplitControl">
+            <summary>
+            Interaction logic for TearableTabSplitControl.xaml
+            </summary>
+            <summary>
+            TearableTabSplitControl
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabSplitControl.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1816,6 +1901,111 @@
             Writes an error description to the log and the full exception
             </summary>
             <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
             <param name="format">The message to write to the log</param>
             <param name="args">The arguments corresponding to the formatted String</param>
         </member>

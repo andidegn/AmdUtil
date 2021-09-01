@@ -176,6 +176,38 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    private void TrySetColorFromRGBTextBoxes()
+    {
+      byte red, green, blue;
+      if (byte.TryParse(tbRed?.Text, out red) && byte.TryParse(tbGreen?.Text, out green) && byte.TryParse(tbBlue?.Text, out blue))
+      {
+        ColorHsv = new ColorHSV(Color.FromRgb
+        (
+          byte.Parse(tbRed.Text),
+          byte.Parse(tbGreen.Text),
+          byte.Parse(tbBlue.Text)
+        ));
+        UpdateColor();
+      }
+    }
+
+    private void TrySetColorFromHSVTextBoxes()
+    {
+      double hue, saturation, value;
+      if (double.TryParse(tbHue?.Text, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out hue) && 
+        double.TryParse(tbSaturation?.Text, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out saturation) && 
+        double.TryParse(tbValue?.Text, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out value))
+      {
+        ColorHsv = new ColorHSV()
+        {
+          Hue = hue,
+          Saturation = saturation,
+          Value = value
+        };
+        UpdateColor();
+      }
+    }
+
     private void SetSliderValue(double delta, Slider slider)
     {
       double value = slider.Value + delta;
@@ -420,6 +452,22 @@ namespace AMD.Util.View.WPF.UserControls
       else
       {
         e.Handled = true;
+      }
+    }
+
+    private void tbRGB_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (Key.Enter == e.Key)
+      {
+        TrySetColorFromRGBTextBoxes();
+      }
+    }
+
+    private void tbHSV_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (Key.Enter == e.Key)
+      {
+        TrySetColorFromHSVTextBoxes();
       }
     }
   }

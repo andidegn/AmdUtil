@@ -87,7 +87,10 @@ namespace AMD.Util.View.WPF.UserControls
 
     private void CloseDialog()
     {
-      this.DialogResult = true;
+      if (null != this.DialogResult)
+      {
+        this.DialogResult = true;
+      }
       this.Close();
     }
 

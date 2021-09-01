@@ -12,6 +12,7 @@
         Title="MainWindow" 
         Height="600" 
         Width="525"
+        Closing="Window_Closing"
         MinWidth="640">
   <Window.Resources>
     <SolidColorBrush x:Key="BrushForeground" Color="White" />
@@ -51,6 +52,33 @@
               <!--<Button Name="btnTestTabBackgroundBinding" Content="Background binding" Click="btnTestTabBackgroundBinding_Click" />-->
               <Button Name="btnTestException" Content="Exception Test" Click="btnTestException_Click" />
               <Button Name="btnLogBurst" Content="Start Log Burst" Click="btnLogBurst_Click" />
+              <Grid Background="Yellow">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton Name="tBtnTest12" Grid.Column="2" Grid.Row="0" Style="{StaticResource ToggleSwitchStyle}" />
+              </Grid>
+              <Grid Background="Yellow">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton Name="tBtnTest21" Grid.Column="0" Grid.Row="1" Style="{StaticResource ToggleSwitchStyleNoTextLight}" />
+                <ToggleButton Name="tBtnTest22" Grid.Column="2" Grid.Row="1" Style="{StaticResource ToggleSwitchStyleNoTextLight}" />
+              </Grid>
+              <Grid Background="Yellow">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton Name="tBtnTest31" Grid.Column="0" Grid.Row="2" Style="{StaticResource ToggleSwitchStyleNoTextDark}" />
+                <ToggleButton Name="tBtnTest32" Grid.Column="2" Grid.Row="2" Style="{StaticResource ToggleSwitchStyleNoTextDark}" />
+              </Grid>
+              <usercontrols:NumericUpDown Name="nud1" MinValue="0" MaxValue="100" Value="20"/>
             </StackPanel>
           </Grid>
         </usercontrols:TearableTabItem>
@@ -172,7 +200,7 @@
           </Grid>
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem Header="Splitable Tearable Tab">
-          <usercontrols:TearableTabDropDetector />
+          <usercontrols:TearableTabSplitControl Name="tabSplitControl" />
         </usercontrols:TearableTabItem>
       </usercontrols:TearableTabControl>
       <!--<TabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >

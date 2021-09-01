@@ -91,11 +91,21 @@
     <Compile Include="Util\Data\StringFormatHelper.cs" />
     <Compile Include="Util\Data\ValueHelper.cs" />
     <Compile Include="Util\Diagnostics.cs" />
+    <Compile Include="Util\Display\DDCCI\Monitor.cs" />
+    <Compile Include="Util\Display\DDCCI\MonitorList.cs" />
+    <Compile Include="Util\Display\DDCCI\Util\NativeMethods.cs" />
+    <Compile Include="Util\Display\DDCCI\Util\VCPList.cs" />
     <Compile Include="Util\Display\Display.cs" />
+    <Compile Include="Util\Display\DDCCI\Util\DDCHelper.cs" />
+    <Compile Include="Util\Enum\EnumUtil.cs" />
     <Compile Include="Util\Extensions\ExtensionArray.cs" />
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
+    <Compile Include="Util\Extensions\ExtensionChar.cs" />
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
     <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
+    <Compile Include="Util\Extensions\ExtensionObservableCollection.cs" />
+    <Compile Include="Util\Extensions\WPF\ExtensionTextBox.cs" />
+    <Compile Include="Util\Files\FileCompare.cs" />
     <Compile Include="Util\Files\FileContainer.cs" />
     <Compile Include="Util\HID\Keyboard.cs" />
     <Compile Include="Util\Network\NetworkHelper.cs" />
@@ -107,6 +117,15 @@
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\NumericUpDown.cs" />
+    <Compile Include="Util\View\WPF\UserControls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\RichTextBoxWithLineNumbers.xaml.cs">
+      <DependentUpon>RichTextBoxWithLineNumbers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\ITabControlContainer.cs" />
+    <Compile Include="Util\View\WPF\UserControls\TearableTabs\TabDropEvent.cs" />
     <Compile Include="Util\View\WPF\UserControls\TearableTabs\TearableTabDropDetector.xaml.cs">
       <DependentUpon>TearableTabDropDetector.xaml</DependentUpon>
     </Compile>
@@ -249,6 +268,10 @@
     <Folder Include="Util\View\WPF\UserControls\BaseControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Util\View\WPF\AMDNumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\AMDTearableTabRD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -377,6 +400,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Util\View\WPF\UserControls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Util\View\WPF\UserControls\ResizeThumb.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -385,13 +412,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Util\View\WPF\UserControls\StatusBar.xaml">
+    <Page Include="Util\View\WPF\UserControls\RichTextBoxWithLineNumbers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Util\View\WPF\UserControls\TearableTabControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Util\View\WPF\UserControls\StatusBar.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\TearableTabs\TearableTabDropDetector.xaml">
       <SubType>Designer</SubType>

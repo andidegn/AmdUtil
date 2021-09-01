@@ -69,6 +69,26 @@ namespace AMD.Util.Files
     public FileContainer Parent { get; set; }
     public FileSystemInfo FileSystemInfo { get; set; }
     public List<FileContainer> SubFiles { get; set; }
+    public long FileSize
+    {
+      get
+      {
+        if (FileSystemInfo is FileInfo && null != FileSystemInfo)
+        {
+          return (FileSystemInfo as FileInfo).Length;
+        }
+        return -1;
+      }
+    }
+
+    public String FileSizeText
+    {
+      get
+      {
+        long fs = FileSize;
+        return fs < 0 ? String.Empty : fs.ToString();
+      }
+    }
 
     public String ToolTipString
     {

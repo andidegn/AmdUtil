@@ -35,9 +35,9 @@
 
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Input;
 
 namespace AMD.Util.HID
 {
@@ -78,8 +78,7 @@ namespace AMD.Util.HID
     //Variables used in the call to SetWindowsHookEx
     private HookHandlerDelegate proc;
     private IntPtr hookID = IntPtr.Zero;
-    internal delegate IntPtr HookHandlerDelegate(
-        int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
+    internal delegate IntPtr HookHandlerDelegate(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
 
     /// <summary>
     /// Event triggered when a keystroke is intercepted by the 
@@ -316,7 +315,7 @@ namespace AMD.Util.HID
 
       public KeyboardHookEventArgs(int evtKeyCode, bool evtPassThrough)
       {
-        keyName = ((Keys)evtKeyCode).ToString();
+        keyName = ((Key)evtKeyCode).ToString();
         keyCode = evtKeyCode;
         passThrough = evtPassThrough;
       }
@@ -362,6 +361,175 @@ namespace AMD.Util.HID
 
 
     #endregion
+  }
+
+
+
+
+
+  public class KeyboardHookArgs : EventArgs
+  {
+    public String Name { get; private set; }
+    public Key Key { get; private set; }
+    public bool Handled { get; set; }
+
+    public KeyboardHookArgs(Key key, bool handled)
+    {
+      this.Name = key.ToString();
+      this.Key = key;
+      this.Handled = handled;
+    }
+  }
+
+  public class GlobalKeyboardHook
+  {
+    private const int WH_KEYBOARD_LL = 13;
+    private const int WM_KEYDOWN = 0x0100;
+    private const int WM_KEYUP = 0x0101;
+    private const int WM_SYSKEYUP = 0x0105;
+    private LowLevelKeyboardProc _proc;
+    private static IntPtr _hookID = IntPtr.Zero;
+
+    private static GlobalKeyboardHook instance;
+
+    #region EventHandler
+    #region KeyUp
+    public delegate void KeyUp(object sender, KeyboardHookArgs args);
+    public event KeyUp OnKeyUp;
+
+    private void KeyUpEvent(Key key, bool allowedKey)
+    {
+      OnKeyUp?.Invoke(this, new KeyboardHookArgs(key, allowedKey));
+    }
+
+    private void KeyUpEvent(KeyboardHookArgs args)
+    {
+      OnKeyUp?.Invoke(this, args);
+    }
+    #endregion // KeyUp
+
+
+    #region KeyDown
+    public delegate void KeyDown(object sender, KeyboardHookArgs args);
+    public event KeyDown OnKeyDown;
+
+    private void KeyDownEvent(Key key, bool allowedKey)
+    {
+      OnKeyDown?.Invoke(this, new KeyboardHookArgs(key, allowedKey));
+    }
+
+    private void KeyDownEvent(KeyboardHookArgs args)
+    {
+      OnKeyDown?.Invoke(this, args);
+    }
+    #endregion // KeyDown
+
+
+    #region KeyPressed
+    public delegate void KeyPressed(object sender, KeyboardHookArgs args);
+    public event KeyPressed OnKeyPressed;
+
+    private void KeyPressedEvent(Key key, bool allowedKey)
+    {
+      OnKeyPressed?.Invoke(this, new KeyboardHookArgs(key, allowedKey));
+    }
+
+    private void KeyPressedEvent(KeyboardHookArgs args)
+    {
+      OnKeyPressed?.Invoke(this, args);
+    }
+    #endregion // KeyDown
+    #endregion // EventHandler
+
+    public static GlobalKeyboardHook Instance
+    {
+      get
+      {
+        if (null == instance)
+        {
+          instance = new GlobalKeyboardHook();
+        }
+        return instance;
+      }
+    }
+
+    private GlobalKeyboardHook()
+    {
+      _proc = HookCallback;
+      _hookID = SetHook(_proc);
+    }
+
+    ~GlobalKeyboardHook()
+    {
+      UnhookWindowsHookEx(_hookID);
+    }
+
+    private IntPtr SetHook(LowLevelKeyboardProc proc)
+    {
+      using (Process curProcess = Process.GetCurrentProcess())
+      {
+        using (ProcessModule curModule = curProcess.MainModule)
+        {
+          return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
+              GetModuleHandle(curModule.ModuleName), 0);
+        }
+      }
+    }
+
+    private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+    private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+    {
+      Key vkCode = Key.None;
+      IntPtr retVal = IntPtr.Zero;
+      KeyboardHookArgs args = null;
+
+      if (nCode >= 0)
+      {
+        vkCode = (Key)Marshal.ReadInt32(lParam);
+        args = new KeyboardHookArgs(vkCode, false);
+
+        if ((IntPtr)WM_KEYUP == wParam)
+        {
+          KeyUpEvent(args);
+        }
+        else if ((IntPtr)WM_KEYDOWN == wParam)
+        {
+          KeyDownEvent(args);
+        }
+        else if ((IntPtr)WM_SYSKEYUP == wParam)
+        {
+          Console.WriteLine($"SystemKey: {args.Key.ToString()}");
+        }
+        else
+        {
+          Console.WriteLine($"UnhandledKey: {args.Key.ToString()}");
+        }
+      }
+
+      if (true == args?.Handled)
+      {
+        retVal = (IntPtr)1;
+      }
+      else
+      {
+        retVal = CallNextHookEx(_hookID, nCode, wParam, lParam);
+      }
+      return retVal;
+    }
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern IntPtr GetModuleHandle(string lpModuleName);
   }
 }
 

@@ -1,5 +1,6 @@
 ﻿using AMD.Util.Log;
 using AMD.Util.View.WPF.UserControls;
+using AMD.Util.View.WPF.UserControls.TearableTabs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -128,19 +128,21 @@ namespace AMD.Util.Tasks
 		/// <param name="task"></param>
 		public void Add(ITask task)
 		{
-			task.OnProgressChanged += (s, a) =>
-			{
-				OverallProgressChanged(a);
-			};
+      task.OnProgressChanged += Task_OnProgressChanged;
 			Enqueue(task);
 			log.WriteToLog(LogMsgType.Debug, "Task added: {0}", task.GetType());
 		}
 
-		/// <summary>
-		/// Adds a collection of tasks to the task queue
-		/// </summary>
-		/// <param name="Tasks"></param>
-		public void Add(IEnumerable<ITask> Tasks)
+    private void Task_OnProgressChanged(object sender, TaskProgressArgs args)
+    {
+      OverallProgressChanged(args);
+    }
+
+    /// <summary>
+    /// Adds a collection of tasks to the task queue
+    /// </summary>
+    /// <param name="Tasks"></param>
+    public void Add(IEnumerable<ITask> Tasks)
 		{
 			foreach (ITask task in Tasks)
 			{
@@ -173,6 +175,7 @@ namespace AMD.Util.Tasks
 				result = task.Execute(this);
 
 				progressOverall = (startNumOfTasks - Count) * 100 / startNumOfTasks;
+        task.OnProgressChanged -= Task_OnProgressChanged;
 
 				if (UserCancel)
         {

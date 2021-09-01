@@ -12,9 +12,9 @@
              SizeChanged="UserControl_SizeChanged"
              Loaded="UserControl_Loaded"
              Width="450"
-             Height="265"
+             Height="280"
              MinWidth="350"
-             MinHeight="265"
+             MinHeight="280"
              Padding="5"
              Focusable="False"
              IsHitTestVisible="True"
@@ -243,23 +243,23 @@
         <TextBlock Text="Red" Grid.Column="0" Grid.Row="0" />
         <Slider Name="sliderRed" Grid.Column="2" Grid.Row="0" Background="{StaticResource BrushRedSlider}" Style="{StaticResource StyleColorSliderRgb}" Value="{Binding R}" />
         <!--<Slider Name="sliderRed" Grid.Column="2" Grid.Row="0" Background="Red" Style="{StaticResource StyleColorSliderRgb}" Value="50" />-->
-        <TextBox Name="tbRed" Grid.Column="3" Grid.Row="0" Text="{Binding R, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Name="tbRed" Grid.Column="3" Grid.Row="0" Text="{Binding R, UpdateSourceTrigger=PropertyChanged}" KeyUp="tbRGB_KeyUp" />
         <TextBlock Text="Green" Grid.Column="0" Grid.Row="1" />
         <Slider Name="sliderGreen" Grid.Column="2" Grid.Row="1" Background="{StaticResource BrushGreenSlider}" Style="{StaticResource StyleColorSliderRgb}" Value="{Binding G}" />
-        <TextBox Name="tbGreen" Grid.Column="3" Grid.Row="1" Text="{Binding G, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Name="tbGreen" Grid.Column="3" Grid.Row="1" Text="{Binding G, UpdateSourceTrigger=PropertyChanged}" KeyUp="tbRGB_KeyUp" />
         <TextBlock Text="Blue" Grid.Column="0" Grid.Row="2" />
         <Slider Name="sliderBlue" Grid.Column="2" Grid.Row="2" Background="{StaticResource BrushBlueSlider}" Style="{StaticResource StyleColorSliderRgb}" Value="{Binding B}" />
-        <TextBox Name="tbBlue" Grid.Column="3" Grid.Row="2" Text="{Binding B, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Name="tbBlue" Grid.Column="3" Grid.Row="2" Text="{Binding B, UpdateSourceTrigger=PropertyChanged}" KeyUp="tbRGB_KeyUp" />
         <Separator Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" />
         <TextBlock Text="Hue" Grid.Column="0" Grid.Row="4" />
         <Slider Name="sliderHue" Grid.Column="2" Grid.Row="4" Background="{StaticResource BrushColorRange}" Style="{StaticResource StyleColorSliderHue}" Value="{Binding Hue}" />
-        <TextBox Name="tbHue" Grid.Column="3" Grid.Row="4" Text="{Binding Hue, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+        <TextBox Name="tbHue" Grid.Column="3" Grid.Row="4" Text="{Binding Hue, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" IsReadOnly="True" />
         <TextBlock Text="Saturation" Grid.Column="0" Grid.Row="5" />
         <Slider Name="sliderSaturation" Grid.Column="2" Grid.Row="5" Background="{StaticResource BrushSaturationSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Saturation}" />
-        <TextBox Name="tbSaturation" Grid.Column="3" Grid.Row="5" Text="{Binding Saturation, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" />
+        <TextBox Name="tbSaturation" Grid.Column="3" Grid.Row="5" Text="{Binding Saturation, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
         <TextBlock Text="Value" Grid.Column="0" Grid.Row="6" />
         <Slider Name="sliderValue" Grid.Column="2" Grid.Row="6" Background="{StaticResource BrushValueSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Value}" />
-        <TextBox Name="tbValue" Grid.Column="3" Grid.Row="6" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" />
+        <TextBox Name="tbValue" Grid.Column="3" Grid.Row="6" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
         <TextBlock Text="Hex" Grid.Column="0" Grid.Row="7" />
         <TextBox Name="tbHexValue" Grid.Column="2" Grid.Row="7" BorderThickness="1" Width="55" FontFamily="{DynamicResource CodeFont}" HorizontalContentAlignment="Right" HorizontalAlignment="Center" TextChanged="tbHexValue_TextChanged" PreviewTextInput="tbHexValue_PreviewTextInput" />
       </Grid>

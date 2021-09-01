@@ -79,7 +79,7 @@
   <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush">#FF888888</SolidColorBrush>
 
   <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
-  <Color x:Key="ControlLightColorGreen">LawnGreen</Color>
+  <Color x:Key="ControlLightColorGreen">Green</Color>
   <Color x:Key="ControlLightColorBlue">#FF0071C5</Color>
   <Color x:Key="ControlMediumColor">Black</Color>
   <Color x:Key="ControlDarkColor">#FF211AA9</Color>

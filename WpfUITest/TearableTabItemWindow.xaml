@@ -6,8 +6,6 @@
         xmlns:local="clr-namespace:WpfUITest"
         xmlns:amdUserControls="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
         mc:Ignorable="d"
-        Title="TearableTabItemWindow" Height="300" Width="300">
-    <amdUserControls:TearableTabControl Name="tearableTabControl">
-        
-    </amdUserControls:TearableTabControl>
+        Title="TearableTabItemWindow" Height="900" Width="800">
+  <amdUserControls:TearableTabSplitControl Name="tearableTabControlOuter" />
 </Window>

@@ -22,6 +22,49 @@ namespace AMD.Util.Display
       }
     }
 
+    public static bool IsWithinScreenArea(double left, double top)
+    {
+      bool retVal = false;
+      foreach (ScreenInfo screen in AllScreens)
+      {
+        if (top > screen.WorkingArea.Top &&
+            top < screen.WorkingArea.Bottom &&
+            left > screen.WorkingArea.Left &&
+            left < screen.WorkingArea.Right)
+        {
+          retVal = true;
+        }
+      }
+      return retVal;
+    }
+
+    public static bool IsWithinScreenArea(Rectangle rectangle)
+    {
+      return IsWithinScreenArea(rectangle.Left, rectangle.Top);
+    }
+
+    public static ScreenInfo GetContainedScreen(double left, double top)
+    {
+      ScreenInfo retVal = null;
+      foreach (ScreenInfo screen in AllScreens)
+      {
+        if (top > screen.WorkingArea.Top &&
+            top < screen.WorkingArea.Bottom &&
+            left > screen.WorkingArea.Left &&
+            left < screen.WorkingArea.Right)
+        {
+          retVal = screen;
+          break;
+        }
+      }
+      return retVal;
+    }
+
+    public static ScreenInfo GetContainedScreen(Rectangle rectangle)
+    {
+      return GetContainedScreen(rectangle.Left, rectangle.Top);
+    }
+
 
     public class ScreenInfo
     {

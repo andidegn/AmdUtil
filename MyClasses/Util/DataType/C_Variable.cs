@@ -475,9 +475,7 @@ namespace AMD.Util.DataType
       sb.AppendFormat("{0}}}", indent.Substring(indent.Length / 2));
       return sb.ToString();
     }
-    #endregion // Static functions
 
-    #region Static Functions
     public static UInt32 GetSizeOf(C_Variable cv)
     {
       return SizeInBitsLUT[cv.Type];

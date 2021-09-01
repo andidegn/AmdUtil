@@ -28,8 +28,6 @@
     <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="Margin" Value="1"/>
-    <Setter Property="MinHeight" Value="22"/>
-    <Setter Property="MinWidth" Value="20"/>
     <Setter Property="FontSize" Value="12"/>
     <Setter Property="IsTabStop" Value="False" />
     <Setter Property="Template">

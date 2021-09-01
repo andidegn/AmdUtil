@@ -106,11 +106,11 @@
       </TreeView.Resources>
       <TreeView.ItemTemplate>
         <HierarchicalDataTemplate ItemsSource="{Binding SubFiles}">
-          <Grid>
+          <Grid Width="500">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="20" />
-              <ColumnDefinition />
+              <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <CheckBox Name="chkSelectedForAnalysis" 
                       Grid.Column="0" 

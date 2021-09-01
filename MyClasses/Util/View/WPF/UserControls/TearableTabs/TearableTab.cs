@@ -1,5 +1,6 @@
 ﻿using AMD.Util.HID;
 using AMD.Util.View.WPF.Helper;
+using AMD.Util.View.WPF.UserControls.TearableTabs;
 using System;
 using System.Collections.Specialized;
 using System.Windows;
@@ -12,8 +13,15 @@ using System.Windows.Threading;
 
 namespace AMD.Util.View.WPF.UserControls
 {
-  public class TearableTabItem : TabItem
+  public class TearableTabItem : TabItem, IDisposable
   {
+    #region Interface
+    public void Dispose()
+    {
+      (Content as IDisposable)?.Dispose();
+    }
+    #endregion // Interface
+
     #region DependencyProperties
 
     public bool Closeable
@@ -65,7 +73,15 @@ namespace AMD.Util.View.WPF.UserControls
       DragEnter += TabItem_DragEnter;
       DragOver += TabItem_DragOver;
       DragLeave += TabItem_DragLeave;
-      Drop += TabItem_Drop;
+      PreviewDrop += TabItem_Drop;
+
+      this.AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(Mouse_OutsideWindowLeftUp), true);
+      Mouse.Capture(this, CaptureMode.SubTree);
+    }
+
+    private void Mouse_OutsideWindowLeftUp(object sender, MouseButtonEventArgs e)
+    {
+
     }
 
     public override void OnApplyTemplate()
@@ -82,7 +98,7 @@ namespace AMD.Util.View.WPF.UserControls
             {
               parent.Items.Remove(this);
             }
-            (Content as IDisposable)?.Dispose();
+            this.Dispose();
           }
         };
       }
@@ -97,7 +113,7 @@ namespace AMD.Util.View.WPF.UserControls
         Point curMousePos = e.GetPosition((UIElement)this.Parent);
         if (!SharedData.IsAdornerElement(this.Parent))
         {
-          UIElement data = e.Data.GetData("AMD.Util.View.WPF.UserControls.TearableTabItem") as UIElement;
+          UIElement data = e.Data.GetData(typeof(TearableTabItem)) as UIElement;
           SharedData.SetAdornerLayer(this.Parent as UIElement, data);
         }
         SharedData.UpdateAdornerPosition(curMousePos.X - this.ActualWidth / 2, curMousePos.Y);
@@ -150,8 +166,27 @@ namespace AMD.Util.View.WPF.UserControls
     {
       TearableTabItem tabItem = sender as TearableTabItem;
 
+      //if (true || MouseUtil.IsOver(this, "Border") && null != SharedData)
+      //{
+      //  TearableTabItem tabItemSource = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
+      //  TearableTabControl tabControlTarget = this.Parent as TearableTabControl;
+      //  TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
+      //  if (null != tabItemSource && null != tabControlTarget)
+      //  {
+      //    if (null != tabControlSource)
+      //    {
+      //      tabControlSource.Items.Remove(tabItemSource);
+      //    }
+      //    int index = tabControlTarget.Items.IndexOf(this);
+      //    if (0 != index) { }
+      //    tabControlTarget.Items.Insert(0, tabItemSource);
+      //    //tabControlTarget.Items.Insert(tabControlTarget.Items.IndexOf(tabItem), tabItemSource);
+      //  }
+      //}
+
       if (null != SharedData && SharedData.AllowTabDrag && tabItem != null)
       {
+        e.Handled = true;
         if (!tabItem.IsSelected)
         {
           if (tiHoverTimer == null)
@@ -182,6 +217,12 @@ namespace AMD.Util.View.WPF.UserControls
 
     private void TabItem_DragLeave(object sender, DragEventArgs e)
     {
+      //TearableTabItem tabItemSource = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
+      //TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
+      //if (null != tabItemSource && null != tabControlSource)
+      //{
+      //  tabControlSource.Items.Remove(tabItemSource);
+      //}
       tiHoverTimer?.Stop();
       tiHoverTimer = null;
     }
@@ -221,7 +262,8 @@ namespace AMD.Util.View.WPF.UserControls
             }
             else
             {
-              int targetIndex = Math.Min(tabControlTarget.Items.Count, tabControlTarget.Items.IndexOf(tabItemTarget) + 1);
+              int targetIndex = Math.Min(tabControlTarget.Items.Count, tabControlTarget.Items.IndexOf(tabItemTarget));
+              int one = tabControlTarget.Items.IndexOf(tabItemTarget);
 
               tabControlSource.Items.Remove(tabItemSource);
               tabControlTarget.Items.Insert(targetIndex, tabItemSource);

@@ -4,6 +4,7 @@
 					xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
   <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="AMDCommonBrushesRD.xaml" />
     <ResourceDictionary Source="MacStyledTitleBarButtons.xaml" />
     <ResourceDictionary Source="AMDIconsRD.xaml" />
     <ResourceDictionary Source="AMDTearableTabRD.xaml" />
@@ -11,7 +12,7 @@
     <ResourceDictionary Source="AMDButtonsRD.xaml" />
     <ResourceDictionary Source="AMDComboBoxesRD.xaml" />
     <ResourceDictionary Source="AMDToggleButtonsRD.xaml" />
-    <ResourceDictionary Source="AMDCommonBrushesRD.xaml" />
+    <ResourceDictionary Source="AMDNumericUpDown.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!--<FontFamily x:Key="SystemFont">/ISIC SB15 Programmer;component/Resources/#Input Mono</FontFamily>-->
@@ -466,7 +467,11 @@
 				<Setter Property="Foreground" Value="DarkGray" />
 			</Trigger>
 		</ControlTemplate.Triggers>
-	</ControlTemplate>
+  </ControlTemplate>
+  <Style TargetType="TabItem" x:Key="TabItemBaseStyleSquare">
+    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
+    <Setter Property="IsTabStop" Value="False" />
+  </Style>
   <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
     <Setter Property="Foreground" Value="{DynamicResource BrushMainForeground}" />
     <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
@@ -475,8 +480,8 @@
 		<Setter Property="Template" Value="{StaticResource TabItemBase}" />
 		<Setter Property="IsTabStop" Value="False" />
 	</Style>
-  
-  <Style x:Key="TabItemPresenterBaseSquare" TargetType="ContentPresenter">
+
+  <Style TargetType="ContentPresenter" x:Key="TabItemPresenterBaseSquare">
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Center" />
 		<Setter Property="Margin" Value="12,2,12,2" />
@@ -519,10 +524,6 @@
       </Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
-  <Style TargetType="TabItem" x:Key="TabItemBaseStyleSquare">
-		<Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
-		<Setter Property="IsTabStop" Value="False" />
-	</Style>
 
 	<!--TextBox-->
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="TextBoxBase">

@@ -21,19 +21,15 @@ namespace WpfUITest
   public partial class TearableTabItemWindow : Window
   {
 
-
-    public ItemCollection Items
-    {
-      get
-      {
-        return this.tearableTabControl.Items;
-      }
-    }
-
     public TearableTabItemWindow(int count)
     {
       InitializeComponent();
-      this.tearableTabControl.Name = String.Format("ttcTest_{0}", count);
+      this.tearableTabControlOuter.Name = String.Format("ttcTest_{0}", count);
+    }
+
+    public void DropTab(TearableTabItem tabItem)
+    {
+      tearableTabControlOuter.DropTab(tabItem);
     }
   }
 }

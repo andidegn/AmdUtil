@@ -4,7 +4,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace AMD.Util.View.WPF.UserControls
+namespace AMD.Util.View.WPF.UserControls.TearableTabs
 {
   public class TearableTabControlAdorner : Adorner
   {

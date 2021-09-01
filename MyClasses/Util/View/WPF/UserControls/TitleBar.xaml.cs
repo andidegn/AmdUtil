@@ -119,6 +119,9 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    /// <summary>
+    /// Depricated, use Background
+    /// </summary>
     public Brush MainBackground
     {
       get
@@ -336,7 +339,6 @@ namespace AMD.Util.View.WPF.UserControls
         moving = true;
       }
     }
-
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
       try

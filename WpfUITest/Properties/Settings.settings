@@ -8,5 +8,8 @@
     <Setting Name="HelpWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">800</Value>
     </Setting>
+    <Setting Name="TabPositioning" Type="System.IO.MemoryStream" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

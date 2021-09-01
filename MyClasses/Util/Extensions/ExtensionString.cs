@@ -82,6 +82,13 @@ namespace AMD.Util.Extensions
       }
       return sb.ToString();
     }
+    public static String Replace(this string s, char[] separators, String newVal)
+    {
+      String[] temp;
+
+      temp = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+      return String.Join(newVal, temp);
+    }
 
     public static String[] Split(this String s, int desiredLength, bool strict = false)
     {

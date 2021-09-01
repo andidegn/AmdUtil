@@ -5,6 +5,7 @@ using AMD.Util.Log;
 using AMD.Util.Versioning;
 using AMD.Util.View.WPF.Helper;
 using AMD.Util.View.WPF.UserControls;
+using AMD.Util.View.WPF.UserControls.TearableTabs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,6 +112,10 @@ namespace WpfUITest
     {
       TearableTabItemWindow ttiw = new TearableTabItemWindow(tabControlCount++);
       tabWindows.Add(ttiw);
+      for (int i = 0; i < 10; i++)
+      {
+        ttiw.DropTab(new TearableTabItem() { Name = $"TabName{i}", Header = $"Tab#{i}" });
+      }
       ttiw.Show();
     }
 
@@ -145,7 +150,7 @@ namespace WpfUITest
             ttcTestFourth.Items.Add(tti);
             break;
           default:
-            tabWindows[tabControlIndex - 4].Items.Add(tti);
+            //tabWindows[tabControlIndex - 4].Items.Add(tti);
             break;
         }
       }
@@ -197,7 +202,6 @@ namespace WpfUITest
       log.WriteToLog(LogMsgType.Notification, st.GetFrame(1).GetMethod().Name, "This is a test: {0}", "Test1");
       dp.KeyUp += Window_KeyUp;
       CreateNewTabWindow();
-
       //ShowAboutModal();
     }
 
@@ -307,6 +311,11 @@ namespace WpfUITest
     private void btnNewTabTest_Click(object sender, RoutedEventArgs e)
     {
       CreateNewRandomTab();
+    }
+
+    private void Window_Closing(object sender, CancelEventArgs e)
+    {
+      //Settings.Default.TabPositioning = tabSplitControl.GetSerializedStreamOfAllContent();
     }
 
     private void btnClearAllTabs_Click(object sender, RoutedEventArgs e)

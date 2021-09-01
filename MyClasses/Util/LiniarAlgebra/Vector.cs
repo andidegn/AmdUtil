@@ -89,9 +89,13 @@ namespace AMD.Util.LinearAlgebra
       double sum = 0;
       int size = v1.Size();
       if (size != v2.Size())
+      {
         throw new Exception("Not equal sizes!");
+      }
       for (int i = 0; i < size; i++)
+      {
         sum += v1.components[i] * v2.components[i];
+      }
       return sum;
     }
 
@@ -118,9 +122,13 @@ namespace AMD.Util.LinearAlgebra
     {
       double res = DotProduct(v1, v2) / (v1.Length() * v2.Length());
       if (res > 1)
+      {
         res = 1;
+      }
       else if (res < -1)
+      {
         res = -1;
+      }
       return Math.Acos(res);
     }
 
@@ -148,9 +156,13 @@ namespace AMD.Util.LinearAlgebra
     {
       double res = DotProduct(v1, v2) / (v1.Length() * v2.Length());
       if (res > 1)
+      {
         res = 1;
+      }
       else if (res < -1)
+      {
         res = -1;
+      }
       return Math.Acos(res) * 180 / Math.PI;
     }
 
@@ -226,7 +238,9 @@ namespace AMD.Util.LinearAlgebra
       StringBuilder sb = new StringBuilder();
       int i = 1;
       foreach (double d in components)
+      {
         sb.Append(String.Format("x{0}: {1}\n", i++, d));
+      }
       return sb.ToString(); ;
     }
     #endregion
@@ -236,10 +250,14 @@ namespace AMD.Util.LinearAlgebra
     {
       int size = v1.Size();
       if (size != v2.Size())
+      {
         throw new Exception("Not equal sizes!");
+      }
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = v1.components[i] + v2.components[i];
+      }
       return v;
     }
 
@@ -247,10 +265,14 @@ namespace AMD.Util.LinearAlgebra
     {
       int size = v1.Size();
       if (size != v2.Size())
+      {
         throw new Exception("Not equal sizes!");
+      }
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = v1.components[i] - v2.components[i];
+      }
       return v;
     }
 
@@ -259,7 +281,9 @@ namespace AMD.Util.LinearAlgebra
       int size = v1.Size();
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = v1.components[i] * k;
+      }
       return v;
     }
 
@@ -278,7 +302,9 @@ namespace AMD.Util.LinearAlgebra
       int size = v1.Size();
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = v1.components[i] / k;
+      }
       return v;
     }
 
@@ -287,7 +313,9 @@ namespace AMD.Util.LinearAlgebra
       int size = v1.Size();
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = +v1.components[i];
+      }
       return v;
     }
 
@@ -296,15 +324,21 @@ namespace AMD.Util.LinearAlgebra
       int size = v1.Size();
       Vector v = new Vector(size);
       for (int i = 0; i < size; i++)
+      {
         v.components[i] = -v1.components[i];
+      }
       return v;
     }
 
     public static bool operator ==(Vector v1, Vector v2)
     {
       for (int i = 0; i < v1.Size(); i++)
+      {
         if (Math.Abs(v1.components[i] - v2.components[i]) > EqualityTolerence)
+        {
           return false;
+        }
+      }
       return true;
     }
 

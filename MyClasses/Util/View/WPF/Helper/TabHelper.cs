@@ -20,27 +20,7 @@ namespace AMD.Util.View.WPF.Helper
     {
       if (ic != null)
       {
-        double adjuster = 10d / Math.Max(1, ic.Count);
-        //if (5 > ic.Count)
-        //{
-        //  adjuster = 2;
-        //}
-        //else if (11 > ic.Count)
-        //{
-        //  adjuster = 1;
-        //}
-        //else if (21 > ic.Count)
-        //{
-        //  adjuster = 0.4;
-        //}
-        //else if (41 > ic.Count)
-        //{
-        //  adjuster = 0.2;
-        //}
-        //else
-        //{
-        //  adjuster = 0.1;
-        //}
+        double adjuster = 6d / Math.Max(1, ic.Count);
         foreach (TabItem ti in ic)
         {
           TabControl tc = ti.Parent as TabControl;
@@ -48,7 +28,6 @@ namespace AMD.Util.View.WPF.Helper
           {
             double curMar = ti.Margin.Left + ti.Margin.Right;
             ti.Width = Math.Max(0, (double)(tc.ActualWidth / tc.Items.Count) - adjuster);
-            //ti.Width = Math.Max(0, (double)(tc.ActualWidth / tc.Items.Count) - 0.1);
           }
         }
       }

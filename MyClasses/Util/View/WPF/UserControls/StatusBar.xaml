@@ -4,31 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             Name="StatusBarMainWindow"
              mc:Ignorable="d" >
-  <Border Name="statusBar" Background="{DynamicResource TitleBarBackground}" CornerRadius="0, 0, 5, 5">
-    <StatusBar Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
-      <StatusBar.Resources>
-      </StatusBar.Resources>
-      <StatusBar.ItemsPanel>
-        <ItemsPanelTemplate>
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="116" />
-            </Grid.ColumnDefinitions>
-          </Grid>
-        </ItemsPanelTemplate>
-      </StatusBar.ItemsPanel>
-      <StatusBarItem Grid.Column="0">
-        <TextBlock Name="sbStatus" Text="loaded" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, -2, 0 ,0" />
-      </StatusBarItem>
-      <StatusBarItem Name="sbiInfo" Grid.Column="1">
-        <TextBlock Name="sbInfo" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, -2, 0 ,0" />
-      </StatusBarItem>
-      <StatusBarItem Grid.Column="2">
-        <ProgressBar Name="sbProgress" Padding="0" Margin="0, -1, 0, 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Maximum="1" Height="15" Width="100" />
-      </StatusBarItem>
-    </StatusBar>
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../AMDIconsRD.xaml" />
+        <ResourceDictionary Source="../AMDStylesRD.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Border Name="statusBarBorder" Background="{Binding MainBackground}" CornerRadius="0, 0, 5, 5">
+    <Grid Name="statusBar" Background="Transparent" HorizontalAlignment="Stretch" >
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <TextBlock Name="sbStatus" Grid.Column="0" Text="status" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2, -2, 2 ,0" />
+      <TextBlock Name="sbInfo" Grid.Column="1" Text="info" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2, -2, 2 ,0" />
+      <StackPanel Name="spProgress" Grid.Column="2" Orientation="Horizontal" >
+        <ProgressBar Name="sbProgress" Grid.Column="2" Padding="0" Margin="2, -1, 5, 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Maximum="1" Height="15" Width="100" />
+        <local:ResizeThumb x:Name="resizeThumb" Grid.Column="2" Visibility="Visible" />
+      </StackPanel>
+    </Grid>
   </Border>
 </UserControl>

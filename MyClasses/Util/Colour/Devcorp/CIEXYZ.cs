@@ -15,7 +15,7 @@ namespace AMD.Util.Colour.Devcorp
 		/// <summary>
 		/// Gets the CIE D65 (white) structure.
 		/// </summary>
-		public static readonly CIEXYZ D65 = new CIEXYZ(0.9505, 1.0, 1.0890);
+		public static readonly CIEXYZ D65 = new CIEXYZ(0.95047, 1.0, 1.08883);
 
 		#region Fields
 		private double x;

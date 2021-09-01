@@ -65,42 +65,60 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+
+
     public Brush MainBackground
     {
       get
       {
-        return statusBar.Background;
+        return (Brush)GetValue(MainBackgroundProperty);
       }
       set
       {
-        statusBar.Background = value;
+        SetValue(MainBackgroundProperty, value);
       }
     }
 
-    public bool ProgressBarVisible
+    // Using a DependencyProperty as the backing store for MainBackground.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty MainBackgroundProperty =
+        DependencyProperty.Register("MainBackground", typeof(Brush), typeof(StatusBar), new PropertyMetadata(Brushes.WhiteSmoke));
+
+    public Visibility ProgressBarVisible
     {
       get
       {
-        return sbProgress.Visibility == Visibility.Visible;
+        return sbProgress.Visibility;
       }
       set
       {
-        if (value)
+        if (Visibility.Visible == value)
         {
-          sbProgress.Visibility = Visibility.Visible;
-          Grid.SetColumnSpan(sbiInfo, 1);
+          Grid.SetColumnSpan(sbInfo, 1);
         }
         else
         {
-          sbProgress.Visibility = Visibility.Hidden;
-          Grid.SetColumnSpan(sbiInfo, 2);
+          Grid.SetColumnSpan(sbInfo, 2);
         }
+        sbProgress.Visibility = value;
+      }
+    }
+
+    public Visibility ResizeThumbVisible
+    {
+      get
+      {
+        return resizeThumb.Visibility;
+      }
+      set
+      {
+        resizeThumb.Visibility = value;
       }
     }
 
     public StatusBar()
     {
       InitializeComponent();
+      this.DataContext = this;
     }
   }
 }

@@ -46,5 +46,16 @@ namespace WpfUITest.Properties {
                 this["HelpWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.MemoryStream TabPositioning {
+            get {
+                return ((global::System.IO.MemoryStream)(this["TabPositioning"]));
+            }
+            set {
+                this["TabPositioning"] = value;
+            }
+        }
     }
 }
