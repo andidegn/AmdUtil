@@ -38,6 +38,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
+using AMD.Util.Extensions;
 
 namespace AMD.Util.HID
 {
@@ -107,8 +108,7 @@ namespace AMD.Util.HID
       using (Process curProcess = Process.GetCurrentProcess())
       using (ProcessModule curModule = curProcess.MainModule)
       {
-        hookID = NativeMethods.SetWindowsHookEx(WH_KEYBOARD_LL, proc,
-            NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
+        hookID = NativeMethods.SetWindowsHookEx(WH_KEYBOARD_LL, proc, NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
       }
     }
 
@@ -199,8 +199,7 @@ namespace AMD.Util.HID
     /// <summary>
     /// Processes the key event captured by the hook.
     /// </summary>
-    private IntPtr HookCallback(
-        int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
+    private IntPtr HookCallback(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam)
     {
       bool AllowKey = PassAllKeysToNextApp;
 
@@ -268,8 +267,7 @@ namespace AMD.Util.HID
     /// <param name="e">An instance of KeyboardHookEventArgs</param>
     public void OnKeyIntercepted(KeyboardHookEventArgs e)
     {
-      if (KeyIntercepted != null)
-        KeyIntercepted(e);
+      KeyIntercepted?.Invoke(e);
     }
 
     /// <summary>
@@ -281,43 +279,29 @@ namespace AMD.Util.HID
     /// <summary>
     /// Event arguments for the KeyboardHook class's KeyIntercepted event.
     /// </summary>
-    public class KeyboardHookEventArgs : System.EventArgs
+    public class KeyboardHookEventArgs : EventArgs
     {
-
-      private string keyName;
-      private int keyCode;
-      private bool passThrough;
-
       /// <summary>
       /// The name of the key that was pressed.
       /// </summary>
-      public string KeyName
-      {
-        get { return keyName; }
-      }
+      public string KeyName { get; }
 
       /// <summary>
       /// The virtual key code of the key that was pressed.
       /// </summary>
-      public int KeyCode
-      {
-        get { return keyCode; }
-      }
+      public int KeyCode { get; }
 
       /// <summary>
       /// True if this key combination was passed to other applications,
       /// false if it was trapped.
       /// </summary>
-      public bool PassThrough
-      {
-        get { return passThrough; }
-      }
+      public bool PassThrough { get; }
 
       public KeyboardHookEventArgs(int evtKeyCode, bool evtPassThrough)
       {
-        keyName = ((Key)evtKeyCode).ToString();
-        keyCode = evtKeyCode;
-        passThrough = evtPassThrough;
+        KeyName = ((Key)evtKeyCode).ToString();
+        KeyCode = evtKeyCode;
+        PassThrough = evtPassThrough;
       }
 
     }
@@ -486,7 +470,7 @@ namespace AMD.Util.HID
 
       if (nCode >= 0)
       {
-        vkCode = (Key)Marshal.ReadInt32(lParam);
+        vkCode = ((System.Windows.Forms.Keys)Marshal.ReadInt32(lParam)).ToInputKey();
         args = new KeyboardHookArgs(vkCode, false);
 
         if ((IntPtr)WM_KEYUP == wParam)

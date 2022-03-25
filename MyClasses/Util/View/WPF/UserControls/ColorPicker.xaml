@@ -23,6 +23,12 @@
     <ResourceDictionary>
       <local:ValuePickerFillConverter x:Key="valuePickerFillConverter" />
 
+      <LinearGradientBrush x:Key="BrushAlphaSlider" StartPoint="0, 0" EndPoint="1, 0">
+        <GradientStopCollection>
+          <GradientStop Color="Black" Offset="0" />
+          <GradientStop Color="#00000000" Offset="1" />
+        </GradientStopCollection>
+      </LinearGradientBrush>
       <LinearGradientBrush x:Key="BrushRedSlider" StartPoint="0, 0" EndPoint="1, 0">
         <GradientStopCollection>
           <GradientStop Color="Black" Offset="0" />
@@ -229,14 +235,15 @@
           <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
-          <RowDefinition Height="20" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="5" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
+          <RowDefinition Height="18" />
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -250,18 +257,21 @@
         <TextBlock Text="Blue" Grid.Column="0" Grid.Row="2" />
         <Slider Name="sliderBlue" Grid.Column="2" Grid.Row="2" Background="{StaticResource BrushBlueSlider}" Style="{StaticResource StyleColorSliderRgb}" Value="{Binding B}" />
         <TextBox Name="tbBlue" Grid.Column="3" Grid.Row="2" Text="{Binding B, UpdateSourceTrigger=PropertyChanged}" KeyUp="tbRGB_KeyUp" />
-        <Separator Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" />
-        <TextBlock Text="Hue" Grid.Column="0" Grid.Row="4" />
-        <Slider Name="sliderHue" Grid.Column="2" Grid.Row="4" Background="{StaticResource BrushColorRange}" Style="{StaticResource StyleColorSliderHue}" Value="{Binding Hue}" />
-        <TextBox Name="tbHue" Grid.Column="3" Grid.Row="4" Text="{Binding Hue, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" IsReadOnly="True" />
-        <TextBlock Text="Saturation" Grid.Column="0" Grid.Row="5" />
-        <Slider Name="sliderSaturation" Grid.Column="2" Grid.Row="5" Background="{StaticResource BrushSaturationSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Saturation}" />
-        <TextBox Name="tbSaturation" Grid.Column="3" Grid.Row="5" Text="{Binding Saturation, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
-        <TextBlock Text="Value" Grid.Column="0" Grid.Row="6" />
-        <Slider Name="sliderValue" Grid.Column="2" Grid.Row="6" Background="{StaticResource BrushValueSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Value}" />
-        <TextBox Name="tbValue" Grid.Column="3" Grid.Row="6" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
-        <TextBlock Text="Hex" Grid.Column="0" Grid.Row="7" />
-        <TextBox Name="tbHexValue" Grid.Column="2" Grid.Row="7" BorderThickness="1" Width="55" FontFamily="{DynamicResource CodeFont}" HorizontalContentAlignment="Right" HorizontalAlignment="Center" TextChanged="tbHexValue_TextChanged" PreviewTextInput="tbHexValue_PreviewTextInput" />
+        <TextBlock Text="Alpha" Grid.Column="0" Grid.Row="3" />
+        <Slider Name="sliderAlpha" Grid.Column="2" Grid.Row="3" Background="{StaticResource BrushAlphaSlider}" Style="{StaticResource StyleColorSliderRgb}" Value="{Binding A}" />
+        <TextBox Name="tbAlpha" Grid.Column="3" Grid.Row="3" Text="{Binding A, UpdateSourceTrigger=PropertyChanged}" KeyUp="tbRGB_KeyUp" />
+        <Separator Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
+        <TextBlock Text="Hue" Grid.Column="0" Grid.Row="5" />
+        <Slider Name="sliderHue" Grid.Column="2" Grid.Row="5" Background="{StaticResource BrushColorRange}" Style="{StaticResource StyleColorSliderHue}" Value="{Binding Hue}" />
+        <TextBox Name="tbHue" Grid.Column="3" Grid.Row="5" Text="{Binding Hue, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" IsReadOnly="True" />
+        <TextBlock Text="Saturation" Grid.Column="0" Grid.Row="6" />
+        <Slider Name="sliderSaturation" Grid.Column="2" Grid.Row="6" Background="{StaticResource BrushSaturationSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Saturation}" />
+        <TextBox Name="tbSaturation" Grid.Column="3" Grid.Row="6" Text="{Binding Saturation, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
+        <TextBlock Text="Value" Grid.Column="0" Grid.Row="7" />
+        <Slider Name="sliderValue" Grid.Column="2" Grid.Row="7" Background="{StaticResource BrushValueSlider}" Style="{StaticResource StyleColorSliderSatValue}" Value="{Binding Value}" />
+        <TextBox Name="tbValue" Grid.Column="3" Grid.Row="7" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
+        <TextBlock Text="Hex" Grid.Column="0" Grid.Row="8" />
+        <TextBox Name="tbHexValue" Grid.Column="2" Grid.Row="8" BorderThickness="1" Width="55" FontFamily="{DynamicResource CodeFont}" HorizontalContentAlignment="Right" HorizontalAlignment="Center" TextChanged="tbHexValue_TextChanged" PreviewTextInput="tbHexValue_PreviewTextInput" />
       </Grid>
       <!--<TextBlock Name="tbCurrentMousePosition" />
       <Button Name="testColorButton" Content="Test" Click="testColorButton_Click" />

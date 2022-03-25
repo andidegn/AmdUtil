@@ -10,14 +10,14 @@ namespace AMD.Util.Extensions.WPF
 {
 	public static class ExtensionRichTextBox
 	{
-		public static void AppendText(this RichTextBox box, String text, System.Windows.Media.Brush color = null, FontStyle fontStyle = FontStyle.Regular)
+		public static void AppendText(this RichTextBox box, String text, System.Windows.Media.Brush color = null)
 		{
 			TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
 			tr.Text = text;
 			tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
 		}
 
-		public static void AppendText(this RichTextBox box, char c, System.Windows.Media.Brush color = null, FontStyle fontStyle = FontStyle.Regular)
+		public static void AppendText(this RichTextBox box, char c, System.Windows.Media.Brush color = null)
 		{
 			TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
 			tr.Text = c.ToString();

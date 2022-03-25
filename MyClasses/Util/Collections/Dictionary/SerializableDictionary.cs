@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMD.Util.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -75,7 +76,7 @@ namespace AMD.Util.Collections.Dictionary
 		#endregion
 		#region IXmlSerializable Members
 
-		void IXmlSerializable.WriteXml(System.Xml.XmlWriter writer)
+		void IXmlSerializable.WriteXml(XmlWriter writer)
 		{
 			//writer.WriteStartElement(DictionaryNodeName);
 			foreach (KeyValuePair<TKey, TVal> kvp in this)
@@ -92,7 +93,7 @@ namespace AMD.Util.Collections.Dictionary
 			//writer.WriteEndElement();
 		}
 
-		void IXmlSerializable.ReadXml(System.Xml.XmlReader reader)
+		void IXmlSerializable.ReadXml(XmlReader reader)
 		{
 			if (reader.IsEmptyElement)
 			{
@@ -108,15 +109,23 @@ namespace AMD.Util.Collections.Dictionary
 			//reader.ReadStartElement(DictionaryNodeName);
 			while (reader.NodeType != XmlNodeType.EndElement)
 			{
-				reader.ReadStartElement(ItemNodeName);
-				reader.ReadStartElement(KeyNodeName);
-				TKey key = (TKey)KeySerializer.Deserialize(reader);
-				reader.ReadEndElement();
-				reader.ReadStartElement(ValueNodeName);
-				TVal value = (TVal)ValueSerializer.Deserialize(reader);
-				reader.ReadEndElement();
-				reader.ReadEndElement();
-				this.Add(key, value);
+        try
+        {
+          reader.ReadStartElement(ItemNodeName);
+          reader.ReadStartElement(KeyNodeName);
+          TKey key = (TKey)KeySerializer.Deserialize(reader);
+          reader.ReadEndElement();
+          reader.ReadStartElement(ValueNodeName);
+          TVal value = (TVal)ValueSerializer.Deserialize(reader);
+          reader.ReadEndElement();
+          reader.ReadEndElement();
+          this.Add(key, value);
+        }
+        catch (Exception ex)
+        {
+          reader.Read();
+          LogWriter.Instance.WriteToLog(ex);
+        }
 				reader.MoveToContent();
 			}
 			//reader.ReadEndElement();

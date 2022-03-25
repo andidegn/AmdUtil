@@ -12,10 +12,13 @@ namespace AMD.Util.View.WPF.UserControls
 	public partial class LoginDialog : Window
 	{
 		public bool UserCancel { get; set; }
-		public String Domain { get; set; }
-		private LogWriter log;
+		public string Domain { get; set; }
+    public bool Fixed { get; set; }
+    public string FixedUserName { get; set; }
+    public string FixedPassword { get; set; }
+    private LogWriter log;
 
-		public LoginDialog(LogWriter log, double top, double left, String domain = "INNOSCAN")
+		public LoginDialog(LogWriter log, double top, double left, string domain = "andidegn.com")
 		{
 			UserCancel = true;
 			Domain = domain;
@@ -36,20 +39,44 @@ namespace AMD.Util.View.WPF.UserControls
 
 		private void tbPass_KeyUp(object sender, KeyEventArgs e)
 		{
+      bool passed = false;
 			if (e.Key == Key.Enter)
 			{
-				try
-				{
-					lblNotification.Text = String.Empty;
-					Impersonator impersonater = new Impersonator(tbUser.Text, Domain, tbPass.Password);
-					UserCancel = false;
-					DialogResult = true;
-				}
-				catch (Exception ex)
-				{
-					lblNotification.Text = "Error logging in";
-					log.WriteToLog(ex, "Error while trying to log in: {0}, {1}", tbUser.Text, Domain);
-				}
+        if (Fixed)
+        {
+          if (tbUser.Text.Trim().Equals(FixedUserName) && tbPass.Password.Equals(FixedPassword))
+          {
+            passed = true;
+          }
+          else
+          {
+            passed = false;
+          }
+        }
+        else
+        {
+          try
+          {
+            lblNotification.Text = string.Empty;
+            Impersonator impersonater = new Impersonator(tbUser.Text, Domain, tbPass.Password);
+            passed = true;
+          }
+          catch (Exception ex)
+          {
+            passed = false;
+            log.WriteToLog(ex, "Error while trying to log in: {0}, {1}", tbUser.Text, Domain);
+          }
+        }
+
+        if (passed)
+        {
+          UserCancel = false;
+          DialogResult = true;
+        }
+        else
+        {
+          lblNotification.Text = "Error logging in";
+        }
 			}
 		}
 

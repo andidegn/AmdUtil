@@ -7,10 +7,10 @@
   
   <Grid Height="21">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
       <ColumnDefinition Width="18" />
     </Grid.ColumnDefinitions>
-    <TextBox Name="textBox" Grid.Column="0" x:FieldModifier="private" Margin="0" Width="50" Text="40" Height="21" PreviewTextInput="TextBox_PreviewTextInput" />
+    <TextBox Name="textBox" Grid.Column="0" x:FieldModifier="private" IsReadOnly="False" Margin="0" Width="Auto" MinWidth="40" HorizontalContentAlignment="Right" Text="40" Height="21" PreviewTextInput="TextBox_PreviewTextInput" />
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
         <RowDefinition />

@@ -58,6 +58,14 @@ namespace AMD.Util.Extensions
     /// <returns></returns>
     public static byte[] GetBytesFromHex(this String s)
     {
+      string[] parts = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+      byte[] bytes = new byte[parts.Length];
+      for (int i = 0; i < parts.Length; i++)
+      {
+        bytes[i] = Convert.ToByte(parts[i], 16);
+      }
+      return bytes;
+
       return (from h in Enumerable.Range(0, s.Length)
               where (h % 2 == 0)
               select Convert.ToByte(s.Substring(h, 2), 16)).ToArray<byte>();

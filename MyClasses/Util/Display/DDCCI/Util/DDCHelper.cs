@@ -1,10 +1,9 @@
-﻿using AMD.Util.Extensions;
+﻿using AMD.Util.Display.DDCCI.MCCSCodeStandard;
+using AMD.Util.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AMD.Util.Display.DDCCI.Util
 {
@@ -18,7 +17,7 @@ namespace AMD.Util.Display.DDCCI.Util
     /// <returns></returns>
     public static String GetVCPName(eVCPCode code)
     {
-      return VCPCodeStandard.VCPNameLUT[(byte)code];
+      return VCPCodeStandard.Instance.GetName(code);
     }
 
     /// <summary>
@@ -64,7 +63,9 @@ namespace AMD.Util.Display.DDCCI.Util
                 {
                   if (0 < sb.Length)
                   {
-                    list.Add(new VCPCode(byte.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo)));
+                    VCPCode lastCode = new VCPCode(byte.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo));
+                    lastCode.AddPresets(VCPCodeStandard.GetStandardPresets(lastCode.Code));
+                    list.Add(lastCode);
                   }
                   endOfVcpList = true;
                 }
@@ -83,7 +84,8 @@ namespace AMD.Util.Display.DDCCI.Util
 
                     if (0 < sb.Length)
                     {
-                      list.Add(new VCPCode(byte.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo)));
+                      VCPCode newCode = new VCPCode(byte.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo));
+                      list.Add(newCode);
                       sb.Clear();
                     }
                   }
@@ -97,7 +99,20 @@ namespace AMD.Util.Display.DDCCI.Util
 
                     if (0 < sb.Length)
                     {
-                      list.Last().Presets.Add(byte.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo));
+                      uint presetValue = uint.Parse(sb.ToString(), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo);
+                      VCPCode latestCode = list.Last();
+                      VCPCodePreset preset = (from p in VCPCodeStandard.GetStandardPresets(latestCode.Code)
+                                              where p.Value == presetValue
+                                              select p).DefaultIfEmpty(null).SingleOrDefault();
+
+                      if (null != preset)
+                      {
+                        latestCode.AddPreset(preset);
+                      }
+                      else
+                      {
+                        latestCode.AddPreset("", presetValue);
+                      }
                       sb.Clear();
                     }
                   }
@@ -119,9 +134,10 @@ namespace AMD.Util.Display.DDCCI.Util
         {
 
           int depth = 0;
-          bool endOfVcpList = false;
+          bool endOfVcpList = false, hasPresets = false; ;
           String name, code;
           StringBuilder sb = new StringBuilder();
+          StringBuilder sbPresets = new StringBuilder();
           VCPCode vCPCode = null;
 
           foreach (char c in capabilityString.Skip(index + 7))
@@ -133,7 +149,8 @@ namespace AMD.Util.Display.DDCCI.Util
             switch (c)
             {// e0(color temperature)
               case '(':
-                if (2 == ++depth) // VCP code in sb
+                depth++;
+                if (2 == depth) // VCP code in sb
                 {
                   code = sb.ToString().Trim(' ', ',', '.');
                   if (2 == code.Length && code.IsHexNumber())
@@ -142,16 +159,36 @@ namespace AMD.Util.Display.DDCCI.Util
                     sb.Clear();
                   }
                 }
+                else if (3 == depth)
+                {
+                  hasPresets = true;
+                }
                 break;
 
               case ')':
-                if (1 == --depth)
+                depth--;
+                if (1 == depth)
                 {
                   name = sb.ToString().Trim(' ', ',', '.');
                   if (!String.IsNullOrWhiteSpace(name) && null != vCPCode)
                   {
                     vCPCode.Name = name;
                     sb.Clear();
+                  }
+                }
+                else if (2 == depth)
+                {
+                  hasPresets = false;
+                  string[] parts = sbPresets.ToString().Split();
+                  uint tmpValue = 0;
+                  string tmpStr;
+                  for (int i = 0; i < parts.Length - 1; i++)
+                  {
+                    tmpStr = parts[i];
+                    if (uint.TryParse(tmpStr, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out tmpValue))
+                    {
+                      vCPCode.AddPreset(parts[++i], tmpValue);
+                    }
                   }
                 }
                 else if (1 > depth)
@@ -161,6 +198,10 @@ namespace AMD.Util.Display.DDCCI.Util
                 break;
 
               default:
+                if (hasPresets)
+                {
+                  sbPresets.Append(c);
+                }
                 sb.Append(c);
                 break;
             }

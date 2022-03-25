@@ -32,7 +32,7 @@ namespace AMD.Util.View.WPF.UserControls
 
     // Using a DependencyProperty as the backing store for Closeable.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CloseableProperty =
-        DependencyProperty.Register("Closeable", typeof(bool), typeof(TearableTabItem), new PropertyMetadata(true, CloseablePropertyChanged));
+        DependencyProperty.Register("Closeable", typeof(bool), typeof(TearableTabItem), new PropertyMetadata(false, CloseablePropertyChanged));
 
     private static void CloseablePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -89,6 +89,7 @@ namespace AMD.Util.View.WPF.UserControls
       Button button = this.GetTemplateChild("PART_Close") as Button;
       if (null != button)
       {
+        button.Visibility = Closeable ? Visibility.Visible : Visibility.Collapsed;
         button.Click += (s, e) =>
         {
           if (button.IsMouseOver)

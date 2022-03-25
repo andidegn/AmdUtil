@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMD</RootNamespace>
     <AssemblyName>AMDUtil</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -52,6 +52,10 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +65,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Util\AttributeHelper\NameAttribute.cs" />
     <Compile Include="Util\CH341\CH341NativeFunctions.cs" />
     <Compile Include="Util\Collections\ArrayStack\ArrayDropOutStack.cs" />
     <Compile Include="Util\Collections\Dictionary\Dictionary3D.cs" />
@@ -91,19 +96,61 @@
     <Compile Include="Util\Data\StringFormatHelper.cs" />
     <Compile Include="Util\Data\ValueHelper.cs" />
     <Compile Include="Util\Diagnostics.cs" />
+    <Compile Include="Util\Display\DDCCI\MCCSCodeStandard\VCPCodeStandard.cs" />
     <Compile Include="Util\Display\DDCCI\Monitor.cs" />
     <Compile Include="Util\Display\DDCCI\MonitorList.cs" />
     <Compile Include="Util\Display\DDCCI\Util\NativeMethods.cs" />
     <Compile Include="Util\Display\DDCCI\Util\VCPList.cs" />
     <Compile Include="Util\Display\Display.cs" />
     <Compile Include="Util\Display\DDCCI\Util\DDCHelper.cs" />
+    <Compile Include="Util\Display\Edid\BitAwareReader.cs" />
+    <Compile Include="Util\Display\Edid\ChromaticityCoordinates.cs" />
+    <Compile Include="Util\Display\Edid\CommonTiming.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\AdditionalStandardTimingDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\AdditionalWhitePointDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\DetailedTimingDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\ManufacturerDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\MonitorRangeLimitsDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\Descriptors\StringDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\DisplayParameters.cs" />
+    <Compile Include="Util\Display\Edid\EDID.cs" />
+    <Compile Include="Util\Display\Edid\EDIDDescriptor.cs" />
+    <Compile Include="Util\Display\Edid\EDIDExtention.cs" />
+    <Compile Include="Util\Display\Edid\Util\EdidUtil.cs" />
+    <Compile Include="Util\Display\Edid\Enums\AnalogDisplayType.cs" />
+    <Compile Include="Util\Display\Edid\Enums\AnalogVideoWhiteLevel.cs" />
+    <Compile Include="Util\Display\Edid\Enums\CommonTimingIdentification.cs" />
+    <Compile Include="Util\Display\Edid\Enums\DigitalDisplayType.cs" />
+    <Compile Include="Util\Display\Edid\Enums\DigitalSyncPolarity.cs" />
+    <Compile Include="Util\Display\Edid\Enums\ExtensionType.cs" />
+    <Compile Include="Util\Display\Edid\Enums\PixelRatio.cs" />
+    <Compile Include="Util\Display\Edid\Enums\StereoMode.cs" />
+    <Compile Include="Util\Display\Edid\Enums\StringDescriptorType.cs" />
+    <Compile Include="Util\Display\Edid\Enums\SyncType.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\AnalogDisplayException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\DigitalDisplayException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\ExtendedTimingNotAvailable.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\GammaValueNotAvailableException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\InvalidDescriptorException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\InvalidEDIDException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\InvalidExtensionException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\ManufactureDateMissingException.cs" />
+    <Compile Include="Util\Display\Edid\Exceptions\ProjectorDisplayException.cs" />
+    <Compile Include="Util\Display\Edid\Extensions\BlockMapExtension.cs" />
+    <Compile Include="Util\Display\Edid\Extensions\UnknownExtension.cs" />
+    <Compile Include="Util\Display\Edid\ITiming.cs" />
+    <Compile Include="Util\Display\Edid\StandardTiming.cs" />
     <Compile Include="Util\Enum\EnumUtil.cs" />
     <Compile Include="Util\Extensions\ExtensionArray.cs" />
+    <Compile Include="Util\Extensions\ExtensionAttribute.cs" />
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
     <Compile Include="Util\Extensions\ExtensionChar.cs" />
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
     <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
+    <Compile Include="Util\Extensions\ExtensionKey.cs" />
     <Compile Include="Util\Extensions\ExtensionObservableCollection.cs" />
+    <Compile Include="Util\Extensions\ExtensionUShort.cs" />
+    <Compile Include="Util\Extensions\WinForms\ExtensionScreen.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionTextBox.cs" />
     <Compile Include="Util\Files\FileCompare.cs" />
     <Compile Include="Util\Files\FileContainer.cs" />
@@ -261,6 +308,7 @@
     </Compile>
     <Compile Include="Util\View\WPF\ValueConverters\ValueConverters.cs" />
     <Compile Include="Vector3.cs" />
+    <Compile Include="WinServices\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Util\Serial\BaudRates\" />
@@ -457,6 +505,9 @@
     <EmbeddedResource Include="Util\View\Winforms\IsicAboutForm.resx">
       <DependentUpon>IsicAboutForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

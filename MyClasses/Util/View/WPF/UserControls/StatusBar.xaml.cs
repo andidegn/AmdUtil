@@ -65,7 +65,17 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
-
+    public bool IsIndeterminate
+    {
+      get
+      {
+        return sbProgress.IsIndeterminate;
+      }
+      set
+      {
+        sbProgress.IsIndeterminate = value;
+      }
+    }
 
     public Brush MainBackground
     {

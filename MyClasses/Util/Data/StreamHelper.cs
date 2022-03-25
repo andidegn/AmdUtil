@@ -1,31 +1,53 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace AMD.Util.Data
 {
 	public static class StreamHelper
 	{
-		public static String GetEmbeddedResource(String path)
+		public static string GetEmbeddedResource(string path)
 		{
 			Assembly assembly = Assembly.GetCallingAssembly();
-			String absPath = path;
-			foreach (var item in assembly.GetManifestResourceNames())
-			{
-				if (item.ToUpper().Contains(path.ToUpper()))
-				{
-					absPath = item;
-					break;
-				}
-			}
-
-			using (Stream stream = assembly.GetManifestResourceStream(absPath))
+			using (Stream stream = assembly.GetManifestResourceStream(GetResourcePath(path)))
 			{
 				using (StreamReader sr = new StreamReader(stream))
 				{
 					return sr.ReadToEnd();
 				}
 			}
-		}
-	}
+    }
+
+    public static string GetResourcePath(string absPath, Assembly asm = null)
+    {
+      Assembly assembly = asm ?? Assembly.GetEntryAssembly();
+      foreach (var item in assembly.GetManifestResourceNames())
+      {
+        if (item.ToUpper().Contains(absPath.ToUpper()))
+        {
+          absPath = item;
+          break;
+        }
+      }
+
+      return absPath;
+    }
+
+    public static string DeployResource(string absPath, string deployPath, Assembly asm = null)
+    {
+      Assembly assembly = asm ?? Assembly.GetEntryAssembly();
+      absPath = GetResourcePath(absPath);
+      using (Stream stream = assembly.GetManifestResourceStream(absPath))
+      {
+        Directory.CreateDirectory(Path.GetDirectoryName(deployPath));
+        FileStream fs = File.Create(deployPath);
+        stream.Seek(0, SeekOrigin.Begin);
+        stream.CopyTo(fs);
+        fs.Close();
+        Thread.Sleep(100);
+      }
+      return absPath;
+    }
+  }
 }

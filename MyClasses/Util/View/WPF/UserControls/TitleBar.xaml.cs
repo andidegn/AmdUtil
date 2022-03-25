@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static AMD.Util.Display.ScreenUtil;
 
 namespace AMD.Util.View.WPF.UserControls
 {
@@ -301,11 +300,10 @@ namespace AMD.Util.View.WPF.UserControls
       if (moving && parentWindow.WindowState == WindowState.Normal)
       {
         Point mousePosition = MouseUtil.GetMousePosition();
-        List<ScreenInfo> screens = ScreenUtil.AllScreens;
-        foreach (ScreenInfo siItem in screens)
+        foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
         {
-          if (mousePosition.X >= siItem.Bounds.X && mousePosition.X <= siItem.Bounds.X + siItem.Bounds.Size.Width &&
-            mousePosition.Y <= siItem.Bounds.Y + this.ActualHeight / 2)
+          if (mousePosition.X >= screen.Bounds.X && mousePosition.X <= screen.Bounds.X + screen.Bounds.Size.Width &&
+            mousePosition.Y <= screen.Bounds.Y + this.ActualHeight / 2)
           {
             parentWindow.WindowState = WindowState.Maximized;
           }

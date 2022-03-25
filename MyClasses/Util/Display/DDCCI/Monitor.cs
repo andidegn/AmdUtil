@@ -1,6 +1,11 @@
-﻿using AMD.Util.Display.DDCCI.Util;
+﻿using AMD.Util.Display.DDCCI.MCCSCodeStandard;
+using AMD.Util.Display.DDCCI.Util;
+using AMD.Util.Display.Edid;
+using AMD.Util.Display.Edid.Util;
+using AMD.Util.Log;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -29,16 +34,30 @@ namespace AMD.Util.Display
 
   public class Monitor
   {
-    #region Declarations
+    #region Progress
+    public IProgress<ProgressChangedEventArgs> Progress { get; set; }
+    private int currentProgressPercentage;
+    private void Report(string status, int percent)
+    {
+      currentProgressPercentage = percent;
+      Progress?.Report(new ProgressChangedEventArgs(percent, status));
+    }
+    #endregion // Progress
 
-    public IntPtr physicalMonitorPtr { get; set; }
+    public HandleRef physicalMonitorPtr { get; set; }
+    public HandleRef hMonitor { get; set; }
+    public NativeStructures.MonitorInfoEx mInfo { get; set; }
+    public string CapabilityString { get; private set; }
     public int Index { get; set; }
     public string Name { get; set; }
+    public string DeviceName { get; set; }
     public NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE Type { get; set; }
     public VCPCodeList VCPCodes { get; set; }
+    public EDID Edid { get; set; }
 
     public bool SupportsHighLevelDDC { get; set; }
     public bool SupportsLowLevelDDC { get; set; }
+
     private MonitorParameter Brightness;
     private MonitorParameter Contrast;
     private MonitorParameter RedDrive;
@@ -51,41 +70,41 @@ namespace AMD.Util.Display
     private uint _monitorCapabilities = 0u;
     private uint _supportedColorTemperatures = 0u;
 
-    #endregion
+    private LogWriter log;
 
-
-    public Monitor(NativeStructures.PHYSICAL_MONITOR physicalMonitor)
+    public Monitor(NativeStructures.PHYSICAL_MONITOR physicalMonitor, HandleRef hMonitor, NativeStructures.MonitorInfoEx mInfo, bool skipCapabilityCheck, IProgress<ProgressChangedEventArgs> progress = null)
     {
-      physicalMonitorPtr = physicalMonitor.hPhysicalMonitor;
-      Name = physicalMonitor.szPhysicalMonitorDescription;
-      CheckCapabilities();
+      log = LogWriter.Instance;
+      VCPCodes = new VCPCodeList();
+      this.Progress = progress;
+      physicalMonitorPtr = new HandleRef(this, physicalMonitor.hPhysicalMonitor);
+      this.DeviceName = $"{physicalMonitor.szPhysicalMonitorDescription} [{mInfo.szDeviceName}]";
+      this.Name = ScreenUtil.GetDeviceFriendlyNameFromDeviceName(mInfo.szDeviceName);
+      this.hMonitor = hMonitor;
+      this.mInfo = mInfo;
+      Report($"Monitor discovered: {Name}, checking capabilities", 0);
+      log.WriteToLog(LogMsgType.Notification, "Monitor discovered: {0}", Name);
+
+      byte[] rawEdid = EdidUtil.GetRegEdidFromNameInEdid(Name);
+      if (null != rawEdid)
+      {
+        try
+        {
+          Edid = new EDID(rawEdid);
+        }
+        catch (Exception ex)
+        {
+          log.WriteToLog(ex, "Exception while trying to parse Edid");
+        }
+      }
+
+      if (!skipCapabilityCheck)
+      {
+        CheckCapabilities();
+      }
     }
-
-    #region Get
-    // THis is currently only for test. THis is not working yet!
-    //public String GetCapabilitiesString() {
-    //	GetVCPFeatureAndVCPFeatureReply();
-    //	uint capabilityStringLength = 0;
-    //	NativeMethods.GetCapabilitiesStringLength(MonitorPtr, ref capabilityStringLength);
-    //	//char[] capabilityString = new char[capabilityStringLength];
-    //	//StringBuilder capabilityString = new StringBuilder();
-    //	String capabilityString = "";
-    //	bool succeed = NativeMethods.CapabilitiesRequestAndCapabilitiesReply(MonitorPtr, ref capabilityString, capabilityStringLength - 1);
-    //	//return new String(capabilityString);
-    //	//return capabilityString.ToString();
-    //	return capabilityString;
-    //}
-
-    //public void GetVCPFeatureAndVCPFeatureReply() {
-    //	byte bVCPCode = 0;
-    //	for (bVCPCode = 1; bVCPCode < 255; bVCPCode++) {
-    //		NativeStructures.MC_VCP_CODE_TYPE pvct = 0;
-    //		uint pdwCurrentValue = 0;
-    //		uint pdwMaximumValue = 0;
-    //		bool b = NativeMethods.GetVCPFeatureAndVCPFeatureReply(MonitorPtr, bVCPCode, ref pvct, ref pdwCurrentValue, ref pdwMaximumValue);
-    //	}
-    //}
-
+    #region DDC
+    #region Get HighLevel
     public uint GetBrightness()
     {
       NativeMethods.GetMonitorBrightness(physicalMonitorPtr, ref Brightness.Minimum, ref Brightness.Value, ref Brightness.Maximum);
@@ -302,10 +321,7 @@ namespace AMD.Util.Display
     }
     #endregion // Get
 
-
-
-
-    #region Set
+    #region Set HighLevel
     public void SetBrightness(uint value)
     {
       Brightness.Value = value;
@@ -385,10 +401,21 @@ namespace AMD.Util.Display
 
     private void CheckCapabilities()
     {
+      //Thread t = new Thread(() =>
+      //{
+      Report("Checking high level capabilities", 25);
+      log.WriteToLog(LogMsgType.Notification, "Checking high level capabilities");
       CheckHighLevelCapabilities();
+      Report("Checking low level capabilities", 50);
+      log.WriteToLog(LogMsgType.Notification, "Checking low level capabilities");
       CheckLowLevelCapabilities();
+      Report("Querying VCP codes", 75);
+      log.WriteToLog(LogMsgType.Notification, "Querying VCP codes");
+      GetVCPCodeValues(VCPCodes, true);
 
       Type = NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE.MC_SHADOW_MASK_CATHODE_RAY_TUBE;
+      //});
+      //t.Start();
     }
 
     private void CheckLowLevelCapabilities()
@@ -400,11 +427,14 @@ namespace AMD.Util.Display
           StringBuilder pszASCIICapabilitiesString = new StringBuilder((int)pdwCapabilitiesStringLengthInCharacters);
           if (NativeMethods.CapabilitiesRequestAndCapabilitiesReply(physicalMonitorPtr, pszASCIICapabilitiesString, pdwCapabilitiesStringLengthInCharacters))
           {
+            if (0 < VCPCodes.Count)
+            {
+              VCPCodes.Clear();
+            }
+            CapabilityString = pszASCIICapabilitiesString.ToString();
+            VCPCodes.Populate(CapabilityString);
 
-            VCPCodes = new VCPCodeList();
-            VCPCodes.Populate(pszASCIICapabilitiesString.ToString());
-
-            SupportsLowLevelDDC = VCPCodes.Contains(eVCPCode.Luminance);
+            SupportsLowLevelDDC = 0 < VCPCodes.Count;
           }
           //var vcpCodes = DDCHelper.GetVcpCodes(pszASCIICapabilitiesString.ToString()).ToArray();
         }
@@ -412,7 +442,7 @@ namespace AMD.Util.Display
       }
       catch (Exception ex)
       {
-
+        LogWriter.Instance.WriteToLog(ex);
         throw;
       }
     }
@@ -435,6 +465,109 @@ namespace AMD.Util.Display
         GreenGain.Original = GreenGain.Value;
         BlueGain.Original = BlueGain.Value;
       }
+    }
+
+    public bool GetAllVCPFeatures()
+    {
+      return GetVCPCodeValues(VCPCodes, false);
+    }
+
+    public bool GetVCPFeature(VCPCode code)
+    {
+      return GetVCPFeature(code.Code);
+    }
+
+    public bool GetVCPFeature(eVCPCode code)
+    {
+      bool retVal = false;
+      if (VCPCodes.Contains(code))
+      {
+        VCPCode vcpCode = VCPCodes.Get(code);
+        retVal = GetVCPFeature(vcpCode, false);
+      }
+      return retVal;
+    }
+
+    public (bool success, uint currentValue, uint maxValue, eVCPCodeType type) GetVCPFeature(byte code)
+    {
+      uint currentValue = 0;
+      uint maxValue = 0;
+      bool retVal = false;
+      int retries = 5;
+      NativeStructures.MC_VCP_CODE_TYPE codeType = NativeStructures.MC_VCP_CODE_TYPE.MC_MOMENTARY;
+
+      while (!(retVal = NativeMethods.GetVCPFeatureAndVCPFeatureReply(physicalMonitorPtr, code, ref codeType, ref currentValue, ref maxValue)) && 0 < --retries)
+      {
+        Thread.Sleep(50);
+      }
+      if (!retVal)
+      {
+        log.WriteToLog(LogMsgType.Error, $"Error calling GetVCPFeatureAndVCPFeatureReply({physicalMonitorPtr.Handle:X8}, {code:X2}, {codeType}, {currentValue:X4}, {maxValue:X4}). \nLastErrorCode: {Marshal.GetLastWin32Error():X8} - Msg: {new Win32Exception(Marshal.GetLastWin32Error()).Message}");
+      }
+      return (retVal, currentValue, maxValue, NativeStructures.MC_VCP_CODE_TYPE.MC_MOMENTARY == codeType ? eVCPCodeType.ReadOnly : eVCPCodeType.ReadWrite);
+    }
+
+    private bool GetVCPCodeValues(VCPCodeList list, bool refreshOriginalValues)
+    {
+      bool retVal = true;
+      int i = 0, len = list.Count;
+      foreach (VCPCode code in list)
+      {
+        Report($"Code found: {code.ToString()}", (100 - currentProgressPercentage) / len * ++i);
+        retVal &= GetVCPFeature(code, refreshOriginalValues);
+      }
+      return retVal;
+    }
+
+    private bool GetVCPFeature(VCPCode code, bool refreshOriginalValues)
+    {
+      bool retVal = false;
+      (bool success, uint currentValue, uint maxValue, eVCPCodeType type) result;
+      if ((result = GetVCPFeature((byte)code.Code)).success)
+      {
+        code.Type = result.type;
+        code.CurrentValue = result.currentValue;
+        code.MaximumValue = result.maxValue;
+        if (refreshOriginalValues)
+        {
+          code.OriginalValue = result.currentValue;
+        }
+        LogWriter.Instance.WriteToLog(LogMsgType.Notification, code.ToString());
+
+        //if (code.Code == eVCPCode.ManufacturerSpecific0xEA && maxValue == 0xFFFE)
+        //{
+        //  Stopwatch sw = Stopwatch.StartNew();
+        //  List<byte> l = new List<byte>();
+        //  for (uint i = 0; i < 55; i++)
+        //  {
+        //    NativeMethods.SetVCPFeature(physicalMonitorPtr, (byte)code.Code, i);
+        //    NativeMethods.GetVCPFeatureAndVCPFeatureReply(physicalMonitorPtr, (byte)code.Code, ref codeType, ref currentValue, ref maxValue);
+        //    l.Add((byte)((maxValue >> 8) & 0xFF));
+        //    l.Add((byte)(maxValue & 0xFF));
+        //    l.Add((byte)((currentValue >> 8) & 0xFF));
+        //    l.Add((byte)(currentValue & 0xFF));
+        //  }
+        //  sw.Stop();
+        //  Log.LogWriter.Instance.WriteToLog(Log.LogMsgType.Measurement, $"500 words took {sw.Elapsed.TotalMilliseconds}ms to query. Total bytes stored: {l.Count}");
+        //}
+        retVal = true;
+      }
+      return retVal;
+    }
+
+    public bool SetVCPFeature(VCPCode code, UInt16 value)
+    {
+      return SetVCPFeature(code.Code, value);
+    }
+
+    public bool SetVCPFeature(eVCPCode code, UInt16 value)
+    {
+      return SetVCPFeature((byte)code, value);
+    }
+
+    public bool SetVCPFeature(byte code, UInt16 value)
+    {
+      return NativeMethods.SetVCPFeature(physicalMonitorPtr, code, value);
     }
 
     private void CheckBrightness()
@@ -492,6 +625,59 @@ namespace AMD.Util.Display
         }
       }
     }
+    #endregion // DDC
+
+    #region EDID
+    //private void GetMonitorDetails1()
+    //{
+    //  Guid MonitorGUID = new Guid(Win32.GUID_DEVINTERFACE_MONITOR);
+
+    //  // We start at the "root" of the device tree and look for all
+    //  // devices that match the interface GUID of a monitor
+    //  IntPtr h = Win32.SetupDiGetClassDevs(ref MonitorGUID, IntPtr.Zero, IntPtr.Zero, (uint)(Win32.DIGCF_PRESENT | Win32.DIGCF_DEVICEINTERFACE));
+    //  if (h.ToInt64() != Win32.INVALID_HANDLE_VALUE)
+    //  {
+    //    bool Success = true;
+    //    uint i = 0;
+    //    while (Success)
+    //    {
+    //      // create a Device Interface Data structure
+    //      Win32.SP_DEVICE_INTERFACE_DATA dia = new Win32.SP_DEVICE_INTERFACE_DATA();
+    //      dia.cbSize = (uint)Marshal.SizeOf(dia);
+
+    //      // start the enumeration 
+    //      Success = Win32.SetupDiEnumDeviceInterfaces(h, IntPtr.Zero, ref MonitorGUID, i, ref dia);
+    //      if (Success)
+    //      {
+    //        // build a DevInfo Data structure
+    //        Win32.SP_DEVINFO_DATA da = new Win32.SP_DEVINFO_DATA();
+    //        da.cbSize = (uint)Marshal.SizeOf(da);
+
+    //        // build a Device Interface Detail Data structure
+    //        Win32.SP_DEVICE_INTERFACE_DETAIL_DATA didd = new Win32.SP_DEVICE_INTERFACE_DETAIL_DATA();
+    //        didd.cbSize = (uint)(4 + Marshal.SystemDefaultCharSize); // trust me :)
+
+    //        // now we can get some more detailed information
+    //        uint nRequiredSize = 0;
+    //        uint nBytes = Win32.BUFFER_SIZE;
+    //        if (Win32.SetupDiGetDeviceInterfaceDetail(h, ref dia, ref didd, nBytes, out nRequiredSize, ref da))
+    //        {
+    //          // Now we get the InstanceID
+    //          IntPtr ptrInstanceBuf = Marshal.AllocHGlobal((int)nBytes);
+    //          Win32.CM_Get_Device_ID(da.DevInst, ptrInstanceBuf, (int)nBytes, 0);
+    //          string InstanceID = Marshal.PtrToStringAuto(ptrInstanceBuf);
+    //          Console.WriteLine("InstanceID: {0}", InstanceID);
+    //          Marshal.FreeHGlobal(ptrInstanceBuf);
+
+    //          Console.WriteLine("DevicePath: {0}", didd.DevicePath);
+    //        }
+    //        i++;
+    //      }
+    //    }
+    //  }
+    //  Win32.SetupDiDestroyDeviceInfoList(h);
+    //}
+    #endregion // EDID
 
     public override string ToString()
     {

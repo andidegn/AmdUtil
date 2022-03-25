@@ -431,8 +431,11 @@
 					</ContentPresenter>
 				</Canvas>-->
 			<Border Name="Border" Style="{StaticResource TabItemBorderBase}">
-				<ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBase}">
-					<ContentPresenter.LayoutTransform>
+        <ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBase}">
+          <ContentPresenter.Content>
+            <TextBlock Name="ContentHeader" FontSize="12" Text="{TemplateBinding Header}" Foreground="{DynamicResource MainForeground}"/>
+          </ContentPresenter.Content>
+          <ContentPresenter.LayoutTransform>
 						<RotateTransform Angle="0" />
 					</ContentPresenter.LayoutTransform>
 				</ContentPresenter>
@@ -454,10 +457,12 @@
 			<Trigger Property="IsSelected" Value="True">
 				<Setter TargetName="Border" Property="Background" Value="{DynamicResource TabActiveBackground}" />
 				<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabActiveBorderBrush}" />
-				<Setter TargetName="Border" Property="BorderThickness" Value="1, 4, 1, 0" />
-			</Trigger>
+        <Setter TargetName="Border" Property="BorderThickness" Value="1, 6, 1, 0" />
+        <!--<Setter TargetName="ContentHeader" Property="FontSize" Value="14" />-->
+        <Setter TargetName="ContentHeader" Property="FontWeight" Value="Bold" />
+      </Trigger>
 			<Trigger Property="IsSelected" Value="False">
-				<Setter TargetName="Border" Property="Background" Value="{StaticResource TabNotActiveBackground}" />
+        <Setter TargetName="Border" Property="Background" Value="{DynamicResource TabNotActiveBackground}" />
 				<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabNotActiveBorderBrush}" />
 				<Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
 			</Trigger>
@@ -473,7 +478,7 @@
     <Setter Property="IsTabStop" Value="False" />
   </Style>
   <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
-    <Setter Property="Foreground" Value="{DynamicResource BrushMainForeground}" />
+    <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
     <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
   </Style>
 	<Style x:Key="TabItemBaseStyle" TargetType="TabItem">

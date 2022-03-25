@@ -40,7 +40,7 @@
                       <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Grid IsHitTestVisible="True" Width="11">
                           <Rectangle Fill="Transparent" IsHitTestVisible="True" Height="{TemplateBinding Height}" />
-                          <Rectangle Fill="{StaticResource BrushSliderSimpleDecreseBackground}" Width="1" Margin="0, 0, 0, 0" Height="{TemplateBinding Height}"/>
+                          <Rectangle Fill="{DynamicResource BrushSliderSimpleDecreseBackground}" Width="1" Margin="0, 0, 0, 0" Height="{TemplateBinding Height}"/>
                         </Grid>
                       </ControlTemplate>
                     </Setter.Value>

@@ -17,8 +17,6 @@ namespace AMD.Util.View.WPF.UserControls
 
     #region Value
 
-    public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(Decimal), typeof(NumericUpDown), new PropertyMetadata(0m, OnValueChanged, CoerceValue));
 
     public Decimal Value
     {
@@ -29,6 +27,8 @@ namespace AMD.Util.View.WPF.UserControls
         ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<Decimal>(0, value));
       }
     }
+    public static readonly DependencyProperty ValueProperty =
+        DependencyProperty.Register("Value", typeof(Decimal), typeof(NumericUpDown), new PropertyMetadata(0m, OnValueChanged, CoerceValue));
 
 
     public delegate void ValueChangedHandler(object sender, RoutedPropertyChangedEventArgs<Decimal> args);
@@ -618,6 +618,8 @@ namespace AMD.Util.View.WPF.UserControls
       TextBox.InputBindings.Add(new KeyBinding(_majorDecreaseValueCommand, new KeyGesture(Key.PageDown)));
       TextBox.InputBindings.Add(new KeyBinding(_updateValueStringCommand, new KeyGesture(Key.Enter)));
       TextBox.InputBindings.Add(new KeyBinding(_cancelChangesCommand, new KeyGesture(Key.Escape)));
+      TextBox.InputBindings.Add(new MouseBinding(_majorIncreaseValueCommand, new MouseGesture(MouseAction.WheelClick)));
+      TextBox.InputBindings.Add(new MouseBinding(_majorDecreaseValueCommand, new MouseGesture(MouseAction.WheelClick)));
     }
     #endregion
 

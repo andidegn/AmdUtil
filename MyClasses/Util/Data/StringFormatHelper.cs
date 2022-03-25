@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMD.Util.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace AMD.Util.Data
     /// <param name="startAddr"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    public static String GetFormattedMemoryString(UInt32 startAddr, UInt32?[] data)
+    public static String GetFormattedMemoryString(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
     {
       StringBuilder sb = new StringBuilder();
       byte[] ascii = new byte[16];
@@ -22,7 +23,14 @@ namespace AMD.Util.Data
       int wordIndex = 0;
       UInt32 addr = startAddr;
 
-      sb.AppendLine("_Address_|________0________4________8________C_0123456789ABCDEF");
+      if (Endian.Big == endian)
+      {
+        sb.AppendLine("_Address_|_0________4________8________C________0123456789ABCDEF");
+      }
+      else
+      {
+        sb.AppendLine("_Address_|________0________4________8________C_0123456789ABCDEF");
+      }
 
       if (data != null)
       {
@@ -69,7 +77,8 @@ namespace AMD.Util.Data
 
           for (int k = 0; k < 4; k++)
           {
-            ascii[lineIndex] = (byte)(value != null ? ((value >> (8 * k)) & 0xFF) : 0);
+            int bitShift = Endian.Big == endian ? 8 * (3 - k) : 8 * k;
+            ascii[lineIndex] = (byte)(value != null ? ((value >> bitShift) & 0xFF) : 0);
             lineIndex = (lineIndex + 1) % 16;
           }
 
@@ -94,7 +103,7 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
     
-    public static String GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian = true)
+    public static String GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsWord)
@@ -122,7 +131,7 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
 
-    public static String GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian = true)
+    public static String GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsByte)
