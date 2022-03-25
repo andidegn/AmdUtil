@@ -277,7 +277,11 @@ namespace AMD.Util.Colour
 
     public override String ToString()
     {
-      return String.Format("#{0:X2}{1:X2}{2:X2}", R, G, B);
+      if (0xFF > A)
+      {
+        return $"#{A:X2}{R:X2}{G:X2}{B:X2}";
+      }
+      return $"#{R:X2}{G:X2}{B:X2}";
     }
   }
 }
