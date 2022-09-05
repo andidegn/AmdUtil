@@ -22,7 +22,8 @@ namespace AMD.Util.View.WPF.UserControls
       Apple
     }
 
-    public String Title
+
+    public string Title
     {
       get
       {
@@ -33,6 +34,17 @@ namespace AMD.Util.View.WPF.UserControls
         lblTitle.Text = value;
       }
     }
+
+    //public string Title
+    //{
+    //  get { return (string)GetValue(TitleProperty); }
+    //  set { SetValue(TitleProperty, value); }
+    //}
+
+    //// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+    //public static readonly DependencyProperty TitleProperty =
+    //    DependencyProperty.Register("Title", typeof(string), typeof(TitleBar), new PropertyMetadata(default(string)));
+
 
     public ImageSource Icon
     {
@@ -121,7 +133,7 @@ namespace AMD.Util.View.WPF.UserControls
     /// <summary>
     /// Depricated, use Background
     /// </summary>
-    public Brush MainBackground
+    public Brush MainBackgroundBrush
     {
       get
       {
@@ -341,7 +353,7 @@ namespace AMD.Util.View.WPF.UserControls
     {
       try
       {
-        if (parentWindow == null)
+        if (parentWindow is null)
         {
           parentWindow = Window.GetWindow(this);
           parentWindow.LocationChanged += ParentWindow_LocationChanged;

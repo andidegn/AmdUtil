@@ -16,7 +16,7 @@ namespace AMD.Util.Serial
 
     private static LogWriter log = LogWriter.Instance;
 
-    public static bool SerialSetup(SerialPort sp, String portName, int baud)
+    public static bool SerialSetup(SerialPort sp, string portName, int baud)
     {
       try
       {
@@ -47,7 +47,7 @@ namespace AMD.Util.Serial
       }
     }
 
-    public static bool SerialSetup(SerialPort sp, String portName, BaudRate baud)
+    public static bool SerialSetup(SerialPort sp, string portName, BaudRate baud)
     {
       return SerialSetup(sp, portName, baud.Value);
     }
@@ -190,7 +190,7 @@ namespace AMD.Util.Serial
       return SerialPort.GetPortNames().OrderBy(x => int.Parse(3 < x.Length && x.ToUpper().StartsWith("COM") && x.Substring(3).IsNumber() ? x.Substring(3) : "0")).ToArray<String>();
     }
 
-    private static void RefreshPort(String identifier)
+    private static void RefreshPort(string identifier)
     {
       string[] portNames = SerialPort.GetPortNames();
       using (var searcher = new System.Management.ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))

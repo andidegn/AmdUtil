@@ -49,6 +49,7 @@
   <SolidColorBrush x:Key="TabNotActiveBorderBrush">#FFFFFFFF</SolidColorBrush>
   <SolidColorBrush x:Key="TabActiveBackground">#AA00FF55</SolidColorBrush>
   <SolidColorBrush x:Key="TabNotActiveBackground">#55EEEEEE</SolidColorBrush>
+  <SolidColorBrush x:Key="TabNotActiveForeground">LightGray</SolidColorBrush>
 
   <SolidColorBrush x:Key="LightText">#FFFFFFFF</SolidColorBrush>
   <SolidColorBrush x:Key="TextBoxBorderBrush">#20000000</SolidColorBrush>
@@ -154,7 +155,7 @@
     <GradientStop Color="#22000000" Offset="1" />
   </LinearGradientBrush>
 
-  <LinearGradientBrush x:Key="TextBoxGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+  <LinearGradientBrush x:Key="TextBoxGradientBrush" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#77000000" Offset="0" />
     <GradientStop Color="#10000000" Offset="0.02" />
     <GradientStop Color="#00000000" Offset="0.4" />
@@ -163,7 +164,7 @@
     <GradientStop Color="#55000000" Offset="1" />
   </LinearGradientBrush>
 
-  <LinearGradientBrush x:Key="TextBoxTallGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+  <LinearGradientBrush x:Key="TextBoxTallGradientBrush" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#77000000" Offset="0" />
     <GradientStop Color="#10000000" Offset="0.01" />
     <GradientStop Color="#00000000" Offset="0.2" />
@@ -172,7 +173,7 @@
     <GradientStop Color="#55000000" Offset="1" />
   </LinearGradientBrush>
 
-  <LinearGradientBrush x:Key="TopShadowGradiantBrush" StartPoint="0,0" EndPoint="0,1">
+  <LinearGradientBrush x:Key="TopShadowGradientBrush" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#77000000" Offset="0" />
     <GradientStop Color="#22000000" Offset="0.05" />
     <GradientStop Color="#00000000" Offset="0.2" />

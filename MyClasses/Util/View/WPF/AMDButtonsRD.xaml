@@ -8,6 +8,73 @@
   </ResourceDictionary.MergedDictionaries>
 
 
+  <Style x:Key="StyleButtonMultiLine" TargetType="Button">
+    <Setter Property="Margin" Value="0,2,5,0" />
+    <Setter Property="Foreground" Value="#FF222222"/>
+    <Setter Property="Background">
+      <Setter.Value>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.8">
+          <GradientStop Color="#99AAAAAA" Offset="0.51"/>
+          <GradientStop Color="#99AAAAAA" Offset="0.484"/>
+          <GradientStop Color="#99999999" Offset="1"/>
+          <!--<GradientStop Color="#999999" Offset="0.51"/>
+						<GradientStop Color="#AAAAAA" Offset="0.484"/>
+						<GradientStop Color="#EEEEEE" Offset="1"/>
+						<GradientStop Color="#555555" Offset="0.497"/>-->
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Margin" Value="1"/>
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <ControlTemplate.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+              <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"/>
+            </Style>
+          </ControlTemplate.Resources>
+          <Grid>
+            <Rectangle Stroke="{TemplateBinding BorderBrush}" RadiusX="5" RadiusY="5" Fill="{TemplateBinding Background}"/>
+            <Rectangle VerticalAlignment="Top" Height="10" Margin="1,1,1,1" RadiusX="4" RadiusY="4">
+              <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                  <GradientStop Color="#32FFFFFF" Offset="1"/>
+                  <GradientStop Color="#B2FFFFFF" Offset="0"/>
+                </LinearGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="rectangle" RadiusX="15" RadiusY="15" Fill="White" Margin="1" Opacity="0"/>
+            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Margin="10, 2">
+              <ContentPresenter.ContentTemplate>
+                <DataTemplate>
+                  <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding}" />
+                </DataTemplate>
+              </ContentPresenter.ContentTemplate>
+            </ContentPresenter>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Opacity" TargetName="rectangle" Value="0.2"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Opacity" TargetName="rectangle" Value="0.3"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Fill" TargetName="rectangle" Value="#FFFFFFFF"/>
+              <Setter Property="Opacity" TargetName="rectangle" Value="0.6"/>
+              <Setter Property="Opacity" TargetName="contentPresenter" Value="0.3"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <Style x:Key="StyleButton" TargetType="Button">
     <Setter Property="Margin" Value="0,2,5,0" />
     <Setter Property="Foreground" Value="#FF222222"/>
@@ -63,7 +130,9 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+
+
+  <Style TargetType="{x:Type Button}" BasedOn="{StaticResource StyleButton}">
   </Style>
 
 
@@ -81,7 +150,7 @@
               <Path.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1" />
               </Path.RenderTransform>
-              </Path>
+            </Path>
           </Canvas>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
@@ -96,5 +165,6 @@
       </Setter.Value>
     </Setter>
   </Style>
+
 
 </ResourceDictionary>

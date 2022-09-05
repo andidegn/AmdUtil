@@ -4,7 +4,7 @@
 
   <SolidColorBrush x:Key="BrushSliderSimpleDecreseBackground" Color="#FF4B9AE6" />
 
-  <LinearGradientBrush x:Key="BrushSliderThumbCircleGradiant" StartPoint="0, 0" EndPoint="0, 1">
+  <LinearGradientBrush x:Key="BrushSliderThumbCircleGradient" StartPoint="0, 0" EndPoint="0, 1">
     <GradientStopCollection>
       <GradientStop Color="White" Offset="0" />
       <GradientStop Color="#FF707070" Offset="1" />
@@ -332,7 +332,7 @@
     <Setter Property="SnapsToDevicePixels"  Value="true" />
     <Setter Property="OverridesDefaultStyle" Value="true" />
     <Setter Property="IsSnapToTickEnabled"  Value="true" />
-    <Setter Property="Foreground" Value="{StaticResource BrushSliderThumbCircleGradiant}" />
+    <Setter Property="Foreground" Value="{StaticResource BrushSliderThumbCircleGradient}" />
     <Setter Property="Background" Value="{StaticResource BrushSliderSimpleDecreseBackground}" />
     <Setter Property="Template"  Value="{StaticResource ctSliderSimpleHorizontal}"/>
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />

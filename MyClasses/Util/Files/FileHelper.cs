@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,11 +10,17 @@ using System.Text;
 namespace AMD.Util.Files
 {
 	public static class FileHelper
-	{
-    public static readonly String LogFileFilter = "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-    public static readonly String TextFileFilter = "Text File (*.txt)|*.txt|All Files (*.*)|*.*";
-    public static readonly String CsvFileFilter = "CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*";
-    public static readonly String XmlFileFilter = "XML File (*.xml)|*.xml|All Files (*.*)|*.*";
+  {
+    public static event ProgressChangedEventHandler ProgressChanged;
+    private static void OnProgressChanged(int percentage, string text)
+    {
+      ProgressChanged?.Invoke(null, new ProgressChangedEventArgs(percentage, text));
+    }
+
+    public static readonly string LogFileFilter = "Log Files (*.log)|*.log|Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly string TextFileFilter = "Text File (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly string CsvFileFilter = "CSV File (*.csv)|*.csv|Text File (*.txt)|*.txt|All Files (*.*)|*.*";
+    public static readonly string XmlFileFilter = "XML File (*.xml)|*.xml|All Files (*.*)|*.*";
 
     public static readonly int MAX_PATH = 260;
 
@@ -25,7 +32,7 @@ namespace AMD.Util.Files
     /// <param name="title"></param>
     /// <param name="initialFileName"></param>
     /// <returns></returns>
-    public static String GetLoadFilePath(String filter, String initialDirectory, String title, String initialFileName = null)
+    public static string GetLoadFilePath(string filter, string initialDirectory, string title, string initialFileName = null)
     {
       return GetFilePath(new OpenFileDialog(), filter, initialDirectory, title, initialFileName);
     }
@@ -38,18 +45,18 @@ namespace AMD.Util.Files
     /// <param name="title"></param>
     /// <param name="initialFileName"></param>
     /// <returns></returns>
-    public static String GetSaveFilePath(String filter, String initialDirectory, String title, String initialFileName = null)
+    public static string GetSaveFilePath(string filter, string initialDirectory, string title, string initialFileName = null)
     {
       return GetFilePath(new SaveFileDialog(), filter, initialDirectory, title, initialFileName);
     }
 
-    public static String GetFilePath(FileDialog fd, String filter, String initialDirectory, String title, String initialFileName)
+    public static string GetFilePath(FileDialog fd, string filter, string initialDirectory, string title, string initialFileName)
     {
-      String filePath = null;
+      string filePath = null;
       fd.Title = title;
       fd.FileName = initialFileName;
       fd.Filter = filter;
-      if (!String.IsNullOrWhiteSpace(initialDirectory))
+      if (!string.IsNullOrWhiteSpace(initialDirectory))
       {
         try
         {
@@ -67,7 +74,7 @@ namespace AMD.Util.Files
           //LogWriter
         }
       }
-      if (fd.ShowDialog() == true && !String.IsNullOrWhiteSpace(fd.FileName))
+      if (fd.ShowDialog() == true && !string.IsNullOrWhiteSpace(fd.FileName))
       {
         filePath = fd.FileName;
       }
@@ -83,7 +90,7 @@ namespace AMD.Util.Files
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public static bool CheckPath(String filePath)
+    public static bool CheckPath(string filePath)
     {
       return File.Exists(filePath) && filePath.Length <= MAX_PATH;
     }
@@ -93,62 +100,74 @@ namespace AMD.Util.Files
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public static bool IsFilePathLegal(String filePath)
+    public static bool IsFilePathLegal(string filePath)
     {
        return filePath.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
     }
 
-		public static string GetExecutePath(String fileName)
+		public static string GetExecutePath(string fileName, int maxDepth = int.MaxValue)
 		{
-			String path = String.Format(@"c:\Program Files\BurnInTest\{0}", fileName);
+			string path = string.Format(@"c:\Program Files\BurnInTest\{0}", fileName);
+      OnProgressChanged(1, $"Checking path: \"{path}\"");
 			if (!File.Exists(path))
 			{
-				path = path = String.Format(@"c:\Program Files (x86)\BurnInTest\{0}", fileName);
-				if (!File.Exists(path))
+				path = path = string.Format(@"c:\Program Files (x86)\BurnInTest\{0}", fileName);
+        OnProgressChanged(2, $"Checking path: \"{path}\"");
+        if (!File.Exists(path))
 				{
-					path = String.Format(@"{0}\{1}", GetInstallPathFromRegistry("BurnInTest1"), fileName);
-					if (!File.Exists(path))
+					path = string.Format(@"{0}\{1}", GetInstallPathFromRegistry("BurnInTest1"), fileName);
+          OnProgressChanged(3, $"Checking path: \"{path}\"");
+          if (!File.Exists(path))
 					{
 						path = null;
-						LocateExeFromPath(Environment.GetEnvironmentVariable("ProgramFiles"), fileName, ref path);
-						if (String.IsNullOrEmpty(path))
+						LocateExeFromPath(Environment.GetEnvironmentVariable("ProgramFiles"), fileName, ref path, maxDepth);
+						if (string.IsNullOrEmpty(path))
 						{
-							LocateExeFromPath(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), fileName, ref path);
+							LocateExeFromPath(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), fileName, ref path, maxDepth);
 						}
 					}
 				}
-			}
+      }
 
-			return path;
+      return path;
 		}
 
-		private static void LocateExeFromPath(String startPath, String fileName, ref String path)
+		private static void LocateExeFromPath(string startPath, string fileName, ref string path, int maxDepth)
 		{
 			try
 			{
-				foreach (var item in Directory.GetFiles(startPath))
-				{
-					if (Path.GetFileName(item).Equals(fileName))
+        int ctr = 0;
+        string[] files = Directory.GetFiles(startPath);
+				foreach (string curFilePath in files)
+        {
+          OnProgressChanged(100 * ctr++ / files.Length, $"Scanning file: \"{curFilePath}\"");
+          if (Path.GetFileName(curFilePath).Equals(fileName))
 					{
-						path = item;
+						path = curFilePath;
 						return;
 					}
 				}
-				foreach (var item in Directory.GetDirectories(startPath))
-				{
-					LocateExeFromPath(item, fileName, ref path);
-				}
+        if (0 < maxDepth--)
+        {
+          ctr = 0;
+          string[] directories = Directory.GetDirectories(startPath);
+          foreach (string curDirectoryPath in directories)
+          {
+            OnProgressChanged(100 * ctr++ / directories.Length, $"Scanning file: \"{curDirectoryPath}\"");
+            LocateExeFromPath(curDirectoryPath, fileName, ref path, maxDepth);
+          }
+        }
 			}
 			catch
 			{
 			}
 		}
 
-		private static String GetInstallPathFromRegistry(String name)
+		private static string GetInstallPathFromRegistry(string name)
 		{
 			using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
 			{
-				foreach (String skName in rk.GetSubKeyNames())
+				foreach (string skName in rk.GetSubKeyNames())
 				{
 					using (RegistryKey sk = rk.OpenSubKey(skName))
 					{
@@ -158,7 +177,7 @@ namespace AMD.Util.Files
 							{
 								if (sk.GetValue("InstallLocation") != null)
 								{
-									String displayName = Convert.ToString(sk.GetValue("DisplayName"));
+									string displayName = Convert.ToString(sk.GetValue("DisplayName"));
 									if (displayName.StartsWith(name))
 									{
 										return Convert.ToString(sk.GetValue("InstallLocation"));

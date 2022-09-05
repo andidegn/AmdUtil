@@ -3,6 +3,7 @@ using AMD.Util.Extensions;
 using AMD.Util.Extensions.WPF;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -398,7 +399,7 @@ namespace AMD.Util.View.WPF.UserControls
         String text = tbHexValue.Text.Trim(' ', '#');
         if (text.Length == 6 && text.IsHexNumber())
         {
-          String[] values = text.Split(2);
+          String[] values = text.Split(2).ToArray();
           ColorHsv = new ColorHSV(Color.FromRgb
           (
             byte.Parse(values[0], NumberStyles.HexNumber),

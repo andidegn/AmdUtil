@@ -6,11 +6,14 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AMD.Util.Extensions
 {
   public static class ExtensionString
   {
+    private static Regex regexWhitespace;
+
     /// <summary>
     /// Constant for fixing ToString rounding issues
     /// </summary>
@@ -58,7 +61,18 @@ namespace AMD.Util.Extensions
     /// <returns></returns>
     public static byte[] GetBytesFromHex(this String s)
     {
-      string[] parts = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+      if (null == regexWhitespace)
+      {
+        regexWhitespace = new Regex(@"\s+");
+      }
+      s = regexWhitespace.Replace(s, string.Empty);
+
+      if (0 != s.Length % 2)
+      {
+        s.Insert(0, "0");
+      }
+      string[] parts = s.Split(2).ToArray();
+      //string[] parts = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       byte[] bytes = new byte[parts.Length];
       for (int i = 0; i < parts.Length; i++)
       {
@@ -98,36 +112,41 @@ namespace AMD.Util.Extensions
       return String.Join(newVal, temp);
     }
 
-    public static String[] Split(this String s, int desiredLength, bool strict = false)
+    public static string[] Split(this string s, int chunkSize, bool strict)
     {
 
-      EnsureValid(s, desiredLength, strict);
+      EnsureValid(s, chunkSize, strict);
 
       if (s.Length == 0)
       {
-        return new String[0];
+        return new string[0];
       }
 
-      int numberOfItems = s.Length / desiredLength;
+      //int numberOfItems = s.Length / chunkSize;
 
-      int remaining = (s.Length > numberOfItems * desiredLength) ? 1 : 0;
+      //int remaining = (s.Length > numberOfItems * chunkSize) ? 1 : 0;
 
-      IList<String> splitted = new List<String>(numberOfItems + remaining);
+      //IList<string> splitted = new List<string>(numberOfItems + remaining);
 
-      for (int i = 0; i < numberOfItems; i++)
-      {
-        splitted.Add(s.Substring(i * desiredLength, desiredLength));
-      }
+      //for (int i = 0; i < numberOfItems; i++)
+      //{
+      //  splitted.Add(s.Substring(i * chunkSize, chunkSize));
+      //}
 
-      if (remaining != 0)
-      {
-        splitted.Add(s.Substring(numberOfItems * desiredLength));
-      }
+      //if (remaining != 0)
+      //{
+      //  splitted.Add(s.Substring(numberOfItems * chunkSize));
+      //}
 
-      return splitted.ToArray();
+      return s.Split(chunkSize).ToArray();
     }
 
-    private static void EnsureValid(String value, int desiredLength, bool strict)
+    public static IEnumerable<string> Split(this string str, int chunkSize)
+    {
+      return Enumerable.Range(0, str.Length / chunkSize).Select(i => str.Substring(i * chunkSize, chunkSize));
+    }
+
+    private static void EnsureValid(string value, int desiredLength, bool strict)
     {
       if (value == null) { throw new ArgumentNullException(nameof(value)); }
 

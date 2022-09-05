@@ -80,6 +80,19 @@ namespace AMD.Util.View.WPF.InvokeControl
 				item.Content = content;
 			}
 		}
+
+    public void SetButtonVisibility(Visibility visibility, params Button[] Buttons)
+    {
+      if (InvokeRequired)
+      {
+        Dispatcher.Invoke(() => SetButtonVisibility(visibility, Buttons));
+        return;
+      }
+      foreach (var item in Buttons)
+      {
+        item.Visibility = visibility;
+      }
+    }
 		#endregion // Button
 
 		#region Control

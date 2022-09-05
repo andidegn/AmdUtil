@@ -23,6 +23,14 @@ namespace AMD.Util.Display.Edid
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
     }
 
+    public string FirstMonitorNameFromDescriptor
+    {
+      get
+      {
+        return MonitorNameFromDescriptor.DefaultIfEmpty("No Name Found").FirstOrDefault();
+      }
+    }
+
     /// <summary>
     ///     Creates a new EDID instance with the provided EDID binary data
     /// </summary>

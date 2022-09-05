@@ -17,6 +17,7 @@
   <UserControl.Resources>
     <ResourceDictionary>
       <local:ValuePickerFillConverter x:Key="valuePickerFillConverter" />
+      <local:SquareColorPickerAreaToHeight x:Key="squareColorPickerAreaToHeight" />
 
       <LinearGradientBrush x:Key="BrushAlphaSlider" StartPoint="0, 0" EndPoint="1, 0">
         <GradientStopCollection>
@@ -42,14 +43,14 @@
           <GradientStop Color="Blue" Offset="1" />
         </GradientStopCollection>
       </LinearGradientBrush>
-      
+
       <LinearGradientBrush x:Key="BrushSaturationSlider" StartPoint="0, 0" EndPoint="1, 0">
         <GradientStopCollection>
           <GradientStop Color="White" Offset="0" />
           <GradientStop Color="{Binding CurrentBaseColor}" Offset="1" />
         </GradientStopCollection>
       </LinearGradientBrush>
-      
+
       <LinearGradientBrush x:Key="BrushValueSlider" StartPoint="0, 0" EndPoint="1, 0">
         <GradientStopCollection>
           <GradientStop Color="Black" Offset="0" />
@@ -128,7 +129,7 @@
         <Setter Property="Minimum" Value="0" />
         <Setter Property="Maximum" Value="360" />
         <Setter Property="SmallChange" Value="1" />
-        <Setter Property="LargeChange" Value="6" />
+        <Setter Property="LargeChange" Value="30" />
         <Setter Property="TickFrequency" Value="1" />
         <EventSetter Event="ValueChanged" Handler="sliderHsv_ValueChanged" />
       </Style>
@@ -168,14 +169,26 @@
                    MouseLeftButtonUp="rectColorHue_MouseLeftButtonUp" 
                    MouseMove="rectColorHue_MouseMove" />
           <Canvas Name="rectColorHueSelector" Grid.Row="0" Height="30" Width="6" Canvas.Top="-5" MouseMove="rectColorHue_MouseMove">
-            <Path Fill="Black" Data="M0, 2 h6 l-3,5 l-3,-5 z" />
-            <Path Fill="Black" Data="M0, 28 h6 l-3,-5 l-3,5 z" />
+            <Canvas.Resources>
+              <Style TargetType="{x:Type Path}">
+                <Setter Property="Fill" Value="Black" />
+              </Style>
+            </Canvas.Resources>
+            <Path Data="M0, 2 h6 l-3,5 l-3,-5 z" />
+            <Path Data="M0, 28 h6 l-3,-5 l-3,5 z" />
           </Canvas>
         </Canvas>
+        <local:ColorSlider Orientation="Horizontal" />
       </Grid>
       <!--<Border Grid.Row="2" BorderBrush="DarkGray" BorderThickness="1">
         <Border BorderBrush="#FF555555" BorderThickness="1">-->
-          <Canvas Name="canvasColorSaturation" Grid.Row="2" ClipToBounds="True" Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}" VerticalAlignment="Top">
+          <Canvas Name="canvasColorSaturation" Grid.Row="2" ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Canvas.Height>
+          <MultiBinding Converter="{StaticResource squareColorPickerAreaToHeight}">
+            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+            <Binding Path="SquareColorPickerArea" />
+          </MultiBinding>
+        </Canvas.Height>
             <Rectangle Name="rectColorSaturation" 
                        SnapsToDevicePixels="True"
                        Fill="{StaticResource BrushColorSaturation}" 
@@ -208,6 +221,16 @@
           <ColumnDefinition Width="5" />
           <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <Canvas Name="canvasColorSelectedBackground" Grid.Column="0" Height="100" Width="100">
+          <Rectangle Width="{Binding ElementName=canvasColorSelected, Path=Width}" 
+                     Height="{Binding ElementName=canvasColorSelected, Path=Height}" 
+                     Fill="White" />
+        </Canvas>
+        <Canvas Name="canvasColorOriginalBackground" Grid.Column="2" Height="100" Width="100">
+          <Rectangle Width="{Binding ElementName=canvasColorSelected, Path=Width}" 
+                     Height="{Binding ElementName=canvasColorSelected, Path=Height}" 
+                     Fill="White"/>
+        </Canvas>
         <Canvas Name="canvasColorSelected" Grid.Column="0" Height="100" Width="100">
           <Rectangle Name="RectCurrentColor" 
                    Width="{Binding ElementName=canvasColorSelected, Path=Width}" 
@@ -274,7 +297,23 @@
         <TextBox Name="tbValue" Grid.Column="3" Grid.Row="7" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" IsReadOnly="True" />
         
         <TextBlock Text="Hex" Grid.Column="0" Grid.Row="8" />
-        <TextBox Name="tbHexValue" Grid.Column="2" Grid.Row="8" BorderThickness="1" Width="75" FontFamily="{DynamicResource CodeFont}" HorizontalContentAlignment="Right" HorizontalAlignment="Center" TextChanged="tbHexValue_TextChanged" PreviewTextInput="tbHexValue_PreviewTextInput" />
+        <Grid Grid.Column="2" Grid.Row="8">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock FontFamily="{DynamicResource CodeFont}" Text="#" HorizontalAlignment="Right" />
+          <TextBox Name="tbHexValue" 
+                   Grid.Column="1" 
+                   Grid.Row="0" 
+                   BorderThickness="1" 
+                   Width="75" 
+                   FontFamily="{DynamicResource CodeFont}" 
+                   HorizontalContentAlignment="Right" 
+                   HorizontalAlignment="Center" 
+                   TextChanged="tbHexValue_TextChanged" 
+                   PreviewTextInput="tbHexValue_PreviewTextInput" />
+        </Grid>
       </Grid>
       <!--<TextBlock Name="tbCurrentMousePosition" />
       <Button Name="testColorButton" Content="Test" Click="testColorButton_Click" />

@@ -63,5 +63,33 @@ namespace AMD.Util.Colour
 
       return rgb;
     }
+
+    public static (double kelvin, double duv) GetColorTempAndDuvFromLvxy(double x, double y)
+    {
+      return (GetColorTempFromLvxy(x, y), GetDuvFromLvxy(x, y));
+    }
+
+    private static double GetColorTempFromLvxy(double x, double y)
+    {
+      double n = (x - 0.3320) / (0.1858 - y);
+      return 437 * Math.Pow(n, 3) + 3601 * Math.Pow(n, 2) + 6861 * n + 5517;
+    }
+
+    private static double GetDuvFromLvxy(double x, double y)
+    {
+      double u = (4 * x) / (-2 * x + 12 * y + 3);
+      double v = (6 * y) / (-2 * x + 12 * y + 3);
+      double k6 = -0.00616793;
+      double k5 = 0.0893944;
+      double k4 = -0.5179722;
+      double k3 = 1.5317403;
+      double k2 = -2.4243787;
+      double k1 = 1.925865;
+      double k0 = -0.471106;
+      double Lfp = Math.Sqrt(Math.Pow((u - 0.292), 2) + Math.Pow((v - 0.24), 2));
+      double a = Math.Acos((u - 0.292) / Lfp);
+      double Lbb = k6 * Math.Pow(a, 6) + k5 * Math.Pow(a, 5) + k4 * Math.Pow(a, 4) + k3 * Math.Pow(a, 3) + k2 * Math.Pow(a, 2) + k1 * a + k0;
+      return Lfp - Lbb;
+    }
   }
 }

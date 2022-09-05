@@ -66,6 +66,7 @@
       </Setter.Value>
     </Setter>
   </Style>
+  
   <Style TargetType="amdUserControls:TearableTabControl" BasedOn="{StaticResource StyleTearableTabControlBase}" />
   <Style TargetType="amdUserControls:TearableTabItem" BasedOn="{StaticResource StyleTearableTabItemBase}" />
 

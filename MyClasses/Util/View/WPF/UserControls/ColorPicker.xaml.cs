@@ -4,6 +4,7 @@ using AMD.Util.Extensions.WPF;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,6 +27,29 @@ namespace AMD.Util.View.WPF.UserControls
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class SquareColorPickerAreaToHeight : IMultiValueConverter
+  {
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+      double newHeight = double.NaN;
+      bool setSquare = false;
+      if (2 == values.Length && values[0] is double && values[1] is bool)
+      {
+        if ((bool)values[1])
+        {
+          newHeight = (double)values[0];
+        }
+      }
+      //Height = "{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+      return newHeight;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
@@ -55,7 +79,7 @@ namespace AMD.Util.View.WPF.UserControls
     private bool updatingColors;
     #endregion // Private Properties
 
-    #region Public Properties
+    #region DependencyProperties
     public ColorHSV ColorHsv
     {
       get { return (ColorHSV)GetValue(ColorHsvProperty); }
@@ -118,7 +142,20 @@ namespace AMD.Util.View.WPF.UserControls
     // Using a DependencyProperty as the backing store for CurrentBaseColor.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentBaseColorProperty =
         DependencyProperty.Register("CurrentBaseColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(Colors.Red));
-    #endregion // Public Properties
+
+
+    public bool SquareColorPickerArea
+    {
+      get { return (bool)GetValue(SquareColorPickerAreaProperty); }
+      set { SetValue(SquareColorPickerAreaProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for SquareColorPickerArea.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty SquareColorPickerAreaProperty =
+        DependencyProperty.Register("SquareColorPickerArea", typeof(bool), typeof(ColorPicker), new PropertyMetadata(true));
+
+
+    #endregion // DependencyProperties
 
     public ColorPicker()
     {
@@ -446,7 +483,7 @@ namespace AMD.Util.View.WPF.UserControls
         string text = tbHexValue.Text.Trim(' ', '#');
         if ((6 == text.Length || 8 == text.Length) && text.IsHexNumber())
         {
-          string[] values = text.Split(2);
+          string[] values = text.Split(2).ToArray();
           List<byte> byteValues = new List<byte>();
 
           if (4 > values.Length)

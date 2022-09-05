@@ -13,7 +13,7 @@
         <ColumnDefinition Width="20" />
       </Grid.ColumnDefinitions>
       <Border Grid.ColumnSpan="2" Name="Border" BorderBrush="{StaticResource TextBoxBorderBrush}" CornerRadius="8, 8, 0, 0" BorderThickness="1, 0, 1, 0" Background="{StaticResource ComboBoxNormalBackgroundBrush}">
-        <Border Background="{StaticResource TextBoxGradiantBrush}" CornerRadius="8, 8, 0, 0" />
+        <Border Background="{StaticResource TextBoxGradientBrush}" CornerRadius="8, 8, 0, 0" />
       </Border>
       <!--Background="{StaticResource ComboBoxNormalBackgroundBrush}">-->
 

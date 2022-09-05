@@ -5,6 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B57ACFD3-FC24-4441-BA91-B75C15657529}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMD</RootNamespace>
@@ -52,6 +53,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -71,6 +73,7 @@
     <Compile Include="Util\Collections\Dictionary\Dictionary3D.cs" />
     <Compile Include="Util\Collections\Dictionary\SerializableDictionary.cs" />
     <Compile Include="Util\Collections\IStack.cs" />
+    <Compile Include="Util\Collections\ObservableQueue\ObservableQueue.cs" />
     <Compile Include="Util\Colour\ColorChangedEventArgs.cs" />
     <Compile Include="Util\Colour\Conversion.cs" />
     <Compile Include="Util\Colour\Devcorp\CIELab.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="Util\Colour\Devcorp\YUV.cs" />
     <Compile Include="Util\Colour\RGB.cs" />
     <Compile Include="Util\Colour\Temperature.cs" />
+    <Compile Include="Util\Compression\Compress.cs" />
     <Compile Include="Util\DataType\Bit.cs" />
     <Compile Include="Util\DataType\C_Array.cs" />
     <Compile Include="Util\DataType\C_Enum.cs" />
@@ -91,6 +95,7 @@
     <Compile Include="Util\DataType\C_Variable.cs" />
     <Compile Include="Util\DataType\C_VariableListContexts.cs" />
     <Compile Include="Util\DataType\C_VariableListTypes.cs" />
+    <Compile Include="Util\Data\IntelHexToBin.cs" />
     <Compile Include="Util\Data\SerializationHelper.cs" />
     <Compile Include="Util\Data\StreamHelper.cs" />
     <Compile Include="Util\Data\StringFormatHelper.cs" />
@@ -143,6 +148,7 @@
     <Compile Include="Util\Enum\EnumUtil.cs" />
     <Compile Include="Util\Extensions\ExtensionArray.cs" />
     <Compile Include="Util\Extensions\ExtensionAttribute.cs" />
+    <Compile Include="Util\Extensions\ExtensionBigInteger.cs" />
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
     <Compile Include="Util\Extensions\ExtensionChar.cs" />
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
@@ -158,12 +164,15 @@
     <Compile Include="Util\Network\NetworkHelper.cs" />
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
+    <Compile Include="Util\View\WPF\Helper\PropertyChangedNotifier.cs" />
     <Compile Include="Util\View\WPF\Helper\TabHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
     <Compile Include="Util\View\WPF\IconCollection.cs" />
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\HueSlider.cs" />
+    <Compile Include="Util\View\WPF\UserControls\MultiTouchSlider.cs" />
     <Compile Include="Util\View\WPF\UserControls\NumericUpDown.cs" />
     <Compile Include="Util\View\WPF\UserControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
@@ -210,6 +219,7 @@
     <Compile Include="Util\View\WPF\UserControls\TearableTabWindow.xaml.cs">
       <DependentUpon>TearableTabWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\WatermarkTextBox.cs" />
     <Compile Include="Util\_Random\Cast.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionRichTextBox.cs" />
     <Compile Include="Util\Extensions\ExtensionString.cs" />
@@ -404,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Util\View\WPF\UserControls\HueSlider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\UserControls\BulletHole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -447,6 +461,10 @@
     <Page Include="Util\View\WPF\UserControls\LoginDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\MultiTouchSliderRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\NumericUpDown.xaml">
       <SubType>Designer</SubType>
@@ -497,6 +515,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\WatermarkTextBoxRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

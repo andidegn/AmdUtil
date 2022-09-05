@@ -404,6 +404,24 @@
             Converts RGB to CIEXYZ.
             </summary>
         </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIE XYZ (CIE 1931 color space)
+            </summary>
+            <param name="red">Red must be in [0, 255].</param>
+            <param name="green">Green must be in [0, 255].</param>
+            <param name="blue">Blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
         <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(System.Int32,System.Int32,System.Int32)">
             <summary>
             Converts RGB to CIELab.
@@ -529,6 +547,31 @@
             </summary>
         </member>
         <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB_sRGB_D65(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(AMD.Util.Colour.Devcorp.CIEXYZ,System.Double[0:,0:])">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(System.Double,System.Double,System.Double,System.Double[0:,0:])">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="itm">3x3 matrix with the inverse transformation matrix needed to calculate RGB colors for a specific display charactistic</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB_sRGB_D65(AMD.Util.Colour.Devcorp.CIEXYZ)">
             <summary>
             Converts CIEXYZ to RGB structure.
             </summary>
@@ -700,7 +743,7 @@
             <param name="sender">The object who called the Handler</param>
             <param name="args">The arguments</param>
         </member>
-        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[])">
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[],AMD.Util.Extensions.Endian)">
             <summary>
             Gets a formatted memory string from a word array
             </summary>
@@ -761,6 +804,1321 @@
             Storing the min, max and average values from double array
             </summary>
             <param name="measurements"></param>
+        </member>
+        <member name="T:AMD.Util.Display.DDCCI.MCCSCodeStandard.VCPCodeStandard">
+            <summary>
+            Based on the VESA MCCS Standard Version 2.2a
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.GetPhysicalMonitorsFromHMONITOR(System.Runtime.InteropServices.HandleRef,System.UInt32,System.UInt32)">
+            ADE added 20151001
+            @{
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.CapabilitiesRequestAndCapabilitiesReply(System.Runtime.InteropServices.HandleRef,System.Text.StringBuilder,System.UInt32)">
+            <summary>
+            Gets the capabilitystring from the monitor
+            </summary>
+            <remarks>NOT WORKING YET</remarks>
+            <param name="hMonitor"></param>
+            <param name="pszASCIICapabilitiesString"></param>
+            <param name="dwCapabilitiesStringLengthInCharacters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.GetPhysicalMonitorsFromHMONITOR(System.Runtime.InteropServices.HandleRef,System.UInt32,AMD.Util.Display.DDCCI.Util.NativeStructures.PHYSICAL_MONITOR[])">
+            @} 
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.AttachedToDesktop">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.PrimaryDevice">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.MirroringDriver">
+            <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.VGACompatible">
+            <summary>The device is VGA compatible.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.Removable">
+            <summary>The device is removable; it cannot be the primary display.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.ModesPruned">
+            <summary>The device has more display modes than its output devices support.</summary>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.GetVCPName(AMD.Util.Display.DDCCI.MCCSCodeStandard.eVCPCode)">
+            <summary>
+            Returns the VCP name as stated in the VESA MCCS Standard Version 2.2a
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.PopulateVcpCodes(System.String,AMD.Util.Display.DDCCI.Util.VCPCodeList)">
+            <summary>
+            Populates a provided VCPCodeList with the codes found in the capabilityString
+            </summary>
+            <param name="capabilityString"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactorAtLoad">
+            <summary>
+            Gets the scaling factor set in Windows
+            This is detected at load of the application, not if the scaling factor is changed while the application is running
+            To make this work as live updating as well, it is required to add a Manifest to the application and apply the following XML:
+            <![CDATA[
+            <application xmlns="urn:schemas-microsoft-com:asm.v3">
+              <windowsSettings>
+                <dpiAware xmlns = "http://schemas.microsoft.com/SMI/2005/WindowsSettings" > true / PM </ dpiAware >
+                < dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitor</dpiAwareness>
+              </windowsSettings>
+            </application>
+            ]]>
+            <para>&lt;application xmlns="urn:schemas-microsoft-com:asm.v3"></para>
+            <para>   &lt;windowsSettings></para>
+            <para>     &lt;dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true/PM&lt;/dpiAware></para>
+            <para>     &lt;dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitor&lt;/dpiAwareness></para>
+            <para>   &lt;/windowsSettings></para>
+            <para>&lt;/application></para>
+            </summary>
+            <returns>1 = 100%, 1.25 = 125% etc.</returns>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactorLive">
+            <summary>
+            Gets the scaling factor set in Windows
+            This always starts with a scaling factor at 1 (regardless of the windows setting) but changes if the windows scaling factor is changed while the application is running
+            </summary>
+            <returns>1 = 100%, 1.25 = 125% etc.</returns>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactor">
+            <summary>
+            This combines the solution from both GetScalingFactorAtLoad and GetScalingFactorLive to attempt to get the scaling factor both at load and live without having to create a Manifest
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DisplayDetails.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The Constructor to create a new instances of the DisplayDetails class...
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.DisplayDetails.GetMonitorDetails">
+            <summary>
+            This Function returns all Monitor Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.ChromaticityCoordinates">
+            <summary>
+                Represents the CIE chromaticity xy coordinates for red, green, blue, and white
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.BlueX">
+            <summary>
+                Gets the blue x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.BlueY">
+            <summary>
+                Gets the blue y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.GreenX">
+            <summary>
+                Gets the green x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.GreenY">
+            <summary>
+                Gets the green y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.RedX">
+            <summary>
+                Gets the red x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.RedY">
+            <summary>
+                Gets the red y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.WhiteX">
+            <summary>
+                Gets the default white point x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.WhiteY">
+            <summary>
+                Gets the default white point y value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.Equals(AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.op_Equality(AMD.Util.Display.Edid.ChromaticityCoordinates,AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.op_Inequality(AMD.Util.Display.Edid.ChromaticityCoordinates,AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.CommonTiming">
+            <summary>
+                Represents a common timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Identification">
+            <summary>
+                Gets the common timing identification
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.IsInterlaced">
+            <summary>
+                Gets a boolean value indicating that the timing is interlaced
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(AMD.Util.Display.Edid.ITiming)">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Frequency">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Height">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Width">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.op_Equality(AMD.Util.Display.Edid.CommonTiming,AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.op_Inequality(AMD.Util.Display.Edid.CommonTiming,AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor">
+            <summary>
+                Represents an EDID additional standard timing descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor.Timings">
+            <summary>
+                Gets an additional enumerable list of timings specified in this descriptor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor">
+            <summary>
+                Represents an EDID additional white point descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.Gamma">
+            <summary>
+                Gets the gamma value (1.0-3.54)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.Index">
+            <summary>
+                Gets the white point index number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.IsUsed">
+            <summary>
+                Gets a boolean value indicating the availability of this descriptor
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.NextDescriptor">
+            <summary>
+                Gets an other instance of the AdditionalWhitePointDescriptor type with more information, or null if not available
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.WhitePointX">
+            <summary>
+                Gets the white point x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.WhitePointY">
+            <summary>
+                Gets the white point y value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor">
+            <summary>
+                Represents an EDID detailed timing descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalActivePixels">
+            <summary>
+                Gets the horizontal active pixels (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalBlankingPixels">
+            <summary>
+                Gets the horizontal blanking pixels (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalBorderPixels">
+            <summary>
+                Gets the horizontal border pixels (each side; total is twice this)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalDisplaySize">
+            <summary>
+                Gets the horizontal display size, mm (0–4095 mm, 161 in)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncOffset">
+            <summary>
+                Gets the horizontal sync offset
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncPolarity">
+            <summary>
+                Gets the digital display's horizontal sync polarity
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncPulse">
+            <summary>
+                Gets the horizontal sync pulse width (0–1023)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsInterlaced">
+            <summary>
+                Gets a boolean value indicating that the timing's scan mode is interlaced
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsSyncOnAllRGBLines">
+            <summary>
+                Gets a boolean value indicating that the sync is on all 3 RGB lines (else green only)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsVerticalSyncSerrated">
+            <summary>
+                Gets a boolean value indicating that the vertical sync is serrated (HSync during VSync)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.PixelClock">
+            <summary>
+                Gets the pixel clock in hz. (0.01–655.35 MHz)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.StereoMode">
+            <summary>
+                Gets the type of the stereo signal supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.SyncType">
+            <summary>
+                Gets the type of display sync signal
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalActivePixels">
+            <summary>
+                Gets the vertical active lines (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalBlankingPixels">
+            <summary>
+                Gets the vertical blanking lines (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalBorderPixels">
+            <summary>
+                Gets the vertical border lines (each side; total is twice this)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalDisplaySize">
+            <summary>
+                Gets the vertical display size, mm
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncOffset">
+            <summary>
+                Gets the vertical sync offset lines (0–63)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncPolarity">
+            <summary>
+                Gets the digital display's vertical sync polarity
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncPulse">
+            <summary>
+                Gets the vertical sync pulse width lines (0–63)
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor">
+            <summary>
+                Represents a vendor specific custom EDID descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.Data">
+            <summary>
+                Gets the raw 13byte binary data of the block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.DescriptorCode">
+            <summary>
+                Gets the descriptor type identification number
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor">
+            <summary>
+                Represents an EDID monitor range limit descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFC">
+            <summary>
+                Gets the GTF C value (0–127.5)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFJ">
+            <summary>
+                Gets the GTF J value (0–127.5)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFK">
+            <summary>
+                Gets the GTF K value (0–255)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFM">
+            <summary>
+                Gets the GTF M value (0–65535)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.IsSecondaryGTFSupported">
+            <summary>
+                Gets a boolean value indicating that the secondary GTF is supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumHorizontalFieldRate">
+            <summary>
+                Gets the maximum horizontal field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumPixelClockRate">
+            <summary>
+                Gets the maximum pixel clock rate in hz (10–2550 MHz)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumVerticalFieldRate">
+            <summary>
+                Gets the maximum vertical field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MinimumHorizontalFieldRate">
+            <summary>
+                Gets the minimum horizontal field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MinimumVerticalFieldRate">
+            <summary>
+                Gets the minimum vertical field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.SecondaryCurveStartFrequency">
+            <summary>
+                Gets the start frequency for the secondary curve in hz (0–510 kHz)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.StringDescriptor">
+            <summary>
+                Represents an EDID string descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.StringDescriptor.Type">
+            <summary>
+                Gets the type of the data stored as a string
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.StringDescriptor.Value">
+            <summary>
+                Gets the string data
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.StringDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.DisplayParameters">
+            <summary>
+                Represents the basic display parameters of a device
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.AnalogDisplayType">
+            <summary>
+                Gets the display type of this analog device
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.ChromaticityCoordinates">
+            <summary>
+                Gets an instance of ChromaticityCoordinates type containing the CIE Chromaticity xy coordinates for red, green,
+                blue, and white
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DigitalDisplayType">
+            <summary>
+                Gets the display type of this digital device
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplayGamma">
+            <summary>
+                Gets the display gamma value (1.00 – 3.54)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.GammaValueNotAvailableException">There is no information about the gamma property of the display.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplaySizeInInch">
+            <summary>
+                Gets the calculated size of the display diagonal in inch
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsActiveOffSupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS active-off supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsBlankToBlackExpected">
+            <summary>
+                Gets a boolean value indicating if the Blank-to-black setup (pedestal) is expected
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsCompositeSyncSupported">
+            <summary>
+                Gets a boolean value indicating if the composite sync (on HSync) is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDefaultGTFSupported">
+            <summary>
+                Gets a boolean value indicating if the display supports GTF with default parameter values
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDFPTMDSCompatible">
+            <summary>
+                Gets a boolean value indicating if the signal is compatible with VESA DFP 1.x TMDS CRGB, 1 pixel per clock, up to 8
+                bits per color, MSB aligned
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDigital">
+            <summary>
+                Gets a boolean value indicating if the device uses the digital signal for communication
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsPreferredTimingModeAvailable">
+            <summary>
+                Gets a boolean value indicating if the preferred timing mode specified in descriptor block 1. For EDID 1.3+ the
+                preferred timing mode is always in the first Detailed Timing Descriptor
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsPreferredTimingModeIncludesNativeInformation">
+            <summary>
+                Gets a boolean value indicating if the preferred timing mode includes native pixel format and refresh rate. This
+                value is always false for EDID 1.2-
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsProjector">
+            <summary>
+                Gets a boolean value indicating that the display don't have a fixed size
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSeparateSyncSupported">
+            <summary>
+                Gets a boolean value indicating that the separate sync is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsStandardSRGBColorSpace">
+            <summary>
+                Gets a boolean value indicating that the devices uses the standard sRGB colour space
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsStandbySupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS standby supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSuspendSupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS suspend supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSyncOnGreenSupported">
+            <summary>
+                Gets a boolean value indicating that sync on green is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsVSyncSerratedOnComposite">
+            <summary>
+                Gets a boolean value indicating that VSync pulse must be serrated when composite or sync-on-green is used
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.PhysicalHeight">
+            <summary>
+                Gets the device physical height in cm
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">Display don't have a fixed size.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.PhysicalWidth">
+            <summary>
+                Gets the device physical width in cm
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">Display don't have a fixed size.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.VideoWhiteLevel">
+            <summary>
+                Gets the analog video white and sync levels, relative to blank
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.Equals(AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.op_Equality(AMD.Util.Display.Edid.DisplayParameters,AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.op_Inequality(AMD.Util.Display.Edid.DisplayParameters,AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDID">
+            <summary>
+                Represents a Extended Display Identification Data instance
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.#ctor(System.Byte[])">
+            <summary>
+                Creates a new EDID instance with the provided EDID binary data
+            </summary>
+            <param name="data">An array of bytes holding the EDID binary data</param>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.InvalidEDIDException">Invalid EDID binary data.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Descriptors">
+            <summary>
+                Gets the enumerable list of descriptor blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.DisplayParameters">
+            <summary>
+                Gets an instance of DisplayParameters type representing the basic display parameters
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.EDIDVersion">
+            <summary>
+                Gets the EDID specification version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Extensions">
+            <summary>
+                Gets the enumerable list of extensions blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureDate">
+            <summary>
+                Gets the date of manufacturing of the device with accuracy of +-6 days
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufacturerCode">
+            <summary>
+                Gets the manufacturer identification assigned by Microsoft to the device vendors in string
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufacturerId">
+            <summary>
+                Gets the manufacturer identification assigned by Microsoft to the device vendors as a numberic value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureWeek">
+            <summary>
+                Gets the week of the device device production date as a number between 1 and 54
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">Manufacture date is not available.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureYear">
+            <summary>
+                Gets the year of the device device production date as a number between 1990 and 2245
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">Manufacture date is not available.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.NumberOfExtensions">
+            <summary>
+                Gets the expected number of extension blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ProductCode">
+            <summary>
+                Gets the product identification code assigned by Microsoft to this series of devices
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ProductYear">
+            <summary>
+                Gets the year of the device device production or the model year of this product as a number between 1990 and 2245
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.SerialNumber">
+            <summary>
+                Gets the numberic serial number of the device
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Timings">
+            <summary>
+                Gets the enumerable list of valid timing combinations
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.Equals(AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.op_Equality(AMD.Util.Display.Edid.EDID,AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.op_Inequality(AMD.Util.Display.Edid.EDID,AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDIDDescriptor">
+            <summary>
+                Represents an EDID Descriptor Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDDescriptor.IsValid">
+            <summary>
+                Gets a boolean value indicating the data validity of this descriptor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.Equals(AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.op_Equality(AMD.Util.Display.Edid.EDIDDescriptor,AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.op_Inequality(AMD.Util.Display.Edid.EDIDDescriptor,AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDIDExtension">
+            <summary>
+                Represents an EDID Extension Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDExtension.IsValid">
+            <summary>
+                Gets a boolean value indicating the data validity of this extension
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDExtension.Type">
+            <summary>
+                Gets the extension block type
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.Equals(AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.op_Equality(AMD.Util.Display.Edid.EDIDExtension,AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.op_Inequality(AMD.Util.Display.Edid.EDIDExtension,AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetRegEdidFromNameInEdid(System.String)">
+            <summary>
+            Gets the Edid stored in Windows Registry by searching for DeviceFriendlyName in the Edid VESA descripter blocks
+            </summary>
+            <param name="deviceFriendlyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetAllRegEdid">
+            <summary>
+            Gets all Edids stored in Windows Registry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.AnalogDisplayType">
+            <summary>
+                Contains the possible analog display types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.Monochrome">
+            <summary>
+                Grayscale display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.RGB">
+            <summary>
+                RGB colored display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.NonRGB">
+            <summary>
+                Non-RGB colored display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.Undefined">
+            <summary>
+                Display type is undefined
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel">
+            <summary>
+                Contains possible values of the analog display's white and sync levels relative to blank
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White07OnMinus03V">
+            <summary>
+                +0.7/−0.3 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White0714OnMinus0286V">
+            <summary>
+                +0.714/−0.286 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White1OnMinus04V">
+            <summary>
+                +1.0/−0.4 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White07On0V">
+            <summary>
+                +0.7/0 V
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.CommonTimingIdentification">
+            <summary>
+                Contains a list of common timing identification flags
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At60Hz">
+            <summary>
+                1024×768 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At72Hz">
+            <summary>
+                1024×768 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At75Hz">
+            <summary>
+                1024×768 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At87HzInterlaced">
+            <summary>
+                1024×768 @ 87 Hz, interlaced (1024×768i)
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1152X870At75Hz">
+            <summary>
+                1152x870 @ 75 Hz (Apple Macintosh II)
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1280X1024At75Hz">
+            <summary>
+                1280×1024 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At60Hz">
+            <summary>
+                640×480 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At67Hz">
+            <summary>
+                640×480 @ 67 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At72Hz">
+            <summary>
+                640×480 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At75Hz">
+            <summary>
+                640×480 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing720X400At70Hz">
+            <summary>
+                720×400 @ 70 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing720X400At88Hz">
+            <summary>
+                720×400 @ 88 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At56Hz">
+            <summary>
+                800×600 @ 56 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At60Hz">
+            <summary>
+                800×600 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At72Hz">
+            <summary>
+                800×600 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At75Hz">
+            <summary>
+                800×600 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing832X624At75Hz">
+            <summary>
+                832×624 @ 75 Hz
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.DigitalDisplayType">
+            <summary>
+                Contains possible digital display types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444">
+            <summary>
+                RGB 4:4:4
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444YCrCb444">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:4:4
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444CrCb422">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:2:2
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444YCrCb444YCrCb422">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity">
+            <summary>
+                Contains possible sync polarity types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity.Negative">
+            <summary>
+                Negative sync polarity
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity.Positive">
+            <summary>
+                Positive sync polarity
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.ExtensionType">
+            <summary>
+                Contains possible types of extension blocks
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.LCDTimings">
+            <summary>
+                LCD timings extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.AdditionalTiming">
+            <summary>
+                Additional timings extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.EDID2">
+            <summary>
+                EDID2 extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.ColorInformation">
+            <summary>
+                Color information extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.DVIFeatures">
+            <summary>
+                DVI features extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.TouchScreenData">
+            <summary>
+                Touch screen data extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.BlockMap">
+            <summary>
+                BlockMap extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.ManufacturerExtension">
+            <summary>
+                Vendor specified extension block
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.PixelRatio">
+            <summary>
+                Contains the possible pixel ratios
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio1To1">
+            <summary>
+                1:1 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio16To10">
+            <summary>
+                16:10 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio4To3">
+            <summary>
+                4:3 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio5To4">
+            <summary>
+                5:4 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio16To9">
+            <summary>
+                16:9 Ratio
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.StereoMode">
+            <summary>
+                Contains possible stereo modes for a display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.NoStereo">
+            <summary>
+                No stereo is supported
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.FieldSequentialSyncDuringRight">
+            <summary>
+                Stereo lines fields are sequential and sync during right eye signal
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.SimilarSyncDuringLeft">
+            <summary>
+                Stereo lines are similar and sync during left eye signal
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo4WayInterleaved">
+            <summary>
+                4-Way interleaved stereo
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo2WayInterleaved">
+            <summary>
+                2-Way interleaved stereo
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.RightImageOnEvenLines">
+            <summary>
+                Right eye image is on the even lines
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.LeftImageOnEvenLines">
+            <summary>
+                Left eye image is on the even lines
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.SideBySide">
+            <summary>
+                Right and left eye images are side by side
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.StringDescriptorType">
+            <summary>
+                Contains possible values for the string descriptor block's string type field
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.InvalidData">
+            <summary>
+                Block contains no valid string
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.MonitorSerialNumber">
+            <summary>
+                Block contains the monitor serial number
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.MonitorName">
+            <summary>
+                Block contains the monitor name
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.UnspecifiedText">
+            <summary>
+                The type of the string is unspecified
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.SyncType">
+            <summary>
+                Contains possible values for the detailed timing descriptor block's sync type feature field
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.AnalogComposite">
+            <summary>
+                Analog display composite sync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.BipolarAnalogComposite">
+            <summary>
+                Analog display bipolar composite sync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.DigitalCompositeOnHSync">
+            <summary>
+                Digital display composite sync on HSync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.DigitalSeparate">
+            <summary>
+                Digital display separate sync
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">
+            <summary>
+                Represents errors that occurs because of display being an analog display
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">
+            <summary>
+                Represents errors that occurs because of display being a digital display
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">
+            <summary>
+                Represents errors that occurs because of missing extended timing information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.GammaValueNotAvailableException">
+            <summary>
+                Represents errors that occurs because of missing gamma information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.InvalidEDIDException">
+            <summary>
+                Represents errors that occurs because of invalid EDID data
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">
+            <summary>
+                Represents errors that occurs because of missing production date information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">
+            <summary>
+                Represents errors that occurs because of display being a projector
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Extensions.BlockMapExtension">
+            <summary>
+                Represents an EDID block map extension block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.BlockMapExtension.ExtensionTypes">
+            <summary>
+                Gets an enumerable list of next 126 block types
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Extensions.BlockMapExtension.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Extensions.UnknownExtension">
+            <summary>
+                Represents an unknown EDID Extension Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.UnknownExtension.Data">
+            <summary>
+                Gets a 125 byte raw data of this block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.UnknownExtension.Revision">
+            <summary>
+                Gets the block revision number
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Extensions.UnknownExtension.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.ITiming">
+            <summary>
+                Defines the necessary properties of a display timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Frequency">
+            <summary>
+                Gets the timing frequency
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Height">
+            <summary>
+                Gets the timing height
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Width">
+            <summary>
+                Gets the timing width
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.StandardTiming">
+            <summary>
+                Represents a standard timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Ratio">
+            <summary>
+                Gets the standard timing width/height ratio
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(AMD.Util.Display.Edid.ITiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Frequency">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Height">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Width">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.op_Equality(AMD.Util.Display.Edid.StandardTiming,AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.op_Inequality(AMD.Util.Display.Edid.StandardTiming,AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.ToString">
+            <inheritdoc />
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:AMD.Util.Extensions.ExtensionBigInteger" -->
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToBinString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a binary string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing a binary
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToHexString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a hexadecimal string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing a hexadecimal
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToOctString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a octal string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing an octal
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionByte.GetHexString(System.Byte[],System.Char,System.String,System.Int64)">
+            <summary>
+            Returns a string with bytes formatted as hex
+            </summary>
+            <param name="bArr">The data</param>
+            <param name="separator">The separator</param>
+            <param name="prefix">The prefix before the byte. ex. 0x</param>
+            <param name="newLineAfter">Insert new line after how many bytes</param>
+            <returns></returns>
         </member>
         <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetText(System.Windows.Controls.RichTextBox)">
             <summary>
@@ -1074,6 +2432,19 @@
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.NumericUpDown1">
+            <summary>
+            Interaction logic for NumericUpDown.xaml
+            </summary>
+            <summary>
+            NumericUpDown1
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.NumericUpDown1.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1550,6 +2921,11 @@
             TitleBar
             </summary>
         </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.TitleBar.MainBackground">
+            <summary>
+            Depricated, use Background
+            </summary>
+        </member>
         <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.ExitHandler">
             <summary>
             Eventhandler for progress information
@@ -1858,6 +3234,14 @@
             Default: 1
             </remarks>
         </member>
+        <member name="P:AMD.Util.Log.LogWriter.Enable">
+            <summary>
+            Enables or disables the log print to file
+            </summary>
+            <remarks>
+            Default: Enabled
+            </remarks>
+        </member>
         <member name="P:AMD.Util.Log.LogWriter.LogTypesToLog">
             <summary>
             Determines what types of log messages to log
@@ -1867,6 +3251,12 @@
             <summary>
             Singleton constructor (private)
             </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.RegisterInstance(System.String)">
+            <summary>
+            Enables the option to have multiple log instances collected one place
+            </summary>
+            <param name="logAndFileName"></param>
         </member>
         <member name="P:AMD.Util.Log.LogWriter.Instance">
             <summary>
@@ -2625,6 +4015,16 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:userControls.ColorSlider">
+            <summary>
+            ColorSlider
+            </summary>
+        </member>
+        <member name="M:userControls.ColorSlider.InitializeComponent">
+            <summary>
+            InitializeComponent
             </summary>
         </member>
         <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">

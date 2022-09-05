@@ -16,7 +16,8 @@ namespace AMD.Util.Display
   public static class ScreenUtil
   {
     [DllImport("gdi32.dll")]
-    static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+    private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
     public enum DeviceCap
     {
       VERTRES = 10,
@@ -65,9 +66,9 @@ namespace AMD.Util.Display
       Screen retVal = null;
       foreach (Screen screen in Screen.AllScreens)
       {
-        if (top > screen.WorkingArea.Top &&
+        if (top >= screen.WorkingArea.Top &&
             top < screen.WorkingArea.Bottom &&
-            left > screen.WorkingArea.Left &&
+            left >= screen.WorkingArea.Left &&
             left < screen.WorkingArea.Right)
         {
           retVal = screen;
@@ -560,8 +561,23 @@ namespace AMD.Util.Display
       };
       var error = DisplayConfigGetDeviceInfo(ref deviceName);
       if (error != ERROR_SUCCESS)
+      {
         throw new Win32Exception(error);
-      return deviceName.monitorFriendlyDeviceName;
+      }
+      try
+      {
+        /*
+         "\\\\?\\DISPLAY#SAM0F71#4&47ce0f2&0&UID200195#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+         "\\\\?\\DISPLAY#AOC2795#4&47ce0f2&0&UID208387#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+         "\\\\?\\DISPLAY#IIC1560#4&47ce0f2&0&UID216579#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+        */
+        string mdp = deviceName.monitorDevicePath;
+        return mdp.Substring(mdp.IndexOf('#'), 7);
+      }
+      catch (Exception)
+      {
+        return deviceName.monitorFriendlyDeviceName;
+      }
     }
 
     public static IEnumerable<string> GetAllMonitorsFriendlyNames()

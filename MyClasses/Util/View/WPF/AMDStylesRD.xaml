@@ -13,6 +13,8 @@
     <ResourceDictionary Source="AMDComboBoxesRD.xaml" />
     <ResourceDictionary Source="AMDToggleButtonsRD.xaml" />
     <ResourceDictionary Source="AMDNumericUpDown.xaml" />
+    <ResourceDictionary Source="UserControls/MultiTouchSliderRD.xaml" />
+    <ResourceDictionary Source="UserControls/WatermarkTextBoxRD.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!--<FontFamily x:Key="SystemFont">/ISIC SB15 Programmer;component/Resources/#Input Mono</FontFamily>-->
@@ -194,7 +196,7 @@
 					Background="{TemplateBinding Background}" 
 					BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" ClipToBounds="True">
 			<Grid>
-				<Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradiantBrush}" />
+        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradientBrush}" />
 				<ScrollViewer x:Name="PART_ContentHost" BorderBrush="Transparent" Margin="0, 2, 0, 0"/>
 			</Grid>
 		</Border>
@@ -233,7 +235,7 @@
 					Background="{TemplateBinding Background}" 
 					BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" ClipToBounds="True">
       <Grid>
-        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradiantBrush}" />
+        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradientBrush}" />
         <ScrollViewer x:Name="PART_ContentHost" BorderBrush="Transparent" Margin="0, 2, 0, 0"/>
       </Grid>
     </Border>
@@ -413,27 +415,26 @@
 		<Setter Property="RecognizesAccessKey" Value="True" />
   </Style>
 	<Style x:Key="TabItemBorderBase" TargetType="Border">
-		<Setter Property="Margin" Value="0, 0, 5, 0" />
-		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="Height" Value="25" />
+    <Setter Property="Margin" Value="2, 0" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="CornerRadius" Value="10, 5, 0, 0" />
     <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Background" Value="{DynamicResource TabActiveBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource TabActiveBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1, 6, 1, 0" />
   </Style>
+
 	<ControlTemplate x:Key="TabItemBase" TargetType="{x:Type TabItem}">
 		<Grid>
-			<!--<Canvas Margin="0, 0, 5, 0" Width="130" Height="25">
-					<Path Name="Border" Fill="Yellow" Data="M0,25 v-10 l5,-15 h100 l5,15 v10 Z" Stroke="LightGray" StrokeThickness="1" />
-					<ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBase}">
-						<ContentPresenter.LayoutTransform>
-							<RotateTransform Angle="0" />
-						</ContentPresenter.LayoutTransform>
-					</ContentPresenter>
-				</Canvas>-->
-			<Border Name="Border" Style="{StaticResource TabItemBorderBase}">
+      <Border Name="Border" 
+              Style="{StaticResource TabItemBorderBase}" 
+              Background="{DynamicResource TabActiveBackground}" 
+              BorderBrush="{DynamicResource TabActiveBorderBrush}">
         <ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBase}">
           <ContentPresenter.Content>
-            <TextBlock Name="ContentHeader" FontSize="12" Text="{TemplateBinding Header}" Foreground="{DynamicResource MainForeground}"/>
+            <TextBlock Name="ContentHeader" FontSize="12" FontWeight="Bold" Text="{TemplateBinding Header}" Foreground="{DynamicResource MainForeground}"/>
           </ContentPresenter.Content>
           <ContentPresenter.LayoutTransform>
 						<RotateTransform Angle="0" />
@@ -441,30 +442,15 @@
 				</ContentPresenter>
 			</Border>
 		</Grid>
-		<!--<ControlTemplate.Triggers>
-				<Trigger Property="IsSelected" Value="True">
-					<Setter TargetName="Border" Property="Fill" Value="{DynamicResource TabActiveBackground}" />
-				</Trigger>
-				<Trigger Property="IsSelected" Value="False">
-					<Setter TargetName="Border" Property="Fill" Value="{StaticResource TabNotActiveBackground}" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter TargetName="Border" Property="Fill" Value="DarkGray" />
-					<Setter Property="Foreground" Value="DarkGray" />
-				</Trigger>
-			</ControlTemplate.Triggers>-->
 		<ControlTemplate.Triggers>
-			<Trigger Property="IsSelected" Value="True">
-				<Setter TargetName="Border" Property="Background" Value="{DynamicResource TabActiveBackground}" />
-				<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabActiveBorderBrush}" />
-        <Setter TargetName="Border" Property="BorderThickness" Value="1, 6, 1, 0" />
-        <!--<Setter TargetName="ContentHeader" Property="FontSize" Value="14" />-->
-        <Setter TargetName="ContentHeader" Property="FontWeight" Value="Bold" />
-      </Trigger>
-			<Trigger Property="IsSelected" Value="False">
+      <Trigger Property="IsSelected" Value="False">
+        <Setter TargetName="Border" Property="Height" Value="20" />
         <Setter TargetName="Border" Property="Background" Value="{DynamicResource TabNotActiveBackground}" />
-				<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TabNotActiveBorderBrush}" />
-				<Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
+        <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource TabNotActiveBorderBrush}" />
+        <Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
+        <Setter TargetName="Border" Property="Margin" Value="0" />
+        <Setter TargetName="ContentHeader" Property="FontWeight" Value="Normal" />
+        <Setter TargetName="ContentHeader" Property="Foreground" Value="{DynamicResource TabNotActiveForeground}" />
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
 				<Setter TargetName="Border" Property="Background" Value="DarkGray" />
@@ -537,7 +523,7 @@
 					Background="{TemplateBinding Background}" 
 					BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" ClipToBounds="True">
 			<Grid>
-				<Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradiantBrush}" />
+        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxGradientBrush}" />
 				<ScrollViewer x:Name="PART_ContentHost" BorderBrush="Transparent" Margin="0, 2, 0, 0"/>
 			</Grid>
 		</Border>
@@ -628,7 +614,7 @@
 					  Background="{TemplateBinding Background}" 
 					  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" ClipToBounds="True">
       <Grid>
-        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxTallGradiantBrush}" />
+        <Border ClipToBounds="False" CornerRadius="5" BorderThickness="0" Background="{StaticResource TextBoxTallGradientBrush}" />
 
         <ScrollViewer x:Name="PART_ContentHost" BorderBrush="Transparent" Margin="0, 2, 0, 0">
           <ItemsPresenter>

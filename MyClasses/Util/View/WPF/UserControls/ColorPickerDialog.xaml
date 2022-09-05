@@ -18,7 +18,7 @@
   <Border CornerRadius="5" Background="{Binding Background}">
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="20" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <!--<RowDefinition Height="20" />-->
     </Grid.RowDefinitions>
