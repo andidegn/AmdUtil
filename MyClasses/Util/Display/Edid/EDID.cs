@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace AMD.Util.Display.Edid
 {
@@ -17,11 +18,13 @@ namespace AMD.Util.Display.Edid
     private static readonly byte[] FixedHeader = { 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00 };
     private readonly BitAwareReader _reader;
 
+    #region Interface OnPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
-    private void OnPropertyChanged()
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
     {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    #endregion // Interface OnPropertyChanged
 
     public string FirstMonitorNameFromDescriptor
     {
@@ -60,7 +63,7 @@ namespace AMD.Util.Display.Edid
         throw new InvalidEDIDException("Invalid EDID minor version.");
       }
       DisplayParameters = new DisplayParameters(this, _reader);
-      OnPropertyChanged();
+      OnPropertyChanged(null);
     }
 
     public byte[] RawData

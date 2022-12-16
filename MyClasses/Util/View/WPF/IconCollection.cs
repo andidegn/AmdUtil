@@ -1,22 +1,78 @@
-﻿using System;
+﻿using AMD.Util.Collections.Dictionary;
+using AMD.Util.Extensions;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace AMD.Util.View.WPF
 {
+  public class TemplateNameAttribute : Attribute
+  {
+    public string Name { get; set; }
+    public TemplateNameAttribute(string name)
+    {
+      Name = name;
+    }
+  }
+
   public class IconCollection
   {
-    public String ICON_CROSS { get { return "ctCrossInRedCircle"; } }
-    public String ICON_CHECK { get { return "ctCheckInGreenCircle"; } }
-    public String ICON_HOURGLASS { get { return "ctHourglassInBlueCircle"; } }
-    public String ICON_LINE { get { return "ctLineInGrayCircle"; } }
-    public String ICON_COG { get { return "ctCogInPurpleCircle"; } }
+    public enum Icon
+    {
+      [TemplateName("ctCrossInRedCircle")]
+      CrossInRedCircle,
 
-    public ControlTemplate CtCross { get; private set; }
-    public ControlTemplate CtCheck { get; private set; }
-    public ControlTemplate CtCog { get; private set; }
-    public ControlTemplate CtLine { get; private set; }
-    public ControlTemplate CtHourGlass { get; private set; }
+      [TemplateName("ctCrossInYellowTriangle")]
+      CrossInYellowTriangle,
+
+      [TemplateName("ctCheckInGreenCircle")]
+      CheckInGreenCircle,
+
+      [TemplateName("ctCheckInGrayCircle")]
+      CheckInGrayCircle,
+
+      [TemplateName("ctExclamationInGrayCircle")]
+      ExclamationInGrayCircle,
+
+      [TemplateName("ctExclamationInYellowTriangle")]
+      ExclamationInYellowTriangle,
+
+      [TemplateName("ctExclamationInGreenTriangle")]
+      ExclamationInGreenTriangle,
+
+      [TemplateName("ctHourglassInBlueCircle")]
+      HourGlassInBlueCircle,
+
+      [TemplateName("ctLineInGrayCircle")]
+      LineInGrayCircle,
+
+      [TemplateName("ctCogInPurpleCircle")]
+      CogInPurpleCircle,
+
+      [TemplateName("ctPadLockInOrangeCircle")]
+      PadLockInOrangeCircle,
+
+      [TemplateName("ctIInRedCircle")]
+      iInRedCircle,
+
+      [TemplateName("ctMInRedCircle")]
+      MInRedCircle,
+
+      [TemplateName("ctVInRedCircle")]
+      VInRedCircle,
+
+      [TemplateName("ctRInRedCircle")]
+      RInRedCircle,
+
+      [TemplateName("ctVInOrangeCircle")]
+      VInOrangeCircle,
+
+      [TemplateName("ctYellowNoteIcon")]
+      YellowNote,
+
+      [TemplateName("ctYellowNoteWithTape")]
+      YellowNoteWithTape
+    }
 
     private static IconCollection instance;
 
@@ -32,13 +88,17 @@ namespace AMD.Util.View.WPF
       }
     }
 
+    public ControlTemplate this[Icon icon]
+    {
+      get
+      {
+        return Application.Current.TryFindResource(icon.GetAttribute<TemplateNameAttribute>().Name) as ControlTemplate;
+      }
+    }
+
     private IconCollection()
     {
-      CtCross = Application.Current.TryFindResource(ICON_CROSS) as ControlTemplate;
-      CtCheck = Application.Current.TryFindResource(ICON_CHECK) as ControlTemplate;
-      CtCog = Application.Current.TryFindResource(ICON_COG) as ControlTemplate;
-      CtLine = Application.Current.TryFindResource(ICON_LINE) as ControlTemplate;
-      CtHourGlass = Application.Current.TryFindResource(ICON_HOURGLASS) as ControlTemplate;
+
     }
   }
 }

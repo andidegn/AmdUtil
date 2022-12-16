@@ -1,7 +1,6 @@
 ﻿using AMD.Util.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,7 +14,7 @@ namespace AMD.Util.Data
     /// <param name="startAddr"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    public static String GetFormattedMemoryString(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
+    public static string GetFormattedMemoryString(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
     {
       StringBuilder sb = new StringBuilder();
       byte[] ascii = new byte[16];
@@ -103,7 +102,7 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
     
-    public static String GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian)
+    public static string GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsWord)
@@ -131,7 +130,7 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
 
-    public static String GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian)
+    public static string GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsByte)
@@ -293,7 +292,7 @@ namespace AMD.Util.Data
     /// </summary>
     /// <param name="inputRtf">RTF formatted text</param>
     /// <returns>Plain text from RTF</returns>
-    public static String GetStringFromRtf(String inputRtf)
+    public static string GetStringFromRtf(string inputRtf)
     {
       if (inputRtf == null)
       {
@@ -321,7 +320,7 @@ namespace AMD.Util.Data
           string brace = match.Groups[5].Value;
           string tchar = match.Groups[6].Value;
 
-          if (!String.IsNullOrEmpty(brace))
+          if (!string.IsNullOrEmpty(brace))
           {
             curskip = 0;
             if (brace == "{")
@@ -337,7 +336,7 @@ namespace AMD.Util.Data
               ignorable = entry.Ignorable;
             }
           }
-          else if (!String.IsNullOrEmpty(character)) // \x (not a letter)
+          else if (!string.IsNullOrEmpty(character)) // \x (not a letter)
           {
             curskip = 0;
             if (character == "~")
@@ -359,7 +358,7 @@ namespace AMD.Util.Data
               ignorable = true;
             }
           }
-          else if (!String.IsNullOrEmpty(word)) // \foo
+          else if (!string.IsNullOrEmpty(word)) // \foo
           {
             curskip = 0;
             if (destinations.Contains(word))
@@ -388,7 +387,7 @@ namespace AMD.Util.Data
               curskip = ucskip;
             }
           }
-          else if (!String.IsNullOrEmpty(hex)) // \'xx
+          else if (!string.IsNullOrEmpty(hex)) // \'xx
           {
             if (curskip > 0)
             {
@@ -400,7 +399,7 @@ namespace AMD.Util.Data
               outList.Add(Char.ConvertFromUtf32(c));
             }
           }
-          else if (!String.IsNullOrEmpty(tchar))
+          else if (!string.IsNullOrEmpty(tchar))
           {
             if (curskip > 0)
             {
@@ -419,7 +418,7 @@ namespace AMD.Util.Data
         returnString = inputRtf;
       }
 
-      returnString = String.Join(String.Empty, outList.ToArray());
+      returnString = string.Join(string.Empty, outList.ToArray());
 
       return returnString;
     }

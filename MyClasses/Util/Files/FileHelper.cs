@@ -1,7 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using AMD.Util.Log;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -193,5 +195,40 @@ namespace AMD.Util.Files
 				return null;
 			}
 		}
+
+    public static void Delete(string path, bool printToLog = true)
+    {
+      LogWriter log = null;
+      if (printToLog)
+      {
+        log = LogWriter.Instance;
+        log.PrintNotification($"Trying to delete file: \"{path}\"");
+      }
+      try
+      {
+        if (File.Exists(path))
+        {
+          if (printToLog) { log.PrintNotification("File found!"); }
+
+          Process.Start(new ProcessStartInfo()
+          {
+            Arguments = "/C choice /C Y /N /D Y /T 3 & Del \"" + path + "\"",
+            WindowStyle = ProcessWindowStyle.Hidden,
+            CreateNoWindow = true,
+            FileName = "cmd.exe"
+          });
+
+          if (printToLog) { log.PrintNotification("File flagged for deletion"); }
+        }
+        else
+        {
+          if (printToLog) { log.PrintNotification("File NOT found??"); }
+        }
+      }
+      catch (Exception ex)
+      {
+        if (printToLog) { log.WriteToLog(ex); }
+      }
+    }
   }
 }

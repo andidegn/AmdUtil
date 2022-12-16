@@ -1,30 +1,101 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace AMD.Util.Extensions.WPF
 {
-	public static class ExtensionRichTextBox
+  public static class ExtensionRichTextBox
 	{
-		public static void AppendText(this RichTextBox box, String text, System.Windows.Media.Brush color = null)
+    private static TextRange PutTextAtEnd(RichTextBox box, string text)
+    {
+      return new TextRange(box.Document.ContentEnd, box.Document.ContentEnd) { Text = text };
+    }
+
+    private static TextRange PutTextAtEnd(RichTextBox box, char c)
+    {
+      return new TextRange(box.Document.ContentEnd, box.Document.ContentEnd) { Text = c.ToString() };
+    }
+
+    public static void AppendText(this RichTextBox box, string text, params (DependencyProperty property, object value)[] textElementPropertyAndValue)
+    {
+      TextRange tr = PutTextAtEnd(box, text);
+      foreach ((DependencyProperty prop, object value) propValuePair in textElementPropertyAndValue)
+      {
+        tr.ApplyPropertyValue(propValuePair.prop, propValuePair.value);
+      }
+    }
+
+    public static void AppendText(this RichTextBox box, char c, params (DependencyProperty property, object value)[] textElementPropertyAndValue)
+    {
+      TextRange tr = PutTextAtEnd(box, c);
+      foreach ((DependencyProperty prop, object value) propValuePair in textElementPropertyAndValue)
+      {
+        tr.ApplyPropertyValue(propValuePair.prop, propValuePair.value);
+      }
+    }
+
+    public static void AppendText(this RichTextBox box, string text, System.Windows.Media.Brush color = null)
 		{
-			TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
-			tr.Text = text;
+      TextRange tr = PutTextAtEnd(box, text);
 			tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
 		}
 
 		public static void AppendText(this RichTextBox box, char c, System.Windows.Media.Brush color = null)
-		{
-			TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
-			tr.Text = c.ToString();
-			tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
-		}
+    {
+      TextRange tr = PutTextAtEnd(box, c);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
 
-		public static void AddHyperlinkText(this RichTextBox box, String linkURL, String linkName = null, String TextBeforeLink = null, String TextAfterLink = null)
+    public static void AppendText(this RichTextBox box, string text, FontWeight fontWeight, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, text);
+      tr.ApplyPropertyValue(TextElement.FontWeightProperty, fontWeight);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AppendText(this RichTextBox box, char c, FontWeight fontWeight, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, c);
+      tr.ApplyPropertyValue(TextElement.FontWeightProperty, fontWeight);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AppendText(this RichTextBox box, string text, double fontSize, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, text);
+      tr.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AppendText(this RichTextBox box, char c, double fontSize, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, c);
+      tr.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AppendText(this RichTextBox box, string text, FontWeight fontWeight, double fontSize, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, text);
+      tr.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+      tr.ApplyPropertyValue(TextElement.FontWeightProperty, fontWeight);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AppendText(this RichTextBox box, char c, FontWeight fontWeight, double fontSize, System.Windows.Media.Brush color = null)
+    {
+      TextRange tr = PutTextAtEnd(box, c);
+      tr.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+      tr.ApplyPropertyValue(TextElement.FontWeightProperty, fontWeight);
+      tr.ApplyPropertyValue(TextElement.ForegroundProperty, color);
+    }
+
+    public static void AddHyperlinkText(this RichTextBox box, string linkURL, string linkName = null, string TextBeforeLink = null, string TextAfterLink = null)
 		{
 			Paragraph para = new Paragraph();
 			para.Margin = new System.Windows.Thickness(0); // remove indent between paragraphs
@@ -50,7 +121,7 @@ namespace AMD.Util.Extensions.WPF
     /// </summary>
     /// <param name="rtb"></param>
     /// <returns></returns>
-    public static String GetText(this RichTextBox rtb)
+    public static string GetText(this RichTextBox rtb)
     {
      return new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd).Text;
     }
@@ -60,7 +131,7 @@ namespace AMD.Util.Extensions.WPF
     /// </summary>
     /// <param name="rtb"></param>
     /// <returns></returns>
-    public static String GetRtf(this RichTextBox rtb)
+    public static string GetRtf(this RichTextBox rtb)
     {
       TextRange tr = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
       MemoryStream ms = new MemoryStream();
@@ -74,7 +145,7 @@ namespace AMD.Util.Extensions.WPF
     /// </summary>
     /// <param name="rtb"></param>
     /// <param name="rtf"></param>
-    public static void LoadRtf(this RichTextBox rtb, String rtf)
+    public static void LoadRtf(this RichTextBox rtb, string rtf)
     {
       if (rtf != null && rtf.Length > 0)
       {
@@ -97,7 +168,7 @@ namespace AMD.Util.Extensions.WPF
     /// </summary>
     /// <param name="rtb"></param>
     /// <returns></returns>
-    public static String GetCurrentLine(this RichTextBox rtb)
+    public static string GetCurrentLine(this RichTextBox rtb)
     {
       TextPointer caretPos = rtb.CaretPosition;
       TextPointer start = caretPos.GetLineStartPosition(0);

@@ -1,0 +1,4325 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AMDUtil</name>
+    </assembly>
+    <members>
+        <member name="M:AMD.Util.CH341.CH341NativeFunctions.CH341OpenDevice(System.Int32)">
+            <summary>
+            Attempts to open the device
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.CH341.CH341NativeFunctions.CH341CloseDevice(System.Int32)">
+            <summary>
+            Attempts to close the device
+            </summary>
+            <param name="iIndex"></param>
+        </member>
+        <member name="F:AMD.Util.Collections.ArrayStack.ArrayDropOutStack`1.DEFAULT_CAPACITY">
+            constant to represent the default capacity of the array
+        </member>
+        <member name="T:AMD.Util.Collections.IStack`1">
+            <summary>
+            Interface defining Stack
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AMD.Util.Collections.IStack`1.Count">
+            <summary>
+            The number of elements in this stack. 
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Push(`0)">
+            <summary>
+            Adds one element to the top of this stack. 
+            </summary>
+            <param name="element">element to be pushed onto stack</param>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Pop">
+            <summary>
+            Removes and returns the top element from this stack. 
+            </summary>
+            <returns>T element removed from the top of the stack</returns>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Peek">
+            <summary>
+            Returns without removing the top element of this stack. 
+            </summary>
+            <returns>T element on top of the stack</returns>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.Clear">
+            <summary>
+            Clears the stack
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Collections.IStack`1.IsEmpty">
+            <summary>
+            Returns true if this stack contains no elements. 
+            </summary>
+            <returns>boolean whether or not this stack is empty</returns>
+        </member>
+        <member name="P:AMD.Util.Colour.ColorChangedEventArgs.OriginalColor">
+            <summary>
+            The original color
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.ColorChangedEventArgs.SelectedColor">
+            <summary>
+            The selected color
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.ColorChangedEventArgs.#ctor(System.Windows.Media.Color,System.Windows.Media.Color)">
+            <summary>
+            Instantiates and sets original and selected color
+            </summary>
+            <param name="originalColor"></param>
+            <param name="selectedColor"></param>
+        </member>
+        <member name="P:AMD.Util.Colour.BrushChangedEventArgs.OriginalBrush">
+            <summary>
+            The original Brush
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.BrushChangedEventArgs.SelectedBrush">
+            <summary>
+            The selected Brush
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.BrushChangedEventArgs.#ctor(System.Windows.Media.Brush,System.Windows.Media.Brush)">
+            <summary>
+            Instantiates and sets original and selected Brush
+            </summary>
+            <param name="originalBrush"></param>
+            <param name="selectedBrush"></param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CIELab">
+            <summary>
+            Structure to define CIE L*a*b*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIELab.Empty">
+            <summary>
+            Gets an empty CIELab structure.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CIEXYZ">
+            <summary>
+            Structure to define CIE XYZ.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIEXYZ.Empty">
+            <summary>
+            Gets an empty CIEXYZ structure.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CIEXYZ.D65">
+            <summary>
+            Gets the CIE D65 (white) structure.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.X">
+            <summary>
+            Gets or sets X component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.Y">
+            <summary>
+            Gets or sets Y component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.CIEXYZ.Z">
+            <summary>
+            Gets or sets Z component.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.CMYK">
+            <summary>
+            Structure to define CMYK.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.CMYK.Empty">
+            <summary>
+            Gets an empty CMYK structure;
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.CMYK.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a CMYK structure.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.ColorSpaceHelper">
+            <summary>
+            Provides methods to convert from a color space to an other.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Gets the "distance" between two colors.
+            RGB colors must be normalized (eg. values in [0.0, 1.0]).
+            </summary>
+            <param name="r1">First color red component.</param>
+            <param name="g1">First color green component.</param>
+            <param name="b1">First color blue component.</param>
+            <param name="r2">Second color red component.</param>
+            <param name="g2">Second color green component.</param>
+            <param name="b2">Second color blue component.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Double[],System.Double[])">
+            <summary>
+            Gets the "distance" between two colors.
+            RGB colors must be normalized (eg. values in [0.0, 1.0]).
+            </summary>
+            <param name="color1">First color [r,g,b]</param>
+            <param name="color2">Second color [r,g,b]</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetColorDistance(System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Gets the "distance" between two colors.
+            </summary>
+            <param name="c1">First color.</param>
+            <param name="c2">Second color.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetWheelColors(System.Int32)">
+            <summary>
+            Gets visible colors (color wheel).
+            </summary>
+            <param name="alpha">
+            The alpha value used for each colors.
+            </param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetSpectrumColors(System.Int32)">
+            <summary>
+            Gets visible spectrum colors.
+            </summary>
+            <param name="alpha">The alpha value used for each colors.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetSpectrumColors">
+            <summary>
+            Gets visible spectrum colors.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.GetIntFromHex(System.String)">
+            <summary>
+            Gets the int equivalent for a hexadecimal value.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HexToColor(System.String)">
+            <summary>
+            Converts a Hex color to a .net Color.
+            </summary>
+            <param name="hexColor">The desired hexadecimal color to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBToHex(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts a RGB color format to an hexadecimal color.
+            </summary>
+            <param name="r">The Red value.</param>
+            <param name="g">The Green value.</param>
+            <param name="b">The Blue value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBToHex(System.Drawing.Color)">
+            <summary>
+            Converts a RGB color format to an hexadecimal color.
+            </summary>
+            <param name="r">The color to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoRGB(AMD.Util.Colour.Devcorp.HSB)">
+            <summary>
+            Converts HSB to RGB.
+            </summary>
+            <param name="hsv">The HSB structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to RGB.
+            </summary>
+            <param name="H">Hue value.</param>
+            <param name="S">Saturation value.</param>
+            <param name="V">Brigthness value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(AMD.Util.Colour.Devcorp.HSB)">
+            <summary>
+            Converts HSB to Color.
+            </summary>
+            <param name="hsv">the HSB structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(System.Double,System.Double,System.Double)">
+            <summary> 
+            Converts HSB to a .net Color.
+            </summary>
+            <param name="h">Hue value (must be between 0 and 360).</param>
+            <param name="s">Saturation value (must be between 0 and 1).</param>
+            <param name="b">Brightness value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoColor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts HSB to Color.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="b">Brightness value.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoHSL(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSBtoYUV(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSB to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to RGB.
+            </summary>
+            <param name="h">Hue, must be in [0, 360].</param>
+            <param name="s">Saturation, must be in [0, 1].</param>
+            <param name="l">Luminance, must be in [0, 1].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoRGB(AMD.Util.Colour.Devcorp.HSL)">
+            <summary>
+            Converts HSL to RGB.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoColor(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to .net Color.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoColor(AMD.Util.Colour.Devcorp.HSL)">
+            <summary>
+            Converts HSL to .net Color.
+            </summary>
+            <param name="hsl">The HSL structure to convert.</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoHSB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to HSB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to CMYK.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.HSLtoYUV(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSL to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(System.Int32,System.Int32,System.Int32)">
+            <summary> 
+            Converts RGB to HSL.
+            </summary>
+            <param name="red">Red value, must be in [0,255].</param>
+            <param name="green">Green value, must be in [0,255].</param>
+            <param name="blue">Blue value, must be in [0,255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(AMD.Util.Colour.Devcorp.RGB)">
+            <summary> 
+            Converts RGB to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSL(System.Drawing.Color)">
+            <summary> 
+            Converts Color to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(System.Int32,System.Int32,System.Int32)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(AMD.Util.Colour.Devcorp.RGB)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoHSB(System.Drawing.Color)">
+            <summary> 
+            Converts RGB to HSB.
+            </summary> 
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+            <param name="red">Red vaue must be in [0, 255].</param>
+            <param name="green">Green vaue must be in [0, 255].</param>
+            <param name="blue">Blue vaue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoCMYK(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CMYK
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+            <param name="red">red must be in [0, 255].</param>
+            <param name="green">green must be in [0, 255].</param>
+            <param name="blue">blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(System.Drawing.Color)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoYUV(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIE XYZ (CIE 1931 color space)
+            </summary>
+            <param name="red">Red must be in [0, 255].</param>
+            <param name="green">Green must be in [0, 255].</param>
+            <param name="blue">Blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIE XYZ (CIE 1931 color space)
+            </summary>
+            <param name="red">Red must be in [0, 255].</param>
+            <param name="green">Green must be in [0, 255].</param>
+            <param name="blue">Blue must be in [0, 255].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoXYZ_sRGB_D65(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(AMD.Util.Colour.Devcorp.RGB)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.RGBtoLab(System.Drawing.Color)">
+            <summary>
+            Converts RGB to CIELab.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoColor(AMD.Util.Colour.Devcorp.CMYK)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="cmyk"></param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoRGB(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="c">Cyan value (must be between 0 and 1).</param>
+            <param name="m">Magenta value (must be between 0 and 1).</param>
+            <param name="y">Yellow value (must be between 0 and 1).</param>
+            <param name="k">Black value (must be between 0 and 1).</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoRGB(AMD.Util.Colour.Devcorp.CMYK)">
+            <summary>
+            Converts CMYK to RGB.
+            </summary>
+            <param name="cmyk"></param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoHSL(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to HSL.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoHSB(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to HSB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.CMYKtoYUV(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CMYK to YUV.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to RGB.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoRGB(AMD.Util.Colour.Devcorp.YUV)">
+            <summary>
+            Converts YUV to RGB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoColor(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to a .net Color.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoColor(AMD.Util.Colour.Devcorp.YUV)">
+            <summary>
+            Converts YUV to a .net Color.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoHSL(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to HSL.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoHSB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to HSB.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.YUVtoCMYK(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts YUV to CMYK.
+            </summary>
+            <param name="y">Y must be in [0, 1].</param>
+            <param name="u">U must be in [-0.436, +0.436].</param>
+            <param name="v">V must be in [-0.615, +0.615].</param>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB_sRGB_D65(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(AMD.Util.Colour.Devcorp.CIEXYZ,System.Double[0:,0:])">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB(System.Double,System.Double,System.Double,System.Double[0:,0:])">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="itm">3x3 matrix with the inverse transformation matrix needed to calculate RGB colors for a specific display charactistic</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoRGB_sRGB_D65(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to RGB structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.Fxyz(System.Double)">
+            <summary>
+            XYZ to L*a*b* transformation function.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoLab(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIEXYZ to CIELab structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.XYZtoLab(AMD.Util.Colour.Devcorp.CIEXYZ)">
+            <summary>
+            Converts CIEXYZ to CIELab structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoXYZ(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIELab to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoXYZ(AMD.Util.Colour.Devcorp.CIELab)">
+            <summary>
+            Converts CIELab to CIEXYZ.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoRGB(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts CIELab to RGB.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.ColorSpaceHelper.LabtoRGB(AMD.Util.Colour.Devcorp.CIELab)">
+            <summary>
+            Converts CIELab to RGB.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.HSB">
+            <summary>
+            Structure to define HSB.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.HSB.Empty">
+            <summary>
+            Gets an empty HSB structure;
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Hue">
+            <summary>
+            Gets or sets the hue component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Saturation">
+            <summary>
+            Gets or sets saturation component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSB.Brightness">
+            <summary>
+            Gets or sets the brightness component.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.HSB.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a HSB structure.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="b">Brightness value.</param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.HSL">
+            <summary>
+            Structure to define HSL.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.HSL.Empty">
+            <summary>
+            Gets an empty HSL structure;
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Hue">
+            <summary>
+            Gets or sets the hue component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Saturation">
+            <summary>
+            Gets or sets saturation component.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Colour.Devcorp.HSL.Luminance">
+            <summary>
+            Gets or sets the luminance component.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.HSL.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a HSL structure.
+            </summary>
+            <param name="h">Hue value.</param>
+            <param name="s">Saturation value.</param>
+            <param name="l">Lightness value.</param>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.RGB">
+            <summary>
+            Structure to define RGB.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.RGB.Empty">
+            <summary>
+            Gets an empty RGB structure;
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Colour.Devcorp.YUV">
+            <summary>
+            Structure to define YUV.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Colour.Devcorp.YUV.Empty">
+            <summary>
+            Gets an empty YUV structure.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Colour.Devcorp.YUV.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates an instance of a YUV structure.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Compression.SevenZip.DataErrorException">
+            <summary>
+            The exception that is thrown when an error in input stream occurs during decoding.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Compression.SevenZip.InvalidParamException">
+            <summary>
+            The exception that is thrown when the value of an argument is outside the allowable range.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Compression.SevenZip.ICodeProgress.SetProgress(System.Int64,System.Int64)">
+            <summary>
+            Callback progress.
+            </summary>
+            <param name="inSize">
+            input size. -1 if unknown.
+            </param>
+            <param name="outSize">
+            output size. -1 if unknown.
+            </param>
+        </member>
+        <member name="M:AMD.Util.Compression.SevenZip.ICoder.Code(System.IO.Stream,System.IO.Stream,System.Int64,System.Int64,AMD.Util.Compression.SevenZip.ICodeProgress)">
+            <summary>
+            Codes streams.
+            </summary>
+            <param name="inStream">
+            input Stream.
+            </param>
+            <param name="outStream">
+            output Stream.
+            </param>
+            <param name="inSize">
+            input Size. -1 if unknown.
+            </param>
+            <param name="outSize">
+            output Size. -1 if unknown.
+            </param>
+            <param name="progress">
+            callback progress reference.
+            </param>
+            <exception cref="T:AMD.Util.Compression.SevenZip.DataErrorException">
+            if input stream is not valid
+            </exception>
+        </member>
+        <member name="T:AMD.Util.Compression.SevenZip.CoderPropID">
+            <summary>
+            Provides the fields that represent properties idenitifiers for compressing.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.DefaultProp">
+            <summary>
+            Specifies default property.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.DictionarySize">
+            <summary>
+            Specifies size of dictionary.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.UsedMemorySize">
+            <summary>
+            Specifies size of memory for PPM*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.Order">
+            <summary>
+            Specifies order for PPM methods.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.BlockSize">
+            <summary>
+            Specifies Block Size.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.PosStateBits" -->
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.LitContextBits" -->
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.LitPosBits" -->
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumFastBytes">
+            <summary>
+            Specifies number of fast bytes for LZ*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.MatchFinder">
+            <summary>
+            Specifies match finder. LZMA: "BT2", "BT4" or "BT4B".
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.MatchFinderCycles">
+            <summary>
+            Specifies the number of match finder cyckes.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumPasses">
+            <summary>
+            Specifies number of passes.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.Algorithm">
+            <summary>
+            Specifies number of algorithm.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumThreads">
+            <summary>
+            Specifies the number of threads.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.EndMarker">
+            <summary>
+            Specifies mode with end marker.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.DataType.Bit.#ctor">
+            <summary>
+            Empty constructor explicite to make XmlSerializer work
+            </summary>
+        </member>
+        <member name="M:AMD.Util.DataType.C_Variable.GetRangeWords(System.Collections.Generic.Dictionary{System.UInt32,System.Collections.Generic.SortedDictionary{System.Int64,System.UInt32}},System.UInt32,System.UInt32,System.Int64)">
+            <summary>
+            Gets a range of data. Non-accessed data is represented with null
+            </summary>
+            <param name="memory"></param>
+            <param name="startAddr"></param>
+            <param name="length">Length in bytes</param>
+            <param name="timeInNS"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.DataType.C_Variable.TryGet(System.Collections.Generic.Dictionary{System.UInt32,System.Collections.Generic.SortedDictionary{System.Int64,System.UInt32}},System.UInt32@,System.UInt32,System.Int64)">
+            <summary>
+            TryGet for trying to get value at specific time and address
+            </summary>
+            <param name="memory"></param>
+            <param name="value"></param>
+            <param name="addr"></param>
+            <param name="timeInNS"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.DataType.C_VariableListContexts.CollectionChangedHandler">
+            <summary>
+            Eventhandler for finished programming
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments</param>
+        </member>
+        <member name="T:AMD.Util.DataType.C_VariableListTypes.CollectionChangedHandler">
+            <summary>
+            Eventhandler for finished programming
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments</param>
+        </member>
+        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.SolidColorBrush,System.Windows.Media.SolidColorBrush,System.Windows.Media.SolidColorBrush,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
+            <summary>
+            Compares two strings and returns left and right documents, which can be loaded into RichTextBox
+            </summary>
+            <param name="leftText"></param>
+            <param name="rightText"></param>
+            <param name="brushDefaultForeground"></param>
+            <param name="brushDiffForeground"></param>
+            <param name="brushDiffBackground"></param>
+            <param name="charsToSearchForOffset">The number of characters to search into a line in order to determine if they are comparable</param>
+            <param name="fontSize">The size of the font used in the destination control. Ex RichTextBox.FontSize</param>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.Data">
+            <summary>
+            Contains data and a 16-bit starting address for the data. The byte count specifies number of data bytes in the record. The example shown to the right has 0B (decimal 11) data bytes (61, 64, 64, 72, 65, 73, 73, 20, 67, 61, 70) located at consecutive addresses beginning at address 0010.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.EoF">
+            <summary>
+            Must occur exactly once per file in the last line of the file. The data field is empty (thus byte count is 00) and the address field is typically 0000.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.ExtendedSegmentAddr">
+            <summary>
+            The data field contains a 16-bit segment base address (thus byte count is 02) compatible with 80x86 real mode addressing. The address field (typically 0000) is ignored. The segment address from the most recent 02 record is multiplied by 16 and added to each subsequent data record address to form the physical starting address for the data. This allows addressing up to one megabyte of address space.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.StartSegmentAddr">
+            <summary>
+            For 80x86 processors, specifies the initial content of the CS:IP registers. The address field is 0000, the byte count is 04, the first two bytes are the CS value, the latter two are the IP value.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.ExtendedLinearAddr">
+            <summary>
+            Allows for 32 bit addressing (up to 4GiB). The address field is ignored (typically 0000) and the byte count is always 02. The two encoded, big endian data bytes specify the upper 16 bits of the 32 bit absolute address for all subsequent type 00 records; these upper address bits apply until the next 04 record. If no type 04 record precedes a 00 record, the upper 16 address bits default to 0000. The absolute address for a type 00 record is formed by combining the upper 16 address bits of the most recent 04 record with the low 16 address bits of the 00 record.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.StartLinearAddr">
+            <summary>
+            The address field is 0000 (not used) and the byte count is 04. The four data bytes represent the 32-bit value loaded into the EIP register of the 80386 and higher CPU.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Data.IntelHexToBin">
+            <summary>
+            Intel Hex file handler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexToBin.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexToBin.GetData(System.UInt32,System.UInt32,System.Byte,System.Boolean)">
+            <summary>
+            Gets a byte array with the compiled firmware byte values
+            </summary>
+            <param name="startAddr"></param>
+            <param name="endAddr"></param>
+            <param name="fillValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Data.IntelHexRecord">
+            <summary>
+            Record object containing relevant properties
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.ByteCount">
+            <summary>
+            Number of data bytes. The maximum byte count is 255 (0xFF). 16 (0x10) and 32 (0x20) are commonly used byte counts.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Address">
+            <summary>
+            2 byte address of the data. Normally big endian
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.RecordType">
+            <summary>
+            Record type of value 0x00-0x05
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Checksum">
+            <summary>
+            Two's compliment checksum
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.CompleteRecord">
+            <summary>
+            The complete record as given in the constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexRecord.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="record"></param>
+        </member>
+        <member name="T:AMD.Util.Data.InvalidChecksumException">
+            <summary>
+            Invalid Checksum exception
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor">
+            <summary>
+            Zero argument constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor(System.String)">
+            <summary>
+            One argument constructor
+            </summary>
+            <param name="Message">Describing message</param>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor(System.String,System.Exception)">
+            <summary>
+            Two argument constructor
+            </summary>
+            <param name="Message">Describing message</param>
+            <param name="InnerException">Child exception</param>
+        </member>
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[],AMD.Util.Extensions.Endian)">
+            <summary>
+            Gets a formatted memory string from a word array
+            </summary>
+            <param name="startAddr"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetStringFromRtf(System.String)">
+            <summary>
+            Strip RTF Tags from RTF Text
+            </summary>
+            <param name="inputRtf">RTF formatted text</param>
+            <returns>Plain text from RTF</returns>
+        </member>
+        <member name="T:AMD.Util.Diagnostics">
+            <summary>
+            Small timing class designed for measure how long time an operation takes
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Diagnostics.Measure(System.Int32,System.Action)">
+            <summary>
+            Measures how long time an action takes to perform
+            </summary>
+            <param name="repetitions">The number of times to run the action</param>
+            <param name="action">the action to be run</param>
+            <returns>The result of the measurement</returns>
+        </member>
+        <member name="M:AMD.Util.Diagnostics.MeasureAndPrintToConsole(System.String,System.Int32,System.Action)">
+            <summary>
+            Measures an action and prints it to console
+            </summary>
+            <param name="what">A descriptive string of what is being measured</param>
+            <param name="repetitions">The number of times to run the action</param>
+            <param name="action">the action to be run</param>
+        </member>
+        <member name="T:AMD.Util.Measurement">
+            <summary>
+            Wrapper class for measurement
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Min">
+            <summary>
+            Minimum value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Max">
+            <summary>
+            Maximum value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Measurement.Avg">
+            <summary>
+            Average value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Measurement.#ctor(System.TimeSpan[])">
+            <summary>
+            Storing the min, max and average values from double array
+            </summary>
+            <param name="measurements"></param>
+        </member>
+        <member name="T:AMD.Util.Display.DDCCI.MCCSCodeStandard.VCPCodeStandard">
+            <summary>
+            Based on the VESA MCCS Standard Version 2.2a
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.GetPhysicalMonitorsFromHMONITOR(System.Runtime.InteropServices.HandleRef,System.UInt32,System.UInt32)">
+            ADE added 20151001
+            @{
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.CapabilitiesRequestAndCapabilitiesReply(System.Runtime.InteropServices.HandleRef,System.Text.StringBuilder,System.UInt32)">
+            <summary>
+            Gets the capabilitystring from the monitor
+            </summary>
+            <remarks>NOT WORKING YET</remarks>
+            <param name="hMonitor"></param>
+            <param name="pszASCIICapabilitiesString"></param>
+            <param name="dwCapabilitiesStringLengthInCharacters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.NativeMethods.GetPhysicalMonitorsFromHMONITOR(System.Runtime.InteropServices.HandleRef,System.UInt32,AMD.Util.Display.DDCCI.Util.NativeStructures.PHYSICAL_MONITOR[])">
+            @} 
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.AttachedToDesktop">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.PrimaryDevice">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.MirroringDriver">
+            <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.VGACompatible">
+            <summary>The device is VGA compatible.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.Removable">
+            <summary>The device is removable; it cannot be the primary display.</summary>
+        </member>
+        <member name="F:AMD.Util.Display.DDCCI.Util.NativeStructures.DisplayDeviceStateFlags.ModesPruned">
+            <summary>The device has more display modes than its output devices support.</summary>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.GetVCPName(AMD.Util.Display.DDCCI.MCCSCodeStandard.eVCPCode)">
+            <summary>
+            Returns the VCP name as stated in the VESA MCCS Standard Version 2.2a
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.PopulateVcpCodes(System.String,AMD.Util.Display.DDCCI.Util.VCPCodeList)">
+            <summary>
+            Populates a provided VCPCodeList with the codes found in the capabilityString
+            </summary>
+            <param name="capabilityString"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactorAtLoad">
+            <summary>
+            Gets the scaling factor set in Windows
+            This is detected at load of the application, not if the scaling factor is changed while the application is running
+            To make this work as live updating as well, it is required to add a Manifest to the application and apply the following XML:
+            <![CDATA[
+            <application xmlns="urn:schemas-microsoft-com:asm.v3">
+              <windowsSettings>
+                <dpiAware xmlns = "http://schemas.microsoft.com/SMI/2005/WindowsSettings" > true / PM </ dpiAware >
+                < dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitor</dpiAwareness>
+              </windowsSettings>
+            </application>
+            ]]>
+            <para>&lt;application xmlns="urn:schemas-microsoft-com:asm.v3"></para>
+            <para>   &lt;windowsSettings></para>
+            <para>     &lt;dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true/PM&lt;/dpiAware></para>
+            <para>     &lt;dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitor&lt;/dpiAwareness></para>
+            <para>   &lt;/windowsSettings></para>
+            <para>&lt;/application></para>
+            </summary>
+            <returns>1 = 100%, 1.25 = 125% etc.</returns>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactorLive">
+            <summary>
+            Gets the scaling factor set in Windows
+            This always starts with a scaling factor at 1 (regardless of the windows setting) but changes if the windows scaling factor is changed while the application is running
+            </summary>
+            <returns>1 = 100%, 1.25 = 125% etc.</returns>
+        </member>
+        <member name="M:AMD.Util.Display.ScreenUtil.GetScalingFactor">
+            <summary>
+            This combines the solution from both GetScalingFactorAtLoad and GetScalingFactorLive to attempt to get the scaling factor both at load and live without having to create a Manifest
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DisplayDetails.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The Constructor to create a new instances of the DisplayDetails class...
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.DisplayDetails.GetMonitorDetails">
+            <summary>
+            This Function returns all Monitor Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.ChromaticityCoordinates">
+            <summary>
+                Represents the CIE chromaticity xy coordinates for red, green, blue, and white
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.BlueX">
+            <summary>
+                Gets the blue x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.BlueY">
+            <summary>
+                Gets the blue y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.GreenX">
+            <summary>
+                Gets the green x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.GreenY">
+            <summary>
+                Gets the green y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.RedX">
+            <summary>
+                Gets the red x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.RedY">
+            <summary>
+                Gets the red y value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.WhiteX">
+            <summary>
+                Gets the default white point x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ChromaticityCoordinates.WhiteY">
+            <summary>
+                Gets the default white point y value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.Equals(AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.op_Equality(AMD.Util.Display.Edid.ChromaticityCoordinates,AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.op_Inequality(AMD.Util.Display.Edid.ChromaticityCoordinates,AMD.Util.Display.Edid.ChromaticityCoordinates)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.ChromaticityCoordinates.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.CommonTiming">
+            <summary>
+                Represents a common timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Identification">
+            <summary>
+                Gets the common timing identification
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.IsInterlaced">
+            <summary>
+                Gets a boolean value indicating that the timing is interlaced
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(AMD.Util.Display.Edid.ITiming)">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Frequency">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Height">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.CommonTiming.Width">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.op_Equality(AMD.Util.Display.Edid.CommonTiming,AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.op_Inequality(AMD.Util.Display.Edid.CommonTiming,AMD.Util.Display.Edid.CommonTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.CommonTiming.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor">
+            <summary>
+                Represents an EDID additional standard timing descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor.Timings">
+            <summary>
+                Gets an additional enumerable list of timings specified in this descriptor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.AdditionalStandardTimingDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor">
+            <summary>
+                Represents an EDID additional white point descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.Gamma">
+            <summary>
+                Gets the gamma value (1.0-3.54)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.Index">
+            <summary>
+                Gets the white point index number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.IsUsed">
+            <summary>
+                Gets a boolean value indicating the availability of this descriptor
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.NextDescriptor">
+            <summary>
+                Gets an other instance of the AdditionalWhitePointDescriptor type with more information, or null if not available
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.WhitePointX">
+            <summary>
+                Gets the white point x value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.WhitePointY">
+            <summary>
+                Gets the white point y value
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.AdditionalWhitePointDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor">
+            <summary>
+                Represents an EDID detailed timing descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalActivePixels">
+            <summary>
+                Gets the horizontal active pixels (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalBlankingPixels">
+            <summary>
+                Gets the horizontal blanking pixels (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalBorderPixels">
+            <summary>
+                Gets the horizontal border pixels (each side; total is twice this)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalDisplaySize">
+            <summary>
+                Gets the horizontal display size, mm (0–4095 mm, 161 in)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncOffset">
+            <summary>
+                Gets the horizontal sync offset
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncPolarity">
+            <summary>
+                Gets the digital display's horizontal sync polarity
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.HorizontalSyncPulse">
+            <summary>
+                Gets the horizontal sync pulse width (0–1023)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsInterlaced">
+            <summary>
+                Gets a boolean value indicating that the timing's scan mode is interlaced
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsSyncOnAllRGBLines">
+            <summary>
+                Gets a boolean value indicating that the sync is on all 3 RGB lines (else green only)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.IsVerticalSyncSerrated">
+            <summary>
+                Gets a boolean value indicating that the vertical sync is serrated (HSync during VSync)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.PixelClock">
+            <summary>
+                Gets the pixel clock in hz. (0.01–655.35 MHz)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.StereoMode">
+            <summary>
+                Gets the type of the stereo signal supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.SyncType">
+            <summary>
+                Gets the type of display sync signal
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalActivePixels">
+            <summary>
+                Gets the vertical active lines (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalBlankingPixels">
+            <summary>
+                Gets the vertical blanking lines (0–4095)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalBorderPixels">
+            <summary>
+                Gets the vertical border lines (each side; total is twice this)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalDisplaySize">
+            <summary>
+                Gets the vertical display size, mm
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncOffset">
+            <summary>
+                Gets the vertical sync offset lines (0–63)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncPolarity">
+            <summary>
+                Gets the digital display's vertical sync polarity
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.VerticalSyncPulse">
+            <summary>
+                Gets the vertical sync pulse width lines (0–63)
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.DetailedTimingDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor">
+            <summary>
+                Represents a vendor specific custom EDID descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.Data">
+            <summary>
+                Gets the raw 13byte binary data of the block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.DescriptorCode">
+            <summary>
+                Gets the descriptor type identification number
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.ManufacturerDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor">
+            <summary>
+                Represents an EDID monitor range limit descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFC">
+            <summary>
+                Gets the GTF C value (0–127.5)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFJ">
+            <summary>
+                Gets the GTF J value (0–127.5)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFK">
+            <summary>
+                Gets the GTF K value (0–255)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.GTFM">
+            <summary>
+                Gets the GTF M value (0–65535)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.IsSecondaryGTFSupported">
+            <summary>
+                Gets a boolean value indicating that the secondary GTF is supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumHorizontalFieldRate">
+            <summary>
+                Gets the maximum horizontal field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumPixelClockRate">
+            <summary>
+                Gets the maximum pixel clock rate in hz (10–2550 MHz)
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MaximumVerticalFieldRate">
+            <summary>
+                Gets the maximum vertical field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MinimumHorizontalFieldRate">
+            <summary>
+                Gets the minimum horizontal field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.MinimumVerticalFieldRate">
+            <summary>
+                Gets the minimum vertical field rate
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.SecondaryCurveStartFrequency">
+            <summary>
+                Gets the start frequency for the secondary curve in hz (0–510 kHz)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">Secondary GTF is not supported.</exception>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.MonitorRangeLimitsDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Descriptors.StringDescriptor">
+            <summary>
+                Represents an EDID string descriptor block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.StringDescriptor.Type">
+            <summary>
+                Gets the type of the data stored as a string
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Descriptors.StringDescriptor.Value">
+            <summary>
+                Gets the string data
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Descriptors.StringDescriptor.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.DisplayParameters">
+            <summary>
+                Represents the basic display parameters of a device
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.AnalogDisplayType">
+            <summary>
+                Gets the display type of this analog device
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.ChromaticityCoordinates">
+            <summary>
+                Gets an instance of ChromaticityCoordinates type containing the CIE Chromaticity xy coordinates for red, green,
+                blue, and white
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DigitalDisplayType">
+            <summary>
+                Gets the display type of this digital device
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplayGamma">
+            <summary>
+                Gets the display gamma value (1.00 – 3.54)
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.GammaValueNotAvailableException">There is no information about the gamma property of the display.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplaySizeInInch">
+            <summary>
+                Gets the calculated size of the display diagonal in inch
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsActiveOffSupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS active-off supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsBlankToBlackExpected">
+            <summary>
+                Gets a boolean value indicating if the Blank-to-black setup (pedestal) is expected
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsCompositeSyncSupported">
+            <summary>
+                Gets a boolean value indicating if the composite sync (on HSync) is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDefaultGTFSupported">
+            <summary>
+                Gets a boolean value indicating if the display supports GTF with default parameter values
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDFPTMDSCompatible">
+            <summary>
+                Gets a boolean value indicating if the signal is compatible with VESA DFP 1.x TMDS CRGB, 1 pixel per clock, up to 8
+                bits per color, MSB aligned
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDigital">
+            <summary>
+                Gets a boolean value indicating if the device uses the digital signal for communication
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsPreferredTimingModeAvailable">
+            <summary>
+                Gets a boolean value indicating if the preferred timing mode specified in descriptor block 1. For EDID 1.3+ the
+                preferred timing mode is always in the first Detailed Timing Descriptor
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsPreferredTimingModeIncludesNativeInformation">
+            <summary>
+                Gets a boolean value indicating if the preferred timing mode includes native pixel format and refresh rate. This
+                value is always false for EDID 1.2-
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsProjector">
+            <summary>
+                Gets a boolean value indicating that the display don't have a fixed size
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSeparateSyncSupported">
+            <summary>
+                Gets a boolean value indicating that the separate sync is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsStandardSRGBColorSpace">
+            <summary>
+                Gets a boolean value indicating that the devices uses the standard sRGB colour space
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsStandbySupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS standby supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSuspendSupported">
+            <summary>
+                Gets a boolean value indicating if the DPMS suspend supported
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsSyncOnGreenSupported">
+            <summary>
+                Gets a boolean value indicating that sync on green is supported
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsVSyncSerratedOnComposite">
+            <summary>
+                Gets a boolean value indicating that VSync pulse must be serrated when composite or sync-on-green is used
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.PhysicalHeight">
+            <summary>
+                Gets the device physical height in cm
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">Display don't have a fixed size.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.PhysicalWidth">
+            <summary>
+                Gets the device physical width in cm
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">Display don't have a fixed size.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.VideoWhiteLevel">
+            <summary>
+                Gets the analog video white and sync levels, relative to blank
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">The device is not analog.</exception>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.Equals(AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.op_Equality(AMD.Util.Display.Edid.DisplayParameters,AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.op_Inequality(AMD.Util.Display.Edid.DisplayParameters,AMD.Util.Display.Edid.DisplayParameters)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.DisplayParameters.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDID">
+            <summary>
+                Represents a Extended Display Identification Data instance
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.#ctor(System.Byte[])">
+            <summary>
+                Creates a new EDID instance with the provided EDID binary data
+            </summary>
+            <param name="data">An array of bytes holding the EDID binary data</param>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.InvalidEDIDException">Invalid EDID binary data.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Descriptors">
+            <summary>
+                Gets the enumerable list of descriptor blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.DisplayParameters">
+            <summary>
+                Gets an instance of DisplayParameters type representing the basic display parameters
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.EDIDVersion">
+            <summary>
+                Gets the EDID specification version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Extensions">
+            <summary>
+                Gets the enumerable list of extensions blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureDate">
+            <summary>
+                Gets the date of manufacturing of the device with accuracy of +-6 days
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufacturerCode">
+            <summary>
+                Gets the manufacturer identification assigned by Microsoft to the device vendors in string
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufacturerId">
+            <summary>
+                Gets the manufacturer identification assigned by Microsoft to the device vendors as a numberic value
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureWeek">
+            <summary>
+                Gets the week of the device device production date as a number between 1 and 54
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">Manufacture date is not available.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ManufactureYear">
+            <summary>
+                Gets the year of the device device production date as a number between 1990 and 2245
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">Manufacture date is not available.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.NumberOfExtensions">
+            <summary>
+                Gets the expected number of extension blocks
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ProductCode">
+            <summary>
+                Gets the product identification code assigned by Microsoft to this series of devices
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.ProductYear">
+            <summary>
+                Gets the year of the device device production or the model year of this product as a number between 1990 and 2245
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.SerialNumber">
+            <summary>
+                Gets the numberic serial number of the device
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDID.Timings">
+            <summary>
+                Gets the enumerable list of valid timing combinations
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.Equals(AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.op_Equality(AMD.Util.Display.Edid.EDID,AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.op_Inequality(AMD.Util.Display.Edid.EDID,AMD.Util.Display.Edid.EDID)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDID.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDIDDescriptor">
+            <summary>
+                Represents an EDID Descriptor Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDDescriptor.IsValid">
+            <summary>
+                Gets a boolean value indicating the data validity of this descriptor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.Equals(AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.op_Equality(AMD.Util.Display.Edid.EDIDDescriptor,AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.op_Inequality(AMD.Util.Display.Edid.EDIDDescriptor,AMD.Util.Display.Edid.EDIDDescriptor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDDescriptor.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.EDIDExtension">
+            <summary>
+                Represents an EDID Extension Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDExtension.IsValid">
+            <summary>
+                Gets a boolean value indicating the data validity of this extension
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.EDIDExtension.Type">
+            <summary>
+                Gets the extension block type
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.Equals(AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.op_Equality(AMD.Util.Display.Edid.EDIDExtension,AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.op_Inequality(AMD.Util.Display.Edid.EDIDExtension,AMD.Util.Display.Edid.EDIDExtension)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.EDIDExtension.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetRegEdidFromNameInEdid(System.String)">
+            <summary>
+            Gets the Edid stored in Windows Registry by searching for DeviceFriendlyName in the Edid VESA descripter blocks
+            </summary>
+            <param name="deviceFriendlyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetAllRegEdid">
+            <summary>
+            Gets all Edids stored in Windows Registry
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.AnalogDisplayType">
+            <summary>
+                Contains the possible analog display types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.Monochrome">
+            <summary>
+                Grayscale display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.RGB">
+            <summary>
+                RGB colored display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.NonRGB">
+            <summary>
+                Non-RGB colored display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogDisplayType.Undefined">
+            <summary>
+                Display type is undefined
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel">
+            <summary>
+                Contains possible values of the analog display's white and sync levels relative to blank
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White07OnMinus03V">
+            <summary>
+                +0.7/−0.3 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White0714OnMinus0286V">
+            <summary>
+                +0.714/−0.286 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White1OnMinus04V">
+            <summary>
+                +1.0/−0.4 V
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.AnalogVideoWhiteLevel.White07On0V">
+            <summary>
+                +0.7/0 V
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.CommonTimingIdentification">
+            <summary>
+                Contains a list of common timing identification flags
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At60Hz">
+            <summary>
+                1024×768 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At72Hz">
+            <summary>
+                1024×768 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At75Hz">
+            <summary>
+                1024×768 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1024X768At87HzInterlaced">
+            <summary>
+                1024×768 @ 87 Hz, interlaced (1024×768i)
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1152X870At75Hz">
+            <summary>
+                1152x870 @ 75 Hz (Apple Macintosh II)
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing1280X1024At75Hz">
+            <summary>
+                1280×1024 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At60Hz">
+            <summary>
+                640×480 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At67Hz">
+            <summary>
+                640×480 @ 67 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At72Hz">
+            <summary>
+                640×480 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing640X480At75Hz">
+            <summary>
+                640×480 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing720X400At70Hz">
+            <summary>
+                720×400 @ 70 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing720X400At88Hz">
+            <summary>
+                720×400 @ 88 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At56Hz">
+            <summary>
+                800×600 @ 56 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At60Hz">
+            <summary>
+                800×600 @ 60 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At72Hz">
+            <summary>
+                800×600 @ 72 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing800X600At75Hz">
+            <summary>
+                800×600 @ 75 Hz
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.CommonTimingIdentification.Timing832X624At75Hz">
+            <summary>
+                832×624 @ 75 Hz
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.DigitalDisplayType">
+            <summary>
+                Contains possible digital display types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444">
+            <summary>
+                RGB 4:4:4
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444YCrCb444">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:4:4
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444CrCb422">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:2:2
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalDisplayType.RGB444YCrCb444YCrCb422">
+            <summary>
+                RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity">
+            <summary>
+                Contains possible sync polarity types
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity.Negative">
+            <summary>
+                Negative sync polarity
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.DigitalSyncPolarity.Positive">
+            <summary>
+                Positive sync polarity
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.ExtensionType">
+            <summary>
+                Contains possible types of extension blocks
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.LCDTimings">
+            <summary>
+                LCD timings extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.AdditionalTiming">
+            <summary>
+                Additional timings extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.EDID2">
+            <summary>
+                EDID2 extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.ColorInformation">
+            <summary>
+                Color information extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.DVIFeatures">
+            <summary>
+                DVI features extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.TouchScreenData">
+            <summary>
+                Touch screen data extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.BlockMap">
+            <summary>
+                BlockMap extension block
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.ExtensionType.ManufacturerExtension">
+            <summary>
+                Vendor specified extension block
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.PixelRatio">
+            <summary>
+                Contains the possible pixel ratios
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio1To1">
+            <summary>
+                1:1 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio16To10">
+            <summary>
+                16:10 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio4To3">
+            <summary>
+                4:3 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio5To4">
+            <summary>
+                5:4 Ratio
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.PixelRatio.Ratio16To9">
+            <summary>
+                16:9 Ratio
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.StereoMode">
+            <summary>
+                Contains possible stereo modes for a display
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.NoStereo">
+            <summary>
+                No stereo is supported
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.FieldSequentialSyncDuringRight">
+            <summary>
+                Stereo lines fields are sequential and sync during right eye signal
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.SimilarSyncDuringLeft">
+            <summary>
+                Stereo lines are similar and sync during left eye signal
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo4WayInterleaved">
+            <summary>
+                4-Way interleaved stereo
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo2WayInterleaved">
+            <summary>
+                2-Way interleaved stereo
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.RightImageOnEvenLines">
+            <summary>
+                Right eye image is on the even lines
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.LeftImageOnEvenLines">
+            <summary>
+                Left eye image is on the even lines
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.SideBySide">
+            <summary>
+                Right and left eye images are side by side
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.StringDescriptorType">
+            <summary>
+                Contains possible values for the string descriptor block's string type field
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.InvalidData">
+            <summary>
+                Block contains no valid string
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.MonitorSerialNumber">
+            <summary>
+                Block contains the monitor serial number
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.MonitorName">
+            <summary>
+                Block contains the monitor name
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.StringDescriptorType.UnspecifiedText">
+            <summary>
+                The type of the string is unspecified
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Enums.SyncType">
+            <summary>
+                Contains possible values for the detailed timing descriptor block's sync type feature field
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.AnalogComposite">
+            <summary>
+                Analog display composite sync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.BipolarAnalogComposite">
+            <summary>
+                Analog display bipolar composite sync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.DigitalCompositeOnHSync">
+            <summary>
+                Digital display composite sync on HSync
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Display.Edid.Enums.SyncType.DigitalSeparate">
+            <summary>
+                Digital display separate sync
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">
+            <summary>
+                Represents errors that occurs because of display being an analog display
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.DigitalDisplayException">
+            <summary>
+                Represents errors that occurs because of display being a digital display
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ExtendedTimingNotAvailable">
+            <summary>
+                Represents errors that occurs because of missing extended timing information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.GammaValueNotAvailableException">
+            <summary>
+                Represents errors that occurs because of missing gamma information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.InvalidEDIDException">
+            <summary>
+                Represents errors that occurs because of invalid EDID data
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ManufactureDateMissingException">
+            <summary>
+                Represents errors that occurs because of missing production date information
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Exceptions.ProjectorDisplayException">
+            <summary>
+                Represents errors that occurs because of display being a projector
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Extensions.BlockMapExtension">
+            <summary>
+                Represents an EDID block map extension block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.BlockMapExtension.ExtensionTypes">
+            <summary>
+                Gets an enumerable list of next 126 block types
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Extensions.BlockMapExtension.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.Extensions.UnknownExtension">
+            <summary>
+                Represents an unknown EDID Extension Block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.UnknownExtension.Data">
+            <summary>
+                Gets a 125 byte raw data of this block
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.Extensions.UnknownExtension.Revision">
+            <summary>
+                Gets the block revision number
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Extensions.UnknownExtension.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:AMD.Util.Display.Edid.ITiming">
+            <summary>
+                Defines the necessary properties of a display timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Frequency">
+            <summary>
+                Gets the timing frequency
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Height">
+            <summary>
+                Gets the timing height
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.ITiming.Width">
+            <summary>
+                Gets the timing width
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Display.Edid.StandardTiming">
+            <summary>
+                Represents a standard timing
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Ratio">
+            <summary>
+                Gets the standard timing width/height ratio
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(AMD.Util.Display.Edid.ITiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Frequency">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Height">
+            <inheritdoc />
+        </member>
+        <member name="P:AMD.Util.Display.Edid.StandardTiming.Width">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.op_Equality(AMD.Util.Display.Edid.StandardTiming,AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.op_Inequality(AMD.Util.Display.Edid.StandardTiming,AMD.Util.Display.Edid.StandardTiming)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:AMD.Util.Display.Edid.StandardTiming.ToString">
+            <inheritdoc />
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:AMD.Util.Extensions.ExtensionBigInteger" -->
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToBinString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a binary string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing a binary
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToHexString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a hexadecimal string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing a hexadecimal
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionBigInteger.ToOctString(System.Numerics.BigInteger)">
+            <summary>
+            Converts a <see cref="T:System.Numerics.BigInteger"/> to a octal string.
+            </summary>
+            <param name="bigint">A <see cref="T:System.Numerics.BigInteger"/>.</param>
+            <returns>
+            A <see cref="T:System.String"/> containing an octal
+            representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
+            </returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionByte.GetHexString(System.Byte[],System.Char,System.String,System.Int64)">
+            <summary>
+            Returns a string with bytes formatted as hex
+            </summary>
+            <param name="bArr">The data</param>
+            <param name="separator">The separator</param>
+            <param name="prefix">The prefix before the byte. ex. 0x</param>
+            <param name="newLineAfter">Insert new line after how many bytes</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetText(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets all the text in plain text
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetRtf(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets the formatted text as RTF
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.LoadRtf(System.Windows.Controls.RichTextBox,System.String)">
+            <summary>
+            Loads an RTF formatted string
+            </summary>
+            <param name="rtb"></param>
+            <param name="rtf"></param>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.GetCurrentLine(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Gets the current line of text in the RichTextBox
+            </summary>
+            <param name="rtb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.WPF.ExtensionRichTextBox.SetCaretOnMousePosition(System.Windows.Controls.RichTextBox)">
+            <summary>
+            Sets the caret position to the position of the mouse
+            </summary>
+            <param name="rtb"></param>
+        </member>
+        <member name="F:AMD.Util.Extensions.ExtensionString.DoubleFixedPoint">
+            <summary>
+            Constant for fixing ToString rounding issues
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.GetBytes(System.String)">
+            <summary>
+            Returns a byte array with the char ASCII values of the string letters
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.GetBytesFromHex(System.String)">
+            <summary>
+            Returns a byte array with the parsed hex string value
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionString.ExcludeAll(System.String,System.Char)">
+            <summary>
+            Returns a string where all toExclude chars have been removed
+            </summary>
+            <param name="s"></param>
+            <param name="toExclude"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.GetLoadFilePath(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets the filepath from OpenFileDialog
+            </summary>
+            <param name="filter"></param>
+            <param name="initialDirectory"></param>
+            <param name="title"></param>
+            <param name="initialFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.GetSaveFilePath(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets the filepath from SaveFileDialog
+            </summary>
+            <param name="filter"></param>
+            <param name="initialDirectory"></param>
+            <param name="title"></param>
+            <param name="initialFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.CheckPath(System.String)">
+            <summary>
+            Checks if the path is too long, if file exists and if path is null
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Files.FileHelper.IsFilePathLegal(System.String)">
+            <summary>
+            Checks if a file path contains any illegal characters
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook">
+            <summary>
+            Low-level keyboard intercept class to trap and suppress system keys.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.Parameters">
+            <summary>
+            Parameters accepted by the KeyboardHook constructor.
+            </summary>
+        </member>
+        <member name="E:AMD.Util.HID.KeyboardHook.KeyIntercepted">
+            <summary>
+            Event triggered when a keystroke is intercepted by the 
+            low-level hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor">
+            <summary>
+            Sets up a keyboard hook to trap all keystrokes without 
+            passing any to other applications.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor(System.String)">
+            <summary>
+            Sets up a keyboard hook with custom parameters.
+            </summary>
+            <param name="param">A valid name from the Parameter enum; otherwise, the 
+            default parameter Parameter.None will be used.</param>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.#ctor(AMD.Util.HID.KeyboardHook.Parameters)">
+            <summary>
+            Sets up a keyboard hook with custom parameters.
+            </summary>
+            <param name="param">A value from the Parameters enum.</param>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.CheckModifiers">
+            <summary>
+            Checks whether Alt, Shift, Control or CapsLock
+            is enabled at the same time as another key.
+            Modify the relevant sections and return type 
+            depending on what you want to do with modifier keys.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.HookCallback(System.Int32,System.IntPtr,AMD.Util.HID.KeyboardHook.KBDLLHOOKSTRUCT@)">
+            <summary>
+            Processes the key event captured by the hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.OnKeyIntercepted(AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs)">
+            <summary>
+            Raises the KeyIntercepted event.
+            </summary>
+            <param name="e">An instance of KeyboardHookEventArgs</param>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.KeyboardHookEventHandler">
+            <summary>
+            Delegate for KeyboardHook event handling.
+            </summary>
+            <param name="e">An instance of InterceptKeysEventArgs.</param>
+        </member>
+        <member name="T:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs">
+            <summary>
+            Event arguments for the KeyboardHook class's KeyIntercepted event.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.KeyName">
+            <summary>
+            The name of the key that was pressed.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.KeyCode">
+            <summary>
+            The virtual key code of the key that was pressed.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.HID.KeyboardHook.KeyboardHookEventArgs.PassThrough">
+            <summary>
+            True if this key combination was passed to other applications,
+            false if it was trapped.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.HID.KeyboardHook.Dispose">
+            <summary>
+            Releases the keyboard hook.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Sort.BubbleSort`1.Sort(System.Int32[])">
+            int array
+        </member>
+        <member name="M:AMD.Util.Sort.BubbleSort`1.Sort(`0[])">
+            Object array
+        </member>
+        <member name="M:AMD.Util.Sort.MergeSort`1.Sort(System.Int32[])">
+            int array
+        </member>
+        <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
+            Object array
+        </member>
+        <member name="F:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.ValueProperty">
+            <summary>
+            Identifies the <see cref="P:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.Value"/> dependency property
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.Value">
+            <summary>
+            Returns/sets the value of the property
+            </summary>
+            <seealso cref="F:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.ValueProperty"/>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Helper.TabHelper">
+            <summary>
+            Helper class for tab control and tab item
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.TabHelper.AdjustTabItemWidth(System.Windows.Controls.ItemCollection)">
+            <summary>
+            Function which adjusts the width of the tabs in an ItemCollection
+            </summary>
+            <param name="ic"></param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Helper.VisualHelper">
+            <summary>
+            Helper class for visual properties in WPF
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.VisualHelper.GetChildDependencyObjectFromVisualTree(System.Windows.DependencyObject,System.Type)">
+            <summary>
+            Gets the child of the startObject of a certian type 
+            </summary>
+            <param name="startObject"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Helper.VisualHelper.GetChildDependencyObjectFromVisualTree(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Gets the child of the startObject with a specific name
+            </summary>
+            <param name="startObject"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.DuckSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            DuckSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.DuckSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            AppleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
+            <summary>
+            Interaction logic for Circles.xaml
+            </summary>
+            <summary>
+            CircleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
+            <summary>
+            Interaction logic for CogSpinner.xaml
+            </summary>
+            <summary>
+            CogSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
+            <summary>
+            Interaction logic for PistonSpinner.xaml
+            </summary>
+            <summary>
+            PistonSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
+            <summary>
+            Interaction logic for SomeLoadingAnimation.xaml
+            </summary>
+            <summary>
+            SomeLoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
+            <summary>
+            Interaction logic for SwirlSpinner.xaml
+            </summary>
+            <summary>
+            SwirlSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.CompareView">
+            <summary>
+            Interaction logic for CompareView.xaml
+            </summary>
+            <summary>
+            CompareView
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.CompareView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.NumericUpDown1">
+            <summary>
+            Interaction logic for NumericUpDown.xaml
+            </summary>
+            <summary>
+            NumericUpDown1
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.NumericUpDown1.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.RichTextBoxWithLineNumbers">
+            <summary>
+            Interaction logic for RichTextBoxWithLineNumbers.xaml
+            </summary>
+            <summary>
+            RichTextBoxWithLineNumbers
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxWithLineNumbers.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabDropDetector">
+            <summary>
+            Interaction logic for TearableTabControl.xaml
+            </summary>
+            <summary>
+            TearableTabDropDetector
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabDropDetector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabControlAdorner.#ctor(System.Windows.UIElement,System.Windows.UIElement,System.Double)">
+            <summary>
+            Initializes a new instance of DragVisualAdorner.
+            </summary>
+            <param name="adornedElement">The element being adorned.</param>
+            <param name="size">The size of the adorner.</param>
+            <param name="brush">A brush to with which to paint the adorner.</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabControlAdorner.GetDesiredTransform(System.Windows.Media.GeneralTransform)">
+            <summary>
+            Override.
+            </summary>
+            <param name="transform"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitHorizontal">
+            <summary>
+            Interaction logic for TearableTabSplitHorizontal.xaml
+            </summary>
+            <summary>
+            TearableTabSplitHorizontal
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitHorizontal.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitVertical">
+            <summary>
+            Interaction logic for TearableTabSplitVertical.xaml
+            </summary>
+            <summary>
+            TearableTabSplitVertical
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabs.TearableTabSplitVertical.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.BulletHole">
+            <summary>
+            Interaction logic for BulletHole.xaml
+            </summary>
+            <summary>
+            BulletHole
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.BulletHole.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker2">
+            <summary>
+            Interaction logic for ColorPicker2.xaml
+            </summary>
+            <summary>
+            ColorPicker2
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker2.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPicker2.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPickerDialog">
+            <summary>
+            Interaction logic for UserControl1.xaml
+            </summary>
+            <summary>
+            ColorPickerDialog
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPickerDialog.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPickerDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker">
+            <summary>
+            Interaction logic for ColorPicker.xaml
+            </summary>
+            <summary>
+            ColorPicker
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ColorPicker.SelectedBrushChangedHandler">
+            <summary>
+            Eventhandler SelectedBrushChanged event
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ColorPicker.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer">
+            <summary>
+            Interaction logic for FileExplorerView.xaml
+            </summary>
+            <summary>
+            FileExplorer
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.TviMouseLeftButtonDown">
+            <summary>
+            Eventhandler for TreeViewItem double click
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.TviMouseDoubleClick">
+            <summary>
+            Eventhandler for TreeViewItem double click
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.EnterKeyUp">
+            <summary>
+            Eventhandler for Enter Key up
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.FileExplorer.AppendFile">
+            <summary>
+            Eventhandler for Append File
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.FileExplorer.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon">
+            <summary>
+            Interaction logic for RichTextBoxRibbon.xaml
+            </summary>
+            <summary>
+            RichTextBoxRibbon
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.RichTextBoxRibbon.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabSplitControl">
+            <summary>
+            Interaction logic for TearableTabSplitControl.xaml
+            </summary>
+            <summary>
+            TearableTabSplitControl
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabSplitControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TearableTabWindow">
+            <summary>
+            Interaction logic for TearableTab.xaml
+            </summary>
+            <summary>
+            TearableTabWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TearableTabWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.About">
+            <summary>
+            Interaction logic for About.xaml
+            </summary>
+            <summary>
+            About
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.About.ExitHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.About.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.Block">
+            <summary>
+            Interaction logic for Block.xaml
+            </summary>
+            <summary>
+            Block
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.Block.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPane">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPane
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPane.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPane.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPane.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPane.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPanel1">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPanel1
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.AnimationTime">
+            <summary>
+            Defines the animation time of the slide in/out
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.DesiredWidth">
+            <summary>
+            Sets the animation goto width
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel1.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.DebugPanel1.busy">
+            <summary>
+            Determines which way the DebugPanel is displayed. Either as a 
+            slider from "behind" the main window or as a seperate window
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.#ctor(System.Windows.Window,AMD.Util.Log.LogWriter,System.Double)">
+            <summary>
+            This class attaches a debug panel to the right side of the owner application which enables the option to have a simultaneous display of the LogWriter log
+            </summary>
+            <param name="owner"></param>
+            <param name="log"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Hide">
+            <summary>
+            Hides the panel by sliding it to the left
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Show">
+            <summary>
+            Displays the panel by sliding it to the right
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel1.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.DebugPanel">
+            <summary>
+            Interaction logic for DebugPanel.xaml
+            </summary>
+            <summary>
+            DebugPanel
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.AnimationTime">
+            <summary>
+            Defines the animation time of the slide in/out
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.DesiredWidth">
+            <summary>
+            Sets the animation goto width
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.BrushMessage">
+            <summary>
+            The color of the line number and the messages
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.DebugPanel.BrushBackground">
+            <summary>
+            The color of the background
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.#ctor(System.Windows.Window,AMD.Util.Log.LogWriter,System.Double)">
+            <summary>
+            This class attaches a debug panel to the right side of the owner application which enables the option to have a simultaneous display of the LogWriter log
+            </summary>
+            <param name="owner"></param>
+            <param name="log"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Hide">
+            <summary>
+            Hides the panel by sliding it to the left
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Show">
+            <summary>
+            Displays the panel by sliding it to the right
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.Dispose">
+            <summary>
+            Disposes the log eventhandler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.DebugPanel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.LoadingAnimation">
+            <summary>
+            Interaction logic for LoadingAnimation.xaml
+            </summary>
+            <summary>
+            LoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.LoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.LoginDialog">
+            <summary>
+            Interaction logic for Window1.xaml
+            </summary>
+            <summary>
+            LoginDialog
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.LoginDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.ResizeThumb">
+            <summary>
+            Interaction logic for ResizeThumb.xaml
+            </summary>
+            <summary>
+            ResizeThumb
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.ResizeThumb.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.StatusBar">
+            <summary>
+            Interaction logic for StatusBar.xaml
+            </summary>
+            <summary>
+            StatusBar
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.StatusBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TextInputDialog">
+            <summary>
+            Interaction logic for TextInputDialog.xaml
+            </summary>
+            <summary>
+            TextInputDialog
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TextInputDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar">
+            <summary>
+            Interaction logic for TitleBar.xaml
+            </summary>
+            <summary>
+            TitleBar
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.TitleBar.MainBackgroundBrush">
+            <summary>
+            Depricated, use Background
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.ExitHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.MinimizeHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.MaximizeHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.TitleBarMouseLeftDownHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.TitleBar.TitleBarMouseLeftUpHandler">
+            <summary>
+            Eventhandler for progress information
+            </summary>
+            <param name="sender">The object who called the Handler</param>
+            <param name="args">The arguments of the progress</param>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.TitleBar.POINT.x">
+            <summary>x coordinate of point.</summary>
+        </member>
+        <member name="F:AMD.Util.View.WPF.UserControls.TitleBar.POINT.y">
+            <summary>y coordinate of point.</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.POINT.#ctor(System.Int32,System.Int32)">
+            <summary>Construct a point of coordinates (x,y).</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.GetHashCode">
+            <summary>Return the HashCode for this struct (not garanteed to be unique)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.op_Equality(AMD.Util.View.WPF.UserControls.TitleBar.RECT,AMD.Util.View.WPF.UserControls.TitleBar.RECT)">
+            <summary> Determine if 2 RECT are equal (deep compare)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.RECT.op_Inequality(AMD.Util.View.WPF.UserControls.TitleBar.RECT,AMD.Util.View.WPF.UserControls.TitleBar.RECT)">
+            <summary> Determine if 2 RECT are different(deep compare)</summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.TitleBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.AboutWindow">
+            <summary>
+            Interaction logic for UserControl1.xaml
+            </summary>
+            <summary>
+            AboutWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.AboutWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.InvokeControl.InvokeControl.GetBrush(System.String)">
+            <summary>
+            Gets the brush in the WPF resources with the specific key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter">
+            <summary>
+            Converts LogMsgType to predefined SolidColorBrush
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert LogMsgType to SolidColorBrush
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.View.WPF.ValueConverters.LogMsgTypeToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert SolidColorBrush to LogMsgType (Not implemented)
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Cast`1">
+            <summary>
+            Cast helper
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AMD.Util.Cast`1.DirectCastTo``1(System.Object)">
+            <summary>
+            Directly casts the input the type of T
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Cast`1.ConvertTo``1(System.Object)">
+            <summary>
+            Converts input to the type of T
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.AttachedToDesktop">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.PrimaryDevice">
+            <summary>The device is part of the desktop.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.MirroringDriver">
+            <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.VGACompatible">
+            <summary>The device is VGA compatible.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.Removable">
+            <summary>The device is removable; it cannot be the primary display.</summary>
+        </member>
+        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.ModesPruned">
+            <summary>The device has more display modes than its output devices support.</summary>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGCName">
+            <summary>
+            Wrap the graphics card name retrieval
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGraphicsCardNameWMI">
+            <summary>
+            Attempts to retrieve the graphics card name from the WMI
+            </summary>
+            <returns>Graphics card name or null</returns>
+        </member>
+        <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGraphicsCardNameRegistry">
+            <summary>
+            Attempts to retrieve the graphics card name from the registry
+            </summary>
+            <returns>Graphics card name</returns>
+        </member>
+        <member name="T:AMD.Util.Log.LogEntry">
+            <summary>
+            A LogEntry class to store the message and the Date and Time the log entry was created
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.MessageType">
+            <summary>
+            The message type
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.Message">
+            <summary>
+            The message for the log
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.Source">
+            <summary>
+            The source of the log message
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.StackTrace">
+            <summary>
+            The stack trace of the log source
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogEntryDateTime">
+            <summary>
+            The complete DateTime of the log entry
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogTime">
+            <summary>
+            The time of the log entry
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogDate">
+            <summary>
+            The date of the log entry
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogEntry.#ctor(System.Int64,AMD.Util.Log.LogMsgType,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
+            <summary>
+            Constructor taking a formatted string and a number of parameters to generate a log entry
+            </summary>
+            <param name="msgType"></param>
+            <param name="format"></param>
+            <param name="source"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:AMD.Util.Log.LogEventArgs">
+            <summary>
+            Eventargs associated with the LogWriter class
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEventArgs.Log">
+            <summary>
+            The LogEntry object
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogEventArgs.#ctor(AMD.Util.Log.LogEntry)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:AMD.Util.Log.LogType">
+            <summary>
+            Enum describing which type of log is kept
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.OneFile">
+            <summary>
+            Keeps one file only. Every log entries are appended to one file
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.DateCoded">
+            <summary>
+            Date codes the log file. Every log entry created the same date is stored in the same file. A new file is created every day
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Log.LogType.DateTimeAtStartCoded">
+            <summary>
+            Date and time coded from the initial time the log is instantiated
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Log.LogWriter">
+            <summary>
+            A Logging class implementing the Singleton pattern and an internal Queue to be flushed periodically
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.Type">
+            <summary>
+            The type of log
+            </summary>
+            <remarks>
+            Default: LogType.OneFile
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.LogDir">
+            <summary>
+            The directory where the file should be located. Should be the path without the filename
+            </summary>
+            <example>
+            "c:\some_dir\"
+            </example>
+            <remarks>
+            Default: @"\" - The root directory of the application
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.logFile">
+            <summary>
+            The filename of the log. Should be the filename only, without the extension
+            </summary>
+            <example>
+            "some_file"
+            </example>
+            <remarks>
+            Default: "log"
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.logExtension">
+            <summary>
+            The extension of the file. Should be formatted as: ".ext"
+            </summary>
+            <example>
+            ".ext"
+            </example>
+            <remarks>
+            Default: ".txt"
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.MaxLogAgeInSeconds">
+            <summary>
+            The maximum age of the log in seconds
+            </summary>
+            <remarks>
+            Default: 1
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.QueueSize">
+            <summary>
+            The maximum number of entires of the log before it should be written to file
+            </summary>
+            <remarks>
+            Default: 1
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.Enable">
+            <summary>
+            Enables or disables the log print to file
+            </summary>
+            <remarks>
+            Default: Enabled
+            </remarks>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.LogTypesToLog">
+            <summary>
+            Determines what types of log messages to log
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.#ctor">
+            <summary>
+            Singleton constructor (private)
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.RegisterInstance(System.String)">
+            <summary>
+            Enables the option to have multiple log instances collected one place
+            </summary>
+            <param name="logAndFileName"></param>
+        </member>
+        <member name="P:AMD.Util.Log.LogWriter.Instance">
+            <summary>
+            Getting the instance of the LogWriter singleton
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception)">
+            <summary>
+            Writes the full exception to the log
+            </summary>
+            <param name="ex">The exception</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error description to the log and the full exception
+            </summary>
+            <param name="ex">The exception</param>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+            <param name="source"></param>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.ComposeAndWriteToLog(AMD.Util.Log.LogMsgType,System.String,System.String,System.Object[])">
+            <summary>
+            Writes the formatted string with arguments to the log
+            </summary>
+            <param name="format">The message to write to the log</param>
+            <param name="msgType">The type of message being logged (debug, error, etc.)</param>
+            <param name="source">The source of the message</param>
+            <param name="args">The arguments corresponding to the formatted String</param>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.Flush">
+            <summary>
+            Flushes the Queue to the physical log file
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Log.LogWriter.TimerElapsed(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            EventHandler for the timer controlled flush of the log
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:AMD.Util.Permissions.Impersonator">
+             <summary>
+             Allows code to be executed under the security context of a specified user account.
+             </summary>
+             <remarks> 
+            
+             Implements IDispose, so can be used via a using-directive or method calls;
+              ...
+            
+              var imp = new Impersonator( "myUsername", "myDomainname", "myPassword" );
+              imp.UndoImpersonation();
+            
+              ...
+            
+               var imp = new Impersonator();
+              imp.Impersonate("myUsername", "myDomainname", "myPassword");
+              imp.UndoImpersonation();
+            
+              ...
+            
+              using ( new Impersonator( "myUsername", "myDomainname", "myPassword" ) )
+              {
+               ...
+               
+               ...
+              }
+            
+              ...
+             </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.#ctor(System.String,System.String,System.String,AMD.Util.Permissions.LogonType,AMD.Util.Permissions.LogonProvider)" -->
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.#ctor(System.String,System.String,System.String)" -->
+        <member name="M:AMD.Util.Permissions.Impersonator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AMD.Util.Permissions.Impersonator"/> class.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Permissions.Impersonator.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AMD.Util.Permissions.Impersonator.Impersonate(System.String,System.String,System.String)" -->
+        <member name="M:AMD.Util.Permissions.Impersonator.Impersonate(System.String,System.String,System.String,AMD.Util.Permissions.LogonType,AMD.Util.Permissions.LogonProvider)">
+            <summary>
+            Impersonates the specified user account.
+            </summary>
+            <param name = "userName" > Name of the user.</param>
+            <param name = "domainName" > Name of the domain.</param>
+            <param name = "password" > The password. <see cref = "T:System.String" /></param >
+            <param name="logonType">Type of the logon.</param>
+            <param name = "logonProvider" > The logon provider. <see cref = "!:Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></param >
+        </member>
+        <member name="M:AMD.Util.Permissions.Impersonator.UndoImpersonation">
+            <summary>
+            Stops impersonation.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.LinearAlgebra.Vector.Item(System.Int32)">
+            <summary>
+            Indexer
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(System.Int32)">
+            <summary>
+            Constructor 1
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(System.Double[])">
+            <summary>
+            Constructor 2
+            </summary>
+            <param name="components"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.#ctor(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Constructor 3
+            </summary>
+            <param name="v1"></param>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Length">
+            <summary>
+            Returns the length of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Size">
+            <summary>
+            returns the R (dimension) of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.DotProduct(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the DOT (scalar) product of two vectors
+            a DOT b = a1*b1 + a2*b2 + ... an*bn
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.DotProduct(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the DOT (scalar) product of two vectors
+            a DOT b = a1*b1 + a2*b2 + ... an*bn
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleR(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in radians between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass PI and the angle is always possitive
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleR(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in radians between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass PI the angle is always possitive
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleD(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in degrees between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass 180 degrees the angle is always possitive
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.AngleD(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the angle in degrees between two vectors
+            Note. The angle is always the smallest possible angle between the two,
+            i.e. it can never surpass 180 degrees the angle is always possitive
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Projection(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the projected vector when projecting v1 onto v2
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Projection(AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the projected vector when projecting the vector onto v2
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.ProjectionLenght(AMD.Util.LinearAlgebra.Vector,AMD.Util.LinearAlgebra.Vector)">
+            <summary>
+            Returns the length of the projected vector v1 onto v2
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.Equals(System.Object)">
+            <summary>
+            Checks if two vectors are equal
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.GetHashCode">
+            <summary>
+            Returns the hashcode of the vector
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector.ToString">
+            <summary>
+            Returns a String with the component values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AMD.Util.LinearAlgebra.Vector3D.Length">
+            <summary>
+            Property for the magnitude (aka. length or absolute value) of the Vector3
+            </summary>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.CrossProduct(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns the Cross (X) product of two vectors
+                    |a2  b2|
+                    |      |
+                    |a3  b3|
+            
+                    |a3  b3|
+            a X b = |      |
+                    |a1  b1|
+                    
+                    |a1  b1|
+                    |      |
+                    |a2  b2|
+                    
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.CrossProduct(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns the Cross (X) product of two vectors
+                    |a2  b2|
+                    |      |
+                    |a3  b3|
+            
+                    |a3  b3|
+            a X b = |      |
+                    |a1  b1|
+                    
+                    |a1  b1|
+                    |      |
+                    |a2  b2|
+                    
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.ProjectionOnPlane(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a vector projected onto a plane where 'normal' is the normal to the plane
+            projectionOnPlane = v1 - (v1 DOT normal) * normal
+            </summary>
+            <param name="v1"></param>
+            <param name="normal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.ProjectionOnPlane(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a vector projected onto a plane where 'normal' is the normal to the plane
+            projectionOnPlane = vector - (vector DOT normal) * normal
+            </summary>
+            <param name="normal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Normalize(AMD.Util.LinearAlgebra.Vector3D)">
+            <summary>
+            Returns a normalized vector of v
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Normalize">
+            <summary>
+            Returns the vector normalized
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateY(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'y' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateY(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'y'
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateX(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'x' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateX(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'x' axis
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateZ(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'z' axis
+            </summary>
+            <param name="v1"></param>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.RotateZ(System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around the 'z' axis
+            </summary>
+            <param name="degree"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Rotate(AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around 'axis'
+            </summary>
+            <param name="axis"></param>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.LinearAlgebra.Vector3D.Rotate(AMD.Util.LinearAlgebra.Vector3D,AMD.Util.LinearAlgebra.Vector3D,System.Double)">
+            <summary>
+            Returns a vector rotated 'angle' degrees around 'axis'
+            </summary>
+            <param name="v"></param>
+            <param name="axis"></param>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.SystemControl.SystemControl">
+            <summary>
+            Contains functions to control some system functions like restart and shutdown
+            </summary>
+        </member>
+        <member name="M:AMD.Util.SystemControl.SystemControl.Restart">
+            <summary>
+            Initiates a restart of the system
+            </summary>
+        </member>
+        <member name="M:AMD.Util.SystemControl.SystemControl.Shutdown">
+            <summary>
+            Initiates a shutdown of the system
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.ProgressHandler">
+            <summary>
+            Progress changed delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:AMD.Util.Tasks.ITask">
+            <summary>
+            Interface for tasks handled by the TaskHandler
+            </summary>
+        </member>
+        <member name="E:AMD.Util.Tasks.ITask.OnProgressChanged">
+            <summary>
+            Progress changed eventhandler
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.ITask.UserCancel">
+            <summary>
+            Set to cancel current task
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.ITask.Execute(AMD.Util.Tasks.TaskHandler)">
+            <summary>
+            Execute function which contains the work to be executed
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskResult">
+            <summary>
+            The result of an executed task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.Success">
+            <summary>
+            Success of a task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.Error">
+            <summary>
+            Error in a task
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Tasks.TaskResult.UserCancel">
+            <summary>
+            User cancel
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler">
+            <summary>
+            Class for handling sequential execution of tasks
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler.OverallProgressHandler">
+            <summary>
+            Overall progress changed delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="E:AMD.Util.Tasks.TaskHandler.OnOverallProgressChanged">
+            <summary>
+            Overall progress eventhandler
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Tasks.TaskHandler.FinishedHandler">
+            <summary>
+            All tasks finished delegate
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="E:AMD.Util.Tasks.TaskHandler.OnFinished">
+            <summary>
+            All tasks finished eventhandler
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskHandler.UserCancel">
+            <summary>
+            Set this to safely cancel the task execution
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskHandler.IsExecuting">
+            <summary>
+            Is true if task handler is executing tasks
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.#ctor">
+            <summary>
+            Zero argument constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.#ctor(System.Collections.Generic.IEnumerable{AMD.Util.Tasks.ITask})">
+            <summary>
+            Constructor taking a collection of tasks and adds them to the task queue
+            </summary>
+            <param name="Tasks"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.Add(AMD.Util.Tasks.ITask)">
+            <summary>
+            Add a task to the taks queue
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.Add(System.Collections.Generic.IEnumerable{AMD.Util.Tasks.ITask})">
+            <summary>
+            Adds a collection of tasks to the task queue
+            </summary>
+            <param name="Tasks"></param>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskHandler.ExecuteTasks">
+            <summary>
+            Executes all the tasks in the task queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AMD.Util.Tasks.FinishedArgs.Result">
+            <summary>
+            Result of the task execution
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.FinishedArgs.Message">
+            <summary>
+            Finish message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.FinishedArgs.#ctor(System.String,AMD.Util.Tasks.TaskResult)">
+            <summary>
+            2 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="result"></param>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskProgressArgs.Progress">
+            <summary>
+            Progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.TaskProgressArgs.Message">
+            <summary>
+            Progress message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.TaskProgressArgs.#ctor(System.String,System.Int32)">
+            <summary>
+            2 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="progress"></param>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.ProgressOverall">
+            <summary>
+            Overall progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.ProgressIndividual">
+            <summary>
+            Individual progress in percentage
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Tasks.OverallTaskProgressArgs.Message">
+            <summary>
+            Progress message
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Tasks.OverallTaskProgressArgs.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            3 argument constructor
+            </summary>
+            <param name="message"></param>
+            <param name="progressOverall"></param>
+            <param name="progressIndividual"></param>
+        </member>
+        <member name="T:AMD.Util.Versioning.RunningVersion">
+            <summary>
+            Class containing the running version of the uploader
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_MAJOR">
+            <summary>
+            The major version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_MINOR">
+            <summary>
+            The minor version number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_BUILD">
+            <summary>
+            The build number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.VERSION_REVISION">
+            <summary>
+            The revision number
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Versioning.RunningVersion.GetRunningVersion">
+            <summary>
+            Get the current running version number
+            </summary>
+            <returns>The current running version</returns>
+        </member>
+        <member name="M:AMD.Util.Versioning.RunningVersion.SetStaticVersion(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the static version
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="build"></param>
+            <param name="revision"></param>
+        </member>
+        <member name="M:AMD.Util.Versioning.RunningVersion.SetStaticVersion(System.Version)">
+            <summary>
+            Sets the static version
+            </summary>
+            <param name="version"></param>
+        </member>
+        <member name="F:Isic.Util.Winforms.IsicAboutForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Isic.Util.Winforms.IsicAboutForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Isic.Util.Winforms.IsicAboutForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:userControls.ColorSlider">
+            <summary>
+            ColorSlider
+            </summary>
+        </member>
+        <member name="M:userControls.ColorSlider.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

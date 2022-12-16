@@ -125,7 +125,7 @@ namespace AMD.Util.Display
         NativeStructures.MonitorInfoEx mInfo = new NativeStructures.MonitorInfoEx();
         for (int i = 0; i < monitorArray.Length; i++)
         {
-          var physicalMonitor = monitorArray[i];
+          NativeStructures.PHYSICAL_MONITOR physicalMonitor = monitorArray[i];
           NativeMethods.GetMonitorInfo(hMonitor, mInfo);
           Monitor newMonitor = new Monitor(physicalMonitor, hMonitor, mInfo, SkipCapabilityCheck, Progress);
 

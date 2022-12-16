@@ -86,6 +86,21 @@
     <Compile Include="Util\Colour\Devcorp\YUV.cs" />
     <Compile Include="Util\Colour\RGB.cs" />
     <Compile Include="Util\Colour\Temperature.cs" />
+    <Compile Include="Util\Compression\7zip\Common\CommandLineParser.cs" />
+    <Compile Include="Util\Compression\7zip\Common\CRC.cs" />
+    <Compile Include="Util\Compression\7zip\Common\InBuffer.cs" />
+    <Compile Include="Util\Compression\7zip\Common\OutBuffer.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZMA\LzmaBase.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZMA\LzmaDecoder.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZMA\LzmaEncoder.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZ\IMatchFinder.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZ\LzBinTree.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZ\LzInWindow.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\LZ\LzOutWindow.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\RangeCoder\RangeCoder.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="Util\Compression\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="Util\Compression\7zip\ICoder.cs" />
     <Compile Include="Util\Compression\Compress.cs" />
     <Compile Include="Util\DataType\Bit.cs" />
     <Compile Include="Util\DataType\C_Array.cs" />
@@ -95,6 +110,7 @@
     <Compile Include="Util\DataType\C_Variable.cs" />
     <Compile Include="Util\DataType\C_VariableListContexts.cs" />
     <Compile Include="Util\DataType\C_VariableListTypes.cs" />
+    <Compile Include="Util\Data\DataCompare.cs" />
     <Compile Include="Util\Data\IntelHexToBin.cs" />
     <Compile Include="Util\Data\SerializationHelper.cs" />
     <Compile Include="Util\Data\StreamHelper.cs" />
@@ -152,12 +168,14 @@
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
     <Compile Include="Util\Extensions\ExtensionChar.cs" />
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
+    <Compile Include="Util\Extensions\ExtensionFlowDocument.cs" />
     <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
     <Compile Include="Util\Extensions\ExtensionKey.cs" />
     <Compile Include="Util\Extensions\ExtensionObservableCollection.cs" />
     <Compile Include="Util\Extensions\ExtensionUShort.cs" />
     <Compile Include="Util\Extensions\WinForms\ExtensionScreen.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionTextBox.cs" />
+    <Compile Include="Util\Extensions\WPF\IEnumerable.cs" />
     <Compile Include="Util\Files\FileCompare.cs" />
     <Compile Include="Util\Files\FileContainer.cs" />
     <Compile Include="Util\HID\Keyboard.cs" />
@@ -170,6 +188,9 @@
     <Compile Include="Util\View\WPF\IconCollection.cs" />
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\CompareView.xaml.cs">
+      <DependentUpon>CompareView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\View\WPF\UserControls\HueSlider.cs" />
     <Compile Include="Util\View\WPF\UserControls\MultiTouchSlider.cs" />
@@ -414,6 +435,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Util\View\WPF\UserControls\CompareView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Util\View\WPF\UserControls\HueSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -539,4 +564,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="CopyDLLs" AfterTargets="Build">
+    <Message Text="Executing CopyDLLs task" Importance="High" />
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll;$(TargetDir)$(ProjectName).pdb;$(TargetDir)$(ProjectName).xml" DestinationFolder="C:\Isic\ISIC_Lib" />
+    <Message Text="Copied build files" Importance="High" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll"  "C:\Isic\ISIC_Lib\"
+copy "$(TargetDir)$(TargetName).xml"  "C:\Isic\ISIC_Lib\"
+copy "$(TargetDir)$(TargetName).pdb"  "C:\Isic\ISIC_Lib\"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

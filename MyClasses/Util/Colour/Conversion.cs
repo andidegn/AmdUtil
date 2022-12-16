@@ -1,11 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
 namespace AMD.Util.Colour
 {
   public class ColorHSV : INotifyPropertyChanged
   {
+    #region Interface OnPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     private bool updatingColors;
 
     private double hue;
@@ -17,7 +25,7 @@ namespace AMD.Util.Colour
         if (hue != value)
         {
           hue = value;
-          OnPropertyChanged("Hue");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateRgb();
@@ -34,7 +42,7 @@ namespace AMD.Util.Colour
         if (saturation != value)
         {
           saturation = value;
-          OnPropertyChanged("Saturation");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateRgb();
@@ -51,7 +59,7 @@ namespace AMD.Util.Colour
         if (this.value != value)
         {
           this.value = value;
-          OnPropertyChanged("Value");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateRgb();
@@ -69,7 +77,7 @@ namespace AMD.Util.Colour
         if (a != value)
         {
           a = value;
-          OnPropertyChanged("A");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateHsv();
@@ -87,7 +95,7 @@ namespace AMD.Util.Colour
         if (r != value)
         {
           r = value;
-          OnPropertyChanged("R");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateHsv();
@@ -104,7 +112,7 @@ namespace AMD.Util.Colour
         if (g != value)
         {
           g = value;
-          OnPropertyChanged("G");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateHsv();
@@ -121,7 +129,7 @@ namespace AMD.Util.Colour
         if (b != value)
         {
           b = value;
-          OnPropertyChanged("B");
+          OnPropertyChanged();
           if (!updatingColors)
           {
             UpdateHsv();
@@ -129,12 +137,7 @@ namespace AMD.Util.Colour
         }
       }
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-    protected void OnPropertyChanged(String name)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
+    #endregion // Interface OnPropertyChanged
 
     public System.Drawing.Color GetDrawingColor
     {

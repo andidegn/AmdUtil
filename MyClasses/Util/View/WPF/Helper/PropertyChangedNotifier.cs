@@ -31,14 +31,9 @@ namespace AMD.Util.View.WPF.Helper
         throw new ArgumentNullException(nameof(propertySource));
       }
 
-      if (null == property)
-      {
-        throw new ArgumentNullException(nameof(property));
-      }
-
       this._propertySource = new WeakReference(propertySource);
       Binding binding = new Binding();
-      binding.Path = property;
+      binding.Path = property ?? throw new ArgumentNullException(nameof(property));
       binding.Mode = BindingMode.OneWay;
       binding.Source = propertySource;
       BindingOperations.SetBinding(this, ValueProperty, binding);

@@ -3,12 +3,45 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace AMD.Util.Display.DDCCI.Util
 {
-  public class VCPCodeList : BindingList<VCPCode>
+  public class VCPCodeList : BindingList<VCPCode>, INotifyPropertyChanged
   {
+    #region Interface OnPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private string capabilityString;
+    public string CapabilityString
+    {
+      get
+      {
+        return capabilityString;
+      }
+      set
+      {
+        capabilityString = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(CapabilityStringFormatted));
+      }
+    }
+
+    private string capabilityStringFormatted;
+    public string CapabilityStringFormatted
+    {
+      get
+      {
+        return capabilityStringFormatted;
+      }
+    }
+    #endregion // Interface OnPropertyChanged
+
     public VCPCodeList()
     {
     }
@@ -79,6 +112,13 @@ namespace AMD.Util.Display.DDCCI.Util
 
   public class VCPCodePreset : IComparable, INotifyPropertyChanged
   {
+    #region Interface OnPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     private VCPCode parentVCPCode;
     public VCPCode ParentVCPCode
     {
@@ -89,7 +129,7 @@ namespace AMD.Util.Display.DDCCI.Util
       private set
       {
         this.parentVCPCode = value;
-        OnPropertyChanged("ParentVCPCode");
+        OnPropertyChanged();
       }
     }
 
@@ -103,7 +143,7 @@ namespace AMD.Util.Display.DDCCI.Util
       private set
       {
         this.value = value;
-        OnPropertyChanged("Value");
+        OnPropertyChanged();
       }
     }
 
@@ -117,7 +157,7 @@ namespace AMD.Util.Display.DDCCI.Util
       private set
       {
         this.name = value;
-        OnPropertyChanged("Name");
+        OnPropertyChanged();
       }
     }
 
@@ -131,18 +171,10 @@ namespace AMD.Util.Display.DDCCI.Util
       set
       {
         this.isSelected = value;
-        OnPropertyChanged("IsSelected");
+        OnPropertyChanged();
       }
     }
-
-    #region INotifyPropertyChanged
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged(string name)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    }
-    #endregion // INotifyPropertyChanged
+    #endregion // Interface OnPropertyChanged
 
     internal VCPCodePreset(VCPCodePreset old, VCPCode parentVCPCode, bool isSelected)
       : this(parentVCPCode, old.Value, old.Name, isSelected)
@@ -184,18 +216,13 @@ namespace AMD.Util.Display.DDCCI.Util
 
   public class VCPCode : INotifyPropertyChanged
   {
-    #region Interface
+    #region Interface OnPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged(string name)
+    protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
     {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-    #endregion // Interface
-    public eVCPCode Code { get; set; }
-    public eVCPCodeType Type { get; set; }
-    public eVCPCodeFunction Function { get; set; }
-    public List<VCPCodePreset> Presets { get; private set; }
+
     private uint _originalValue;
     public uint OriginalValue
     {
@@ -206,7 +233,7 @@ namespace AMD.Util.Display.DDCCI.Util
       set
       {
         _originalValue = value;
-        OnPropertyChanged("OriginalValue");
+        OnPropertyChanged();
       }
     }
     private uint _currentValue;
@@ -225,9 +252,9 @@ namespace AMD.Util.Display.DDCCI.Util
           {
             Presets[i].IsSelected = value == Presets[i].Value;
           }
-          OnPropertyChanged("Presets");
+          OnPropertyChanged(nameof(Presets));
         }
-        OnPropertyChanged("CurrentValue");
+        OnPropertyChanged();
       }
     }
     private uint _maximumValue;
@@ -240,7 +267,7 @@ namespace AMD.Util.Display.DDCCI.Util
       set
       {
         _maximumValue = value;
-        OnPropertyChanged("MaximumValue");
+        OnPropertyChanged();
       }
     }
 
@@ -255,9 +282,14 @@ namespace AMD.Util.Display.DDCCI.Util
       set
       {
         _name = value;
-        OnPropertyChanged("Name");
+        OnPropertyChanged();
       }
     }
+    #endregion // Interface OnPropertyChanged
+    public eVCPCode Code { get; set; }
+    public eVCPCodeType Type { get; set; }
+    public eVCPCodeFunction Function { get; set; }
+    public List<VCPCodePreset> Presets { get; private set; }
 
     public string Description { get; set; }
     public bool HasPresets
@@ -314,7 +346,7 @@ namespace AMD.Util.Display.DDCCI.Util
       }
       Presets.Add(preset);
       Presets.Sort();
-      OnPropertyChanged("Presets");
+      OnPropertyChanged(nameof(Presets));
     }
 
     public void AddPresets(IEnumerable<VCPCodePreset> collection)
@@ -338,7 +370,7 @@ namespace AMD.Util.Display.DDCCI.Util
 
     public override string ToString()
     {
-      return $"{Name} [{((byte)Code).ToString("X2")}] org: {OriginalValue:X4}, max: {MaximumValue:X4}, cur: {CurrentValue:X4}";
+      return $"{Name} [{((byte)Code).ToString("X2")}] {Type} org: {OriginalValue:X4}, max: {MaximumValue:X4}, cur: {CurrentValue:X4}";
     }
   }
 }

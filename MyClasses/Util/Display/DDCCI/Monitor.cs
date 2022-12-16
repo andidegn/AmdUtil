@@ -1,7 +1,9 @@
-﻿using AMD.Util.Display.DDCCI.MCCSCodeStandard;
+﻿using AMD.Util.Data;
+using AMD.Util.Display.DDCCI.MCCSCodeStandard;
 using AMD.Util.Display.DDCCI.Util;
 using AMD.Util.Display.Edid;
 using AMD.Util.Display.Edid.Util;
+using AMD.Util.Extensions;
 using AMD.Util.Log;
 using System;
 using System.ComponentModel;
@@ -44,6 +46,7 @@ namespace AMD.Util.Display
     }
     #endregion // Progress
 
+    public NativeStructures.PHYSICAL_MONITOR physicalMonitor;
     public HandleRef physicalMonitorPtr { get; set; }
     public HandleRef hMonitor { get; set; }
     public NativeStructures.MonitorInfoEx mInfo { get; set; }
@@ -51,7 +54,15 @@ namespace AMD.Util.Display
     public int Index { get; set; }
     public string Name { get; set; }
     public string DeviceName { get; set; }
-    public NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE Type { get; set; }
+    public string Description { get; set; }
+    public string AdapterName { get; set; }
+    public string NameOnAdapter
+    {
+      get
+      {
+        return $"{Name} on {AdapterName}";
+      }
+    }
     public VCPCodeList VCPCodes { get; set; }
     public EDID Edid { get; set; }
 
@@ -77,9 +88,12 @@ namespace AMD.Util.Display
       log = LogWriter.Instance;
       VCPCodes = new VCPCodeList();
       this.Progress = progress;
-      physicalMonitorPtr = new HandleRef(this, physicalMonitor.hPhysicalMonitor);
+      this.physicalMonitor = physicalMonitor;
+      this.physicalMonitorPtr = new HandleRef(this, physicalMonitor.hPhysicalMonitor);
       this.DeviceName = $"{physicalMonitor.szPhysicalMonitorDescription} [{mInfo.szDeviceName}]";
+      this.Description = physicalMonitor.szPhysicalMonitorDescription;
       this.Name = ScreenUtil.GetDeviceFriendlyNameFromDeviceName(mInfo.szDeviceName);
+      this.AdapterName = ScreenInterrogatory.GetAdapterNameFromDeviceName(mInfo.szDeviceName);
       this.hMonitor = hMonitor;
       this.mInfo = mInfo;
       Report($"Monitor discovered: {Name}, checking capabilities", 0);
@@ -412,8 +426,6 @@ namespace AMD.Util.Display
       Report("Querying VCP codes", 75);
       log.WriteToLog(LogMsgType.Notification, "Querying VCP codes");
       GetVCPCodeValues(VCPCodes, true);
-
-      Type = NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE.MC_SHADOW_MASK_CATHODE_RAY_TUBE;
       //});
       //t.Start();
     }
@@ -465,6 +477,10 @@ namespace AMD.Util.Display
         GreenGain.Original = GreenGain.Value;
         BlueGain.Original = BlueGain.Value;
       }
+      else
+      {
+        log.WriteToLog(LogMsgType.Error, $"Error calling GetMonitorCapabilities({physicalMonitorPtr.Handle:X8}). \nLastErrorCode: {Marshal.GetLastWin32Error():X8} - Msg: {new Win32Exception(Marshal.GetLastWin32Error()).Message}");
+      }
     }
 
     public bool GetAllVCPFeatures()
@@ -504,6 +520,7 @@ namespace AMD.Util.Display
       {
         log.WriteToLog(LogMsgType.Error, $"Error calling GetVCPFeatureAndVCPFeatureReply({physicalMonitorPtr.Handle:X8}, {code:X2}, {codeType}, {currentValue:X4}, {maxValue:X4}). \nLastErrorCode: {Marshal.GetLastWin32Error():X8} - Msg: {new Win32Exception(Marshal.GetLastWin32Error()).Message}");
       }
+      //LogWriter.Instance.PrintNotification($"{Name} [{(code).ToString("X2")}] {codeType} max: {maxValue:X4}, cur: {currentValue:X4}");
       return (retVal, currentValue, maxValue, NativeStructures.MC_VCP_CODE_TYPE.MC_MOMENTARY == codeType ? eVCPCodeType.ReadOnly : eVCPCodeType.ReadWrite);
     }
 
@@ -681,7 +698,19 @@ namespace AMD.Util.Display
 
     public override string ToString()
     {
-      return Name;
+      StringBuilder sb = new StringBuilder();
+      sb.AppendLine($"{Name} ({DeviceName})");
+      sb.AppendLine();
+      sb.AppendLine("EDID:");
+      sb.AppendLine(StringFormatHelper.GetFormattedMemoryString(0, Edid.RawData.GetNullableUIntArray()));
+      sb.AppendLine();
+      sb.AppendLine("CapabilityString:");
+      sb.AppendLine(CapabilityString);
+      foreach (VCPCode vcp in VCPCodes)
+      {
+        sb.AppendLine(vcp.ToString());
+      }
+      return sb.ToString();
     }
   }
 }

@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -29,15 +31,16 @@ namespace AMD.Util.Display
     public static string GetDeviceFriendlyNameFromDeviceName(string deviceName)
     {
       string friendlyName = string.Empty;
-      foreach (Screen screen in Screen.AllScreens)
-      {
-        if (screen.DeviceName.Equals(deviceName, StringComparison.InvariantCultureIgnoreCase))
-        {
-          friendlyName = screen.DeviceFriendlyName();
-          break;
-        }
-      }
-      return friendlyName;
+      return ScreenInterrogatory.GetDeviceFriendlyNameFromDeviceName(deviceName);
+      //foreach (Screen screen in Screen.AllScreens)
+      //{
+      //  if (screen.DeviceName.Equals(deviceName, StringComparison.InvariantCultureIgnoreCase))
+      //  {
+      //    friendlyName = screen.DeviceFriendlyName();
+      //    break;
+      //  }
+      //}
+      //return friendlyName;
     }
 
     public static bool IsWithinScreenArea(double left, double top)
@@ -269,28 +272,6 @@ namespace AMD.Util.Display
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   public static class ScreenInterrogatory
   {
     public const int ERROR_SUCCESS = 0;
@@ -299,89 +280,98 @@ namespace AMD.Util.Display
 
     public enum QUERY_DEVICE_CONFIG_FLAGS : uint
     {
-      QDC_ALL_PATHS = 0x00000001,
-      QDC_ONLY_ACTIVE_PATHS = 0x00000002,
-      QDC_DATABASE_CURRENT = 0x00000004
+      QDC_ALL_PATHS                                               = 0x00000001,
+      QDC_ONLY_ACTIVE_PATHS                                       = 0x00000002,
+      QDC_DATABASE_CURRENT                                        = 0x00000004
     }
 
     public enum DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY : uint
     {
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER = 0xFFFFFFFF,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_HD15 = 0,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SVIDEO = 1,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_COMPOSITE_VIDEO = 2,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_COMPONENT_VIDEO = 3,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DVI = 4,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_HDMI = 5,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_LVDS = 6,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_D_JPN = 8,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SDI = 9,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EXTERNAL = 10,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EMBEDDED = 11,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EXTERNAL = 12,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EMBEDDED = 13,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SDTVDONGLE = 14,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_MIRACAST = 15,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL = 0x80000000,
-      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_OTHER                       = 0xFFFFFFFF,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_HD15                        = 0,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SVIDEO                      = 1,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_COMPOSITE_VIDEO             = 2,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_COMPONENT_VIDEO             = 3,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DVI                         = 4,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_HDMI                        = 5,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_LVDS                        = 6,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_D_JPN                       = 8,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SDI                         = 9,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EXTERNAL        = 10,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EMBEDDED        = 11,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EXTERNAL                = 12,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EMBEDDED                = 13,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_SDTVDONGLE                  = 14,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_MIRACAST                    = 15,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL                    = 0x80000000,
+      DISPLAYCONFIG_OUTPUT_TECHNOLOGY_FORCE_UINT32                = 0xFFFFFFFF
     }
 
     public enum DISPLAYCONFIG_SCANLINE_ORDERING : uint
     {
-      DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED = 0,
-      DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE = 1,
-      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED = 2,
-      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST = DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED,
-      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST = 3,
-      DISPLAYCONFIG_SCANLINE_ORDERING_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED                 = 0,
+      DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE                 = 1,
+      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED                  = 2,
+      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST  = DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED,
+      DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST  = 3,
+      DISPLAYCONFIG_SCANLINE_ORDERING_FORCE_UINT32                = 0xFFFFFFFF
     }
 
     public enum DISPLAYCONFIG_ROTATION : uint
     {
-      DISPLAYCONFIG_ROTATION_IDENTITY = 1,
-      DISPLAYCONFIG_ROTATION_ROTATE90 = 2,
-      DISPLAYCONFIG_ROTATION_ROTATE180 = 3,
-      DISPLAYCONFIG_ROTATION_ROTATE270 = 4,
-      DISPLAYCONFIG_ROTATION_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_ROTATION_IDENTITY                             = 1,
+      DISPLAYCONFIG_ROTATION_ROTATE90                             = 2,
+      DISPLAYCONFIG_ROTATION_ROTATE180                            = 3,
+      DISPLAYCONFIG_ROTATION_ROTATE270                            = 4,
+      DISPLAYCONFIG_ROTATION_FORCE_UINT32                         = 0xFFFFFFFF
     }
 
     public enum DISPLAYCONFIG_SCALING : uint
     {
-      DISPLAYCONFIG_SCALING_IDENTITY = 1,
-      DISPLAYCONFIG_SCALING_CENTERED = 2,
-      DISPLAYCONFIG_SCALING_STRETCHED = 3,
-      DISPLAYCONFIG_SCALING_ASPECTRATIOCENTEREDMAX = 4,
-      DISPLAYCONFIG_SCALING_CUSTOM = 5,
-      DISPLAYCONFIG_SCALING_PREFERRED = 128,
-      DISPLAYCONFIG_SCALING_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_SCALING_IDENTITY                              = 1,
+      DISPLAYCONFIG_SCALING_CENTERED                              = 2,
+      DISPLAYCONFIG_SCALING_STRETCHED                             = 3,
+      DISPLAYCONFIG_SCALING_ASPECTRATIOCENTEREDMAX                = 4,
+      DISPLAYCONFIG_SCALING_CUSTOM                                = 5,
+      DISPLAYCONFIG_SCALING_PREFERRED                             = 128,
+      DISPLAYCONFIG_SCALING_FORCE_UINT32                          = 0xFFFFFFFF
     }
 
     public enum DISPLAYCONFIG_PIXELFORMAT : uint
     {
-      DISPLAYCONFIG_PIXELFORMAT_8BPP = 1,
-      DISPLAYCONFIG_PIXELFORMAT_16BPP = 2,
-      DISPLAYCONFIG_PIXELFORMAT_24BPP = 3,
-      DISPLAYCONFIG_PIXELFORMAT_32BPP = 4,
-      DISPLAYCONFIG_PIXELFORMAT_NONGDI = 5,
-      DISPLAYCONFIG_PIXELFORMAT_FORCE_UINT32 = 0xffffffff
+      DISPLAYCONFIG_PIXELFORMAT_8BPP                              = 1,
+      DISPLAYCONFIG_PIXELFORMAT_16BPP                             = 2,
+      DISPLAYCONFIG_PIXELFORMAT_24BPP                             = 3,
+      DISPLAYCONFIG_PIXELFORMAT_32BPP                             = 4,
+      DISPLAYCONFIG_PIXELFORMAT_NONGDI                            = 5,
+      DISPLAYCONFIG_PIXELFORMAT_FORCE_UINT32                      = 0xffffffff
     }
 
     public enum DISPLAYCONFIG_MODE_INFO_TYPE : uint
     {
-      DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE = 1,
-      DISPLAYCONFIG_MODE_INFO_TYPE_TARGET = 2,
-      DISPLAYCONFIG_MODE_INFO_TYPE_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE                         = 1,
+      DISPLAYCONFIG_MODE_INFO_TYPE_TARGET                         = 2,
+      DISPLAYCONFIG_MODE_INFO_TYPE_FORCE_UINT32                   = 0xFFFFFFFF
     }
 
     public enum DISPLAYCONFIG_DEVICE_INFO_TYPE : uint
     {
-      DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME = 1,
-      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME = 2,
-      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_PREFERRED_MODE = 3,
-      DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME = 4,
-      DISPLAYCONFIG_DEVICE_INFO_SET_TARGET_PERSISTENCE = 5,
-      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_BASE_TYPE = 6,
-      DISPLAYCONFIG_DEVICE_INFO_FORCE_UINT32 = 0xFFFFFFFF
+      DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME                   = 1,
+      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME                   = 2,
+      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_PREFERRED_MODE         = 3,
+      DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME                  = 4,
+      DISPLAYCONFIG_DEVICE_INFO_SET_TARGET_PERSISTENCE            = 5,
+      DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_BASE_TYPE              = 6,
+      DISPLAYCONFIG_DEVICE_INFO_FORCE_UINT32                      = 0xFFFFFFFF
+    }
+
+    public enum DISPLAYCONFIG_TOPOLOGY_ID : uint
+    {
+      DISPLAYCONFIG_TOPOLOGY_INTERNAL                             = 0x00000001,
+      DISPLAYCONFIG_TOPOLOGY_CLONE                                = 0x00000002,
+      DISPLAYCONFIG_TOPOLOGY_EXTEND                               = 0x00000004,
+      DISPLAYCONFIG_TOPOLOGY_EXTERNAL                             = 0x00000008,
+      DISPLAYCONFIG_TOPOLOGY_FORCE_UINT32                         = 0xFFFFFFFF
     }
 
     #endregion
@@ -526,30 +516,48 @@ namespace AMD.Util.Display
       public string monitorDevicePath;
     }
 
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct DISPLAYCONFIG_SOURCE_DEVICE_NAME
+    {
+      public DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+      public string viewGdiDeviceName;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct DISPLAYCONFIG_ADAPTER_NAME
+    {
+      public DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+      public string adapterDevicePath;
+    }
     #endregion
 
     #region DLL-Imports
 
-    [DllImport("user32.dll")]
-    public static extern int GetDisplayConfigBufferSizes(
-        QUERY_DEVICE_CONFIG_FLAGS flags, out uint numPathArrayElements, out uint numModeInfoArrayElements);
+    [DllImport("user32.dll", EntryPoint = "GetDisplayConfigBufferSizes", SetLastError = true)]
+    public static extern int GetDisplayConfigBufferSizes(QUERY_DEVICE_CONFIG_FLAGS flags, out uint numPathArrayElements, out uint numModeInfoArrayElements);
 
-    [DllImport("user32.dll")]
-    public static extern int QueryDisplayConfig(
-        QUERY_DEVICE_CONFIG_FLAGS flags,
-        ref uint numPathArrayElements, [Out] DISPLAYCONFIG_PATH_INFO[] PathInfoArray,
-        ref uint numModeInfoArrayElements, [Out] DISPLAYCONFIG_MODE_INFO[] ModeInfoArray,
-        IntPtr currentTopologyId
-        );
+    [DllImport("user32.dll", EntryPoint = "QueryDisplayConfig", SetLastError = true)]
+    public static extern int QueryDisplayConfig(QUERY_DEVICE_CONFIG_FLAGS flags, ref uint numPathArrayElements, [Out] DISPLAYCONFIG_PATH_INFO[] PathInfoArray,
+                                                ref uint numModeInfoArrayElements, [Out] DISPLAYCONFIG_MODE_INFO[] ModeInfoArray, IntPtr currentTopologyId);
 
-    [DllImport("user32.dll")]
-    public static extern int DisplayConfigGetDeviceInfo(ref DISPLAYCONFIG_TARGET_DEVICE_NAME deviceName);
+    [DllImport("user32.dll", EntryPoint = "DisplayConfigGetDeviceInfo", SetLastError = true)]
+    public static extern int DisplayConfigGetDeviceInfo(ref DISPLAYCONFIG_TARGET_DEVICE_NAME targetName);
+
+    [DllImport("user32.dll", EntryPoint = "DisplayConfigGetDeviceInfo", SetLastError = true)]
+    public static extern int DisplayConfigGetDeviceInfo(ref DISPLAYCONFIG_SOURCE_DEVICE_NAME sourceName);
+
+    [DllImport("user32.dll", EntryPoint = "DisplayConfigGetDeviceInfo", SetLastError = true)]
+    public static extern int DisplayConfigGetDeviceInfo(ref DISPLAYCONFIG_ADAPTER_NAME adapterName);
 
     #endregion
 
     private static string MonitorFriendlyName(LUID adapterId, uint targetId)
     {
-      var deviceName = new DISPLAYCONFIG_TARGET_DEVICE_NAME
+      DISPLAYCONFIG_TARGET_DEVICE_NAME deviceName = new DISPLAYCONFIG_TARGET_DEVICE_NAME
       {
         header =
                 {
@@ -564,20 +572,178 @@ namespace AMD.Util.Display
       {
         throw new Win32Exception(error);
       }
-      try
-      {
-        /*
-         "\\\\?\\DISPLAY#SAM0F71#4&47ce0f2&0&UID200195#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
-         "\\\\?\\DISPLAY#AOC2795#4&47ce0f2&0&UID208387#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
-         "\\\\?\\DISPLAY#IIC1560#4&47ce0f2&0&UID216579#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
-        */
-        string mdp = deviceName.monitorDevicePath;
-        return mdp.Substring(mdp.IndexOf('#'), 7);
-      }
-      catch (Exception)
-      {
+      //try
+      //{
+      //  /*
+      //   "\\\\?\\DISPLAY#SAM0F71#4&47ce0f2&0&UID200195#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+      //   "\\\\?\\DISPLAY#AOC2795#4&47ce0f2&0&UID208387#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+      //   "\\\\?\\DISPLAY#IIC1560#4&47ce0f2&0&UID216579#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"
+      //  */
+      //  string mdp = deviceName.monitorDevicePath;
+      //  return mdp.Substring(mdp.IndexOf('#'), 7);
+      //}
+      //catch (Exception)
+      //{
         return deviceName.monitorFriendlyDeviceName;
+      //}
+    }
+
+    public static string GetAdapterNameFromDeviceName(string name)
+    {
+      uint pathCount, modeCount;
+      string retVal = string.Empty;
+      var error = GetDisplayConfigBufferSizes(QUERY_DEVICE_CONFIG_FLAGS.QDC_ONLY_ACTIVE_PATHS, out pathCount, out modeCount);
+      if (error != ERROR_SUCCESS)
+      {
+        LogWriter.Instance.WriteToLog(LogMsgType.Error, error.ToString());
+        //throw new Win32Exception(error);
       }
+
+      var displayPaths = new DISPLAYCONFIG_PATH_INFO[pathCount];
+      var displayModes = new DISPLAYCONFIG_MODE_INFO[modeCount];
+      error = QueryDisplayConfig(QUERY_DEVICE_CONFIG_FLAGS.QDC_ONLY_ACTIVE_PATHS, ref pathCount, displayPaths, ref modeCount, displayModes, IntPtr.Zero);
+      if (error != ERROR_SUCCESS)
+      {
+        LogWriter.Instance.WriteToLog(LogMsgType.Error, error.ToString());
+        //throw new Win32Exception(error);
+      }
+
+      foreach (DISPLAYCONFIG_PATH_INFO p in displayPaths)
+      {
+        DISPLAYCONFIG_SOURCE_DEVICE_NAME sourceName = new DISPLAYCONFIG_SOURCE_DEVICE_NAME()
+        {
+          header =
+                {
+                    size = (uint)Marshal.SizeOf(typeof (DISPLAYCONFIG_SOURCE_DEVICE_NAME)),
+                    adapterId = p.sourceInfo.adapterId,
+                    id = p.sourceInfo.id,
+                    type = DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME
+                }
+        };
+        DisplayConfigGetDeviceInfo(ref sourceName);
+        if (name.Equals(sourceName.viewGdiDeviceName))
+        {
+          DISPLAYCONFIG_ADAPTER_NAME adapterName = new DISPLAYCONFIG_ADAPTER_NAME()
+          {
+            header =
+                {
+                    size = (uint)Marshal.SizeOf(typeof (DISPLAYCONFIG_ADAPTER_NAME)),
+                    adapterId = p.targetInfo.adapterId,
+                    id = p.targetInfo.id,
+                    type = DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_ADAPTER_NAME
+                }
+          };
+          DisplayConfigGetDeviceInfo(ref adapterName);
+          retVal = adapterName.adapterDevicePath;
+
+          if (!string.IsNullOrWhiteSpace(retVal) && retVal.Contains("#"))
+          {
+            string[] parts = retVal.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+
+            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+            StringBuilder sb = new StringBuilder();
+            bool found = false;
+            retVal = string.Empty;
+            foreach (ManagementObject managementObject in managementObjectSearcher.Get())
+            {
+              foreach (PropertyData property in managementObject.Properties)
+              {
+                if (!(property.Value is null))
+                {
+                  switch (property.Name)
+                  {
+                    case "PNPDeviceID":
+                      if (property.Value is string pnpdid && pnpdid.Contains(parts[1]))
+                      {
+                        found = true;
+                        break;
+                      }
+                      break;
+
+                    case "Description":
+                      retVal = property.Value as string;
+                      break;
+
+                    default:
+                      break;
+                  }
+                  //if (property.Value != null && property.Name.Equals("PNPDeviceID") && property.Value is string val && val.Contains(parts[1]))
+                  //{
+                  //  found = true;
+                  //  break;
+                  //    //sb.AppendLine($"{property.Name}: {property.Value.ToString()}, Origin: {property.Origin}, Qualifiers: {property.Qualifiers}, Type: {property.Type}");
+                  //}
+                  //else
+                  //{
+                  //  sb.AppendLine($"{property.Name}: [UNSUPPORTED], Origin: {property.Origin}, Qualifiers: {property.Qualifiers}, Type: {property.Type}");
+                  //}
+                }
+              }
+              if (found && !string.IsNullOrWhiteSpace(retVal))
+              {
+                break;
+              }
+            }
+            if (!found)
+            {
+              retVal = "[Undetected]";
+            }
+          }
+        }
+      }
+      return retVal;
+    }
+
+    public static string GetDeviceFriendlyNameFromDeviceName(string name)
+    {
+      uint pathCount, modeCount;
+      string retVal = name;
+      var error = GetDisplayConfigBufferSizes(QUERY_DEVICE_CONFIG_FLAGS.QDC_ONLY_ACTIVE_PATHS, out pathCount, out modeCount);
+      if (error != ERROR_SUCCESS)
+      {
+        LogWriter.Instance.WriteToLog(LogMsgType.Error, error.ToString());
+        //throw new Win32Exception(error);
+      }
+
+      var displayPaths = new DISPLAYCONFIG_PATH_INFO[pathCount];
+      var displayModes = new DISPLAYCONFIG_MODE_INFO[modeCount];
+      error = QueryDisplayConfig(QUERY_DEVICE_CONFIG_FLAGS.QDC_ONLY_ACTIVE_PATHS, ref pathCount, displayPaths, ref modeCount, displayModes, IntPtr.Zero);
+      if (error != ERROR_SUCCESS)
+      {
+        LogWriter.Instance.WriteToLog(LogMsgType.Error, error.ToString());
+        //throw new Win32Exception(error);
+      }
+
+      foreach (DISPLAYCONFIG_PATH_INFO p in displayPaths)
+      {
+        DISPLAYCONFIG_SOURCE_DEVICE_NAME sourceName = new DISPLAYCONFIG_SOURCE_DEVICE_NAME()
+        {
+          header =
+                {
+                    size = (uint)Marshal.SizeOf(typeof (DISPLAYCONFIG_SOURCE_DEVICE_NAME)),
+                    adapterId = p.sourceInfo.adapterId,
+                    id = p.sourceInfo.id,
+                    type = DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME
+                }
+        };
+        DisplayConfigGetDeviceInfo(ref sourceName);
+        if (name.Equals(sourceName.viewGdiDeviceName))
+        {
+          DISPLAYCONFIG_TARGET_DEVICE_NAME targetName = new DISPLAYCONFIG_TARGET_DEVICE_NAME()
+          {
+            header =
+                {
+                    size = (uint)Marshal.SizeOf(typeof (DISPLAYCONFIG_TARGET_DEVICE_NAME)),
+                    adapterId = p.targetInfo.adapterId,
+                    id = p.targetInfo.id,
+                    type = DISPLAYCONFIG_DEVICE_INFO_TYPE.DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME
+                }
+          };
+          DisplayConfigGetDeviceInfo(ref targetName);
+          retVal = targetName.monitorFriendlyDeviceName;
+        }
+      }
+      return retVal;
     }
 
     public static IEnumerable<string> GetAllMonitorsFriendlyNames()

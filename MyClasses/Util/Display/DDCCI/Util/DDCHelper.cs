@@ -180,6 +180,7 @@ namespace AMD.Util.Display.DDCCI.Util
                 {
                   hasPresets = false;
                   string[] parts = sbPresets.ToString().Split();
+                  sbPresets.Clear();
                   uint tmpValue = 0;
                   string tmpStr;
                   for (int i = 0; i < parts.Length - 1; i++)
@@ -202,7 +203,10 @@ namespace AMD.Util.Display.DDCCI.Util
                 {
                   sbPresets.Append(c);
                 }
-                sb.Append(c);
+                else
+                {
+                  sb.Append(c);
+                }
                 break;
             }
           }

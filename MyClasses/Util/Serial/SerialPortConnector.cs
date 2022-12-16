@@ -56,7 +56,7 @@ namespace AMD.Util.Serial
     {
       if (port == null)
       {
-        log.WriteToLog(LogMsgType.Error, "Port null");
+        log.PrintError("Port null");
         return false;
       }
       if (!port.IsOpen)
@@ -67,7 +67,7 @@ namespace AMD.Util.Serial
         }
         catch (Exception ex)
         {
-          log.WriteToLog(LogMsgType.Error, "Error opening port. Exception: {0}\n{1}", ex.Message, ex.StackTrace);
+          log.PrintError("Error opening port. Exception: {0}\n{1}", ex.Message, ex.StackTrace);
           throw;
         }
       }
@@ -101,7 +101,7 @@ namespace AMD.Util.Serial
           {
             if (sw.Elapsed.TotalMilliseconds > timeout)
             {
-              log.WriteToLog(LogMsgType.Error, "Error waiting for data. Bytes to read: {0}", port.BytesToRead);
+              log.PrintError("Error waiting for data. Bytes to read: {0}", port.BytesToRead);
               return false;
             }
           }
@@ -110,7 +110,7 @@ namespace AMD.Util.Serial
         }
         catch (Exception ex)
         {
-          log.WriteToLog(LogMsgType.Error, "Exception: {0}\n{1}", ex.Message, ex.StackTrace);
+          log.PrintError("Exception: {0}\n{1}", ex.Message, ex.StackTrace);
           return false;
         }
 
@@ -119,7 +119,7 @@ namespace AMD.Util.Serial
       }
       catch (TimeoutException toex)
       {
-        log.WriteToLog(LogMsgType.Error, "TimeoutException: {0}\n{1}", toex.Message, toex.StackTrace);
+        log.PrintError("TimeoutException: {0}\n{1}", toex.Message, toex.StackTrace);
         return false;
       }
       return true;
@@ -130,7 +130,7 @@ namespace AMD.Util.Serial
     //	reply = null;
     //	if (port == null)
     //	{
-    //		log.WriteToLog(LogMsgType.Error, "Port null");
+    //		log.PrintError("Port null");
     //	}
     //	if (!port.IsOpen)
     //	{
@@ -140,7 +140,7 @@ namespace AMD.Util.Serial
     //		}
     //		catch (Exception ex)
     //		{
-    //			log.WriteToLog(LogMsgType.Error, "Error opening port. Exception: {0}\n{1}", ex.Message, ex.StackTrace);
+    //			log.PrintError("Error opening port. Exception: {0}\n{1}", ex.Message, ex.StackTrace);
     //			throw;
     //		}
     //	}
@@ -156,7 +156,7 @@ namespace AMD.Util.Serial
     //			{
     //				if (sw.Elapsed.TotalMilliseconds > timeout)
     //				{
-    //					log.WriteToLog(LogMsgType.Error, "Error waiting for data. Bytes to read: {0}", port.BytesToRead);
+    //					log.PrintError("Error waiting for data. Bytes to read: {0}", port.BytesToRead);
     //					return false;
     //				}
     //			}
@@ -165,7 +165,7 @@ namespace AMD.Util.Serial
     //		}
     //		catch (Exception ex)
     //		{
-    //			log.WriteToLog(LogMsgType.Error, "Exception: {0}\n{1}", ex.Message, ex.StackTrace);
+    //			log.PrintError("Exception: {0}\n{1}", ex.Message, ex.StackTrace);
     //			return false;
     //		}
 
@@ -174,7 +174,7 @@ namespace AMD.Util.Serial
     //	}
     //	catch (TimeoutException toex)
     //	{
-    //		log.WriteToLog(LogMsgType.Error, "TimeoutException: {0}\n{1}", toex.Message, toex.StackTrace);
+    //		log.PrintError("TimeoutException: {0}\n{1}", toex.Message, toex.StackTrace);
     //		return false;
     //	}
     //	return true;

@@ -36,6 +36,18 @@ namespace AMD.Util.Extensions
       //	index += rangeSize;
       //}
     }
+
+    public static TimeSpan Average(this IEnumerable<TimeSpan> timeSpans)
+    {
+      IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
+      double averageTicks = ticksPerTimeSpan.Average();
+      long averageTicksLong = Convert.ToInt64(averageTicks);
+
+      TimeSpan averageTimeSpan = TimeSpan.FromTicks(averageTicksLong);
+
+      return averageTimeSpan;
+    }
+
     public static T MaxObject<T, U>(this IEnumerable<T> source, Func<T, U> selector) where U : IComparable<U>
     {
       if (source == null) throw new ArgumentNullException("source");

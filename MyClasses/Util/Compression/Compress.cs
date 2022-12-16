@@ -1,19 +1,57 @@
-﻿using AMD.Util.Extensions;
+﻿using AMD.Util.Compression.SevenZip;
+using AMD.Util.Compression.SevenZip.Compression.LZMA;
+using AMD.Util.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AMD.Util.Compression
 {
+
   public static class Compress
   {
     public static byte[] Zip(string str)
     {
       return Zip(str.GetBytes());
+    }
+
+
+    public static MemoryStream SevenZip(MemoryStream inStream)
+    {
+      inStream.Position = 0;
+
+      CoderPropID[] propIDs =
+      {
+        CoderPropID.DictionarySize,
+        CoderPropID.PosStateBits,
+        CoderPropID.LitContextBits,
+        CoderPropID.LitPosBits,
+        CoderPropID.Algorithm
+      };
+
+      object[] properties =
+      {
+        (1 << 16),
+        2,
+        3,
+        0,
+        2
+      };
+
+      var outStream = new MemoryStream();
+      var encoder = new Encoder();
+      encoder.SetCoderProperties(propIDs, properties);
+      encoder.WriteCoderProperties(outStream);
+      for (var i = 0; i < 8; i++)
+        outStream.WriteByte((byte)(inStream.Length >> (8 * i)));
+      encoder.Code(inStream, outStream, -1, -1, null);
+      outStream.Flush();
+      outStream.Position = 0;
+
+      return outStream;
     }
 
     public static byte[] Zip(byte[] bytes)
