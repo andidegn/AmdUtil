@@ -1,12 +1,17 @@
-﻿using AMD.Util.Display.Edid.Descriptors;
+﻿using AMD.Util.Data;
+using AMD.Util.Display.Edid.Descriptors;
 using AMD.Util.Display.Edid.Enums;
 using AMD.Util.Display.Edid.Exceptions;
+using AMD.Util.Extensions;
+using AMD.Util.GraphicsCard;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace AMD.Util.Display.Edid
 {
@@ -26,11 +31,27 @@ namespace AMD.Util.Display.Edid
     }
     #endregion // Interface OnPropertyChanged
 
+    private ObservableCollection<string> parsingErrors;
+    public ObservableCollection<string> ParsingErrors
+    {
+      get
+      {
+        return parsingErrors;
+      }
+      private set
+      {
+        parsingErrors = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private string monitorNameDefaultIfEmpty = "No Name Found";
+
     public string FirstMonitorNameFromDescriptor
     {
       get
       {
-        return MonitorNameFromDescriptor.DefaultIfEmpty("No Name Found").FirstOrDefault();
+        return MonitorNameFromDescriptor.DefaultIfEmpty(monitorNameDefaultIfEmpty).FirstOrDefault();
       }
     }
 
@@ -41,6 +62,7 @@ namespace AMD.Util.Display.Edid
     /// <exception cref="InvalidEDIDException">Invalid EDID binary data.</exception>
     public EDID(byte[] data)
     {
+      ParsingErrors = new ObservableCollection<string>();
       if (data.Length < 128)
       {
         throw new InvalidEDIDException("EDID data must be at least 128 bytes.");
@@ -56,11 +78,18 @@ namespace AMD.Util.Display.Edid
       }
       if (EDIDVersion.Major != 1)
       {
-        throw new InvalidEDIDException("Invalid EDID major version.");
+        ParsingErrors.Add("Invalid EDID major version.");
+        //throw new InvalidEDIDException("Invalid EDID major version.");
       }
       if (EDIDVersion.Minor == 0)
       {
-        throw new InvalidEDIDException("Invalid EDID minor version.");
+        ParsingErrors.Add("Invalid EDID minor version.");
+        //throw new InvalidEDIDException("Invalid EDID minor version.");
+      }
+      if (string.IsNullOrWhiteSpace(MonitorNameFromDescriptor.FirstOrDefault()))
+      {
+        ParsingErrors.Add("Invalid EDID, No Monitor Name Descriptor found");
+        //throw new InvalidEDIDException("Invalid EDID, No Monitor Name Descriptor found");
       }
       DisplayParameters = new DisplayParameters(this, _reader);
       OnPropertyChanged(null);
@@ -287,10 +316,157 @@ namespace AMD.Util.Display.Edid
       return _reader?.ReadBytes(0, 128).GetHashCode() ?? 0;
     }
 
+    internal static int leftPad = 12;
+    internal static int descriptionWidth = 36;
+    internal static int firstLevelIndent = 20;
+    internal static int firstLevelDescriptionWidth = 28;
+    internal static int secondLevelIndent = 24;
+    internal static int secondLevelDescriptionWidth = 24;
+    
     /// <inheritdoc />
     public override string ToString()
     {
-      return $"{ManufacturerCode}{ProductCode} EDID v{EDIDVersion.ToString(2)} - {SerialNumber}";
+      bool? useByteFormat = true;
+      StringBuilder sb = new StringBuilder();
+      string rawEdidFormattedString = string.Empty;
+
+
+      if (0 < ParsingErrors.Count)
+      {
+        sb.AppendLine(">------------------ WARNING -------------------<");
+        sb.AppendLine($"The following {(1 < ParsingErrors.Count ? "errors were" : "error was")} found during parsing of the EDID file");
+        foreach (string err in ParsingErrors)
+        {
+          sb.AppendLine(err);
+        }
+        sb.AppendLine(">------------------ WARNING -------------------<");
+        sb.AppendLine();
+        sb.AppendLine();
+      }
+
+      if (useByteFormat == null || true == useByteFormat)
+      {
+        rawEdidFormattedString += StringFormatHelper.GetFormattedMemoryString8Align(0, RawData.GetNullableUIntArray());
+      }
+      if (useByteFormat == null || false == useByteFormat)
+      {
+        if (0 < rawEdidFormattedString.Length) 
+        {
+          rawEdidFormattedString += Environment.NewLine;
+        }
+        rawEdidFormattedString += StringFormatHelper.GetFormattedMemoryString(0, RawData.GetNullableUIntArray());
+      }
+      foreach (string line in rawEdidFormattedString.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+      {
+        sb.AppendLine($"{new string(' ', leftPad)}{line}");
+      }
+      sb.AppendLine();
+
+      sb.AppendLine($"{"(  8-9  )".PadRight(leftPad)}{"ID Manufacture Name".PadRight(descriptionWidth)} : {ManufacturerCode}");
+      sb.AppendLine($"{"( 10-11 )".PadRight(leftPad)}{"ID Product Code".PadRight(descriptionWidth)} : {ProductCode:X2}");
+      sb.AppendLine($"{"( 12-15 )".PadRight(leftPad)}{"ID Serial Number".PadRight(descriptionWidth)} : {SerialNumber:X8}");
+      sb.AppendLine($"{"(   16  )".PadRight(leftPad)}{"Week of Manufacturer".PadRight(descriptionWidth)} : {ManufactureWeek}");
+      sb.AppendLine($"{"(   17  )".PadRight(leftPad)}{"Year of Manufacturer".PadRight(descriptionWidth)} : {ManufactureYear}");
+      sb.AppendLine();
+      sb.AppendLine($"{"( 18-19 )".PadRight(leftPad)}{"EDID Version".PadRight(descriptionWidth)} : {EDIDVersion}");
+      sb.AppendLine();
+      if (DisplayParameters.IsDigital)
+      {
+        sb.AppendLine($"{"(   20  )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Digital");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Is DFP 1.x Compatible".PadRight(descriptionWidth)} : {(DisplayParameters.IsDFPTMDSCompatible ? "Yes" : "No")}");
+      }
+      else
+      {
+        sb.AppendLine($"{"(   20  )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Analog");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Serration of Vsync".PadRight(descriptionWidth)} : {(DisplayParameters.IsVSyncSerratedOnComposite ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Sync on Green Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsSyncOnGreenSupported ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Composite Sync Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsCompositeSyncSupported ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Separate Syncs Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsSeparateSyncSupported ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Is Black-To-Black Expected".PadRight(descriptionWidth)} : {(DisplayParameters.IsBlankToBlackExpected ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Signal Level Standard".PadRight(descriptionWidth)} : {DisplayParameters.VideoWhiteLevel.GetAttribute<DescriptionAttribute>().Description}");
+      }
+      sb.AppendLine();
+
+
+      sb.AppendLine($"{"( 21-22  )".PadRight(leftPad)}{"Is Projector".PadRight(descriptionWidth)} : {DisplayParameters.IsProjector}");
+      if (!DisplayParameters.IsProjector)
+      {
+        sb.AppendLine($"{new string(' ', leftPad)}{"Display Size".PadRight(descriptionWidth)} : {DisplayParameters.DisplaySizeInInch} \"");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Width in cm".PadRight(descriptionWidth)} : {DisplayParameters.PhysicalWidth} cm");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Height in cm".PadRight(descriptionWidth)} : {DisplayParameters.PhysicalHeight} cm");
+      }
+      sb.AppendLine();
+
+      sb.AppendLine($"{"(   23  )".PadRight(leftPad)}{"Display Gamma".PadRight(descriptionWidth)} : {DisplayParameters.DisplayGamma}");
+      sb.AppendLine();
+
+      sb.AppendLine($"{"(   24  )".PadRight(leftPad)}{"Default GTF Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsDefaultGTFSupported ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', leftPad)}{"Is Prefered Timing Mode Available".PadRight(descriptionWidth)} : {(DisplayParameters.IsPreferredTimingModeAvailable ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', leftPad)}{"Is Standard Default Color Space sRGB".PadRight(descriptionWidth)} : {(DisplayParameters.IsStandardSRGBColorSpace? "Yes" : "No")}");
+      if (DisplayParameters.IsDigital)
+      {
+        sb.AppendLine($"{new string(' ',leftPad)}{"Digital Display Type".PadRight(descriptionWidth)} : {DisplayParameters.DigitalDisplayType.GetAttribute<DescriptionAttribute>().Description}");
+
+      }
+      else
+      {
+        sb.AppendLine($"{new string(' ', leftPad)}{"Analog Display Type".PadRight(descriptionWidth)} : {DisplayParameters.AnalogDisplayType}");
+      }
+      sb.AppendLine($"{new string(' ', leftPad)}Supported Power Modes");
+      sb.AppendLine();
+      sb.AppendLine($"{new string(' ', firstLevelIndent)}{"Active Off/Very Low Power".PadRight(firstLevelDescriptionWidth)} : {(DisplayParameters.IsActiveOffSupported ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', firstLevelIndent)}{"Suspend".PadRight(firstLevelDescriptionWidth)} : {(DisplayParameters.IsSuspendSupported ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', firstLevelIndent)}{"Standby".PadRight(firstLevelDescriptionWidth)} : {(DisplayParameters.IsStandbySupported ? "Yes" : "No")}");
+      sb.AppendLine();
+
+      sb.AppendLine($"{"( 25-34 )".PadRight(leftPad)}Color Characteristics");
+      sb.AppendLine();
+      foreach (string chro in DisplayParameters.ChromaticityCoordinates.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+      {
+        sb.AppendLine($"{new string(' ', firstLevelIndent)}{ chro}");
+      }
+
+      StringBuilder sbEt = new StringBuilder();
+      StringBuilder sbSt = new StringBuilder();
+      foreach (ITiming timing in Timings.OrderBy(x => x.Width))
+      {
+        switch (timing)
+        {
+          case CommonTiming ct:
+            sbEt.AppendLine($"{new string(' ', firstLevelIndent)}{timing}");
+            break;
+
+          case StandardTiming st:
+            sbSt.AppendLine($"{new string(' ', firstLevelIndent)}{timing}");
+            break;
+
+          default:
+            break;
+        }
+      }
+      sb.AppendLine($"{"( 35-37 )".PadRight(leftPad)}Established Timings I/II and MF");
+      sb.AppendLine();
+      sb.Append(sbEt.ToString());
+      sb.AppendLine();
+
+      sb.AppendLine($"{"( 38-53 )".PadRight(leftPad)}Standard Timings");
+      sb.AppendLine();
+      sb.Append(sbSt.ToString());
+      sb.AppendLine();
+
+      int ctr = 1;
+      int idxStart = 54, idxEnd = 0;
+      int desCnt = Descriptors.Count();
+      foreach (EDIDDescriptor descriptor in Descriptors)
+      {
+        idxEnd = idxStart + 17;
+        sb.AppendLine($"{$"({idxStart.ToString().PadLeft(3)}-{idxEnd.ToString().PadRight(3)})".PadRight(leftPad)}Descriptor #{ctr++}: {descriptor.HeaderName}");
+        sb.AppendLine();
+        sb.AppendLine(descriptor.ToString());
+        idxStart += 18;
+      }
+
+      return sb.ToString();
     }
   }
 }

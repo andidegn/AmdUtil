@@ -30,7 +30,7 @@ namespace AMD.Util.Extensions
 			StringBuilder sb = new StringBuilder();
 			if (bArr == null)
 			{
-				return String.Empty;
+				return string.Empty;
 			}
 			//if (seperator == '\0')
    //   {

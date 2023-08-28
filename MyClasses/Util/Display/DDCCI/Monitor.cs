@@ -4,9 +4,12 @@ using AMD.Util.Display.DDCCI.Util;
 using AMD.Util.Display.Edid;
 using AMD.Util.Display.Edid.Util;
 using AMD.Util.Extensions;
+using AMD.Util.GraphicsCard;
 using AMD.Util.Log;
 using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -34,8 +37,16 @@ namespace AMD.Util.Display
     BlueGain
   }
 
-  public class Monitor
+  public class Monitor : INotifyPropertyChanged
   {
+    #region Interface OnPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    #endregion // Interface OnPropertyChanged
+
     #region Progress
     public IProgress<ProgressChangedEventArgs> Progress { get; set; }
     private int currentProgressPercentage;
@@ -50,12 +61,73 @@ namespace AMD.Util.Display
     public HandleRef physicalMonitorPtr { get; set; }
     public HandleRef hMonitor { get; set; }
     public NativeStructures.MonitorInfoEx mInfo { get; set; }
-    public string CapabilityString { get; private set; }
     public int Index { get; set; }
-    public string Name { get; set; }
-    public string DeviceName { get; set; }
-    public string Description { get; set; }
-    public string AdapterName { get; set; }
+
+    private string name;
+    public string Name
+    {
+      get
+      {
+        return name;
+      }
+      set
+      {
+        name = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(NameOnAdapter));
+        OnPropertyChanged(nameof(InfoString));
+      }
+    }
+
+    private string deviceName;
+    public string DeviceName
+    {
+      get
+      { 
+        return deviceName; 
+      }
+      set
+      {
+        deviceName = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(InfoString));
+      }
+    }
+
+    private string description;
+    public string Description
+    {
+      get
+      {
+        return description;
+      }
+      set
+      {
+        description = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private string adapterName;
+    public string AdapterName
+    {
+      get
+      {
+        if (string.IsNullOrWhiteSpace(adapterName))
+        {
+          AdapterName = ScreenInterrogatory.GetAdapterNameFromDeviceName(mInfo.szDeviceName);
+        }
+        return adapterName;
+      }
+      set
+      {
+        adapterName = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(NameOnAdapter));
+        OnPropertyChanged(nameof(InfoString));
+      }
+    }
+
     public string NameOnAdapter
     {
       get
@@ -63,11 +135,90 @@ namespace AMD.Util.Display
         return $"{Name} on {AdapterName}";
       }
     }
+
+    private EDID edid;
+    public EDID Edid
+    {
+      get
+      {
+        return edid;
+      }
+      set
+      {
+        edid = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(InfoString));
+      }
+    }
+
+    private EDID edidFromReg;
+    public EDID EdidFromReg
+    {
+      get
+      {
+        return edidFromReg;
+      }
+      set
+      {
+        edidFromReg = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private string capabilityString;
+    public string CapabilityString
+    {
+      get
+      {
+        return capabilityString;
+      }
+      set
+      {
+        capabilityString = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private string capabilityStringFormatted;
+    public string CapabilityStringFormatted
+    {
+      get
+      {
+        return VCPCodes?.CapabilityStringFormatted;
+      }
+      set
+      {
+        capabilityStringFormatted = value;
+        OnPropertyChanged();
+        OnPropertyChanged(nameof(InfoString));
+      }
+    }
+
+    public string InfoString
+    {
+      get
+      {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"{Name} ({DeviceName}) on {AdapterName}");
+        sb.AppendLine();
+        sb.AppendLine("EDID:");
+        sb.AppendLine(StringFormatHelper.GetFormattedMemoryString(0, Edid.RawData.GetNullableUIntArray()));
+        sb.AppendLine();
+        sb.AppendLine("CapabilityString:");
+        sb.AppendLine(CapabilityStringFormatted);
+        sb.AppendLine();
+        foreach (VCPCode vcp in VCPCodes)
+        {
+          sb.AppendLine(vcp.ToString());
+        }
+        return sb.ToString();
+      }
+    }
     public VCPCodeList VCPCodes { get; set; }
-    public EDID Edid { get; set; }
 
     public bool SupportsHighLevelDDC { get; set; }
     public bool SupportsLowLevelDDC { get; set; }
+
 
     private MonitorParameter Brightness;
     private MonitorParameter Contrast;
@@ -93,18 +244,19 @@ namespace AMD.Util.Display
       this.DeviceName = $"{physicalMonitor.szPhysicalMonitorDescription} [{mInfo.szDeviceName}]";
       this.Description = physicalMonitor.szPhysicalMonitorDescription;
       this.Name = ScreenUtil.GetDeviceFriendlyNameFromDeviceName(mInfo.szDeviceName);
-      this.AdapterName = ScreenInterrogatory.GetAdapterNameFromDeviceName(mInfo.szDeviceName);
       this.hMonitor = hMonitor;
       this.mInfo = mInfo;
       Report($"Monitor discovered: {Name}, checking capabilities", 0);
       log.WriteToLog(LogMsgType.Notification, "Monitor discovered: {0}", Name);
 
-      byte[] rawEdid = EdidUtil.GetRegEdidFromNameInEdid(Name);
-      if (null != rawEdid)
+      Edid = EdidHelper.GetEDID().Where(x => x.FirstMonitorNameFromDescriptor.Equals(Name)).FirstOrDefault();
+
+      byte[] edidFromRegRaw = EdidUtil.GetRegEdidFromNameInEdid(Name);
+      if (null != edidFromRegRaw)
       {
         try
         {
-          Edid = new EDID(rawEdid);
+          EdidFromReg = new EDID(edidFromRegRaw);
         }
         catch (Exception ex)
         {
@@ -413,10 +565,8 @@ namespace AMD.Util.Display
     #endregion // Set
 
 
-    private void CheckCapabilities()
+    public void CheckCapabilities()
     {
-      //Thread t = new Thread(() =>
-      //{
       Report("Checking high level capabilities", 25);
       log.WriteToLog(LogMsgType.Notification, "Checking high level capabilities");
       CheckHighLevelCapabilities();
@@ -426,11 +576,9 @@ namespace AMD.Util.Display
       Report("Querying VCP codes", 75);
       log.WriteToLog(LogMsgType.Notification, "Querying VCP codes");
       GetVCPCodeValues(VCPCodes, true);
-      //});
-      //t.Start();
     }
 
-    private void CheckLowLevelCapabilities()
+    public void CheckLowLevelCapabilities()
     {
       try
       {
@@ -443,8 +591,7 @@ namespace AMD.Util.Display
             {
               VCPCodes.Clear();
             }
-            CapabilityString = pszASCIICapabilitiesString.ToString();
-            VCPCodes.Populate(CapabilityString);
+            VCPCodes.Populate(pszASCIICapabilitiesString.ToString());
 
             SupportsLowLevelDDC = 0 < VCPCodes.Count;
           }
@@ -459,7 +606,7 @@ namespace AMD.Util.Display
       }
     }
 
-    private void CheckHighLevelCapabilities()
+    public void CheckHighLevelCapabilities()
     {
       if (SupportsHighLevelDDC = NativeMethods.GetMonitorCapabilities(physicalMonitorPtr, ref _monitorCapabilities, ref _supportedColorTemperatures))
       {
@@ -483,9 +630,9 @@ namespace AMD.Util.Display
       }
     }
 
-    public bool GetAllVCPFeatures()
+    public bool GetAllVCPFeatures(bool refreshOriginalValues = false)
     {
-      return GetVCPCodeValues(VCPCodes, false);
+      return GetVCPCodeValues(VCPCodes, refreshOriginalValues);
     }
 
     public bool GetVCPFeature(VCPCode code)
@@ -698,19 +845,7 @@ namespace AMD.Util.Display
 
     public override string ToString()
     {
-      StringBuilder sb = new StringBuilder();
-      sb.AppendLine($"{Name} ({DeviceName})");
-      sb.AppendLine();
-      sb.AppendLine("EDID:");
-      sb.AppendLine(StringFormatHelper.GetFormattedMemoryString(0, Edid.RawData.GetNullableUIntArray()));
-      sb.AppendLine();
-      sb.AppendLine("CapabilityString:");
-      sb.AppendLine(CapabilityString);
-      foreach (VCPCode vcp in VCPCodes)
-      {
-        sb.AppendLine(vcp.ToString());
-      }
-      return sb.ToString();
+      return Name;
     }
   }
 }

@@ -4,9 +4,187 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             xmlns:valueConverters="clr-namespace:AMD.Util.View.WPF.ValueConverters"
              mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             VerticalAlignment="Top"
+             Name="cvLocal"
+             MouseMove="CvLocal_MouseMove"
+             Loaded="CvLocal_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../AMDIconsRD.xaml" />
+        <ResourceDictionary Source="../AMDStylesRD.xaml" />
+        <ResourceDictionary Source="CompareMapSliderVertical.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <valueConverters:ValueZeroToVisibility x:Key="valueZeroToVisibility" />
+      <valueConverters:LeftRightTextToFormattedString x:Key="leftRightTextToFormattedString" />
+      <valueConverters:LineCountToLineNumberStringConverter x:Key="lineCountToLineNumberStringConverter" />
+
+      <ControlTemplate x:Key="RichTextBoxBaseControlTemplate" TargetType="{x:Type RichTextBox}">
+        <Border x:Name="Bd" 
+					      BorderBrush="{TemplateBinding BorderBrush}"
+					      Background="{TemplateBinding Background}" 
+					      BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding CornerRadius}" ClipToBounds="True">
+          <Grid>
+            <Border ClipToBounds="False" CornerRadius="0" BorderThickness="0" />
+            <ScrollViewer x:Name="PART_ContentHost" BorderBrush="Transparent" Margin="0, 2, -115, 0"/>
+          </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsEnabled" Value="False">
+            <Setter Property="Background" Value="{Binding Background}" TargetName="Bd"/>
+            <Setter Property="Foreground" Value="{Binding Foreground}"/>
+          </Trigger>
+          <Trigger Property="Width" Value="Auto">
+            <Setter Property="MinWidth" Value="23"/>
+          </Trigger>
+          <Trigger Property="Height" Value="Auto">
+            <Setter Property="MinHeight" Value="20"/>
+          </Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate>
+
+      <Style x:Key="StyleRichTextBoxDataViewLocal" TargetType="{x:Type RichTextBox}">
+        <Setter Property="Template" Value="{StaticResource RichTextBoxBaseControlTemplate}" />
+        <Setter Property="Foreground" Value="{Binding Foreground}" />
+        <Setter Property="Background" Value="{Binding Background}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="FontFamily" Value="{DynamicResource CodeFont}" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="SpellCheck.IsEnabled" Value="False" />
+        <Setter Property="IsUndoEnabled" Value="False" />
+        <Setter Property="IsReadOnlyCaretVisible" Value="True" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling" />
+      </Style>
+      <Style x:Key="StyleScrollViewerRtb" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerInvisSquare}">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <EventSetter Event="ScrollChanged" Handler="Sv_ScrollChanged" />
+        <EventSetter Event="PreviewMouseWheel" Handler="Sv_PreviewMouseWheel" />
+        <EventSetter Event="SizeChanged" Handler="Sv_SizeChanged" />
+      </Style>
+      <Style x:Key="StyleScrollViewerLn" TargetType="{x:Type ScrollViewer}">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <EventSetter Event="PreviewMouseWheel" Handler="SvLn_PreviewMouseWheel" />
+      </Style>
+      <Style x:Key="StyleRegularBorder" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="10" />
+        <Setter Property="BorderBrush" Value="{Binding InnerBorderBrush}" />
+      </Style>
+      <Style TargetType="{x:Type Paragraph}">
+        <Setter Property="Margin" Value="0"/>
+      </Style>
+      <Style x:Key="StyleLineNumberTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Padding" Value="3, 2, 3, 0" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="Background" Value="{Binding LineNumberBackground}" />
+        <Setter Property="Foreground" Value="{Binding Foreground}" />
+        <Setter Property="Visibility" Value="{Binding LineNumberVisibility}" />
+        <Setter Property="FontFamily" Value="{DynamicResource CodeFont}" />
+        <Setter Property="Text" Value="{Binding DataCompare.LineCount, Converter={StaticResource lineCountToLineNumberStringConverter}, Mode=OneWay}" />
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Border x:Name="compareWrapper" Style="{StaticResource StyleBorderOuterMain}" BorderThickness="0" BorderBrush="Gray" CornerRadius="0" Background="Transparent">
     <Grid>
-            
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Name="columnLeft" MinWidth="100" />
+        <ColumnDefinition Width="5" />
+        <ColumnDefinition Name="columnRight" MinWidth="100" />
+      </Grid.ColumnDefinitions>
+      <Grid.Resources>
+        <Style TargetType="{x:Type Slider}">
+          <Setter Property="Template" Value="{DynamicResource ctSliderCompareMapVertical}" />
+          <Setter Property="Orientation" Value="Vertical" />
+          <Setter Property="IsDirectionReversed" Value="True" />
+          <Setter Property="IsMoveToPointEnabled" Value="True" />
+          <Setter Property="BorderThickness" Value="2" />
+          <Setter Property="Margin" Value="0, 0, 0, 0" />
+          <Setter Property="Background" Value="{Binding Background}" />
+          <Setter Property="Maximum" Value="{Binding ScrollableHeight, ElementName=svLeft}" />
+          <Setter Property="MinWidth" Value="{Binding DataCompare.OverviewWidth}" />
+          <Setter Property="Visibility" Value="{Binding ElementName=svLeft, Path=ScrollableHeight, Converter={StaticResource valueZeroToVisibility}}" />
+          <EventSetter Event="ValueChanged" Handler="SlCompareMap_ValueChanged" />
+        </Style>
+      </Grid.Resources>
+      <Grid Grid.Column="0" Margin="5, 2, 5, 2" Visibility="{Binding CompareMapVisibility}" VerticalAlignment="Top">
+        <Viewbox Name="vbCompareMap" 
+                 Grid.Column="0" 
+                 Stretch="Fill" 
+                 StretchDirection="DownOnly"
+                 VerticalAlignment="Top"
+                 Width="{Binding ActualWidth, ElementName=icCompareMap}">
+          <ItemsControl Name="icCompareMap"
+                        ItemsSource="{Binding DataCompare.Lines}"
+                        Height="{Binding DataCompare.LineCount}" 
+                        Width="{Binding DataCompare.OverviewWidth}"
+                        Padding="0, 0.5, 0, 0">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <Canvas />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
+                      X2="{Binding To.X}" Y2="{Binding To.Y}"
+                      Stroke="Red"
+                      StrokeThickness="2"/>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </Viewbox>
+        <Slider Name="slCompareMap" BorderBrush="Gray" VerticalAlignment="Stretch"/>
+      </Grid>
+      <Border Grid.Column="1" Style="{StaticResource StyleRegularBorder}" BorderThickness="0, 0, 1, 0">
+        <DockPanel>
+          <ScrollViewer Name="svLeftln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}" Width="{Binding ElementName=lblLeftLineNumbers, Path=ActualWidth}">
+            <TextBlock Name="lblLeftLineNumbers" Style="{StaticResource StyleLineNumberTextBlock}" />
+          </ScrollViewer>
+          <ScrollViewer Name="svLeft" DockPanel.Dock="Right" Style="{StaticResource StyleScrollViewerRtb}">
+            <RichTextBox Name="rtbLeft" 
+                         Style="{StaticResource StyleRichTextBoxDataViewLocal}"
+                         Width="{Binding ElementName=svLeft, Path=ActualWidth}" 
+                         AutoWordSelection="False">
+              <RichTextBox.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Copy" Executed="CommandBinding_Copy" />
+              </RichTextBox.CommandBindings>
+            </RichTextBox>
+          </ScrollViewer>
+        </DockPanel>
+      </Border>
+      <GridSplitter Grid.Column="2" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Style="{StaticResource GridSplitterVerticalStyle}" MouseDoubleClick="GridSplitter_MouseDoubleClick" />
+      <Border Grid.Column="3" Style="{StaticResource StyleRegularBorder}" BorderThickness="1, 0, 0, 0">
+        <DockPanel>
+          <ScrollViewer Name="svRightln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}" Width="{Binding ElementName=lblRightLineNumbers, Path=ActualWidth}">
+            <TextBlock Name="lblRightLineNumbers" Style="{StaticResource StyleLineNumberTextBlock}" />
+          </ScrollViewer>
+          <ScrollViewer Name="svRight" DockPanel.Dock="Right" Style="{StaticResource StyleScrollViewerRtb}">
+            <RichTextBox Name="rtbRight" 
+                         Style="{StaticResource StyleRichTextBoxDataViewLocal}" 
+                         Width="{Binding ElementName=svRight, Path=ActualWidth}">
+              <RichTextBox.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Copy" Executed="CommandBinding_Copy" />
+              </RichTextBox.CommandBindings>
+            </RichTextBox>
+          </ScrollViewer>
+        </DockPanel>
+      </Border>
     </Grid>
+  </Border>
 </UserControl>

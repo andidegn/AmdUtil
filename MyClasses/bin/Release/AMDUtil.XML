@@ -704,6 +704,118 @@
             Creates an instance of a YUV structure.
             </summary>
         </member>
+        <member name="T:AMD.Util.Compression.SevenZip.DataErrorException">
+            <summary>
+            The exception that is thrown when an error in input stream occurs during decoding.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Compression.SevenZip.InvalidParamException">
+            <summary>
+            The exception that is thrown when the value of an argument is outside the allowable range.
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Compression.SevenZip.ICodeProgress.SetProgress(System.Int64,System.Int64)">
+            <summary>
+            Callback progress.
+            </summary>
+            <param name="inSize">
+            input size. -1 if unknown.
+            </param>
+            <param name="outSize">
+            output size. -1 if unknown.
+            </param>
+        </member>
+        <member name="M:AMD.Util.Compression.SevenZip.ICoder.Code(System.IO.Stream,System.IO.Stream,System.Int64,System.Int64,AMD.Util.Compression.SevenZip.ICodeProgress)">
+            <summary>
+            Codes streams.
+            </summary>
+            <param name="inStream">
+            input Stream.
+            </param>
+            <param name="outStream">
+            output Stream.
+            </param>
+            <param name="inSize">
+            input Size. -1 if unknown.
+            </param>
+            <param name="outSize">
+            output Size. -1 if unknown.
+            </param>
+            <param name="progress">
+            callback progress reference.
+            </param>
+            <exception cref="T:AMD.Util.Compression.SevenZip.DataErrorException">
+            if input stream is not valid
+            </exception>
+        </member>
+        <member name="T:AMD.Util.Compression.SevenZip.CoderPropID">
+            <summary>
+            Provides the fields that represent properties idenitifiers for compressing.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.DefaultProp">
+            <summary>
+            Specifies default property.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.DictionarySize">
+            <summary>
+            Specifies size of dictionary.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.UsedMemorySize">
+            <summary>
+            Specifies size of memory for PPM*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.Order">
+            <summary>
+            Specifies order for PPM methods.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.BlockSize">
+            <summary>
+            Specifies Block Size.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.PosStateBits" -->
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.LitContextBits" -->
+        <!-- Badly formed XML comment ignored for member "F:AMD.Util.Compression.SevenZip.CoderPropID.LitPosBits" -->
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumFastBytes">
+            <summary>
+            Specifies number of fast bytes for LZ*.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.MatchFinder">
+            <summary>
+            Specifies match finder. LZMA: "BT2", "BT4" or "BT4B".
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.MatchFinderCycles">
+            <summary>
+            Specifies the number of match finder cyckes.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumPasses">
+            <summary>
+            Specifies number of passes.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.Algorithm">
+            <summary>
+            Specifies number of algorithm.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.NumThreads">
+            <summary>
+            Specifies the number of threads.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Compression.SevenZip.CoderPropID.EndMarker">
+            <summary>
+            Specifies mode with end marker.
+            </summary>
+        </member>
         <member name="M:AMD.Util.DataType.Bit.#ctor">
             <summary>
             Empty constructor explicite to make XmlSerializer work
@@ -742,6 +854,139 @@
             </summary>
             <param name="sender">The object who called the Handler</param>
             <param name="args">The arguments</param>
+        </member>
+        <member name="P:AMD.Util.Data.DataCompare.LineIndexBeforeLineMatch">
+            <summary>
+            The index of the line character before trying to match with another line for equality (default = 4)
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
+            <summary>
+            Compares two strings and returns left and right documents, which can be loaded into RichTextBox
+            </summary>
+            <param name="leftText"></param>
+            <param name="rightText"></param>
+            <param name="brushDefaultForeground"></param>
+            <param name="brushDiffForeground"></param>
+            <param name="brushDiffBackground"></param>
+            <param name="charsToSearchForOffset">The number of characters to search into a line in order to determine if they are comparable</param>
+            <param name="fontSize">The size of the font used in the destination control. Ex RichTextBox.FontSize</param>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.Data">
+            <summary>
+            Contains data and a 16-bit starting address for the data. The byte count specifies number of data bytes in the record. The example shown to the right has 0B (decimal 11) data bytes (61, 64, 64, 72, 65, 73, 73, 20, 67, 61, 70) located at consecutive addresses beginning at address 0010.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.EoF">
+            <summary>
+            Must occur exactly once per file in the last line of the file. The data field is empty (thus byte count is 00) and the address field is typically 0000.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.ExtendedSegmentAddr">
+            <summary>
+            The data field contains a 16-bit segment base address (thus byte count is 02) compatible with 80x86 real mode addressing. The address field (typically 0000) is ignored. The segment address from the most recent 02 record is multiplied by 16 and added to each subsequent data record address to form the physical starting address for the data. This allows addressing up to one megabyte of address space.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.StartSegmentAddr">
+            <summary>
+            For 80x86 processors, specifies the initial content of the CS:IP registers. The address field is 0000, the byte count is 04, the first two bytes are the CS value, the latter two are the IP value.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.ExtendedLinearAddr">
+            <summary>
+            Allows for 32 bit addressing (up to 4GiB). The address field is ignored (typically 0000) and the byte count is always 02. The two encoded, big endian data bytes specify the upper 16 bits of the 32 bit absolute address for all subsequent type 00 records; these upper address bits apply until the next 04 record. If no type 04 record precedes a 00 record, the upper 16 address bits default to 0000. The absolute address for a type 00 record is formed by combining the upper 16 address bits of the most recent 04 record with the low 16 address bits of the 00 record.
+            </summary>
+        </member>
+        <member name="F:AMD.Util.Data.IntelHexRecordType.StartLinearAddr">
+            <summary>
+            The address field is 0000 (not used) and the byte count is 04. The four data bytes represent the 32-bit value loaded into the EIP register of the 80386 and higher CPU.
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Data.IntelHexToBin">
+            <summary>
+            Intel Hex file handler
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexToBin.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexToBin.GetData(System.UInt32,System.UInt32,System.Byte,System.Boolean)">
+            <summary>
+            Gets a byte array with the compiled firmware byte values
+            </summary>
+            <param name="startAddr"></param>
+            <param name="endAddr"></param>
+            <param name="fillValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Data.IntelHexRecord">
+            <summary>
+            Record object containing relevant properties
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.ByteCount">
+            <summary>
+            Number of data bytes. The maximum byte count is 255 (0xFF). 16 (0x10) and 32 (0x20) are commonly used byte counts.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Address">
+            <summary>
+            2 byte address of the data. Normally big endian
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.RecordType">
+            <summary>
+            Record type of value 0x00-0x05
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Data">
+            <summary>
+            The data
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.Checksum">
+            <summary>
+            Two's compliment checksum
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Data.IntelHexRecord.CompleteRecord">
+            <summary>
+            The complete record as given in the constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.IntelHexRecord.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="record"></param>
+        </member>
+        <member name="T:AMD.Util.Data.InvalidChecksumException">
+            <summary>
+            Invalid Checksum exception
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor">
+            <summary>
+            Zero argument constructor
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor(System.String)">
+            <summary>
+            One argument constructor
+            </summary>
+            <param name="Message">Describing message</param>
+        </member>
+        <member name="M:AMD.Util.Data.InvalidChecksumException.#ctor(System.String,System.Exception)">
+            <summary>
+            Two argument constructor
+            </summary>
+            <param name="Message">Describing message</param>
+            <param name="InnerException">Child exception</param>
         </member>
         <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString(System.UInt32,System.Nullable{System.UInt32}[],AMD.Util.Extensions.Endian)">
             <summary>
@@ -850,6 +1095,13 @@
             Returns the VCP name as stated in the VESA MCCS Standard Version 2.2a
             </summary>
             <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.GetFormattedCapabilityString(System.String)">
+            <summary>
+            Formats a capability string to an indented multiline format
+            </summary>
+            <param name="capabilityString"></param>
             <returns></returns>
         </member>
         <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.PopulateVcpCodes(System.String,AMD.Util.Display.DDCCI.Util.VCPCodeList)">
@@ -2313,6 +2565,17 @@
         <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
             Object array
         </member>
+        <member name="F:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.ValueProperty">
+            <summary>
+            Identifies the <see cref="P:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.Value"/> dependency property
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.Value">
+            <summary>
+            Returns/sets the value of the property
+            </summary>
+            <seealso cref="F:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.ValueProperty"/>
+        </member>
         <member name="T:AMD.Util.View.WPF.Helper.TabHelper">
             <summary>
             Helper class for tab control and tab item
@@ -2432,6 +2695,32 @@
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.CompareView">
+            <summary>
+            Interaction logic for CompareView.xaml
+            </summary>
+            <summary>
+            CompareView
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.CompareView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.CompareWindow">
+            <summary>
+            Interaction logic for CompareWindow.xaml
+            </summary>
+            <summary>
+            CompareWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.CompareWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -2921,7 +3210,7 @@
             TitleBar
             </summary>
         </member>
-        <member name="P:AMD.Util.View.WPF.UserControls.TitleBar.MainBackground">
+        <member name="P:AMD.Util.View.WPF.UserControls.TitleBar.MainBackgroundBrush">
             <summary>
             Depricated, use Background
             </summary>
@@ -3131,9 +3420,11 @@
             <summary>
             Constructor taking a formatted string and a number of parameters to generate a log entry
             </summary>
+            <param name="index"></param>
             <param name="msgType"></param>
             <param name="format"></param>
             <param name="source"></param>
+            <param name="stackTrace"></param>
             <param name="args"></param>
         </member>
         <member name="T:AMD.Util.Log.LogEventArgs">
@@ -3270,7 +3561,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.WriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3278,7 +3569,7 @@
             </summary>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception)">
             <summary>
@@ -3292,7 +3583,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3301,7 +3592,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3309,7 +3600,7 @@
             </summary>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception)">
             <summary>
@@ -3323,7 +3614,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.String,System.Object[])">
             <summary>
@@ -3331,14 +3622,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.String,System.Object[])">
             <summary>
@@ -3346,14 +3637,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception)">
             <summary>
@@ -3367,7 +3658,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.String,System.Object[])">
             <summary>
@@ -3375,14 +3666,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.String,System.Object[])">
             <summary>
@@ -3390,14 +3681,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.Object[])">
             <summary>
@@ -3423,7 +3714,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Flush">
             <summary>

@@ -24,11 +24,11 @@ namespace AMD.Util.Display.DDCCI.Util
       {
         return capabilityString;
       }
-      set
+      private set
       {
         capabilityString = value;
+        CapabilityStringFormatted = DDCHelper.GetFormattedCapabilityString(value);
         OnPropertyChanged();
-        OnPropertyChanged(nameof(CapabilityStringFormatted));
       }
     }
 
@@ -38,6 +38,11 @@ namespace AMD.Util.Display.DDCCI.Util
       get
       {
         return capabilityStringFormatted;
+      }
+      private set
+      {
+        capabilityStringFormatted = value;
+        OnPropertyChanged();
       }
     }
     #endregion // Interface OnPropertyChanged
@@ -58,8 +63,9 @@ namespace AMD.Util.Display.DDCCI.Util
       }
     }
 
-    public void Populate(String capabilityString)
+    public void Populate(string capabilityString)
     {
+      CapabilityString = capabilityString;
       DDCHelper.PopulateVcpCodes(capabilityString, this);
       DDCHelper.PopulateVcpCodeNames(capabilityString, this);
     }

@@ -1,5 +1,8 @@
 ﻿using AMD.Util.Display.Edid.Enums;
 using AMD.Util.Display.Edid.Exceptions;
+using AMD.Util.Extensions;
+using System.ComponentModel;
+using System.Text;
 
 namespace AMD.Util.Display.Edid.Descriptors
 {
@@ -8,9 +11,14 @@ namespace AMD.Util.Display.Edid.Descriptors
   /// </summary>
   public class DetailedTimingDescriptor : EDIDDescriptor
   {
-    internal DetailedTimingDescriptor(EDID edid, BitAwareReader reader, int offset) : base(edid, reader, offset)
+    internal DetailedTimingDescriptor(EDID edid, BitAwareReader reader, int offset) :
+      base(edid, reader, offset)
     {
       IsValid = Reader.ReadInt(Offset, 0, 2 * 8) != 0;
+      if (IsValid)
+      {
+        HeaderName = $"Detailed Timing Descriptor ({HorizontalActivePixels}×{VerticalActivePixels})";
+      }
     }
 
     /// <summary>
@@ -21,7 +29,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 2);
         var most = (uint)Reader.ReadInt(Offset + 4, 4, 4);
         return (most << 8) | least;
@@ -36,7 +46,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 3);
         var most = (uint)Reader.ReadInt(Offset + 4, 0, 4);
         return (most << 8) | least;
@@ -51,7 +63,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 15);
       }
     }
@@ -64,7 +78,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 12);
         var most = (uint)Reader.ReadInt(Offset + 14, 4, 4);
         return (most << 8) | least;
@@ -79,7 +95,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 8);
         var most = (uint)Reader.ReadInt(Offset + 11, 6, 2);
         return (most << 8) | least;
@@ -95,9 +113,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!EDID.DisplayParameters.IsDigital)
-          throw new AnalogDisplayException("The device is not digital.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(HorizontalSyncPolarity)}: The device is not digital.");
+          //throw new AnalogDisplayException("The device is not digital.");
+        }
         return (DigitalSyncPolarity)Reader.ReadInt(Offset + 17, 1, 1);
       }
     }
@@ -110,7 +133,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 9);
         var most = (uint)Reader.ReadInt(Offset + 11, 4, 2);
         return (most << 8) | least;
@@ -125,7 +150,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadBit(Offset + 17, 7);
       }
     }
@@ -139,9 +166,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (EDID.DisplayParameters.IsDigital)
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(IsSyncOnAllRGBLines)}: The device is not analog.");
           throw new DigitalDisplayException("The device is not analog.");
+        }
         return Reader.ReadBit(Offset + 17, 1);
       }
     }
@@ -155,9 +187,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (EDID.DisplayParameters.IsDigital)
-          throw new DigitalDisplayException("The device is not analog.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(IsVerticalSyncSerrated)}: The device is not analog.");
+          //throw new DigitalDisplayException("The device is not analog.");
+        }
         return Reader.ReadBit(Offset + 17, 2);
       }
     }
@@ -170,7 +207,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadInt(Offset, 0, 2 * 8) * 10000;
       }
     }
@@ -183,10 +222,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadInt(Offset + 17, 5, 2);
         if (least == 0)
+        {
           return StereoMode.NoStereo;
+        }
         var most = Reader.ReadBit(Offset + 17, 0);
         return (StereoMode)((most ? 4 : 0) + least);
       }
@@ -200,7 +243,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return (SyncType)Reader.ReadInt(Offset + 17, 3, 2);
       }
     }
@@ -213,7 +258,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 5);
         var most = (uint)Reader.ReadInt(Offset + 7, 4, 4);
         return (most << 8) | least;
@@ -228,7 +275,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 6);
         var most = (uint)Reader.ReadInt(Offset + 7, 0, 4);
         return (most << 8) | least;
@@ -243,7 +292,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 16);
       }
     }
@@ -256,7 +307,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadByte(Offset + 13);
         var most = (uint)Reader.ReadInt(Offset + 14, 0, 4);
         return (most << 8) | least;
@@ -271,7 +324,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadInt(Offset + 10, 4, 4);
         var most = (uint)Reader.ReadInt(Offset + 11, 2, 2);
         return (most << 4) | least;
@@ -287,9 +342,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!EDID.DisplayParameters.IsDigital)
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(VerticalSyncPolarity)}: The device is not digital.");
           throw new AnalogDisplayException("The device is not digital.");
+        }
         return (DigitalSyncPolarity)Reader.ReadInt(Offset + 17, 2, 1);
       }
     }
@@ -302,7 +362,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         var least = (uint)Reader.ReadInt(Offset + 10, 0, 4);
         var most = (uint)Reader.ReadInt(Offset + 11, 0, 2);
         return (most << 4) | least;
@@ -321,8 +383,49 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      return $"DetailedTimingDescriptor({SyncType}, {StereoMode})";
+      }
+      StringBuilder sb = new StringBuilder();
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Pixel Clock".PadRight(EDID.firstLevelDescriptionWidth)} : {PixelClock / 1000000.0:0.00}MHz");
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Horizontal Display Size".PadRight(EDID.firstLevelDescriptionWidth)} : {HorizontalDisplaySize}mm");
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Vertical Display Size".PadRight(EDID.firstLevelDescriptionWidth)} : {VerticalDisplaySize}mm");
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Interlaced".PadRight(EDID.firstLevelDescriptionWidth)} : {(IsInterlaced ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Stereo Viewing Support".PadRight(EDID.firstLevelDescriptionWidth)} : {StereoMode.GetAttribute<DescriptionAttribute>().Description}");
+      sb.AppendLine();
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}Horizontal");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Active Pixels".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalActivePixels} Pixels");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Blanking".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalBlankingPixels} Pixels");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Front Porch".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalSyncOffset} Pixels");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Sync Width".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalSyncPulse} Pixels");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Border".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalBorderPixels} Pixels");
+      if (!EDID.DisplayParameters.IsDigital)
+      {
+        sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Polarity".PadRight(EDID.secondLevelDescriptionWidth)} : {HorizontalSyncPolarity}");
+      }
+      sb.AppendLine();
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}Vertical");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Active Lines".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalActivePixels} Lines");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Blanking".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalBlankingPixels} Lines");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Front Porch".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalSyncOffset} Lines");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Sync Width".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalSyncPulse} Lines");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Border".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalBorderPixels} Lines");
+
+      if (EDID.DisplayParameters.IsDigital)
+      {
+        sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Polarity".PadRight(EDID.secondLevelDescriptionWidth)} : {VerticalSyncPolarity}");
+      }
+      else
+      {
+        sb.AppendLine();
+        sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Sync on All RGB Lines".PadRight(EDID.firstLevelDescriptionWidth)} : {(IsSyncOnAllRGBLines ? "Yes" : "No")}");
+        sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Vertical Sync Serrated".PadRight(EDID.firstLevelDescriptionWidth)} : {(IsVerticalSyncSerrated ? "Yes" : "No")}");
+      }
+      sb.AppendLine();
+
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{"Sync Signal Type".PadRight(EDID.firstLevelDescriptionWidth)} : {SyncType.GetAttribute<DescriptionAttribute>().Description}");
+
+      return sb.ToString();
     }
   }
 }

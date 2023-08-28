@@ -232,46 +232,47 @@ namespace AMD.Util.View.WPF.UserControls
     {
       try
       {
-        TearableTabItem tabItemTarget = e.Source as TearableTabItem;
-        TearableTabItem tabItemSource = e.Data.GetData(typeof(TearableTabItem)) as TearableTabItem;
-
-        if (null != SharedData)
+        if (e.Source is TearableTabItem tabItemTarget && e.Data.GetData(typeof(TearableTabItem)) is TearableTabItem tabItemSource)
         {
-          SharedData.AllowTabDrag = false;
-        }
 
-        if (tabItemTarget != null && tabItemSource != null)
-        {
-          tiHoverTimer?.Stop();
-          tiHoverTimer = null;
-          if (!tabItemTarget.Equals(tabItemSource))
+          if (null != SharedData)
           {
-            TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
-            String source = tabControlSource.Name;
-            TearableTabControl tabControlTarget = tabItemTarget.Parent as TearableTabControl;
-            String target = tabControlTarget.Name;
-            if (tabControlSource.Equals(tabControlTarget))
-            {
-              int sourceIndex = tabControlTarget.Items.IndexOf(tabItemSource);
-              int targetIndex = tabControlTarget.Items.IndexOf(tabItemTarget);
-
-              tabControlTarget.Items.Remove(tabItemSource);
-              tabControlTarget.Items.Insert(targetIndex, tabItemSource);
-
-              //tabControlTarget.Items.Remove(tabItemTarget);
-              //tabControlTarget.Items.Insert(sourceIndex, tabItemTarget);
-            }
-            else
-            {
-              int targetIndex = Math.Min(tabControlTarget.Items.Count, tabControlTarget.Items.IndexOf(tabItemTarget));
-              int one = tabControlTarget.Items.IndexOf(tabItemTarget);
-
-              tabControlSource.Items.Remove(tabItemSource);
-              tabControlTarget.Items.Insert(targetIndex, tabItemSource);
-            }
-            tabItemSource.IsSelected = true;
+            SharedData.AllowTabDrag = false;
           }
-          e.Handled = true;
+
+          if (tabItemTarget != null && tabItemSource != null)
+          {
+            tiHoverTimer?.Stop();
+            tiHoverTimer = null;
+            if (!tabItemTarget.Equals(tabItemSource))
+            {
+              TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
+              String source = tabControlSource.Name;
+              TearableTabControl tabControlTarget = tabItemTarget.Parent as TearableTabControl;
+              String target = tabControlTarget.Name;
+              if (tabControlSource.Equals(tabControlTarget))
+              {
+                int sourceIndex = tabControlTarget.Items.IndexOf(tabItemSource);
+                int targetIndex = tabControlTarget.Items.IndexOf(tabItemTarget);
+
+                tabControlTarget.Items.Remove(tabItemSource);
+                tabControlTarget.Items.Insert(targetIndex, tabItemSource);
+
+                //tabControlTarget.Items.Remove(tabItemTarget);
+                //tabControlTarget.Items.Insert(sourceIndex, tabItemTarget);
+              }
+              else
+              {
+                int targetIndex = Math.Min(tabControlTarget.Items.Count, tabControlTarget.Items.IndexOf(tabItemTarget));
+                int one = tabControlTarget.Items.IndexOf(tabItemTarget);
+
+                tabControlSource.Items.Remove(tabItemSource);
+                tabControlTarget.Items.Insert(targetIndex, tabItemSource);
+              }
+              tabItemSource.IsSelected = true;
+            }
+            e.Handled = true;
+          }
         }
       }
       catch (Exception ex)

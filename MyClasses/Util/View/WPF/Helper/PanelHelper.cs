@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMD.Util.View.WPF.Spinners;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,27 @@ namespace AMD.Util.View.WPF.Helper
 			Grid.SetRowSpan(e, rowSpan);
 			Grid.SetColumnSpan(e, colSpan);
 			g.Children.Add(e);
+    }
+
+    public static void Loading(Panel contentControl, bool loading, Control loadingControl = null)
+    {
+      if (loading)
+      {
+        Control lc = null;
+        double width = contentControl.ActualWidth;
+        double height = contentControl.ActualHeight;
+        lc = loadingControl ?? new DuckSpinner();
+        lc.MaxWidth = Math.Min(600, 0 == width ? 600 : width);
+        lc.MaxHeight = Math.Min(600, 0 == height ? 600 : height);
+        contentControl.Children.Add(new Canvas() { Background = Brushes.Black, Opacity = 0.4 });
+        contentControl.Children.Add(lc);
+        contentControl.Visibility = Visibility.Visible;
+      }
+      else
+      {
+        contentControl.Visibility = Visibility.Hidden;
+        contentControl.Children.Clear();
+      }
     }
   }
 }

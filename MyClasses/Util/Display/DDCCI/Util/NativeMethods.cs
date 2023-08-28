@@ -13,7 +13,7 @@ namespace AMD.Util.Display.DDCCI.Util
     public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumDelegate lpfnEnum, IntPtr dwData);
 
     [DllImport("user32.dll", EntryPoint = "EnumDisplayMonitors", SetLastError = true)]
-    public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, [In, Out]NativeStructures.DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+    public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, /*[In, Out]*/ ref NativeStructures.DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
 
     //[DllImport("user32.dll")]
     //public static extern bool GetMonitorInfo(IntPtr hmon, [In, Out]NativeStructures.MonitorInfoEx mi);
@@ -120,6 +120,23 @@ namespace AMD.Util.Display.DDCCI.Util
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern int SendMessage(HandleRef hWnd, int wMsg, HandleRef wParam, HandleRef lParam);
+
+    #region Used for getting EDID from monitor
+    [DllImport("advapi32.dll", SetLastError = true)]
+    public static extern uint RegEnumValue(UIntPtr hKey, uint dwIndex, StringBuilder lpValueName, ref uint lpcValueName, IntPtr lpReserved, IntPtr lpType, IntPtr lpData, ref int lpcbData);
+
+    [DllImport("advapi32.dll", SetLastError = true)]
+    public static extern int RegCloseKey(UIntPtr hKey);
+
+    [DllImport("setupapi.dll")]
+    public static extern IntPtr SetupDiGetClassDevsEx(IntPtr ClassGuid, [MarshalAs(UnmanagedType.LPStr)] string enumerator, IntPtr hwndParent, Int32 Flags, IntPtr DeviceInfoSet, [MarshalAs(UnmanagedType.LPStr)] String MachineName, IntPtr Reserved);
+
+    [DllImport("setupapi.dll", SetLastError = true)]
+    public static extern Int32 SetupDiEnumDeviceInfo(IntPtr DeviceInfoSet, Int32 MemberIndex, ref NativeStructures.SP_DEVINFO_DATA DeviceInterfaceData);
+
+    [DllImport("Setupapi", CharSet = CharSet.Auto, SetLastError = true)]
+    public static extern UIntPtr SetupDiOpenDevRegKey(IntPtr hDeviceInfoSet, ref NativeStructures.SP_DEVINFO_DATA deviceInfoData, int scope, int hwProfile, int parameterRegistryValueKind, int samDesired);
+    #endregion // Used for getting EDID from monitor
   }
 
   public class NativeConstants
@@ -236,6 +253,15 @@ namespace AMD.Util.Display.DDCCI.Util
       public string DeviceID;
       [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
       public string DeviceKey;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SP_DEVINFO_DATA
+    {
+      public int cbSize;
+      public Guid ClassGuid;
+      public uint DevInst;
+      public IntPtr Reserved;
     }
 
     [Flags()]

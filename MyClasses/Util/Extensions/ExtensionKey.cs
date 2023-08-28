@@ -9,17 +9,17 @@ namespace AMD.Util.Extensions
 {
   public static class ExtensionKey
   {
-    public static Key FromFormsKeys(this Key key, System.Windows.Forms.Keys inputKey)
+    public static System.Windows.Forms.Keys ToFormsKeys(this Key key)
     {
       // Put special case logic here if there's a key you need but doesn't map...  
       try
       {
-        return (Key)Enum.Parse(typeof(Key), inputKey.ToString());
+        return (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), key.ToString());
       }
       catch
       {
         // There wasn't a direct mapping...    
-        return Key.None;
+        return System.Windows.Forms.Keys.None;
       }
     }
 

@@ -12,6 +12,7 @@ namespace AMD.Util.Display.Edid
     internal readonly EDID EDID;
     internal readonly int Offset;
     internal readonly BitAwareReader Reader;
+    public string HeaderName { get; internal set; }
 
     internal EDIDDescriptor(EDID edid, BitAwareReader reader, int offset)
     {

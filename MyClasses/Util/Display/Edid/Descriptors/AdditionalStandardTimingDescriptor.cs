@@ -3,6 +3,7 @@ using AMD.Util.Display.Edid.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AMD.Util.Display.Edid.Descriptors
 {
@@ -17,6 +18,7 @@ namespace AMD.Util.Display.Edid.Descriptors
         : base(edid, reader, offset)
     {
       IsValid = Reader.ReadBytes(Offset, 5).SequenceEqual(FixedHeader);
+      HeaderName = "Additional Standard Timings";
     }
 
     /// <summary>
@@ -56,8 +58,15 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      return $"AdditionalStandardTimingDescriptor(StandardTiming[{Timings.Count()}])";
+      }
+      StringBuilder sb = new StringBuilder(HeaderName);
+      foreach (ITiming timing in Timings)
+      {
+        sb.AppendLine($"{new string(' ', 20)}{timing}");
+      }
+      return sb.ToString();
     }
   }
 }

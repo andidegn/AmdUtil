@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace AMD.Util.Extensions
 {
-
   public static class ExtensionUShort
   {
     public static byte[] GetBytes(this ushort[] data, Endian endian = Endian.Big)

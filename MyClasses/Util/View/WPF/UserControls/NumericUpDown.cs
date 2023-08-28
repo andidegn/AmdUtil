@@ -538,6 +538,18 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
 
+    private void TextBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+      if (0 < e.Delta)
+      {
+        IncreaseValue(false);
+      }
+      else
+      {
+        DecreaseValue(false);
+      }
+    }
+
     private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
     {
       InvalidateProperty(ValueProperty);
@@ -571,6 +583,7 @@ namespace AMD.Util.View.WPF.UserControls
         TextBox = textBox;
         TextBox.LostFocus += TextBoxOnLostFocus;
         TextBox.PreviewMouseLeftButtonUp += TextBoxOnPreviewMouseLeftButtonUp;
+        TextBox.PreviewMouseWheel += TextBox_PreviewMouseWheel;
 
         TextBox.UndoLimit = 1;
         TextBox.IsUndoEnabled = true;
@@ -618,8 +631,6 @@ namespace AMD.Util.View.WPF.UserControls
       TextBox.InputBindings.Add(new KeyBinding(_majorDecreaseValueCommand, new KeyGesture(Key.PageDown)));
       TextBox.InputBindings.Add(new KeyBinding(_updateValueStringCommand, new KeyGesture(Key.Enter)));
       TextBox.InputBindings.Add(new KeyBinding(_cancelChangesCommand, new KeyGesture(Key.Escape)));
-      TextBox.InputBindings.Add(new MouseBinding(_majorIncreaseValueCommand, new MouseGesture(MouseAction.WheelClick)));
-      TextBox.InputBindings.Add(new MouseBinding(_majorDecreaseValueCommand, new MouseGesture(MouseAction.WheelClick)));
     }
     #endregion
 
@@ -689,7 +700,7 @@ namespace AMD.Util.View.WPF.UserControls
       Focusable = false;
     }
 
-    private void IncreaseValue(Boolean minor)
+    private void IncreaseValue(bool minor)
     {
       // Get the value that's currently in the _textBox.Text
       decimal value = ParseStringToDecimal(TextBox.Text);
@@ -727,7 +738,7 @@ namespace AMD.Util.View.WPF.UserControls
       Value = value;
     }
 
-    private void DecreaseValue(Boolean minor)
+    private void DecreaseValue(bool minor)
     {
       // Get the value that's currently in the _textBox.Text
       decimal value = ParseStringToDecimal(TextBox.Text);

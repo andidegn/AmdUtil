@@ -1,5 +1,6 @@
 using AMD.Util.Display.Edid.Exceptions;
 using System.Linq;
+using System.Text;
 
 namespace AMD.Util.Display.Edid.Descriptors
 {
@@ -12,9 +13,12 @@ namespace AMD.Util.Display.Edid.Descriptors
 
     private readonly int _internalOffset = 5;
 
+    private bool isFirst = true;
+
     internal AdditionalWhitePointDescriptor(EDID edid, BitAwareReader reader, int offset)
         : this(edid, reader, offset, 0)
     {
+      HeaderName = "Color Point";
     }
 
     internal AdditionalWhitePointDescriptor(EDID edid, BitAwareReader reader, int offset, int internalOffset)
@@ -24,7 +28,10 @@ namespace AMD.Util.Display.Edid.Descriptors
       {
         IsValid = Reader.ReadBytes(Offset, 5).SequenceEqual(FixedHeader);
         if (IsValid)
-          NextDescriptor = new AdditionalWhitePointDescriptor(edid, reader, offset, internalOffset + 5);
+          NextDescriptor = new AdditionalWhitePointDescriptor(edid, reader, offset, internalOffset + 5)
+          {
+            isFirst = false
+          };
       }
       else
       {
@@ -120,11 +127,22 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      var str = $"AdditionalWhitePointDescriptor( [{Index}] ({WhitePointX}, {WhitePointY}) {Gamma} )";
-      if (NextDescriptor != null)
-        str += ", " + NextDescriptor;
-      return str;
+      }
+      StringBuilder sb = new StringBuilder();
+
+      sb.AppendLine($"{new string(' ', EDID.firstLevelIndent)}{(isFirst ? "First" : "Second")} Additional Color Point");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"White point Index".PadRight(EDID.secondLevelDescriptionWidth)} : {Index}");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"White Chromaticity".PadRight(EDID.secondLevelDescriptionWidth)} : Wx: {WhitePointX:0.000} - Wy: {WhitePointY:0.000}");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Gamma".PadRight(EDID.secondLevelDescriptionWidth)} : {Gamma:0.000}");
+
+      if (null != NextDescriptor)
+      {
+        sb.AppendLine(NextDescriptor.ToString());
+      }
+
+      return sb.ToString();
     }
   }
 }

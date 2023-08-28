@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace AMD.Util.Display.Edid
 {
@@ -158,8 +159,13 @@ namespace AMD.Util.Display.Edid
     /// <inheritdoc />
     public override string ToString()
     {
-      return
-          $"RGBW([{RedX:0.000}, {RedY:0.000}] [{GreenX:0.000}, {GreenY:0.000}] [{BlueX:0.000}, {BlueY:0.000}] [{WhiteX:0.000}, {WhiteY:0.000}])";
+      StringBuilder sb = new StringBuilder();
+      sb.AppendLine($"Red Chromaticity             : Rx: {RedX:0.000} - Ry: {RedY:0.000}");
+      sb.AppendLine($"Green Chromaticity           : Gx: {GreenX:0.000} - Gy: {GreenY:0.000}");
+      sb.AppendLine($"Blue Chromaticity            : Bx: {BlueX:0.000} - By: {BlueY:0.000}");
+      sb.AppendLine($"Default White Point          : Wx: {WhiteX:0.000} - Wy: {WhiteY:0.000}");
+      return sb.ToString();
+      //return $"RGBW([{RedX:0.000}, {RedY:0.000}] [{GreenX:0.000}, {GreenY:0.000}] [{BlueX:0.000}, {BlueY:0.000}] [{WhiteX:0.000}, {WhiteY:0.000}])";
     }
   }
 }

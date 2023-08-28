@@ -28,6 +28,32 @@ namespace AMD.Util.Display
       // http://pinvoke.net/default.aspx/gdi32/GetDeviceCaps.html
     }
 
+    public static System.Drawing.Size GetAspectRatio(System.Drawing.Size resolution)
+    {
+      System.Drawing.Size retVal = new System.Drawing.Size
+      {
+        Width = resolution.Width / GCD(resolution),
+        Height = resolution.Height / GCD(resolution)
+      };
+
+      return retVal;
+    }
+
+    public static int GCD(System.Drawing.Size ab)
+    {
+      int Remainder;
+
+      while (ab.Width != 0)
+      {
+        Remainder = ab.Height % ab.Width;
+        ab.Height = ab.Width;
+        ab.Width = Remainder;
+      }
+
+      return ab.Height;
+    }
+
+
     public static string GetDeviceFriendlyNameFromDeviceName(string deviceName)
     {
       string friendlyName = string.Empty;
@@ -80,6 +106,7 @@ namespace AMD.Util.Display
       }
       return retVal;
     }
+
     public static Screen GetContainedScreen(Rectangle rectangle)
     {
       return GetContainedScreen(rectangle.Left, rectangle.Top);

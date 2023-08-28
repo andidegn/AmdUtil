@@ -18,13 +18,21 @@ namespace AMD.Util.Display.Edid.Descriptors
     {
       IsValid = true;
       if (Reader.ReadBytes(Offset, 5).SequenceEqual(MonitorNameHeader))
+      {
         Type = StringDescriptorType.MonitorName;
+      }
       else if (Reader.ReadBytes(Offset, 5).SequenceEqual(MonitorSerialHeader))
+      {
         Type = StringDescriptorType.MonitorSerialNumber;
+      }
       else if (Reader.ReadBytes(Offset, 5).SequenceEqual(UnspecifiedStringHeader))
+      {
         Type = StringDescriptorType.UnspecifiedText;
+      }
       else
+      {
         IsValid = false;
+      }
     }
 
     /// <summary>
@@ -58,8 +66,11 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      return $"StringDescriptor({Type}: {Value})";
+      }
+
+      return $"{new string(' ', EDID.secondLevelIndent)}{Type.ToString().PadRight(EDID.secondLevelDescriptionWidth)} : {Value}\n";
     }
   }
 }

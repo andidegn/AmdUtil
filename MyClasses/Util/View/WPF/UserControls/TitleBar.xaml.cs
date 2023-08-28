@@ -150,6 +150,7 @@ namespace AMD.Util.View.WPF.UserControls
     private double mousePositionYStart;
     private ResizeMode defaultResizeMode;
     private bool moving;
+    private System.Windows.Forms.Screen currentScreen;
     #endregion // Private Variables
 
     public TitleBar()
@@ -348,6 +349,16 @@ namespace AMD.Util.View.WPF.UserControls
       {
         moving = true;
       }
+
+      if (null != parentWindow)
+      {
+        System.Windows.Forms.Screen screen = ScreenUtil.GetContainedScreen(parentWindow.Left, parentWindow.Top);
+        if (false == screen?.Equals(currentScreen))
+        {
+          currentScreen = screen;
+          parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
+        }
+      }
     }
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
@@ -356,8 +367,10 @@ namespace AMD.Util.View.WPF.UserControls
         if (parentWindow is null)
         {
           parentWindow = Window.GetWindow(this);
-          parentWindow.LocationChanged += ParentWindow_LocationChanged;
         }
+        parentWindow.LocationChanged += ParentWindow_LocationChanged;
+        currentScreen = ScreenUtil.GetContainedScreen(parentWindow.Left, parentWindow.Top);
+        parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
       }
       catch { }
     }

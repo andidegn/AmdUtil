@@ -17,6 +17,7 @@ namespace AMD.Util.Collections.ArrayStack.Tests
     public void QueueArrayTest1()
     {
       q = new ArrayQueue<int>(100);
+      Assert.True(null != q);
     }
 
     [Fact()]
@@ -77,13 +78,13 @@ namespace AMD.Util.Collections.ArrayStack.Tests
     public void IsEmptyTest()
     {
       q = new ArrayQueue<int>(10);
-      Assert.Equal(true, q.IsEmpty);
+      Assert.True(q.IsEmpty);
       for (int i = 0; i < 10; i++)
         q.Enqueue(i);
-      Assert.Equal(false, q.IsEmpty);
+      Assert.False(q.IsEmpty);
       for (int i = 0; i < 10; i++)
         q.Dequeue();
-      Assert.Equal(true, q.IsEmpty);
+      Assert.True(q.IsEmpty);
     }
 
     [Fact()]

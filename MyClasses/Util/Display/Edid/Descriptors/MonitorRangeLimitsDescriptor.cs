@@ -1,5 +1,7 @@
 ﻿using AMD.Util.Display.Edid.Exceptions;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace AMD.Util.Display.Edid.Descriptors
 {
@@ -13,6 +15,10 @@ namespace AMD.Util.Display.Edid.Descriptors
     internal MonitorRangeLimitsDescriptor(EDID edid, BitAwareReader reader, int offset) : base(edid, reader, offset)
     {
       IsValid = Reader.ReadBytes(Offset, 5).SequenceEqual(FixedHeader);
+      if (IsValid)
+      {
+        HeaderName = "Monitor Range Limits";
+      }
     }
 
     /// <summary>
@@ -24,9 +30,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!IsSecondaryGTFSupported)
-          throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(GTFC)}: Secondary GTF is not supported.");
+          //throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        }
         return Reader.ReadByte(Offset + 13) / 2d;
       }
     }
@@ -40,9 +51,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!IsSecondaryGTFSupported)
-          throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(GTFJ)}: Secondary GTF is not supported.");
+          //throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        }
         return Reader.ReadByte(Offset + 17) / 2d;
       }
     }
@@ -56,9 +72,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!IsSecondaryGTFSupported)
-          throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(GTFK)}: Secondary GTF is not supported.");
+          //throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        }
         return Reader.ReadByte(Offset + 16);
       }
     }
@@ -72,9 +93,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!IsSecondaryGTFSupported)
-          throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(GTFM)}: Secondary GTF is not supported.");
+          //throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        }
         return (ushort)Reader.ReadInt(Offset + 14, 0, 2 * 8);
       }
     }
@@ -87,7 +113,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 10) == 0x02;
       }
     }
@@ -100,7 +128,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 8) * 1000u;
       }
     }
@@ -113,7 +143,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 9) * 10000000ul;
       }
     }
@@ -126,7 +158,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 6);
       }
     }
@@ -139,7 +173,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 7) * 1000u;
       }
     }
@@ -152,7 +188,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 5);
       }
     }
@@ -166,9 +204,14 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         if (!IsSecondaryGTFSupported)
-          throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        {
+          EDID.ParsingErrors.Add($"{HeaderName}.{nameof(SecondaryCurveStartFrequency)}: Secondary GTF is not supported.");
+          //throw new ExtendedTimingNotAvailable("Secondary GTF is not supported.");
+        }
         return (uint)Reader.ReadByte(Offset + 12) * 2000;
       }
     }
@@ -185,9 +228,20 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      return
-          $"MonitorRangeLimitsDescriptor([{MinimumHorizontalFieldRate}, {MaximumHorizontalFieldRate}] [{MinimumVerticalFieldRate}, {MaximumVerticalFieldRate}]{(IsSecondaryGTFSupported ? " GTF" : "")})";
+      }
+      StringBuilder sb = new StringBuilder();
+
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Horizontal Scan Range".PadRight(EDID.secondLevelDescriptionWidth)} : {MinimumHorizontalFieldRate / 1000.0}KHz - {MaximumHorizontalFieldRate / 1000.0}KHz");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Vertical Scan Range".PadRight(EDID.secondLevelDescriptionWidth)} : {MinimumVerticalFieldRate}Hz - {MaximumVerticalFieldRate}Hz");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Max Pixel Clock".PadRight(EDID.secondLevelDescriptionWidth)} : {MaximumPixelClockRate / 1000000.0}MHz");
+      sb.AppendLine($"{new string(' ', EDID.secondLevelIndent)}{"Secondary GTF".PadRight(EDID.secondLevelDescriptionWidth)} : {(IsSecondaryGTFSupported ? "Supported" : "Not Supported")}");
+      if (IsSecondaryGTFSupported)
+      {
+        sb.AppendLine("<ERROR> Secondary GTF values are not supported yet <ERROR>");
+      }
+      return sb.ToString();
     }
   }
 }

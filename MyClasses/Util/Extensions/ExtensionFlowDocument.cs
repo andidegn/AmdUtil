@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Xml;
 
 namespace AMD.Util.Extensions
 {
@@ -16,9 +19,17 @@ namespace AMD.Util.Extensions
       return new TextRange(doc.ContentStart, doc.ContentEnd).Text;
     }
 
+    public static FlowDocument Clone(this FlowDocument doc)
+    {
+      string str = XamlWriter.Save(doc);
+      StringReader sr = new StringReader(str);
+      XmlReader xml = XmlReader.Create(sr);
+      return XamlReader.Load(xml) as FlowDocument;
+    }
+
     public static FormattedText GetFormattedText(this FlowDocument doc)
     {
-      if (doc == null)
+      if (doc is null)
       {
         throw new ArgumentNullException("doc");
       }
@@ -35,9 +46,7 @@ namespace AMD.Util.Extensions
 
       foreach (TextElement el in GetRunsAndParagraphs(doc))
       {
-        Run run = el as Run;
-
-        if (run != null)
+        if (el is Run run && run != null)
         {
           int count = run.Text.Length;
 

@@ -101,7 +101,109 @@ namespace AMD.Util.Data
       }
       return sb.ToString();
     }
-    
+    /// <summary>
+    /// Gets a formatted memory string from a word array
+    /// </summary>
+    /// <param name="startAddr"></param>
+    /// <param name="data"></param>
+    /// <param name="endian"></param>
+    /// <returns></returns>
+    public static string GetFormattedMemoryString8Align(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
+    {
+      StringBuilder sb = new StringBuilder();
+      byte[] ascii = new byte[8];
+      int lineIndex = 0;
+      int wordIndex = 0;
+      UInt32 addr = startAddr;
+
+      if (Endian.Big == endian)
+      {
+        sb.AppendLine("_Address_|__0__1__2__3__4__5__6__7_01234567");
+      }
+      else
+      {
+        sb.AppendLine("_Address_|__3__2__1__0__7__6__5__4_01234567");
+      }
+
+      if (data != null)
+      {
+        AlignAddressAndData(ref data, ref addr);
+
+        for (int i = 0; i < data.Length; i++)
+        {
+          UInt32? value = data[i];
+
+          /* If first word (which is the address, print separator */
+          if (wordIndex == 0)
+          {
+            sb.Append(addr.ToString("X8"));
+            sb.Append(" |");
+          }
+
+          sb.Append(" ");
+
+          /* Print value or ? if null */
+          if (value != null)
+          {
+            for (int j = 0; j < 4; j++)
+            {
+              byte b = (byte)(value >> ((3 - j) * 8));
+              sb.Append(b.ToString("X2"));
+              if (3 > j)
+              {
+                sb.Append(" ");
+              }
+            }
+          }
+          else
+          {
+            if ((addr + 4 * wordIndex) >= startAddr)
+            {
+              sb.Append("?? ?? ?? ??");
+            }
+            else
+            {
+              sb.Append("           ");
+            }
+          }
+
+          /* If last word but not mod 4, print padding until mod 4 */
+          if (i == data.Length - 1 && (wordIndex + 1) % 2 != 0)
+          {
+            do
+            {
+              sb.Append("            ");
+            } while ((++wordIndex + 1) % 2 != 0);
+          }
+
+          for (int k = 0; k < 4; k++)
+          {
+            int bitShift = Endian.Big == endian ? 8 * (3 - k) : 8 * k;
+            ascii[lineIndex] = (byte)(value != null ? ((value >> bitShift) & 0xFF) : 0);
+            lineIndex = (lineIndex + 1) % 8;
+          }
+
+          if (++wordIndex % 2 == 0)
+          {
+            sb.Append(" ");
+            foreach (byte b in ascii)
+            {
+              sb.Append(b <= 126 && b >= 33 ? (char)b : '.');
+            }
+            wordIndex = 0;
+            sb.AppendLine();
+            addr += 0x10;
+
+          }
+        }
+      }
+      else
+      {
+        sb.Append("   No data...");
+      }
+      return sb.ToString();
+    }
+
     public static string GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();

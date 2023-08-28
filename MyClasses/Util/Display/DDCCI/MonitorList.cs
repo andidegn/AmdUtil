@@ -23,7 +23,7 @@ namespace AMD.Util.Display
     }
     #endregion // Progress
 
-    public static bool SkipCapabilityCheck { get; set; }
+    public static bool SkipCapabilityCheck { get; set; } = false;
     public static bool RunAsync { get; set; } = true;
     public ObservableCollection<Monitor> List { get; set; }
     private List<Monitor> tempList;

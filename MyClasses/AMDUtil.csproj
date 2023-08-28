@@ -102,6 +102,7 @@
     <Compile Include="Util\Compression\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
     <Compile Include="Util\Compression\7zip\ICoder.cs" />
     <Compile Include="Util\Compression\Compress.cs" />
+    <Compile Include="Util\Console\ConsoleHelper.cs" />
     <Compile Include="Util\DataType\Bit.cs" />
     <Compile Include="Util\DataType\C_Array.cs" />
     <Compile Include="Util\DataType\C_Enum.cs" />
@@ -167,10 +168,13 @@
     <Compile Include="Util\Extensions\ExtensionBigInteger.cs" />
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
     <Compile Include="Util\Extensions\ExtensionChar.cs" />
+    <Compile Include="Util\Extensions\ExtensionDateTime.cs" />
     <Compile Include="Util\Extensions\ExtensionDependencyObject.cs" />
+    <Compile Include="Util\Extensions\ExtensionDouble.cs" />
     <Compile Include="Util\Extensions\ExtensionFlowDocument.cs" />
     <Compile Include="Util\Extensions\ExtensionIEnumerable.cs" />
     <Compile Include="Util\Extensions\ExtensionKey.cs" />
+    <Compile Include="Util\Extensions\ExtensionObject.cs" />
     <Compile Include="Util\Extensions\ExtensionObservableCollection.cs" />
     <Compile Include="Util\Extensions\ExtensionUShort.cs" />
     <Compile Include="Util\Extensions\WinForms\ExtensionScreen.cs" />
@@ -191,6 +195,9 @@
     </Compile>
     <Compile Include="Util\View\WPF\UserControls\CompareView.xaml.cs">
       <DependentUpon>CompareView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\CompareWindow.xaml.cs">
+      <DependentUpon>CompareWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\View\WPF\UserControls\HueSlider.cs" />
     <Compile Include="Util\View\WPF\UserControls\MultiTouchSlider.cs" />
@@ -246,7 +253,7 @@
     <Compile Include="Util\Extensions\ExtensionString.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionUIElement.cs" />
     <Compile Include="Util\Files\FileHelper.cs" />
-    <Compile Include="Util\GraphicsCard\EDID.cs" />
+    <Compile Include="Util\GraphicsCard\EdidHelper.cs" />
     <Compile Include="Util\GraphicsCard\GraphicsName.cs" />
     <Compile Include="Util\HID\Modifier.cs" />
     <Compile Include="Util\Log\Log.cs" />
@@ -351,6 +358,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Util\View\WPF\UserControls\CompareMapSliderVertical.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\AMDTearableTabRD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -436,6 +447,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Util\View\WPF\UserControls\CompareView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\CompareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

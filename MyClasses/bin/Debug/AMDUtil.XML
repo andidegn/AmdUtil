@@ -855,7 +855,12 @@
             <param name="sender">The object who called the Handler</param>
             <param name="args">The arguments</param>
         </member>
-        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.SolidColorBrush,System.Windows.Media.SolidColorBrush,System.Windows.Media.SolidColorBrush,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
+        <member name="P:AMD.Util.Data.DataCompare.LineIndexBeforeLineMatch">
+            <summary>
+            The index of the line character before trying to match with another line for equality (default = 4)
+            </summary>
+        </member>
+        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
             <summary>
             Compares two strings and returns left and right documents, which can be loaded into RichTextBox
             </summary>
@@ -991,6 +996,15 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString8Align(System.UInt32,System.Nullable{System.UInt32}[],AMD.Util.Extensions.Endian)">
+            <summary>
+            Gets a formatted memory string from a word array
+            </summary>
+            <param name="startAddr"></param>
+            <param name="data"></param>
+            <param name="endian"></param>
+            <returns></returns>
+        </member>
         <member name="M:AMD.Util.Data.StringFormatHelper.GetStringFromRtf(System.String)">
             <summary>
             Strip RTF Tags from RTF Text
@@ -1090,6 +1104,13 @@
             Returns the VCP name as stated in the VESA MCCS Standard Version 2.2a
             </summary>
             <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.GetFormattedCapabilityString(System.String)">
+            <summary>
+            Formats a capability string to an indented multiline format
+            </summary>
+            <param name="capabilityString"></param>
             <returns></returns>
         </member>
         <member name="M:AMD.Util.Display.DDCCI.Util.DDCHelper.PopulateVcpCodes(System.String,AMD.Util.Display.DDCCI.Util.VCPCodeList)">
@@ -2113,19 +2134,14 @@
                 Stereo lines fields are sequential and sync during right eye signal
             </summary>
         </member>
-        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.SimilarSyncDuringLeft">
+        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.FieldSequentialSyncDuringLeft">
             <summary>
-                Stereo lines are similar and sync during left eye signal
+                Stereo lines fields are sequential and sync during left eye signal
             </summary>
         </member>
         <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo4WayInterleaved">
             <summary>
                 4-Way interleaved stereo
-            </summary>
-        </member>
-        <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.Stereo2WayInterleaved">
-            <summary>
-                2-Way interleaved stereo
             </summary>
         </member>
         <member name="F:AMD.Util.Display.Edid.Enums.StereoMode.RightImageOnEvenLines">
@@ -2696,6 +2712,19 @@
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.UserControls.CompareView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.CompareWindow">
+            <summary>
+            Interaction logic for CompareWindow.xaml
+            </summary>
+            <summary>
+            CompareWindow
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.CompareWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -3315,22 +3344,22 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.AttachedToDesktop">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.AttachedToDesktop">
             <summary>The device is part of the desktop.</summary>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.PrimaryDevice">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.PrimaryDevice">
             <summary>The device is part of the desktop.</summary>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.MirroringDriver">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.MirroringDriver">
             <summary>Represents a pseudo device used to mirror application drawing for remoting or other purposes.</summary>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.VGACompatible">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.VGACompatible">
             <summary>The device is VGA compatible.</summary>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.Removable">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.Removable">
             <summary>The device is removable; it cannot be the primary display.</summary>
         </member>
-        <member name="F:AMD.Util.GraphicsCard.EDID.DisplayDeviceStateFlags.ModesPruned">
+        <member name="F:AMD.Util.GraphicsCard.EdidHelper.DisplayDeviceStateFlags.ModesPruned">
             <summary>The device has more display modes than its output devices support.</summary>
         </member>
         <member name="M:AMD.Util.GraphicsCard.GraphicsName.GetGCName">
@@ -3395,9 +3424,11 @@
             <summary>
             Constructor taking a formatted string and a number of parameters to generate a log entry
             </summary>
+            <param name="index"></param>
             <param name="msgType"></param>
             <param name="format"></param>
             <param name="source"></param>
+            <param name="stackTrace"></param>
             <param name="args"></param>
         </member>
         <member name="T:AMD.Util.Log.LogEventArgs">
@@ -3534,7 +3565,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.WriteToLog(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3542,7 +3573,7 @@
             </summary>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.WriteToLog(System.Exception)">
             <summary>
@@ -3556,7 +3587,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(System.String,AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3565,7 +3596,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(AMD.Util.Log.LogMsgType,System.String,System.Object[])">
             <summary>
@@ -3573,7 +3604,7 @@
             </summary>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Print(System.Exception)">
             <summary>
@@ -3587,7 +3618,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.String,System.Object[])">
             <summary>
@@ -3595,14 +3626,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintWarning(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.String,System.Object[])">
             <summary>
@@ -3610,14 +3641,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintError(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintException(System.Exception)">
             <summary>
@@ -3631,7 +3662,7 @@
             </summary>
             <param name="ex">The exception</param>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.String,System.Object[])">
             <summary>
@@ -3639,14 +3670,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintNotification(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.String,System.Object[])">
             <summary>
@@ -3654,14 +3685,14 @@
             </summary>
             <param name="format">The message to write to the log</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.PrintDebug(System.String,System.Object[])">
             <summary>
             Writes the formatted string with arguments to the log
             </summary>
             <param name="format">The message to write to the log</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Assert(System.Boolean,System.String,System.Object[])">
             <summary>
@@ -3687,7 +3718,7 @@
             <param name="format">The message to write to the log</param>
             <param name="msgType">The type of message being logged (debug, error, etc.)</param>
             <param name="source">The source of the message</param>
-            <param name="args">The arguments corresponding to the formatted String</param>
+            <param name="args">The arguments corresponding to the formatted string</param>
         </member>
         <member name="M:AMD.Util.Log.LogWriter.Flush">
             <summary>

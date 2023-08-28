@@ -92,7 +92,7 @@ namespace AMD.Util.View.WPF.UserControls
       {
         TearableTabControl tabControlTarget = this;
 
-        if (tabControlTarget != null)
+        if (tabItemSource != null)
         {
           TearableTabControl tabControlSource = tabItemSource.Parent as TearableTabControl;
           if (tabControlTarget != tabControlSource && !tabControlTarget.IsChildOf(tabItemSource))

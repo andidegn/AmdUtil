@@ -1,11 +1,14 @@
-﻿using AMD.Util.Extensions;
+﻿using AMD.Util.Data;
+using AMD.Util.Extensions;
 using AMD.Util.Log;
 using System;
 using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using static AMD.Util.Data.DataCompare;
 
 namespace AMD.Util.View.WPF.ValueConverters
 {
@@ -180,7 +183,14 @@ namespace AMD.Util.View.WPF.ValueConverters
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return null;
+      bool retVal = false;
+
+      if (value is Visibility vis)
+      {
+        retVal = Visibility.Visible == vis;
+      }
+
+      return retVal;
     }
   }
 
@@ -281,6 +291,63 @@ namespace AMD.Util.View.WPF.ValueConverters
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
       return value is bool ? !(bool)value : false;
+    }
+  }
+
+  public class ValueZeroToVisibility : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value.IsNumber() ? 0 == (double)value ? Visibility.Collapsed : Visibility.Visible : Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value is bool ? !(bool)value : false;
+    }
+  }
+
+  public class LeftRightTextToFormattedString : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      string retVal = "Error";
+
+      if (value is OverviewLine ol)
+      {
+        retVal = $"{ol.LeftLine} - {ol.RightLine}";
+      }
+
+      return retVal;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class LineCountToLineNumberStringConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      StringBuilder sb = new StringBuilder();
+
+      if (value is int lineCount)
+      {
+        int charCnt = lineCount.ToString().Length;
+        for (int i = 1; i <= lineCount; i++)
+        {
+          sb.AppendLine(i.ToString().PadLeft(charCnt));
+        }
+      }
+
+      return sb.ToString();
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
     }
   }
 }

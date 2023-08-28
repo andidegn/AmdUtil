@@ -5,12 +5,13 @@ using System.Text;
 
 namespace AMD.Util.GraphicsCard
 {
-	using System;
+  using AMD.Util.Display.Edid;
+  using System;
 	using System.Collections.Generic;
 	using System.Runtime.InteropServices;
 	using System.Text;
 
-	static class EDID
+	public static class EdidHelper
 	{
 		#region Windows API stuff
 		static Guid GUID_CLASS_MONITOR = new Guid(0x4d36e96e, 0xe325, 0x11ce, 0xbf, 0xc1, 0x08, 0x00, 0x2b, 0xe1, 0x03, 0x18);
@@ -101,56 +102,61 @@ namespace AMD.Util.GraphicsCard
 			UIntPtr hKey);
 		#endregion
 
-		public static List<ScreenInformation> GetEDID()
+		private static List<EDID> edidList;
+
+		public static List<EDID> GetEDID(bool forceRecheck = false)
 		{
-			List<ScreenInformation> lsi = new List<ScreenInformation>();
-			IntPtr pGuid = Marshal.AllocHGlobal(Marshal.SizeOf(GUID_CLASS_MONITOR));
-			Marshal.StructureToPtr(GUID_CLASS_MONITOR, pGuid, false);
-			IntPtr hDevInfo = SetupDiGetClassDevsEx(
-				pGuid,
-				null,
-				IntPtr.Zero,
-				DIGCF_PRESENT,
-				IntPtr.Zero,
-				null,
-				IntPtr.Zero);
-
-			DISPLAY_DEVICE dd = new DISPLAY_DEVICE();
-			dd.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
-			UInt32 dev = 0;
-
-			string DeviceID;
-			bool bFoundDevice = false;
-			while (EnumDisplayDevices(null, dev, ref dd, 0) && !bFoundDevice)
+			if (forceRecheck || null == edidList)
 			{
-				DISPLAY_DEVICE ddMon = new DISPLAY_DEVICE();
-				ddMon.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
-				UInt32 devMon = 0;
+				edidList = new List<EDID>();
+				IntPtr pGuid = Marshal.AllocHGlobal(Marshal.SizeOf(GUID_CLASS_MONITOR));
+				Marshal.StructureToPtr(GUID_CLASS_MONITOR, pGuid, false);
+				IntPtr hDevInfo = SetupDiGetClassDevsEx(
+					pGuid,
+					null,
+					IntPtr.Zero,
+					DIGCF_PRESENT,
+					IntPtr.Zero,
+					null,
+					IntPtr.Zero);
 
-				while (EnumDisplayDevices(dd.DeviceName, devMon, ref ddMon, 0) && !bFoundDevice)
-				{
-					if ((ddMon.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) != 0 && (ddMon.StateFlags & DisplayDeviceStateFlags.MirroringDriver) == 0)
-					{
-						bFoundDevice = GetActualEDID(out DeviceID, lsi);
-					}
-					devMon++;
-
-					ddMon = new DISPLAY_DEVICE();
-					ddMon.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
-				}
-
-				dd = new DISPLAY_DEVICE();
+				DISPLAY_DEVICE dd = new DISPLAY_DEVICE();
 				dd.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
-				dev++;
+				UInt32 dev = 0;
+
+				string DeviceID;
+				bool bFoundDevice = false;
+				while (EnumDisplayDevices(null, dev, ref dd, 0) && !bFoundDevice)
+				{
+					DISPLAY_DEVICE ddMon = new DISPLAY_DEVICE();
+					ddMon.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
+					UInt32 devMon = 0;
+
+					while (EnumDisplayDevices(dd.DeviceName, devMon, ref ddMon, 0) && !bFoundDevice)
+					{
+						if ((ddMon.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) != 0 && (ddMon.StateFlags & DisplayDeviceStateFlags.MirroringDriver) == 0)
+						{
+							bFoundDevice = GetActualEDID(out DeviceID, edidList);
+						}
+						devMon++;
+
+						ddMon = new DISPLAY_DEVICE();
+						ddMon.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
+					}
+
+					dd = new DISPLAY_DEVICE();
+					dd.cb = Marshal.SizeOf(typeof(DISPLAY_DEVICE));
+					dev++;
+				}
 			}
 
-			return lsi;
+			return edidList;
 		}
 
 		const int DICS_FLAG_GLOBAL = 0x00000001;
 		const int DIREG_DEV = 0x00000001;
 		const int KEY_READ = 0x20019;
-		private static bool GetActualEDID(out string DeviceID, List<ScreenInformation> lsi)
+		private static bool GetActualEDID(out string DeviceID, List<EDID> lsi)
 		{
 			IntPtr pGuid = Marshal.AllocHGlobal(Marshal.SizeOf(GUID_CLASS_MONITOR));
 			Marshal.StructureToPtr(GUID_CLASS_MONITOR, pGuid, false);
@@ -189,7 +195,7 @@ namespace AMD.Util.GraphicsCard
 					if (hDevRegKey == null)
 						continue;
 
-					ScreenInformation si = PullEDID(hDevRegKey);
+          EDID si = PullEDID(hDevRegKey);
 					if (si != null)
 					{
 						lsi.Add(si);
@@ -204,9 +210,10 @@ namespace AMD.Util.GraphicsCard
 		}
 
 		public const int ERROR_SUCCESS = 0;
-		private static ScreenInformation PullEDID(UIntPtr hDevRegKey)
+		private static EDID PullEDID(UIntPtr hDevRegKey)
 		{
-			ScreenInformation si = null;
+			//ScreenInformation si = null;
+			EDID edid = null;
 			StringBuilder valueName = new StringBuilder(128);
 			uint ActualValueNameLength = 128;
 
@@ -232,23 +239,31 @@ namespace AMD.Util.GraphicsCard
 				byte[] actualData = new byte[size];
 				Marshal.Copy(pEDIdata, actualData, 0, size);
 				string hex = System.Text.Encoding.ASCII.GetString(actualData);
-				si = new ScreenInformation
-				{
-					Manufacturer = hex.Substring(90, 17).Trim().Replace("\0", string.Empty).Replace("?", string.Empty),
-					Model = hex.Substring(108, 17).Trim().Replace("\0", string.Empty).Replace("?", string.Empty),
-					FullEDID = BitConverter.ToString(actualData)
-				};
+				edid = new EDID(actualData);
+				//si = new ScreenInformation
+				//{
+				//	Manufacturer = hex.Substring(90, 17).Trim().Replace("\0", string.Empty).Replace("?", string.Empty),
+				//	Model = hex.Substring(108, 17).Trim().Replace("\0", string.Empty).Replace("?", string.Empty),
+				//	RawEdid = actualData
+				//};
 			}
 
 			Marshal.FreeHGlobal(pEDIdata);
-			return si;
+			return edid;
 		}
 	}
 
-	public class ScreenInformation
-	{
-		public string Manufacturer { get; set; }
-		public string Model { get; set; }
-		public string FullEDID { get; set; }
-	}
+  public class ScreenInformation
+  {
+    public string Manufacturer { get; set; }
+    public string Model { get; set; }
+    public string FullEDID 
+		{ 
+			get
+			{
+				return null != RawEdid ? BitConverter.ToString(RawEdid) : string.Empty;
+      }
+		}
+    public byte[] RawEdid { get; set; }
+  }
 }

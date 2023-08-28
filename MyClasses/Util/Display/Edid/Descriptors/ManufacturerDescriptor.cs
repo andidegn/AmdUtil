@@ -1,4 +1,5 @@
 ﻿using AMD.Util.Display.Edid.Exceptions;
+using AMD.Util.Extensions;
 using System.Linq;
 
 namespace AMD.Util.Display.Edid.Descriptors
@@ -13,6 +14,7 @@ namespace AMD.Util.Display.Edid.Descriptors
       IsValid = Reader.ReadBytes(Offset, 3).Any(b => b == 0) &&
                 (Reader.ReadByte(Offset + 3) < 16) &&
                 (Reader.ReadByte(Offset + 4) == 0);
+      HeaderName = "Manufacturer Descriptor";
     }
 
     /// <summary>
@@ -23,7 +25,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadBytes(Offset + 5, 13);
       }
     }
@@ -36,7 +40,9 @@ namespace AMD.Util.Display.Edid.Descriptors
       get
       {
         if (!IsValid)
+        {
           throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
+        }
         return Reader.ReadByte(Offset + 3);
       }
     }
@@ -53,8 +59,10 @@ namespace AMD.Util.Display.Edid.Descriptors
     public override string ToString()
     {
       if (!IsValid)
+      {
         throw new InvalidDescriptorException("The provided data does not belong to this descriptor.");
-      return $"ManufacturerDescriptor({DescriptorCode:X2})";
+      }
+      return $"{new string(' ', EDID.secondLevelIndent)}Code: {DescriptorCode:X2}\nData: {Data.GetHexString()}\n";
     }
   }
 }

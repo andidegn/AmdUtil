@@ -1,5 +1,7 @@
 ﻿using AMD.Util.Colour;
 using AMD.Util.Data;
+using AMD.Util.Display;
+using AMD.Util.Display.Edid;
 using AMD.Util.HID;
 using AMD.Util.Log;
 using AMD.Util.Versioning;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -34,8 +37,65 @@ namespace WpfUITest
     {
       InitializeComponent();
       editRibbon.EditRichTextBox = rtb;
+      //InitialiseDDCMonitorTests();
+      InitialiseCompareWindow();
     }
-    String GetRandomLoremIpsum()
+
+    private bool filesSwapped;
+    private void InitialiseCompareWindow()
+    {
+
+      compareView.Compare(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), Brushes.Black, Brushes.Red, new SolidColorBrush(Color.FromArgb(0x20, 0xFF, 0, 0)), Brushes.Orange, 15);
+      CompareWindow cw = new CompareWindow(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), 15);
+      cw.MissingLine = Brushes.Orange;
+      Window w = new Window()
+      {
+        Content = new CompareView() { Background = Brushes.GhostWhite }
+      };
+
+      cw.KeyUp += (s, e) =>
+      {
+        if (Key.F5 == e.Key)
+        {
+          string filePath1 = @"c:\isic\comparetestleft.txt";
+          string filePath2 = @"c:\isic\comparetestright.txt";
+          if (Modifier.IsCtrlDown)
+          {
+            cw.Compare(File.ReadAllText(filePath2), File.ReadAllText(filePath1), 15, 5);
+          }
+          else
+          {
+            cw.Compare(File.ReadAllText(filePath1), File.ReadAllText(filePath2), 15, 5);
+            //cw.Compare(File.ReadAllText(filePath1), File.ReadAllText(filePath2), 915, 35);
+          }
+        }
+      };
+
+      w.KeyUp += (s, e) =>
+      {
+        if (Key.F5 == e.Key)
+          (w.Content as CompareView).Compare(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), Brushes.Black, Brushes.Red, new SolidColorBrush(Color.FromArgb(0x20, 0xFF, 0, 0)), Brushes.Orange, 7);
+      };
+      //w.Show();
+      cw.Show();
+    }
+
+    private void InitialiseDDCMonitorTests()
+    {
+      MonitorList.SkipCapabilityCheck = true;
+      MonitorList.RunAsync = false;
+      foreach (AMD.Util.Display.Monitor mon in MonitorList.Instance.List)
+      {
+        mon.CheckLowLevelCapabilities();
+        if (mon.SupportsLowLevelDDC)
+        {
+          tbCapabilityString.Text = $"{mon.CapabilityString}\n\n{mon.CapabilityStringFormatted}";
+          //break;
+        }
+      }
+    }
+
+    string GetRandomLoremIpsum()
     {
       return LoremIpsum(5, 10, 1, 2, 1);
     }
@@ -201,8 +261,18 @@ namespace WpfUITest
       log = LogWriter.Instance;
       log.WriteToLog(LogMsgType.Notification, st.GetFrame(1).GetMethod().Name, "This is a test: {0}", "Test1");
       dp.KeyUp += Window_KeyUp;
-      CreateNewTabWindow();
+      //CreateNewTabWindow();
       //ShowAboutModal();
+    }
+
+    private void PrintEdidToRtb()
+    {
+      byte[] edidRaw = File.ReadAllBytes(@"C:\Users\ade\Sync\ISIC\Projects\Edids\09297-013C edid_156 DP1.bin");
+
+      EDID edid = new EDID(edidRaw);
+
+      rtb.Document.Blocks.Clear();
+      rtb.AppendText(edid.ToString());
     }
 
     private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -214,6 +284,11 @@ namespace WpfUITest
           case Key.D:
             dp.Toggle();
             break;
+
+          case Key.E:
+            PrintEdidToRtb();
+            break;
+
           case Key.N:
             if (Modifier.IsShiftDown)
             {
@@ -230,7 +305,7 @@ namespace WpfUITest
       }
     }
 
-    #region About Modal
+#region About Modal
     /// <summary>
     /// Sets up and displays the About modal
     /// </summary>
@@ -280,7 +355,7 @@ namespace WpfUITest
 
       about.Show();
     }
-    #endregion // About Modal
+#endregion // About Modal
 
     private void btnTestException_Click(object sender, RoutedEventArgs e)
     {
@@ -316,6 +391,11 @@ namespace WpfUITest
     private void Window_Closing(object sender, CancelEventArgs e)
     {
       //Settings.Default.TabPositioning = tabSplitControl.GetSerializedStreamOfAllContent();
+    }
+
+    private void BtnCheckCapabilities_Click(object sender, RoutedEventArgs e)
+    {
+      InitialiseDDCMonitorTests();
     }
 
     private void btnClearAllTabs_Click(object sender, RoutedEventArgs e)

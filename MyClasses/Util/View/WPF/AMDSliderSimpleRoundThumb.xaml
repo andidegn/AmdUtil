@@ -28,7 +28,7 @@
         </Border>
         <Track x:Name="PART_Track" Grid.Column="1">
           <Track.DecreaseRepeatButton>
-            <RepeatButton Command="Slider.DecreaseLarge">
+            <RepeatButton Command="Slider.DecreaseLarge" Background="{TemplateBinding Background}">
               <RepeatButton.Style>
                 <Style TargetType="{x:Type RepeatButton}">
                   <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -40,7 +40,7 @@
                       <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Grid IsHitTestVisible="True" Width="11">
                           <Rectangle Fill="Transparent" IsHitTestVisible="True" Height="{TemplateBinding Height}" />
-                          <Rectangle Fill="{DynamicResource BrushSliderSimpleDecreseBackground}" Width="1" Margin="0, 0, 0, 0" Height="{TemplateBinding Height}"/>
+                          <Rectangle Fill="{TemplateBinding Background}" Width="1" Margin="0, 0, 0, 0" Height="{TemplateBinding Height}"/>
                         </Grid>
                       </ControlTemplate>
                     </Setter.Value>
@@ -50,7 +50,7 @@
             </RepeatButton>
           </Track.DecreaseRepeatButton>
           <Track.IncreaseRepeatButton>
-            <RepeatButton Command="Slider.IncreaseLarge">
+            <RepeatButton Command="Slider.IncreaseLarge" Background="Transparent">
               <RepeatButton.Style>
                 <Style TargetType="{x:Type RepeatButton}">
                   <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -72,7 +72,7 @@
             </RepeatButton>
           </Track.IncreaseRepeatButton>
           <Track.Thumb>
-            <Thumb x:Name="Thumb" Focusable="False" Height="11" OverridesDefaultStyle="True" VerticalAlignment="Top" Width="11">
+            <Thumb x:Name="Thumb" Focusable="False" Height="11" OverridesDefaultStyle="True" VerticalAlignment="Top" Width="11" Foreground="{TemplateBinding Foreground}" BorderBrush="{TemplateBinding BorderBrush}">
               <Thumb.Template>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                   <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
@@ -186,7 +186,7 @@
           <Track.Resources>
           </Track.Resources>
           <Track.DecreaseRepeatButton>
-            <RepeatButton Command="Slider.DecreaseLarge">
+            <RepeatButton Command="Slider.DecreaseLarge" Background="{TemplateBinding Background}">
               <RepeatButton.Style>
                 <Style TargetType="{x:Type RepeatButton}">
                   <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -198,7 +198,7 @@
                       <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Grid IsHitTestVisible="True" Height="11">
                           <Rectangle Fill="Transparent" IsHitTestVisible="True" Width="{TemplateBinding Width}" />
-                          <Rectangle Fill="{StaticResource BrushSliderSimpleDecreseBackground}" Height="1" Margin="5, 0, 0, 0" Width="{TemplateBinding Width}"/>
+                          <Rectangle Fill="{TemplateBinding Background}" Height="1" Margin="5, 0, 0, 0" Width="{TemplateBinding Width}"/>
                         </Grid>
                       </ControlTemplate>
                     </Setter.Value>
@@ -208,7 +208,7 @@
             </RepeatButton>
           </Track.DecreaseRepeatButton>
           <Track.IncreaseRepeatButton>
-            <RepeatButton Command="Slider.IncreaseLarge">
+            <RepeatButton Command="Slider.IncreaseLarge" Background="Transparent">
               <RepeatButton.Style>
                 <Style TargetType="{x:Type RepeatButton}">
                   <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -230,7 +230,7 @@
             </RepeatButton>
           </Track.IncreaseRepeatButton>
           <Track.Thumb>
-            <Thumb x:Name="Thumb" Focusable="False" Height="11" OverridesDefaultStyle="True" VerticalAlignment="Center" Width="11">
+            <Thumb x:Name="Thumb" Focusable="False" Height="11" OverridesDefaultStyle="True" VerticalAlignment="Center" Width="11" Foreground="{TemplateBinding Foreground}" BorderBrush="{TemplateBinding BorderBrush}">
               <Thumb.Template>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                   <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">

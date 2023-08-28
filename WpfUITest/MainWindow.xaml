@@ -49,7 +49,13 @@
             <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" Foreground="Black" />
             <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" Foreground="Black" SelectedBrushChanged="ColorPicker_BrushChanged" />
             <usercontrols:MultiTouchSlider Name="multiTouchSlider" Grid.Column="1" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-            <usercontrols:MultiTouchSlider Name="multiTouchSliderHorizontal" 
+            <Slider Grid.Column="0" 
+                    Grid.Row="2" 
+                    Style="{StaticResource StyleSliderSimpleRoundThumb}"
+                    Background="Red" 
+                    Value="5" 
+                    Maximum="10" />
+            <!--<usercontrols:MultiTouchSlider Name="multiTouchSliderHorizontal" 
                                            Grid.Column="0" 
                                            Grid.Row="2"
                                            Margin="20"
@@ -58,8 +64,8 @@
                                            HorizontalAlignment="Stretch" 
                                            ThumbPressedBackground="Red"
                                            Orientation="Horizontal"
-                                           Value="{Binding ElementName=colorPicker, Path=SelectedBrush.Color.R}" />
-            <usercontrols:WatermarkTextBox Grid.Column="1" Grid.Row="2"/>
+                                           Value="{Binding ElementName=colorPicker, Path=SelectedBrush.Color.R}" />-->
+            <usercontrols:WatermarkTextBox Grid.Column="1" Grid.Row="2" />
             <!--<Slider Grid.Column="1" Grid.Row="1" />-->
             <StackPanel Grid.Column="1" Orientation="Vertical" MinWidth="120">
               <Button Name="btnColorPickerDialogTest" Content="Dialog" Click="btnColorPickerDialogTest_Click" />
@@ -167,7 +173,13 @@
               <RowDefinition />
             </Grid.RowDefinitions>
             <usercontrols:RichTextBoxRibbon Name="editRibbon" Grid.Row="0" EditRichTextBox="{Binding ElementName=rtb, Path=AcceptsReturn}" />
-            <RichTextBox x:Name="rtb" Grid.Row="1" />
+            <RichTextBox x:Name="rtb" Grid.Row="1" FontFamily="Consolas">
+              <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                  <Setter Property="LineHeight" Value="0.05" />
+                </Style>
+              </RichTextBox.Resources>
+            </RichTextBox>
           </Grid>
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem Header="Note">
@@ -217,6 +229,17 @@
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem Header="Splitable Tearable Tab">
           <usercontrols:TearableTabSplitControl Name="tabSplitControl" />
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem Header="CapabilityString">
+          <Grid>
+            <ScrollViewer Style="{StaticResource ScrollViewerInvisSquare}">
+              <TextBox Name="tbCapabilityString" AcceptsReturn="True" Height="Auto" Margin="0" IsReadOnly="False" />
+            </ScrollViewer>
+            <Button Name="btnCheckCapabilities" Height="20" Width="40" Content="scan" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnCheckCapabilities_Click" />
+          </Grid>
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem>
+          <usercontrols:CompareView x:Name="compareView" Background="GhostWhite" CompareMapVisibility="Visible" />
         </usercontrols:TearableTabItem>
       </usercontrols:TearableTabControl>
       <!--<TabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >

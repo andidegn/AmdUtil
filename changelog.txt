@@ -41,6 +41,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @section Changelog
 ======================================
+Version 3.0.3.155 - 2023/08/28 by Andi
+======================================
+New Features, Improvements
+--------------------------
+- Lots of updates and improvements to DataCompare and CompareView
+- Added CompareMap class to be able to display a difference map like in BC
+- Added GetFormattedMemoryString8Align for getting word formatted strings for 
+   memory view
+- Made Monitor class inherrit from INotifyPropertyChanged and changed Edid 
+   functionality to pull EDID using different method (seems more reliable)
+- Added GetFormattedCapabilityString to EDIDHelper
+- Added ConsoleHelper class to have helper function to be able to print
+   progress messages while eg downloading and display percentage
+- Added extension method to DateTime SetFirstDateOfWeekISO8601 to be able
+   to acquire the first date of a week in any given year
+- Added extension method to double IsFinite to be able to check if a number
+   is not NaN and not Infinite
+- Added extension method to object IsNumber
+- Added extension method to Array Split to be able to split any array into
+   specific chunks
+- Added extension method to FlowDocument Clone
+- Added GetAspectRation function to Display
+- Added ToString functions to most of Edid framework
+- Rewrote extension method FromFormKeys to ToFormsKeys
+- Added Loading function to PanelHelper to allow for loading/unloading of 
+   spinners (works with regular controls as well)
+
+
+Fixed Bugs, Changes
+-------------------
+- Fixed issue where TitleBar Maximize would not adhear to WorkingBounds 
+   of the current screen
+
+
+Known Issues
+------------
+- 
+
+
+ToDo
+----		
+- Implement 7Zip
+
+
+
+======================================
 Version 3.0.3.154 - 2022/12/16 by Andi
 ======================================
 New Features, Improvements
