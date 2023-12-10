@@ -57,7 +57,7 @@ namespace AMD.Util.Display
       Dispatcher d = null;
       try
       {
-        d = Application.Current.Dispatcher;
+        d = Application.Current?.Dispatcher;
       }
       catch (Exception e)
       {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -26,6 +27,11 @@ namespace AMD.Util.HID
 			Win32Point w32Mouse = new Win32Point();
 			GetCursorPos(ref w32Mouse);
 			return new Point(w32Mouse.X, w32Mouse.Y);
+		}
+
+		public static void SetMousePosition(int x, int y)
+		{
+			System.Windows.Forms.Cursor.Position = new System.Drawing.Point(x, y);
 		}
 
 		public static bool IsOver(Control sender, String name)

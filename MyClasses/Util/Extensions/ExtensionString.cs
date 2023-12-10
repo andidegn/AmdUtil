@@ -17,24 +17,24 @@ namespace AMD.Util.Extensions
     /// <summary>
     /// Constant for fixing ToString rounding issues
     /// </summary>
-    public const String DoubleFixedPoint = "0.###################################################################################################################################################################################################################################################################################################################################################";
+    public const string DoubleFixedPoint = "0.###################################################################################################################################################################################################################################################################################################################################################";
 
-    public static bool IsNumber(this String s)
+    public static bool IsNumber(this string s)
     {
       return StringValidater.ValidateNumber(s);
     }
 
-    public static bool IsHexNumber(this String s)
+    public static bool IsHexNumber(this string s)
     {
       return StringValidater.ValidateHex(s);
     }
 
-    public static bool IsValidPropertyName(this String s)
+    public static bool IsValidPropertyName(this string s)
     {
       return StringValidater.ValidatePropertyName(s);
     }
 
-    public static bool IsValidFunctionName(this String s)
+    public static bool IsValidFunctionName(this string s)
     {
       return StringValidater.ValidatePropertyName(s);
     }
@@ -44,7 +44,7 @@ namespace AMD.Util.Extensions
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
-    public static byte[] GetBytes(this String s)
+    public static byte[] GetBytes(this string s)
     {
       byte[] bArr = new byte[s.Length];
       for (int i = 0; i < s.Length; i++)
@@ -59,7 +59,7 @@ namespace AMD.Util.Extensions
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
-    public static byte[] GetBytesFromHex(this String s)
+    public static byte[] GetBytesFromHex(this string s)
     {
       if (null == regexWhitespace)
       {
@@ -91,7 +91,7 @@ namespace AMD.Util.Extensions
     /// <param name="s"></param>
     /// <param name="toExclude"></param>
     /// <returns></returns>
-    public static String ExcludeAll(this String s, char toExclude)
+    public static string ExcludeAll(this string s, char toExclude)
     {
       StringBuilder sb = new StringBuilder(s.Length);
       for (int i = 0; i < s.Length; i++)
@@ -104,12 +104,13 @@ namespace AMD.Util.Extensions
       }
       return sb.ToString();
     }
-    public static String Replace(this string s, char[] separators, String newVal)
+
+    public static string Replace(this string s, char[] separators, string newVal)
     {
-      String[] temp;
+      string[] temp;
 
       temp = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-      return String.Join(newVal, temp);
+      return string.Join(newVal, temp);
     }
 
     public static string[] Split(this string s, int chunkSize, bool strict)
@@ -163,12 +164,12 @@ namespace AMD.Util.Extensions
       }
     }
 
-    public static bool AreAllNullOrWhiteSpace(this IEnumerable<String> strings)
+    public static bool AreAllNullOrWhiteSpace(this IEnumerable<string> strings)
     {
       bool retValue = true;
-      foreach (String str in strings)
+      foreach (string str in strings)
       {
-        if (!String.IsNullOrWhiteSpace(str))
+        if (!string.IsNullOrWhiteSpace(str))
         {
           retValue = false;
           break;

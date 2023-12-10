@@ -1,10 +1,8 @@
-﻿using AMD.Util.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AMD.Util.Files
 {
@@ -20,7 +18,7 @@ namespace AMD.Util.Files
         AllFiles
       }
 
-      public String SourceFilePath { get; set; }
+      public string SourceFilePath { get; set; }
       public bool? IsAllEqual
       {
         get
@@ -52,46 +50,46 @@ namespace AMD.Util.Files
                 select fcd).Count();
       }
 
-      public FileCompareDataList(String sourceFilePath)
+      public FileCompareDataList(string sourceFilePath)
       {
         this.SourceFilePath = sourceFilePath;
       }
 
-      public void Add(String compareFilePath)
+      public void Add(string compareFilePath)
       {
         this.Add(new FileCompareData(compareFilePath, SourceFilePath));
       }
 
-      public void AddRange(params String[] compareFilePaths)
+      public void AddRange(params string[] compareFilePaths)
       {
-        foreach (String file in compareFilePaths)
+        foreach (string file in compareFilePaths)
         {
           this.Add(file);
         }
       }
 
-      public void AddRangeFromDirectory(String compareDirectoryPath)
+      public void AddRangeFromDirectory(string compareDirectoryPath)
       {
         this.AddRange(Directory.GetFiles(compareDirectoryPath));
       }
 
-      public ICollection<String> GetEqualFilePaths()
+      public ICollection<string> GetEqualFilePaths()
       {
-        List<String> retList = (from fcd in this
+        List<string> retList = (from fcd in this
                                 where true == fcd.IsEqual
-                                select fcd.Path).ToList<String>();
+                                select fcd.Path).ToList<string>();
         return retList;
       }
 
-      public ICollection<String> GetNotEqualFilePaths()
+      public ICollection<string> GetNotEqualFilePaths()
       {
-        List<String> retList = (from fcd in this
+        List<string> retList = (from fcd in this
                                 where false == fcd.IsEqual
-                                select fcd.Path).ToList<String>();
+                                select fcd.Path).ToList<string>();
         return retList;
       }
 
-      public String ToString(FCDLPrintRequest request)
+      public string ToString(FCDLPrintRequest request)
       {
         StringBuilder sb = new StringBuilder();
 
@@ -130,7 +128,7 @@ namespace AMD.Util.Files
         return sb.ToString();
       }
 
-      public override String ToString()
+      public override string ToString()
       {
         return this.ToString(FCDLPrintRequest.AllFiles);
       }
@@ -138,11 +136,11 @@ namespace AMD.Util.Files
 
     public class FileCompareData
     {
-      public String Path { get; set; }
+      public string Path { get; set; }
       public byte[] Content { get; set; }
       public bool? IsEqual { get; set; }
 
-      public FileCompareData(String sourcePath, String compareFilePath)
+      public FileCompareData(string sourcePath, string compareFilePath)
       {
         this.Path = sourcePath;
         this.Content = File.ReadAllBytes(this.Path);
@@ -160,10 +158,10 @@ namespace AMD.Util.Files
         return retVal;
       }
 
-      public override String ToString()
+      public override string ToString()
       {
-        String checkChar;
-        String equalTxt;
+        string checkChar;
+        string equalTxt;
 
         switch (IsEqual)
         {

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.Spinners"
              MouseDoubleClick="UserControl_MouseDoubleClick"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d">
   <UserControl.Resources>
     <Storyboard x:Key="Wing">
@@ -525,6 +526,83 @@
         <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="-3"/>
       </DoubleAnimationUsingKeyFrames>
     </Storyboard>
+    <Storyboard x:Key="ChristmasHat">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="pathChristmasHatKvast" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-10.306"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-6.89"/>
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="pathChristmasHatKvast" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-14.838"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-8.37"/>
+      </DoubleAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point2)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="7.43117570831721,36.2678880623929"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="2.323610966098,26.1351224701249"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="13.5266666666667,40.4866666666667"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point3)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="5.60756472854364,54.2225195341233"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="0.499999986324426,44.0897539418552"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="2.41666665299109,49.7366666666667"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(LineSegment.Point)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="8.59605422988357,54.2225195341233"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="3.48848948766437,44.0897539418552"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="3.02666666666666,51.2366666666666"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point1)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="8.59605422988357,54.2225195341233"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="3.48848948766437,44.0897539418552"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="3.02666666666666,51.2366666666666"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point2)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="16.3993318192657,36.8835058898558"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="16.9428481427034,42.4037000437578"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="15.1933333333333,48.9866666666667"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[7].(BezierSegment.Point1)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="57.2420482151776,26.3663987108451"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="55.3582686609927,21.5729666164428"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="57.1891765324861,21.925964886931"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[8].(BezierSegment.Point2)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="59.6098796897993,25.2210616132605"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="58.2766666666667,21.9866666666667"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="59.7766666666667,21.2366666666667"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[8].(BezierSegment.Point3)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="44.8592476850058,29.3678203140694"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="43.8600000000001,27.9866666666666"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="44.6933333333333,30.2366666666666"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[9].(BezierSegment.Point1)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="31.1183097868997,33.2307286266049"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="30.6821238896224,33.4711006548007"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="32.4359394516691,37.5504707507534"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point2)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="51.0320437376858,-3.0343764457487"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="59.6933333333333,-0.763333333333331"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="46.2766666666667,3.07"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(BezierSegment.Point3)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="26.6619688303389,16.475380639299"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="29.5266666666667,14.07"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="28.7766666666668,21.07"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(BezierSegment.Point1)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="26.6619688303389,16.475380639299"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="29.5266666666667,14.07"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="28.7766666666668,21.07"/>
+      </PointAnimationUsingKeyFrames>
+      <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point3)" Storyboard.TargetName="pathChristmasHatRedPart" RepeatBehavior="Forever" AutoReverse="True">
+        <EasingPointKeyFrame KeyTime="0" Value="36.8206949942715,31.6249522573871"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.2" Value="36.8206949942715,31.6249522573871"/>
+        <EasingPointKeyFrame KeyTime="0:0:0.4" Value="38.86,33.7366666666667"/>
+      </PointAnimationUsingKeyFrames>
+    </Storyboard>
   </UserControl.Resources>
   <UserControl.Triggers>
     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -757,6 +835,7 @@
             </Ellipse.Fill>
           </Ellipse>
           <Ellipse Height="6" Margin="32,1,26,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Fill="#FFFDF9D4"/>
+
         </Grid>
         <Grid Name="groupEye" HorizontalAlignment="Right" Height="24" Margin="0,26,44,0" VerticalAlignment="Top" Width="17">
           <Ellipse Margin="0,0,0.437,0.278" Stroke="#FFFF8F1F" StrokeThickness="0" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
@@ -898,19 +977,20 @@
           </Path.Fill>
         </Path>
 
+
       </Grid>
       <!--<Canvas Name="canvasTarget" Width="{Binding ElementName=gridWrapper, Path=ActualWidth, Mode=OneWay}" Height="{Binding ElementName=gridWrapper, Path=ActualHeight, Mode=OneWay}">-->
       <MediaElement Name="soundShot" LoadedBehavior="Manual" Source="pack://siteoforigin:,,,/Resources/Sounds/PIstol_Shot_Silenced_one_shot_short.mp3" Visibility="Collapsed" />
       <Canvas Name="canvasTarget" Width="90" Height="90" Margin="20, 60, 0, 0" Visibility="Collapsed" MouseLeftButtonDown="gridWrapper_MouseLeftButtonDown">
-          <Canvas.OpacityMask>
-            <VisualBrush Visual="{Binding ElementName=ellipseTarget1}" />
-          </Canvas.OpacityMask>
-          <Ellipse Name="ellipseTarget1" Fill="Red" Width="90" Height="90" Canvas.Left="0" Canvas.Top="0" />
-          <Ellipse Name="ellipseTarget2" Fill="White" Width="70" Height="70" Canvas.Left="10" Canvas.Top="10" />
-          <Ellipse Name="ellipseTarget3" Fill="Red" Width="50" Height="50" Canvas.Left="20" Canvas.Top="20" />
-          <Ellipse Name="ellipseTarget4" Fill="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="30" />
-          <Ellipse Name="ellipseTarget5" Fill="Red" Width="10" Height="10" Canvas.Left="40" Canvas.Top="40" />
-        </Canvas>
+        <Canvas.OpacityMask>
+          <VisualBrush Visual="{Binding ElementName=ellipseTarget1}" />
+        </Canvas.OpacityMask>
+        <Ellipse Name="ellipseTarget1" Fill="Red" Width="90" Height="90" Canvas.Left="0" Canvas.Top="0" />
+        <Ellipse Name="ellipseTarget2" Fill="White" Width="70" Height="70" Canvas.Left="10" Canvas.Top="10" />
+        <Ellipse Name="ellipseTarget3" Fill="Red" Width="50" Height="50" Canvas.Left="20" Canvas.Top="20" />
+        <Ellipse Name="ellipseTarget4" Fill="White" Width="30" Height="30" Canvas.Left="30" Canvas.Top="30" />
+        <Ellipse Name="ellipseTarget5" Fill="Red" Width="10" Height="10" Canvas.Left="40" Canvas.Top="40" />
+      </Canvas>
       <!--</Canvas>-->
       <Path Name="pathWaves" HorizontalAlignment="Left" Height="47.715" Margin="2.001,166.949,0,0" Stroke="#FFFF8F1F" StrokeThickness="0" VerticalAlignment="Top" Width="353.99" RenderTransformOrigin="0.5,0.5">
         <Path.RenderTransform>
@@ -969,6 +1049,80 @@
           </LinearGradientBrush>
         </Path.Fill>
       </Path>
+      <!--#region Christmas Hat-->
+      <Grid x:Name="gridChristmasHat" HorizontalAlignment="Left" Height="72" Margin="114,-23,0,0" VerticalAlignment="Top" Visibility="Collapsed">
+        <Path x:Name="pathChristmasHatRedPart" Fill="Red" HorizontalAlignment="Left" Height="57.987" Margin="0.89,-0.07,0,0" Stroke="#FFE00000" VerticalAlignment="Top" Width="113.113" RenderTransformOrigin="0.5,0.5">
+          <Path.Data>
+            <PathGeometry>
+              <PathFigure IsClosed="True" StartPoint="112.612146067011,23.7502027241724">
+                <BezierSegment Point3="63.7583104792367,0.49999998721211" Point2="101.086184487986,0.49999998721211" Point1="112.612146067011,23.7502027241724"/>
+                <BezierSegment Point3="60.359911150782,9.53780770177903" Point2="63.8600612867347,5.46193351648677" Point1="63.7583104792367,0.49999998721211"/>
+                <BezierSegment Point3="62.4850019492497,6.17078116352601" Point2="61.6933026267735,7.9783428782927" Point1="60.359911150782,9.53780770177903"/>
+                <BezierSegment Point3="26.6619688303389,16.475380639299" Point2="51.0320437376858,-3.0343764457487" Point1="62.4850019492497,6.17078116352601"/>
+                <BezierSegment Point3="5.60756472854364,54.2225195341233" Point2="7.43117570831721,36.2678880623929" Point1="26.6619688303389,16.475380639299"/>
+                <LineSegment Point="8.59605422988357,54.2225195341233"/>
+                <BezierSegment Point3="36.8206949942715,31.6249522573871" Point2="16.3993318192657,36.8835058898558" Point1="8.59605422988357,54.2225195341233"/>
+                <BezierSegment Point3="61.2267042016641,20.8235990150404" Point2="58.5702635593066,23.808183453408" Point1="57.2420482151776,26.3663987108451"/>
+                <BezierSegment Point3="44.8592476850058,29.3678203140694" Point2="59.6098796897993,25.2210616132605" Point1="61.2267042016641,20.8235990150404"/>
+                <BezierSegment Point3="39.0620596317516,56.6407327734532" Point2="36.5716533729849,44.4181489566466" Point1="31.1183097868997,33.2307286266049"/>
+              </PathFigure>
+            </PathGeometry>
+          </Path.Data>
+          <Path.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform/>
+              <SkewTransform/>
+              <RotateTransform/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </Path.RenderTransform>
+        </Path>
+        <Path x:Name="pathChristmasHatRim" Data="M85.583333,47.166667 C88.917533,43.458248 110.5,12.333335 163,4.8333346 163,4.8333346 168.44598,4.3293662 162.07837,-5.2460307 155.71077,-14.821428 153.16385,-12.469576 150.64532,-11.629629 148.1268,-10.789682 100.94636,7.0483092 75.425271,31.99586 75.425271,31.99586 71.980058,35.535715 76.517654,41.772603 81.05525,48.009491 82.249133,50.875085 85.583333,47.166667 z" 
+              Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="62" Margin="35,10,0,0" Stroke="#10000000" Stretch="Fill" VerticalAlignment="Top" Width="91"/>
+        <Path x:Name="pathChristmasHatKvast" Data="M45.5,30.75 C45.5,30.75 37.75,31.333333 39.5,39.416667 41.25,47.5 49.845345,44.552471 50.453694,44.231483 51.062042,43.910496 56.144121,40.895652 53.766032,35.505774 51.387943,30.115897 45.5,30.75 45.5,30.75 z"
+              Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="16" Margin="0,53,0,0" Stroke="#10000000" Stretch="Fill" VerticalAlignment="Top" Width="16" RenderTransformOrigin="0.5,0.5" >
+          <Path.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform/>
+              <SkewTransform/>
+              <RotateTransform/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </Path.RenderTransform>
+        </Path>
+      </Grid>
+      <!--#endregion-->
+
+      <!--#region Beard-->
+      <Grid Name="gridBeard">
+        <Grid Name="gridBeard1" Visibility="Collapsed">
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,44.876,71.281,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,46.814,72.031,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,45.939,68.5,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,49.282,71.625,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.938" Margin="0,52.5,71.281,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,48.001,69.593,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,44.22,68.5,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,51.22,73.156,0" VerticalAlignment="Top" Width="0.938"/>
+
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.937" Margin="0,77,109.125,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.936" Margin="0,77.064,111.354,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.937" Margin="0,74.646,110.375,0" VerticalAlignment="Top" Width="0.938"/>
+          <Ellipse Fill="#FF5F412C" HorizontalAlignment="Right" Height="0.937" Margin="0,75.917,113.25,0" VerticalAlignment="Top" Width="0.938"/>
+        </Grid>
+        <Grid Name="gridBeard2" Visibility="Collapsed">
+          <Path Data="M254.33333,75.666667 C252.54191,75.707885 252.00014,76.166115 249.04199,74.582997 245.95415,72.930468 246.52222,75.599718 246.79152,76.457149 247.24962,77.915724 249.12291,80.099239 249.29884,80.299782 249.87477,80.956309 251.38227,81.674753 251.38227,82.424554 251.38227,82.424554 251.87522,79.457043 253.04194,78.707212 254.20866,77.95738 256.12475,75.625448 254.33333,75.666667 z" Fill="#FF5F412C" HorizontalAlignment="Right" Height="8.373" Margin="0,74.054,104.935,0" Stretch="Fill" VerticalAlignment="Top" Width="8.496"/>
+          <Path Data="M290.60417,43.583333 C290.60417,43.583333 286.97932,47.729499 285.85432,49.479499 284.72932,51.229499 282.58375,52.917264 282.58375,52.917264 282.58375,52.917264 286.79182,50.541947 288.79175,48.375297 289.36205,47.75745 291.66675,44.437826 290.66682,43.604499" Fill="#FF5F412C" HorizontalAlignment="Right" Height="9.334" Margin="0,43.583,69.084,0" Stretch="Fill" VerticalAlignment="Top" Width="8.333"/>
+        </Grid>
+        <Grid Name="gridBeard3" Visibility="Collapsed">
+          <Path Data="M248.25,71.5 C250.66606,71.833354 250.75,74.75 256.91667,74.75 256.91667,74.75 263.33274,73.666667 261.08282,78.083333 258.83291,82.5 258.41609,84.584001 258.99939,87.834167 258.99939,87.834167 257.33282,85.667679 257.41615,83.834215 257.41615,83.834215 257.24949,87.91784 258.83274,90.501358 260.41598,93.084876 258.66608,95.335037 258.08278,96.08509 258.08278,96.08509 258.66608,94.251935 255.91623,90.751637 253.16639,87.251339 254.74963,85.667871&#xD;&#xA;254.74963,85.667871 253.76558,87.065866 254.16448,89.125489 253.12452,91.75115 252.35323,93.698484 253.61144,96.67775 253.84325,98.345366 253.84325,98.345366 250.57949,95.119633 250.37461,92.251167 250.21837,90.063595 249.674,88.663072 249.4166,86.667957 249.4166,86.667957 246.28109,95.178722 250.28086,97.345573 250.28086,97.345573 246.07265,95.678768 245.15603,89.595 244.23942,83.511233 242.87449,91.574254 242.6245,91.407577 242.37451,91.2409&#xD;&#xA;242.9166,73.833478 244.66654,72.666739 246.41647,71.5 245.83394,71.166646 248.25,71.5 z" Fill="#FF5F412C" HorizontalAlignment="Right" Height="26.967" Margin="0,71.377,98.438,0" Stretch="Fill" VerticalAlignment="Top" Width="18.995"/>
+          <Path Data="M290.625,43.6875 C289.75005,43.124538 286.9375,46.6245 285,49.187 283.0625,51.7495 280,56.060876 275.8125,57.560739 271.625,59.060603 284.06272,57.061265 288.18758,52.499016 292.31244,47.936766 291.49995,44.250462 290.625,43.6875 z" Fill="#FF5F412C" HorizontalAlignment="Right" Height="14.426" Margin="0,42.628,68.041,0" Stretch="Fill" VerticalAlignment="Top" Width="16.372"/>
+        </Grid>
+        <Grid Name="gridBeard4" Visibility="Collapsed">
+          <Path Data="M282.93544,61.750055 C289.83036,54.417294 285.93034,54.05034 291.59532,41.549736 288.42996,43.050425 293.22583,41.076499 282.43106,45.966826 271.80777,50.779468 268.61857,57.267841 260.33523,60.000429 253.55348,62.237659 246.41701,64.665418 244.50405,69.167088 243.62407,71.237885 241.63056,77.125211 242.00548,87.500279 242.38039,97.875346 245.62931,97.625349 245.75429,98.125352 245.75429,98.125352 244.99521,96.574547 246.33756,90.666974 247.17072,87.000283 248.00388,86.000276&#xD;&#xA;248.00388,86.000276 248.00388,86.000276 249.58688,86.625281 249.00368,89.833635 248.42047,93.041989 248.54545,94.041994 249.00368,96.083674 249.00368,96.083674 250.3784,92.45865 250.83664,92.083647 250.83664,92.083647 251.83645,100.12537 252.83623,103.00039 252.83623,103.00039 253.49017,96.768464 255.08577,93.416992 256.75209,89.916969 257.08535,87.791955 256.50214,86.250278 256.50214,86.250278 259.00163,88.000287 258.75168,90.125301 258.50174,92.250315&#xD;&#xA;258.58507,96.417006 259.75148,98.875355 259.75148,98.875355 261.2512,92.375316 262.75087,90.750305 264.25054,89.125295 262.00101,83.500255 261.37615,82.250247 261.37615,82.250247 264.50052,82.958585 265.12538,85.500268 265.75024,88.041951 268.24934,92.875316 268.24934,92.875316 268.24934,92.875316 269.95729,80.791904 266.1248,77.875218 262.29231,74.958532 262.25132,76.083777 265.00072,72.167085 274.81156,67.292045 275.66577,67.917227 282.93544,61.750055&#xD;&#xA; z" Fill="#FF5F412C" HorizontalAlignment="Right" Height="61.451" Margin="0,41.549,68.401,0" Stretch="Fill" VerticalAlignment="Top" Width="49.644"/>
+        </Grid>
+      </Grid>
+      <!--#endregion // Beard-->
     </Grid>
   </Viewbox>
 </UserControl>

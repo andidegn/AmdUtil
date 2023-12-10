@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -25,6 +26,18 @@ namespace AMD.Util.Extensions
       StringReader sr = new StringReader(str);
       XmlReader xml = XmlReader.Create(sr);
       return XamlReader.Load(xml) as FlowDocument;
+    }
+
+    public static FlowDocument Clone2(this FlowDocument from)
+    {
+      FlowDocument to = new FlowDocument();
+      TextRange range = new TextRange(from.ContentStart, from.ContentEnd);
+      MemoryStream stream = new MemoryStream();
+      XamlWriter.Save(range, stream);
+      range.Save(stream, DataFormats.XamlPackage);
+      TextRange range2 = new TextRange(to.ContentEnd, to.ContentEnd);
+      range2.Load(stream, DataFormats.XamlPackage);
+      return to;
     }
 
     public static FormattedText GetFormattedText(this FlowDocument doc)

@@ -21,17 +21,21 @@
     <Grid Background="Transparent">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
         <RowDefinition />
         <RowDefinition Height="10" />
       </Grid.RowDefinitions>
       <local:TitleBar x:Name="titlebar" Grid.Row="0" Title="Compare View" ButtonType="Apple" Foreground="{Binding Foreground, ElementName=cpw}" WindowStyle="ToolWindow" Exit="Titlebar_Exit" />
+      <Grid Grid.Row="1">
+        <Button Name="btnSwap" Content="Swap Left and Right" Width="200" HorizontalAlignment="Center" Margin="35, 0, 0, 0" Click="btnSwap_Click" />
+      </Grid>
       <local:CompareView x:Name="CompareView" 
-                         Grid.Row="1" 
+                         Grid.Row="2" 
                          VerticalAlignment="Stretch" 
                          Background="{Binding TextBoxBackground, ElementName=cpw}"
                          Foreground="{Binding Foreground, ElementName=cpw}"
                          InnerBorderBrush="{Binding InnerBorderBrush, ElementName=cpw}"/>
-      <local:ResizeThumb Grid.Row="1" Grid.RowSpan="2" />
+      <local:ResizeThumb Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
     </Grid>
   </Border>
 </Window>

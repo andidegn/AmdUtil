@@ -285,14 +285,14 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <!--<GridViewColumn x:Name="col2" Width="80">
+          <GridViewColumn x:Name="col2" Width="Auto" >
             <GridViewColumn.CellTemplate>
               <DataTemplate>
-                <TextBlock Text="{Binding Source}" Foreground="{StaticResource ConsoleGreen}" />
+                <TextBlock Text="{Binding LogSource}" Foreground="{StaticResource ConsoleGreen}" />
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn x:Name="col3" Width="80">
+          <!--<GridViewColumn x:Name="col3" Width="80">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding StackTracePath}" Foreground="{StaticResource ConsoleBlue}" />

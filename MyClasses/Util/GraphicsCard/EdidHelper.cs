@@ -1,16 +1,11 @@
-﻿using System;
+﻿using AMD.Util.Display.Edid;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace AMD.Util.GraphicsCard
 {
-  using AMD.Util.Display.Edid;
-  using System;
-	using System.Collections.Generic;
-	using System.Runtime.InteropServices;
-	using System.Text;
-
 	public static class EdidHelper
 	{
 		#region Windows API stuff

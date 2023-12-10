@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +15,8 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +48,9 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Costura, Version=3.3.3.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.3.3.3\lib\net40\Costura.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -54,6 +60,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -64,11 +74,22 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Windows">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.22000.0\Windows.winmd</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Util\AttributeHelper\NameAttribute.cs" />
+    <Compile Include="Util\Bios\BiosInfo.cs" />
+    <Compile Include="Util\Bios\Tables\SMBiosBaseboardInfoTable.cs" />
+    <Compile Include="Util\Bios\Tables\SMBiosChassisTable.cs" />
+    <Compile Include="Util\Bios\Tables\SMBiosInfoTable.cs" />
+    <Compile Include="Util\Bios\Tables\SMBiosSystemInfoTable.cs" />
+    <Compile Include="Util\Bios\Tables\ASMBiosTable.cs" />
     <Compile Include="Util\CH341\CH341NativeFunctions.cs" />
+    <Compile Include="Util\CLA\CommandContainer.cs" />
+    <Compile Include="Util\CLA\CommandHandler.cs" />
     <Compile Include="Util\Collections\ArrayStack\ArrayDropOutStack.cs" />
     <Compile Include="Util\Collections\Dictionary\Dictionary3D.cs" />
     <Compile Include="Util\Collections\Dictionary\SerializableDictionary.cs" />
@@ -117,6 +138,7 @@
     <Compile Include="Util\Data\StreamHelper.cs" />
     <Compile Include="Util\Data\StringFormatHelper.cs" />
     <Compile Include="Util\Data\ValueHelper.cs" />
+    <Compile Include="Util\Device\DeviceNotification.cs" />
     <Compile Include="Util\Diagnostics.cs" />
     <Compile Include="Util\Display\DDCCI\MCCSCodeStandard\VCPCodeStandard.cs" />
     <Compile Include="Util\Display\DDCCI\Monitor.cs" />
@@ -184,12 +206,17 @@
     <Compile Include="Util\Files\FileContainer.cs" />
     <Compile Include="Util\HID\Keyboard.cs" />
     <Compile Include="Util\Network\NetworkHelper.cs" />
+    <Compile Include="Util\ProcessUtil\WIndowHelper.cs" />
+    <Compile Include="Util\Search\BSearch.cs" />
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\PropertyChangedNotifier.cs" />
     <Compile Include="Util\View\WPF\Helper\TabHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
     <Compile Include="Util\View\WPF\IconCollection.cs" />
+    <Compile Include="Util\View\WPF\UserControls\PdfViewerImage.xaml.cs">
+      <DependentUpon>PdfViewerImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\View\WPF\Spinners\DuckSpinner.xaml.cs">
       <DependentUpon>DuckSpinner.xaml</DependentUpon>
     </Compile>
@@ -357,6 +384,10 @@
     <Page Include="Util\View\WPF\AMDNumericUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\PdfViewerImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\CompareMapSliderVertical.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -589,4 +620,12 @@
 copy "$(TargetDir)$(TargetName).xml"  "C:\Isic\ISIC_Lib\"
 copy "$(TargetDir)$(TargetName).pdb"  "C:\Isic\ISIC_Lib\"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Fody.6.8.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.0\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.6.8.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.3.3\build\Costura.Fody.props'))" />
+  </Target>
 </Project>

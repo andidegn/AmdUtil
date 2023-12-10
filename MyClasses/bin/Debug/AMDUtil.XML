@@ -4,6 +4,28 @@
         <name>AMDUtil</name>
     </assembly>
     <members>
+        <member name="T:AMD.Util.Bios.BiosInfo">
+            <summary>
+            Provides data read from the system BIOS.
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Bios.BiosInfo.Instance">
+            <summary>
+            Reads some of the SMBIOS tables
+            SMBIOS specifications: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.3.0.pdf
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AMD.Util.Bios.Tables.eSMBiosBoardType">
+            <summary>
+            Ref Table 15: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.3.0.pdf
+            </summary>
+        </member>
+        <member name="T:AMD.Util.Bios.Tables.eSMBiosChassisType">
+            <summary>
+            Ref Table 15: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.3.0.pdf
+            </summary>
+        </member>
         <member name="M:AMD.Util.CH341.CH341NativeFunctions.CH341OpenDevice(System.Int32)">
             <summary>
             Attempts to open the device
@@ -996,12 +1018,13 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryString8Align(System.UInt32,System.Nullable{System.UInt32}[],AMD.Util.Extensions.Endian)">
+        <member name="M:AMD.Util.Data.StringFormatHelper.GetFormattedMemoryStringByteSeparated(System.UInt32,System.Nullable{System.UInt32}[],System.Int32,AMD.Util.Extensions.Endian)">
             <summary>
             Gets a formatted memory string from a word array
             </summary>
             <param name="startAddr"></param>
             <param name="data"></param>
+            <param name="byteCount">Has to be divisible by 8. If not, throw exception</param>
             <param name="endian"></param>
             <returns></returns>
         </member>
@@ -1011,6 +1034,18 @@
             </summary>
             <param name="inputRtf">RTF formatted text</param>
             <returns>Plain text from RTF</returns>
+        </member>
+        <member name="M:AMD.Util.Devices.DeviceNotification.RegisterMonitorDeviceNotification(System.IntPtr)">
+            Registers a window to receive notifications when Monitor devices are plugged or unplugged.
+        </member>
+        <member name="M:AMD.Util.Devices.DeviceNotification.RegisterUsbDeviceNotification(System.IntPtr)">
+            Registers a window to receive notifications when USB devices are plugged or unplugged.
+        </member>
+        <member name="M:AMD.Util.Devices.DeviceNotification.UnRegisterMonitorDeviceNotification">
+            UnRegisters the window for Monitor device notifications
+        </member>
+        <member name="M:AMD.Util.Devices.DeviceNotification.UnRegisterUsbDeviceNotification">
+            UnRegisters the window for USB device notifications
         </member>
         <member name="T:AMD.Util.Diagnostics">
             <summary>
@@ -2612,93 +2647,15 @@
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.DuckSpinner">
+        <member name="T:AMD.Util.View.WPF.UserControls.PdfViewerImage">
             <summary>
-            Interaction logic for AppleSpinner.xaml
+            Interaction logic for PdfViewerImage.xaml
             </summary>
             <summary>
-            DuckSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.DuckSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
+            PdfViewerImage
             </summary>
         </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
-            <summary>
-            Interaction logic for AppleSpinner.xaml
-            </summary>
-            <summary>
-            AppleSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
-            <summary>
-            Interaction logic for Circles.xaml
-            </summary>
-            <summary>
-            CircleSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
-            <summary>
-            Interaction logic for CogSpinner.xaml
-            </summary>
-            <summary>
-            CogSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
-            <summary>
-            Interaction logic for PistonSpinner.xaml
-            </summary>
-            <summary>
-            PistonSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
-            <summary>
-            Interaction logic for SomeLoadingAnimation.xaml
-            </summary>
-            <summary>
-            SomeLoadingAnimation
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
-            <summary>
-            Interaction logic for SwirlSpinner.xaml
-            </summary>
-            <summary>
-            SwirlSpinner
-            </summary>
-        </member>
-        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+        <member name="M:AMD.Util.View.WPF.UserControls.PdfViewerImage.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -3290,6 +3247,94 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.DuckSpinner">
+            <summary>
+            DuckSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.DuckSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.AppleSpinner">
+            <summary>
+            Interaction logic for AppleSpinner.xaml
+            </summary>
+            <summary>
+            AppleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.AppleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CircleSpinner">
+            <summary>
+            Interaction logic for Circles.xaml
+            </summary>
+            <summary>
+            CircleSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CircleSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.CogSpinner">
+            <summary>
+            Interaction logic for CogSpinner.xaml
+            </summary>
+            <summary>
+            CogSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.CogSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.PistonSpinner">
+            <summary>
+            Interaction logic for PistonSpinner.xaml
+            </summary>
+            <summary>
+            PistonSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.PistonSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation">
+            <summary>
+            Interaction logic for SomeLoadingAnimation.xaml
+            </summary>
+            <summary>
+            SomeLoadingAnimation
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SomeLoadingAnimation.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.Spinners.SwirlSpinner">
+            <summary>
+            Interaction logic for SwirlSpinner.xaml
+            </summary>
+            <summary>
+            SwirlSpinner
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.Spinners.SwirlSpinner.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="M:AMD.Util.View.WPF.InvokeControl.InvokeControl.GetBrush(System.String)">
             <summary>
             Gets the brush in the WPF resources with the specific key
@@ -3322,13 +3367,12 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="T:AMD.Util.Cast`1">
+        <member name="T:AMD.Util.Cast">
             <summary>
             Cast helper
             </summary>
-            <typeparam name="T"></typeparam>
         </member>
-        <member name="M:AMD.Util.Cast`1.DirectCastTo``1(System.Object)">
+        <member name="M:AMD.Util.Cast.DirectCastTo``1(System.Object)">
             <summary>
             Directly casts the input the type of T
             </summary>
@@ -3336,7 +3380,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:AMD.Util.Cast`1.ConvertTo``1(System.Object)">
+        <member name="M:AMD.Util.Cast.ConvertTo``1(System.Object)">
             <summary>
             Converts input to the type of T
             </summary>
@@ -3395,6 +3439,11 @@
             The message for the log
             </summary>
         </member>
+        <member name="P:AMD.Util.Log.LogEntry.LogSource">
+            <summary>
+            The log file source. This is only relevant if more than one log file is used
+            </summary>
+        </member>
         <member name="P:AMD.Util.Log.LogEntry.Source">
             <summary>
             The source of the log message
@@ -3420,7 +3469,7 @@
             The date of the log entry
             </summary>
         </member>
-        <member name="M:AMD.Util.Log.LogEntry.#ctor(System.Int64,AMD.Util.Log.LogMsgType,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
+        <member name="M:AMD.Util.Log.LogEntry.#ctor(System.Int64,AMD.Util.Log.LogMsgType,System.String,System.String,System.Diagnostics.StackTrace,System.String,System.Object[])">
             <summary>
             Constructor taking a formatted string and a number of parameters to generate a log entry
             </summary>
@@ -3491,7 +3540,7 @@
             Default: @"\" - The root directory of the application
             </remarks>
         </member>
-        <member name="P:AMD.Util.Log.LogWriter.logFile">
+        <member name="P:AMD.Util.Log.LogWriter.LogFile">
             <summary>
             The filename of the log. Should be the filename only, without the extension
             </summary>
@@ -3502,7 +3551,7 @@
             Default: "log"
             </remarks>
         </member>
-        <member name="P:AMD.Util.Log.LogWriter.logExtension">
+        <member name="P:AMD.Util.Log.LogWriter.LogExtension">
             <summary>
             The extension of the file. Should be formatted as: ".ext"
             </summary>

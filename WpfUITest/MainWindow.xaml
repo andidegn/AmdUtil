@@ -42,8 +42,8 @@
               <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-              <RowDefinition />
-              <RowDefinition />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
               <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" Foreground="Black" />
@@ -240,6 +240,9 @@
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem>
           <usercontrols:CompareView x:Name="compareView" Background="GhostWhite" CompareMapVisibility="Visible" />
+        </usercontrols:TearableTabItem>
+        <usercontrols:TearableTabItem>
+          <Button x:Name="btnDesignTest" Content="Looks" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
         </usercontrols:TearableTabItem>
       </usercontrols:TearableTabControl>
       <!--<TabControl Name="tvMemory" Background="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=OneWay}" >

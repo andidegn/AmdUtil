@@ -74,9 +74,9 @@ namespace AMD.Util.Display
       bool retVal = false;
       foreach (Screen screen in Screen.AllScreens)
       {
-        if (top > screen.WorkingArea.Top &&
+        if (top >= screen.WorkingArea.Top &&
             top < screen.WorkingArea.Bottom &&
-            left > screen.WorkingArea.Left &&
+            left >= screen.WorkingArea.Left &&
             left < screen.WorkingArea.Right)
         {
           retVal = true;
@@ -88,6 +88,13 @@ namespace AMD.Util.Display
     public static bool IsWithinScreenArea(Rectangle rectangle)
     {
       return IsWithinScreenArea(rectangle.Left, rectangle.Top);
+    }
+
+    public static Screen GetPrimaryScreen()
+    {
+      return (from s in Screen.AllScreens
+              where s.Primary
+              select s).DefaultIfEmpty(Screen.AllScreens.FirstOrDefault()).FirstOrDefault();
     }
 
     public static Screen GetContainedScreen(double left, double top)

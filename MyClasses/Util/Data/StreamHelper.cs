@@ -7,10 +7,10 @@ namespace AMD.Util.Data
 {
 	public static class StreamHelper
 	{
-		public static string GetEmbeddedResource(string path)
-		{
-			Assembly assembly = Assembly.GetCallingAssembly();
-			using (Stream stream = assembly.GetManifestResourceStream(GetResourcePath(path)))
+		public static string GetEmbeddedResource(string path, Assembly asm = null)
+    {
+      Assembly assembly = asm ?? Assembly.GetCallingAssembly();
+      using (Stream stream = assembly.GetManifestResourceStream(GetResourcePath(path)))
 			{
 				using (StreamReader sr = new StreamReader(stream))
 				{

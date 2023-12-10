@@ -5,6 +5,7 @@ using AMD.Util.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -88,6 +89,13 @@ namespace AMD.Util.View.WPF.UserControls
     private FlowDocument fdLeft;
     private FlowDocument fdRight;
 
+    private Brush defaultForeground;
+    private Brush diffForeground;
+    private Brush diffBackground;
+    private Brush blankLine;
+
+    private int charsToSearchForOffset;
+
     public CompareView()
     {
       log = LogWriter.Instance;
@@ -101,6 +109,9 @@ namespace AMD.Util.View.WPF.UserControls
     {
       Clear();
 
+      UpdateBrushes(defaultForeground, diffForeground, diffBackground, blankLine);
+      this.charsToSearchForOffset = charsToSearchForOffset;
+
       (fdLeft, fdRight) = DataCompare.CompareBytes(dataLeft, dataRight, formatAsMemoryView, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
       PostCompare(fdLeft.GetRawText(), fdRight.GetRawText());
     }
@@ -109,8 +120,31 @@ namespace AMD.Util.View.WPF.UserControls
     {
       Clear();
 
+      UpdateBrushes(defaultForeground, diffForeground, diffBackground, blankLine);
+      this.charsToSearchForOffset = charsToSearchForOffset;
+
       (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
       PostCompare(strLeft, strRight);
+    }
+
+    private void UpdateBrushes(Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine)
+    {
+      this.defaultForeground = defaultForeground;
+      this.diffForeground = diffForeground;
+      this.diffBackground = diffBackground;
+      this.blankLine = blankLine;
+    }
+
+    public void SwapLeftAndRight()
+    {
+      string strLeft = rtbRight.Tag.ToString();
+      string strRight = rtbLeft.Tag.ToString();
+
+      (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
+      PostCompare(strLeft, strRight);
+
+      rtbLeft.Tag = strLeft;
+      rtbRight.Tag = strRight;
     }
 
     private void PostCompare(string leftOrgText, string rightOrgText)
@@ -277,7 +311,11 @@ namespace AMD.Util.View.WPF.UserControls
             sb.AppendLine(lines[i]);
           }
         }
-        Clipboard.SetDataObject(sb.ToString());
+        try
+        {
+          Clipboard.SetDataObject(sb.ToString(), true);
+        }
+        catch { }
       }
     }
 

@@ -90,15 +90,15 @@ namespace AMD.Util.View.WPF.UserControls
     /// <param name="log"></param>
     /// <param name="width"></param>
     public DebugPanel(Window owner, LogWriter log, double width = Double.NaN)
-		{
-			if (owner != null)
-			{
-				this.Owner = owner;
-			}
-      
-			InitializeComponent();
+    {
+      if (owner != null)
+      {
+        this.Owner = owner;
+      }
 
-      DebugPane.Initialise(log);
+      InitializeComponent();
+
+      InitialiseLog(log);
 
       this.DataContext = this;
 
@@ -108,6 +108,13 @@ namespace AMD.Util.View.WPF.UserControls
 		}
 
 		#region Initialisers
+    public void InitialiseLog(LogWriter log)
+    {
+      if (null != log)
+      {
+        DebugPane.Initialise(log);
+      }
+    }
 
 		private void InitialisePosition()
 		{

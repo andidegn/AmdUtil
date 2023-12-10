@@ -47,7 +47,7 @@ namespace AMD.Util.View.WPF.UserControls
 		}
 		#endregion // Public properties
     
-		private LogWriter log;
+		private ObservableCollection<LogWriter> logs;
 		private ObservableCollection<LogEntry> logQueue;
 		private List<LogMsgType> filter;
 
@@ -66,8 +66,16 @@ namespace AMD.Util.View.WPF.UserControls
 
 		public void Initialise(LogWriter log)
 		{
-			this.log = log;
-      InitialiseLog();
+			if (log is null && 0 == logs.Count)
+			{
+				log = LogWriter.Instance;
+      }
+
+			if (null != log)
+      {
+        logs.Add(log);
+        log.OnLogEntry += log_Update;
+      }
     }
 
 		#region Initialisers
@@ -79,11 +87,16 @@ namespace AMD.Util.View.WPF.UserControls
 
 		private void InitialiseLogQueue()
 		{
-			if (logQueue == null)
+			if (logs is null)
+			{
+				logs = new ObservableCollection<LogWriter>();
+			}
+			if (logQueue is null)
 			{
 				logQueue = new ObservableCollection<LogEntry>();
-			}
-		}
+      }
+      filter = new List<LogMsgType>(Enum.GetValues(typeof(LogMsgType)).Cast<LogMsgType>());
+    }
 
 		private void SetLvLogItemsSource()
 		{
@@ -100,31 +113,24 @@ namespace AMD.Util.View.WPF.UserControls
       {
         svLvLog.ScrollToEnd();
       }
-   //   int numOfEntries = lvLog.Items.Count;
-			//if (numOfEntries > 0)
-			//{
-			//	lvLog.ScrollIntoView(lvLog.Items[numOfEntries - 1]);
-			//}
-		}
+      //   int numOfEntries = lvLog.Items.Count;
+      //if (numOfEntries > 0)
+      //{
+      //	lvLog.ScrollIntoView(lvLog.Items[numOfEntries - 1]);
+      //}
+    }
+    #endregion // Initialisers
 
-		private void InitialiseLog()
-		{
-      if (log == null)
+    /// <summary>
+    /// Disposes the log eventhandler
+    /// </summary>
+    public void Dispose()
+    {
+      foreach (LogWriter log in logs)
       {
-        log = LogWriter.Instance;
+        log.OnLogEntry -= log_Update;
       }
-			filter = new List<LogMsgType>(Enum.GetValues(typeof(LogMsgType)).Cast<LogMsgType>());
-			log.OnLogEntry += log_Update;
-		}
-		#endregion // Initialisers
-
-		/// <summary>
-		/// Disposes the log eventhandler
-		/// </summary>
-		public void Dispose()
-		{
-			log.OnLogEntry -= log_Update;
-		}
+    }
 
 		#region Filter
 		private void SetFilter(bool addFilter, LogMsgType type)
@@ -227,9 +233,13 @@ namespace AMD.Util.View.WPF.UserControls
 			foreach (LogEntry item in (sender as ListView).SelectedItems)
 			{
 				sb.AppendLine(item.ToString());
-			}
-			Clipboard.SetDataObject(sb.ToString());
-		}
+      }
+      try
+      {
+        Clipboard.SetDataObject(sb.ToString(), true);
+      }
+      catch { }
+    }
     #endregion // EventHandlers
 
     private void miShowStackTrace_Click(object sender, RoutedEventArgs e)

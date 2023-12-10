@@ -151,6 +151,7 @@ namespace AMD.Util.View.WPF.UserControls
     private ResizeMode defaultResizeMode;
     private bool moving;
     private System.Windows.Forms.Screen currentScreen;
+    private System.Drawing.Rectangle? orgBounds;
     #endregion // Private Variables
 
     public TitleBar()
@@ -264,6 +265,11 @@ namespace AMD.Util.View.WPF.UserControls
         }
         else
         {
+          if (null != orgBounds)
+          {
+            parentWindow.Left = orgBounds.Value.Left;
+            parentWindow.Top = orgBounds.Value.Top;
+          }
           parentWindow.WindowState = WindowState.Normal;
           //parentWindow.ResizeMode = defaultResizeMode;
         }
@@ -313,13 +319,28 @@ namespace AMD.Util.View.WPF.UserControls
       if (moving && parentWindow.WindowState == WindowState.Normal)
       {
         Point mousePosition = MouseUtil.GetMousePosition();
-        foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+        //foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+        //{
+        //  if (mousePosition.X >= screen.Bounds.X && mousePosition.X <= screen.Bounds.X + screen.Bounds.Size.Width &&
+        //    mousePosition.Y <= screen.Bounds.Y + this.ActualHeight / 2)
+        //  {
+        //    parentWindow.WindowState = WindowState.Maximized;
+        //  }
+        //}
+        if (mousePosition.Y <= currentScreen.Bounds.Y + this.ActualHeight / 2)
         {
-          if (mousePosition.X >= screen.Bounds.X && mousePosition.X <= screen.Bounds.X + screen.Bounds.Size.Width &&
-            mousePosition.Y <= screen.Bounds.Y + this.ActualHeight / 2)
+          System.Windows.Forms.Screen containedScreen = ScreenUtil.GetContainedScreen(parentWindow.Left + parentWindow.ActualWidth / 2, parentWindow.Top);
+          if (!currentScreen.Equals(containedScreen))
           {
-            parentWindow.WindowState = WindowState.Maximized;
+            orgBounds = new System.Drawing.Rectangle((int)parentWindow.Left, (int)parentWindow.Top, (int)parentWindow.Width, (int)parentWindow.Height);
+            parentWindow.Left = currentScreen.Bounds.Left;
+            parentWindow.Top = currentScreen.Bounds.Top;
           }
+          else
+          {
+            orgBounds = null;
+          }
+          parentWindow.WindowState = WindowState.Maximized;
         }
         moving = false;
       }
@@ -345,21 +366,41 @@ namespace AMD.Util.View.WPF.UserControls
 
     private void ParentWindow_LocationChanged(object sender, EventArgs e)
     {
+      Point mousePos = new Point();
+
       if (Mouse.LeftButton == MouseButtonState.Pressed && IsMouseDirectlyOver)
       {
         moving = true;
+        mousePos = MouseUtil.GetMousePosition();
       }
 
       if (null != parentWindow)
       {
-        System.Windows.Forms.Screen screen = ScreenUtil.GetContainedScreen(parentWindow.Left, parentWindow.Top);
-        if (false == screen?.Equals(currentScreen))
+        System.Windows.Forms.Screen screen = null;
+
+
+        if (!mousePos.Equals(new Point(0, 0))) // Skipping point 0,0 as this for some reason is the mouse position when mouse is released at the top of screen when dragging window
         {
-          currentScreen = screen;
-          parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
+          if (moving)
+          {
+            screen = ScreenUtil.GetContainedScreen(mousePos.X, parentWindow.Top);
+          }
+          else
+          {
+            screen = ScreenUtil.GetContainedScreen(parentWindow.Left + parentWindow.ActualWidth / 2, parentWindow.Top);
+          }
+
+          if (false == screen?.Equals(currentScreen))
+          {
+            // This is formatted this way due to characters in screens ToString which breaks formatting
+            //LogWriter.Instance.PrintDebug("screen", "Changing screen. screen: {0} - newScreen: {1}", screen, currentScreen);
+            currentScreen = screen;
+            parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
+          }
         }
       }
     }
+
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
       try
@@ -369,8 +410,18 @@ namespace AMD.Util.View.WPF.UserControls
           parentWindow = Window.GetWindow(this);
         }
         parentWindow.LocationChanged += ParentWindow_LocationChanged;
-        currentScreen = ScreenUtil.GetContainedScreen(parentWindow.Left, parentWindow.Top);
-        parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
+
+        if (!ScreenUtil.IsWithinScreenArea(parentWindow.Left, parentWindow.Top))
+        {
+          parentWindow.Left = 100;
+          parentWindow.Top = 100;
+        }
+
+        currentScreen = ScreenUtil.GetContainedScreen(parentWindow.Left + parentWindow.ActualWidth / 2, parentWindow.Top);
+        if (null != currentScreen)
+        {
+          parentWindow.MaxHeight = currentScreen.WorkingArea.Height;
+        }
       }
       catch { }
     }

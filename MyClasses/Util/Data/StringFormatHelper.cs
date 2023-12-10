@@ -1,6 +1,8 @@
 ﻿using AMD.Util.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,19 +10,65 @@ namespace AMD.Util.Data
 {
   public static class StringFormatHelper
   {
+    private static void SetArrValuesNull(byte?[] arr)
+    {
+      for (int i = 0; i < arr.Length; i++)
+      {
+        arr[i] = null;
+      }
+    }
+
+    private static void AppendAscii(StringBuilder sb, byte?[] ascii)
+    {
+      sb.Append(" ");
+      foreach (byte? b in ascii)
+      {
+        switch (b)
+        {
+          case var _ when b is null:
+            sb.Append(' ');
+            break;
+
+          case var _ when 0x7E >= b && 0x20 <= b:
+            sb.Append((char)b);
+            break;
+
+          default:
+            sb.Append('.');
+            break;
+        }
+      }
+      SetArrValuesNull(ascii);
+      sb.AppendLine();
+    }
+
+    private static int PopulateAsciiArray(Endian endian, byte?[] ascii, int lineIndex, uint? value, int byteCount)
+    {
+      for (int k = 0; k < 4; k++)
+      {
+        int bitShift = Endian.Big == endian ? 8 * (3 - k) : 8 * k;
+        ascii[lineIndex] = (byte)(value != null ? ((value >> bitShift) & 0xFF) : 0);
+        lineIndex = (lineIndex + 1) % byteCount;
+      }
+
+      return lineIndex;
+    }
+
     /// <summary>
     /// Gets a formatted memory string from a word array
     /// </summary>
     /// <param name="startAddr"></param>
     /// <param name="data"></param>
     /// <returns></returns>
-    public static string GetFormattedMemoryString(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
+    public static string GetFormattedMemoryString(uint startAddr, uint?[] data, Endian endian = Endian.Big)
     {
       StringBuilder sb = new StringBuilder();
-      byte[] ascii = new byte[16];
+      int byteCount = 16;
+      int modulus = byteCount / 4;
       int lineIndex = 0;
       int wordIndex = 0;
-      UInt32 addr = startAddr;
+      byte?[] ascii = new byte?[byteCount];
+      uint addr = startAddr;
 
       if (Endian.Big == endian)
       {
@@ -31,13 +79,15 @@ namespace AMD.Util.Data
         sb.AppendLine("_Address_|________0________4________8________C_0123456789ABCDEF");
       }
 
+      SetArrValuesNull(ascii);
+
       if (data != null)
       {
-        AlignAddressAndData(ref data, ref addr);
+        AlignAddressAndData(ref data, ref addr, byteCount);
 
         for (int i = 0; i < data.Length; i++)
         {
-          UInt32? value = data[i];
+          uint? value = data[i];
 
           /* If first word (which is the address, print separator */
           if (wordIndex == 0)
@@ -66,32 +116,21 @@ namespace AMD.Util.Data
           }
 
           /* If last word but not mod 4, print padding until mod 4 */
-          if (i == data.Length - 1 && (wordIndex + 1) % 4 != 0)
+          if (i == data.Length - 1 && (wordIndex + 1) % modulus != 0)
           {
             do
             {
               sb.Append("         ");
-            } while ((++wordIndex + 1) % 4 != 0);
+            } while ((++wordIndex + 1) % modulus != 0);
           }
 
-          for (int k = 0; k < 4; k++)
-          {
-            int bitShift = Endian.Big == endian ? 8 * (3 - k) : 8 * k;
-            ascii[lineIndex] = (byte)(value != null ? ((value >> bitShift) & 0xFF) : 0);
-            lineIndex = (lineIndex + 1) % 16;
-          }
+          lineIndex = PopulateAsciiArray(endian, ascii, lineIndex, value, byteCount);
 
-          if (++wordIndex % 4 == 0)
+          if (++wordIndex % modulus == 0)
           {
-            sb.Append(" ");
-            foreach (byte b in ascii)
-            {
-              sb.Append(b <= 126 && b >= 33 ? (char)b : '.');
-            }
+            AppendAscii(sb, ascii);
+            addr += (uint)byteCount;
             wordIndex = 0;
-            sb.AppendLine();
-            addr += 0x10;
-
           }
         }
       }
@@ -101,37 +140,38 @@ namespace AMD.Util.Data
       }
       return sb.ToString();
     }
+
     /// <summary>
     /// Gets a formatted memory string from a word array
     /// </summary>
     /// <param name="startAddr"></param>
     /// <param name="data"></param>
+    /// <param name="byteCount">Has to be divisible by 8. If not, throw exception</param>
     /// <param name="endian"></param>
     /// <returns></returns>
-    public static string GetFormattedMemoryString8Align(UInt32 startAddr, UInt32?[] data, Endian endian = Endian.Big)
+    public static string GetFormattedMemoryStringByteSeparated(uint startAddr, uint?[] data, int byteCount, Endian endian = Endian.Big)
     {
+      if (byteCount % 8 != 0)
+      {
+        throw new NotSupportedException("byteCount  to be divisible by 8");
+      }
       StringBuilder sb = new StringBuilder();
-      byte[] ascii = new byte[8];
+      int modulus = byteCount / 4;
       int lineIndex = 0;
       int wordIndex = 0;
-      UInt32 addr = startAddr;
+      byte?[] ascii = new byte?[byteCount];
+      uint addr = startAddr;
 
-      if (Endian.Big == endian)
-      {
-        sb.AppendLine("_Address_|__0__1__2__3__4__5__6__7_01234567");
-      }
-      else
-      {
-        sb.AppendLine("_Address_|__3__2__1__0__7__6__5__4_01234567");
-      }
+      AppendHeaderLine(endian, sb, byteCount);
 
+      SetArrValuesNull(ascii);
       if (data != null)
       {
-        AlignAddressAndData(ref data, ref addr);
+        AlignAddressAndData(ref data, ref addr, byteCount);
 
         for (int i = 0; i < data.Length; i++)
         {
-          UInt32? value = data[i];
+          uint? value = data[i];
 
           /* If first word (which is the address, print separator */
           if (wordIndex == 0)
@@ -168,31 +208,20 @@ namespace AMD.Util.Data
           }
 
           /* If last word but not mod 4, print padding until mod 4 */
-          if (i == data.Length - 1 && (wordIndex + 1) % 2 != 0)
+          if (i == data.Length - 1 && (wordIndex + 1) % modulus != 0)
           {
             do
             {
               sb.Append("            ");
-            } while ((++wordIndex + 1) % 2 != 0);
+            } while ((++wordIndex + 1) % modulus != 0);
           }
+          lineIndex = PopulateAsciiArray(endian, ascii, lineIndex, value, byteCount);
 
-          for (int k = 0; k < 4; k++)
+          if (++wordIndex % modulus == 0)
           {
-            int bitShift = Endian.Big == endian ? 8 * (3 - k) : 8 * k;
-            ascii[lineIndex] = (byte)(value != null ? ((value >> bitShift) & 0xFF) : 0);
-            lineIndex = (lineIndex + 1) % 8;
-          }
-
-          if (++wordIndex % 2 == 0)
-          {
-            sb.Append(" ");
-            foreach (byte b in ascii)
-            {
-              sb.Append(b <= 126 && b >= 33 ? (char)b : '.');
-            }
+            AppendAscii(sb, ascii);
             wordIndex = 0;
-            sb.AppendLine();
-            addr += 0x10;
+            addr += (uint)byteCount;
 
           }
         }
@@ -204,17 +233,40 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
 
+    private static void AppendHeaderLine(Endian endian, StringBuilder sb, int byteCount)
+    {
+      sb.Append("_Address_|");
+      for (int i = 0; i < byteCount; i++)
+      {
+        if (Endian.Big == endian)
+        {
+          sb.Append($"{i:X}".PadLeft(3, '_'));
+        }
+        else
+        {
+          int idx = 4 * (i / 4) + 4;
+          sb.Append($"{idx - i - 1 + idx - 4:X}".PadLeft(3, '_'));
+        }
+      }
+      sb.Append('_');
+      for (int i = 0; i < byteCount; i++)
+      {
+        sb.Append($"{(i & 0x0F):X}");
+      }
+      sb.AppendLine();
+    }
+
     public static string GetByteArrayString(byte[] arr, bool showAsWord, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsWord)
       {
-        UInt32 tmp = 0;
+        uint tmp = 0;
         for (int i = 0; i < arr.Length; i++)
         {
           int byteNo = i % 4;
           int bitShift = 8 * (littleEndian ? byteNo : 3 - byteNo);
-          tmp |= (UInt32)(arr[i] << bitShift);
+          tmp |= (uint)(arr[i] << bitShift);
           if (byteNo == 3 || i == arr.Length - 1)
           {
             sb.AppendFormat("{0}{1}", tmp.ToString("X8"), i % 31 == 0 ? "\n" : " ");
@@ -232,7 +284,7 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
 
-    public static string GetWordArrayString(UInt32[] arr, bool showAsByte, bool littleEndian)
+    public static string GetWordArrayString(uint[] arr, bool showAsByte, bool littleEndian)
     {
       StringBuilder sb = new StringBuilder();
       if (showAsByte)
@@ -259,11 +311,11 @@ namespace AMD.Util.Data
       return sb.ToString();
     }
 
-    private static void AlignAddressAndData(ref UInt32?[] data, ref UInt32 addr)
+    private static void AlignAddressAndData(ref uint?[] data, ref uint addr, int byteCount)
     {
-      if (addr % 0x10 != 0)
+      if (addr % byteCount != 0)
       {
-        UInt32 overflow = addr % 0x10;
+        uint overflow = addr % (uint)byteCount;
         addr -= overflow;
 
         List<byte?> bListTemp = new List<byte?>();
@@ -286,8 +338,8 @@ namespace AMD.Util.Data
             bListTemp.Add((byte?)(item >> 24));
           }
         }
-        List<UInt32?> uintListTemp = new List<UInt32?>();
-        UInt32? tmp = null;
+        List<uint?> uintListTemp = new List<uint?>();
+        uint? tmp = null;
         for (int i = 0; i < bListTemp.Count; i++)
         {
           byte? bVal = bListTemp[i];
@@ -298,7 +350,7 @@ namespace AMD.Util.Data
           }
           else
           {
-            tmp |= (UInt32?)(bVal << (byteOffSet * 8));
+            tmp |= (uint?)(bVal << (byteOffSet * 8));
           }
 
           if (byteOffSet == 3)
@@ -310,6 +362,11 @@ namespace AMD.Util.Data
 
         data = uintListTemp.ToArray();
       }
+    }
+
+    public static string Repeat(string text, int count)
+    {
+      return string.Concat(Enumerable.Repeat(text, count)) + Environment.NewLine;
     }
 
     private class StackEntry

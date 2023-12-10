@@ -346,7 +346,7 @@ namespace AMD.Util.Display.Edid
 
       if (useByteFormat == null || true == useByteFormat)
       {
-        rawEdidFormattedString += StringFormatHelper.GetFormattedMemoryString8Align(0, RawData.GetNullableUIntArray());
+        rawEdidFormattedString += StringFormatHelper.GetFormattedMemoryStringByteSeparated(0, RawData.GetNullableUIntArray(), 8);
       }
       if (useByteFormat == null || false == useByteFormat)
       {
@@ -388,7 +388,7 @@ namespace AMD.Util.Display.Edid
       sb.AppendLine();
 
 
-      sb.AppendLine($"{"( 21-22  )".PadRight(leftPad)}{"Is Projector".PadRight(descriptionWidth)} : {DisplayParameters.IsProjector}");
+      sb.AppendLine($"{"( 21-22 )".PadRight(leftPad)}{"Is Projector".PadRight(descriptionWidth)} : {DisplayParameters.IsProjector}");
       if (!DisplayParameters.IsProjector)
       {
         sb.AppendLine($"{new string(' ', leftPad)}{"Display Size".PadRight(descriptionWidth)} : {DisplayParameters.DisplaySizeInInch} \"");

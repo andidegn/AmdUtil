@@ -32,8 +32,8 @@ namespace CH341_Test
 		{
 			log = LogWriter.Instance;
 			log.LogDir = Settings.Default.logPath;
-			log.logFile = Settings.Default.logFile;
-			log.logExtension = Settings.Default.logExtension;
+			log.LogFile = Settings.Default.logFile;
+			log.LogExtension = Settings.Default.logExtension;
 			log.Type = LogType.DateCoded;
 		}
 

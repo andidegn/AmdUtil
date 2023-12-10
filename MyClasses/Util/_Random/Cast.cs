@@ -5,8 +5,7 @@ namespace AMD.Util
   /// <summary>
   /// Cast helper
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  public static class Cast<T>
+  public static class Cast
   {
     /// <summary>
     /// Directly casts the input the type of T

@@ -592,6 +592,7 @@ namespace AMD.Util.Display
               VCPCodes.Clear();
             }
             VCPCodes.Populate(pszASCIICapabilitiesString.ToString());
+            CapabilityString = VCPCodes.CapabilityString;
 
             SupportsLowLevelDDC = 0 < VCPCodes.Count;
           }

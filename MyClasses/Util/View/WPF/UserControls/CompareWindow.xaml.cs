@@ -82,6 +82,8 @@ namespace AMD.Util.View.WPF.UserControls
         DependencyProperty.Register("MissingLine", typeof(Brush), typeof(CompareWindow), new PropertyMetadata(Brushes.Gray));
 
 
+    private string strLeft, strRight;
+
     public CompareWindow()
     {
       InitializeComponent();
@@ -115,6 +117,11 @@ namespace AMD.Util.View.WPF.UserControls
       {
         Exit();
       }
+    }
+
+    private void btnSwap_Click(object sender, RoutedEventArgs e)
+    {
+      CompareView.SwapLeftAndRight();
     }
   }
 }
