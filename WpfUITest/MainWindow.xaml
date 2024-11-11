@@ -45,14 +45,15 @@
               <RowDefinition Height="Auto" />
               <RowDefinition Height="Auto" />
               <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <usercontrols:ColorPicker Name="colorPicker" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" Foreground="Black" />
-            <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="1" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" Foreground="Black" SelectedBrushChanged="ColorPicker_BrushChanged" />
-            <usercontrols:MultiTouchSlider Name="multiTouchSlider" Grid.Column="1" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <usercontrols:WatermarkTextBox Grid.Row="0" Watermark="This is a watermark textbox" Visibility="Visible" />
+            <usercontrols:ColorPicker Name="colorPicker" Grid.Row="1" SelectedBrushChanged="ColorPicker_BrushChanged" SelectedBrush="{DynamicResource BrushForeground}" Foreground="Black" />
+            <usercontrols:ColorPicker2 Name="colorPicker1" Grid.Row="2" SelectedBrush="{Binding ElementName=colorPicker, Path=SelectedBrush, Mode=TwoWay}" Foreground="Black" SelectedBrushChanged="ColorPicker_BrushChanged" />
+            <usercontrols:MultiTouchSlider Name="multiTouchSlider" Grid.Column="3" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <Slider Grid.Column="0" 
                     Grid.Row="2" 
                     Style="{StaticResource StyleSliderSimpleRoundThumb}"
-                    Background="Red" 
                     Value="5" 
                     Maximum="10" />
             <!--<usercontrols:MultiTouchSlider Name="multiTouchSliderHorizontal" 
@@ -65,13 +66,13 @@
                                            ThumbPressedBackground="Red"
                                            Orientation="Horizontal"
                                            Value="{Binding ElementName=colorPicker, Path=SelectedBrush.Color.R}" />-->
-            <usercontrols:WatermarkTextBox Grid.Column="1" Grid.Row="2" />
             <!--<Slider Grid.Column="1" Grid.Row="1" />-->
             <StackPanel Grid.Column="1" Orientation="Vertical" MinWidth="120">
               <Button Name="btnColorPickerDialogTest" Content="Dialog" Click="btnColorPickerDialogTest_Click" />
               <!--<Button Name="btnTestTabBackgroundBinding" Content="Background binding" Click="btnTestTabBackgroundBinding_Click" />-->
               <Button Name="btnTestException" Content="Exception Test" Click="btnTestException_Click" />
               <Button Name="btnLogBurst" Content="Start Log Burst" Click="btnLogBurst_Click" />
+              <Button Name="TestAMDMessageBox" Content="AMD Message Box" Click="TestAMDMessageBox_Click" />
               <Grid Background="Yellow">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="Auto" />
@@ -232,10 +233,16 @@
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem Header="CapabilityString">
           <Grid>
-            <ScrollViewer Style="{StaticResource ScrollViewerInvisSquare}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="30" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <usercontrols:WatermarkTextBox Grid.Row="0" Watermark="Test working???" />
+            <ScrollViewer Style="{StaticResource ScrollViewerInvisSquare}" Grid.Row="2">
               <TextBox Name="tbCapabilityString" AcceptsReturn="True" Height="Auto" Margin="0" IsReadOnly="False" />
             </ScrollViewer>
-            <Button Name="btnCheckCapabilities" Height="20" Width="40" Content="scan" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnCheckCapabilities_Click" />
+            <Button Name="btnCheckCapabilities" Grid.Row="1" Height="20" Width="40" Content="scan" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnCheckCapabilities_Click" />
           </Grid>
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem>

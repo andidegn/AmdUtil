@@ -10,7 +10,7 @@ namespace AMD.Util.Data
 		public static string GetEmbeddedResource(string path, Assembly asm = null)
     {
       Assembly assembly = asm ?? Assembly.GetCallingAssembly();
-      using (Stream stream = assembly.GetManifestResourceStream(GetResourcePath(path)))
+      using (Stream stream = assembly.GetManifestResourceStream(GetResourcePath(path, asm)))
 			{
 				using (StreamReader sr = new StreamReader(stream))
 				{
@@ -37,7 +37,7 @@ namespace AMD.Util.Data
     public static string DeployResource(string absPath, string deployPath, Assembly asm = null)
     {
       Assembly assembly = asm ?? Assembly.GetEntryAssembly();
-      absPath = GetResourcePath(absPath);
+      absPath = GetResourcePath(absPath, asm);
       using (Stream stream = assembly.GetManifestResourceStream(absPath))
       {
         Directory.CreateDirectory(Path.GetDirectoryName(deployPath));

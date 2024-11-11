@@ -29,6 +29,7 @@
     <DocumentationFile>bin\Debug\AMDUtil.XML</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -91,6 +92,7 @@
     <Compile Include="Util\CLA\CommandContainer.cs" />
     <Compile Include="Util\CLA\CommandHandler.cs" />
     <Compile Include="Util\Collections\ArrayStack\ArrayDropOutStack.cs" />
+    <Compile Include="Util\Collections\BitArray\BitArray.cs" />
     <Compile Include="Util\Collections\Dictionary\Dictionary3D.cs" />
     <Compile Include="Util\Collections\Dictionary\SerializableDictionary.cs" />
     <Compile Include="Util\Collections\IStack.cs" />
@@ -139,6 +141,8 @@
     <Compile Include="Util\Data\StringFormatHelper.cs" />
     <Compile Include="Util\Data\ValueHelper.cs" />
     <Compile Include="Util\Device\DeviceNotification.cs" />
+    <Compile Include="Util\Device\Disk\DiskControl.cs" />
+    <Compile Include="Util\Device\Hardware\HardwareHelper.cs" />
     <Compile Include="Util\Diagnostics.cs" />
     <Compile Include="Util\Display\DDCCI\MCCSCodeStandard\VCPCodeStandard.cs" />
     <Compile Include="Util\Display\DDCCI\Monitor.cs" />
@@ -205,15 +209,29 @@
     <Compile Include="Util\Files\FileCompare.cs" />
     <Compile Include="Util\Files\FileContainer.cs" />
     <Compile Include="Util\HID\Keyboard.cs" />
+    <Compile Include="Util\LiniarAlgebra\Trendline.cs" />
     <Compile Include="Util\Network\NetworkHelper.cs" />
+    <Compile Include="Util\ProcessUtil\ProcessWrapper.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Util\ProcessUtil\WIndowHelper.cs" />
     <Compile Include="Util\Search\BSearch.cs" />
     <Compile Include="Util\Sort\BubbleSortIList.cs" />
     <Compile Include="Util\Types\TypeHelper.cs" />
+    <Compile Include="Util\View\WPF\AMDTouchSliderSnapSideRD.xaml.cs">
+      <DependentUpon>AMDTouchSliderSnapSideRD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\View\WPF\Helper\PropertyChangedNotifier.cs" />
     <Compile Include="Util\View\WPF\Helper\TabHelper.cs" />
     <Compile Include="Util\View\WPF\Helper\VisualHelper.cs" />
     <Compile Include="Util\View\WPF\IconCollection.cs" />
+    <Compile Include="Util\View\WPF\UserControls\AmdChart.xaml.cs">
+      <DependentUpon>AmdChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\LogFilterCollection.cs" />
+    <Compile Include="Util\View\WPF\UserControls\AMDMessageBox.xaml.cs">
+      <DependentUpon>AMDMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\View\WPF\UserControls\PdfViewerImage.xaml.cs">
       <DependentUpon>PdfViewerImage.xaml</DependentUpon>
     </Compile>
@@ -381,7 +399,19 @@
     <Folder Include="Util\View\WPF\UserControls\BaseControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Util\View\WPF\AMDBrandIconsRD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Util\View\WPF\AMDNumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\AmdChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\AMDMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -590,6 +620,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\WatermarkTextBoxRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\AMDTouchSliderSnapSideRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

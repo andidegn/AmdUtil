@@ -6,6 +6,7 @@
              xmlns:vConverter="clr-namespace:AMD.Util.View.WPF.ValueConverters"
              mc:Ignorable="d"
              Background="Transparent"
+             Foreground="White"
              Loaded="UserControl_Loaded"     
              MinWidth="0"
              MinHeight="50">
@@ -31,7 +32,7 @@
       <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollViewerInvisSquare}" />
 
       <Style TargetType="TextBlock">
-        <Setter Property="Foreground" Value="White" />
+        <!--<Setter Property="Foreground" Value="White" />-->
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0, 0, 0, 5" />
@@ -59,6 +60,7 @@
 
       <ContextMenu x:Key="livCtxMenu">
         <MenuItem Name="miShowStackTrace" Header="Show StackTrace" Click="miShowStackTrace_Click" />
+        <MenuItem Name="miShowCaller" Header="Show Caller" Click="miShowCaller_Click" />
       </ContextMenu>
     </ResourceDictionary>
   </UserControl.Resources>
@@ -113,6 +115,14 @@
           <RowDefinition />
           <RowDefinition />
         </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Assert" />
+        <ToggleButton Name="tbAssert" Grid.Row="1" IsChecked="True" Click="tbAssert_Click" />
+      </Grid>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Result" />
         <ToggleButton Name="tbResult" Grid.Row="1" IsChecked="True" Click="tbResult_Click" />
       </Grid>
@@ -147,7 +157,8 @@
           <Setter Property="BorderThickness" Value="0"/>
           <Setter Property="Margin" Value="0"/>
           <Setter Property="Padding" Value="0"/>
-          <Setter Property="FontFamily" Value="InputMono" />
+          <Setter Property="FontFamily" Value="Consolas" />
+          <Setter Property="FontSize" Value="12" />
           <Setter Property="Tag" Value="{Binding}" />
           <!--<Setter Property="ToolTip" Value="{Binding Message}" />-->
           <!--<Setter Property="VerticalAlignment" Value="Stretch" />-->
@@ -278,7 +289,7 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>
-          <GridViewColumn x:Name="col1" Width="80">
+          <GridViewColumn x:Name="col1" Width="95">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding LogTime}" Foreground="{StaticResource ConsoleOrange}" />
@@ -299,7 +310,7 @@
               </DataTemplate>
             </GridViewColumn.CellTemplate>
           </GridViewColumn>-->
-          <GridViewColumn x:Name="col4" Width="80">
+          <GridViewColumn x:Name="col4" Width="Auto">
             <GridViewColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding MessageType}" Foreground="{Binding MessageType, Converter={StaticResource logMsgToColor}}" />

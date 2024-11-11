@@ -14,28 +14,7 @@
     <GradientStop Color="#90000000" Offset="1"/>
   </LinearGradientBrush>
   <SolidColorBrush x:Key="TitleBarForeground">#FFFF0000</SolidColorBrush>
-
-  <!--<SolidColorBrush x:Key="TitleBarBackgroundSpecator">#50FF2050</SolidColorBrush>-->
-  <LinearGradientBrush x:Key="TitleBarBackgroundSpecator" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop Color="#50FF2050"/>
-    <GradientStop Color="#90000000" Offset="1"/>
-  </LinearGradientBrush>
-  <!--<SolidColorBrush x:Key="TitleBarBackgroundEditor">#50909090</SolidColorBrush>-->
-  <LinearGradientBrush x:Key="TitleBarBackgroundEditor" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop  Color="#50909090"/>
-    <GradientStop Color="#90000000" Offset="1"/>
-  </LinearGradientBrush>
-  <!--<SolidColorBrush x:Key="TitleBarBackgroundAdmin">#80000000</SolidColorBrush>-->
-  <!--<SolidColorBrush x:Key="TitleBarBackgroundAdmin">#FFFFCC00</SolidColorBrush>-->
-  <LinearGradientBrush x:Key="TitleBarBackgroundAdmin" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop Color="#FFFFCC00"/>
-    <GradientStop Color="#90000000" Offset="1"/>
-  </LinearGradientBrush>
-  <SolidColorBrush x:Key="TitleBarForegroundSpecator">#FFFF0000</SolidColorBrush>
-  <SolidColorBrush x:Key="TitleBarForegroundEditor">#FF000000</SolidColorBrush>
-  <!--<SolidColorBrush x:Key="TitleBarForegroundAdmin">#FFFFFFFF</SolidColorBrush>-->
-  <SolidColorBrush x:Key="TitleBarForegroundAdmin">#FFFF0000</SolidColorBrush>
-
+  
   <SolidColorBrush x:Key="BackgroundColor">#FFFFEEDD</SolidColorBrush>
 
   <SolidColorBrush x:Key="BorderBackground">#FFF0F0FA</SolidColorBrush>
@@ -49,7 +28,7 @@
   <SolidColorBrush x:Key="TabNotActiveBorderBrush">#FFFFFFFF</SolidColorBrush>
   <SolidColorBrush x:Key="TabActiveBackground">#AA00FF55</SolidColorBrush>
   <SolidColorBrush x:Key="TabNotActiveBackground">#55EEEEEE</SolidColorBrush>
-  <SolidColorBrush x:Key="TabNotActiveForeground">LightGray</SolidColorBrush>
+  <SolidColorBrush x:Key="TabNotActiveForeground">#FF404040</SolidColorBrush>
 
   <SolidColorBrush x:Key="LightText">#FFFFFFFF</SolidColorBrush>
   <SolidColorBrush x:Key="TextBoxBorderBrush">#20000000</SolidColorBrush>
@@ -108,6 +87,10 @@
     <GradientStop Color="#FF71C5FF"/>
     <GradientStop Color="#FF1E77B3" Offset="1"/>
   </LinearGradientBrush>
+  <LinearGradientBrush x:Key="IconDarkBlueBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FF0080FF"/>
+    <GradientStop Color="#FF003880" Offset="1"/>
+  </LinearGradientBrush>
   <!--<SolidColorBrush x:Key="IconPurpleBackground">#F791058F</SolidColorBrush>-->
   <LinearGradientBrush x:Key="IconPurpleBackground" EndPoint="0.5,1" StartPoint="0.5,0">
     <GradientStop Color="#FF91058F"/>
@@ -131,7 +114,7 @@
   </LinearGradientBrush>
   <!--<SolidColorBrush x:Key="IconYellowBackground">#FFEED202</SolidColorBrush>-->
   <LinearGradientBrush x:Key="IconYellowBackground" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop Color="#FFEED202"/>
+    <GradientStop Color="#FFFFD202"/>
     <GradientStop Color="#FFB8A10E" Offset="1"/>
   </LinearGradientBrush>
   <SolidColorBrush x:Key="IconGrayBackground">Gray</SolidColorBrush>

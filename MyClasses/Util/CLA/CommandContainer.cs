@@ -11,11 +11,13 @@ namespace AMD.Util.CLA
   {
     public string Input { get; set; }
     public bool Success { get; set; }
+    public string ErrorMessage { get; set; }
 
     public CommandParam(string input)
     {
       Input = input;
       Success = false;
+      ErrorMessage = null;
     }
   }
 
@@ -23,13 +25,15 @@ namespace AMD.Util.CLA
   {
     private LogWriter log;
 
-    public int Index { get; set; }
-    public Action<CommandParam> Command { get; set; }
-    public string CmdStr { get; set; }
-    public string CmdStrShort { get; set; }
-    public string Description { get; set; }
-    public string Note { get; set; }
-    public string CmdParameterValue { get; set; }
+    public int Index { get; private set; }
+    public Action<CommandParam> Command { get; private set; }
+    public string CmdStr { get; private set; }
+    public string CmdStrShort { get; private set; }
+    public string Description { get; private set; }
+    public string Note { get; private set; }
+    public string CmdParameterValue { get; internal set; }
+    public CommandParam CmdParameter { get; private set; }
+    public bool Required { get; private set; }
     public string PrintName
     {
       get
@@ -39,7 +43,16 @@ namespace AMD.Util.CLA
       }
     }
 
-    public CommandContainer(int index, Action<CommandParam> command, string cmdStr, string cmdStrShort, string description, string note = null)
+    public CommandContainer(int index, Action<CommandParam> command, string cmdStr, string cmdStrShort, string description)
+      : this(index, command, cmdStr, cmdStrShort, description, false, null) { }
+
+    public CommandContainer(int index, Action<CommandParam> command, string cmdStr, string cmdStrShort, string description, bool required)
+      : this(index, command, cmdStr, cmdStrShort, description, required, null) { }
+
+    public CommandContainer(int index, Action<CommandParam> command, string cmdStr, string cmdStrShort, string description, string note)
+      : this(index, command, cmdStr, cmdStrShort, description, false, note) { }
+
+      public CommandContainer(int index, Action<CommandParam> command, string cmdStr, string cmdStrShort, string description, bool required, string note)
     {
       log = LogWriter.Instance;
       Index = index;
@@ -47,6 +60,7 @@ namespace AMD.Util.CLA
       CmdStr = cmdStr.ToLower();
       CmdStrShort = cmdStrShort;
       Description = description;
+      Required = required;
       Note = note;
     }
 
@@ -57,9 +71,9 @@ namespace AMD.Util.CLA
       {
         try
         {
-          CommandParam param = new CommandParam(CmdParameterValue);
-          Command(param);
-          retVal = param.Success;
+          CmdParameter = new CommandParam(CmdParameterValue);
+          Command(CmdParameter);
+          retVal = CmdParameter.Success;
         }
         catch (Exception ex)
         {

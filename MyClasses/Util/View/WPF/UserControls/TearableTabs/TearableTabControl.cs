@@ -45,8 +45,6 @@ namespace AMD.Util.View.WPF.UserControls
     {
       sharedData = TearableTabSharedHelper.Instance;
 
-      this.Background = Brushes.Purple;
-
       this.AllowDrop = true;
       this.SizeChanged += TearableTabControl_SizeChanged;
       this.Drop += TearableTabControl_Drop;

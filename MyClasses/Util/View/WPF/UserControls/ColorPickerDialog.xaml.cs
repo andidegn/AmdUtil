@@ -38,27 +38,25 @@ namespace AMD.Util.View.WPF.UserControls
     public static readonly DependencyProperty BackgroundProperty =
         DependencyProperty.Register("Background", typeof(Brush), typeof(ColorPickerDialog), new PropertyMetadata(Brushes.GhostWhite));
 
-
-    public Brush SelectedBrush
+    public SolidColorBrush SelectedBrush
     {
-      get { return (Brush)GetValue(SelectedBrushProperty); }
+      get { return (SolidColorBrush)GetValue(SelectedBrushProperty); }
       set { SetValue(SelectedBrushProperty, value); }
     }
 
     // Using a DependencyProperty as the backing store for SelectedBrush.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty SelectedBrushProperty =
-        DependencyProperty.Register("SelectedBrush", typeof(Brush), typeof(ColorPickerDialog), new PropertyMetadata(Brushes.Transparent));
+        DependencyProperty.Register("SelectedBrush", typeof(SolidColorBrush), typeof(ColorPickerDialog), new PropertyMetadata(Brushes.Transparent));
 
-
-    public Brush OriginalBrush
+    public SolidColorBrush OriginalBrush
     {
-      get { return (Brush)GetValue(OriginalBrushProperty); }
+      get { return (SolidColorBrush)GetValue(OriginalBrushProperty); }
       set { SetValue(OriginalBrushProperty, value); }
     }
 
     // Using a DependencyProperty as the backing store for OriginalBrush.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty OriginalBrushProperty =
-        DependencyProperty.Register("OriginalBrush", typeof(Brush), typeof(ColorPickerDialog), new PropertyMetadata(Brushes.Transparent));
+        DependencyProperty.Register("OriginalBrush", typeof(SolidColorBrush), typeof(ColorPickerDialog), new PropertyMetadata(Brushes.Transparent));
 
 
     #endregion // Properties
@@ -66,7 +64,6 @@ namespace AMD.Util.View.WPF.UserControls
     public ColorPickerDialog()
     {
       InitializeComponent();
-      this.DataContext = this;
       Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, (s, e) =>
       {
         this.CloseDialog();

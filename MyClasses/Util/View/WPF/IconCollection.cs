@@ -34,11 +34,17 @@ namespace AMD.Util.View.WPF
       [TemplateName("ctExclamationInGrayCircle")]
       ExclamationInGrayCircle,
 
+      [TemplateName("ctExclamationInBlueCircle")]
+      ExclamationInBlueCircle,
+
       [TemplateName("ctExclamationInYellowTriangle")]
       ExclamationInYellowTriangle,
 
       [TemplateName("ctExclamationInGreenTriangle")]
       ExclamationInGreenTriangle,
+
+      [TemplateName("ctQuestionMarkInBlueCircle")]
+      QuestionMarkInBlueCircle,
 
       [TemplateName("ctHourglassInBlueCircle")]
       HourGlassInBlueCircle,

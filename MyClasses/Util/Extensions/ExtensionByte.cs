@@ -10,12 +10,34 @@ namespace AMD.Util.Extensions
     Big,
     Little
   }
+
   public static class ExtensionByte
 	{
-		public static String GetString(this byte[] bArr)
+		public static string GetString(this byte[] bArr)
 		{
-			return Encoding.Default.GetString(bArr);
+			return 0 < bArr.Length ? Encoding.Default.GetString(bArr) : string.Empty;
 		}
+
+    public static string GetStringUntilNullByte(this byte[] bArr)
+    {
+      byte nullByte = 0x00;
+      int indexOfNullByte = Array.IndexOf(bArr, nullByte);
+      if (-1 < indexOfNullByte)
+      {
+        bArr = bArr.SubArray(0, indexOfNullByte);
+      }
+      return 0 < bArr.Length ? Encoding.Default.GetString(bArr) : string.Empty;
+    }
+
+    /// <summary>
+    /// Returns a string with bytes formatted as hex
+    /// </summary>
+    /// <param name="bArr">The data</param>
+    /// <returns></returns>
+    public static string GetHexString(this byte[] bArr)
+    {
+      return GetHexString(bArr, " ", "", -1);
+    }
 
     /// <summary>
     /// Returns a string with bytes formatted as hex
@@ -25,7 +47,20 @@ namespace AMD.Util.Extensions
     /// <param name="prefix">The prefix before the byte. ex. 0x</param>
     /// <param name="newLineAfter">Insert new line after how many bytes</param>
     /// <returns></returns>
-		public static String GetHexString(this byte[] bArr, char separator = ' ', string prefix = "", long newLineAfter = -1)
+    public static string GetHexString(this byte[] bArr, char separator = ' ', string prefix = "", long newLineAfter = -1)
+    { 
+      return GetHexString(bArr, separator.ToString(), prefix, newLineAfter);
+    }
+
+    /// <summary>
+    /// Returns a string with bytes formatted as hex
+    /// </summary>
+    /// <param name="bArr">The data</param>
+    /// <param name="separator">The separator</param>
+    /// <param name="prefix">The prefix before the byte. ex. 0x</param>
+    /// <param name="newLineAfter">Insert new line after how many bytes</param>
+    /// <returns></returns>
+    public static string GetHexString(this byte[] bArr, string separator = " ", string prefix = "", long newLineAfter = -1)
 		{
 			StringBuilder sb = new StringBuilder();
 			if (bArr == null)
@@ -44,7 +79,7 @@ namespace AMD.Util.Extensions
         for (int i = 0; i < bArr.Length; i++)
         {
           sb.Append($"{prefix}{bArr[i]:X2}");
-          if ('\0' != separator)
+          if (null != separator)
           {
             sb.Append(((i < bArr.Length - 1) ? separator.ToString() : ""));
           }

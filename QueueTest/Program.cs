@@ -34,6 +34,35 @@ namespace QueueTest
 
     static void Main(string[] args)
     {
+      int size = 128;
+
+      BitArray ba = new BitArray(size);
+
+      for (int i = 1; i < size; i += 3)
+      {
+        ba.SetHigh(i);
+      }
+      var dArr1 = ba.GetByteArray();
+      var dArr2 = ba.GetUShortArray();
+      var dArr3 = ba.GetUIntArray();
+      var dArr4 = ba.GetULongArray();
+
+      var dArr5 = ba.GetSByteArray();
+      var dArr6 = ba.GetShortArray();
+      var dArr7 = ba.GetIntArray();
+      var dArr8 = ba.GetLongArray();
+
+      int index = 0;
+      foreach (var item in ba)
+      {
+        Console.WriteLine($"ba{index++} = {(item ? "1" : "0")}");
+      }
+      Console.ReadKey();
+      return;
+
+
+
+
       RunCodeTestExample();
       return;
 

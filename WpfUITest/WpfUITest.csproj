@@ -61,6 +61,9 @@
     <Compile Include="TearableTabItemWindow.xaml.cs">
       <DependentUpon>TearableTabItemWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TouchBackground.xaml.cs">
+      <DependentUpon>TouchBackground.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TearableTabItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TouchBackground.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

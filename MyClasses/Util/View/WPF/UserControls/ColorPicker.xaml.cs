@@ -133,6 +133,18 @@ namespace AMD.Util.View.WPF.UserControls
     public static readonly DependencyProperty OriginalBrushProperty =
         DependencyProperty.Register("OriginalBrush", typeof(SolidColorBrush), typeof(ColorPicker), new PropertyMetadata(default(Brush)));
 
+    public bool OriginalBrushLocked
+    {
+      get { return (bool)GetValue(OriginalBrushLockedProperty); }
+      set { SetValue(OriginalBrushLockedProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for OriginalBrushLocked.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty OriginalBrushLockedProperty =
+        DependencyProperty.Register("OriginalBrushLocked", typeof(bool), typeof(ColorPicker), new PropertyMetadata(false));
+
+
+
     public Color CurrentBaseColor
     {
       get { return (Color)GetValue(CurrentBaseColorProperty); }
@@ -414,7 +426,10 @@ namespace AMD.Util.View.WPF.UserControls
       {
         ColorHsv = new ColorHSV(SelectedBrush.Color);
       }
-      OriginalBrush = SelectedBrush;
+      if (!OriginalBrushLocked)
+      {
+        OriginalBrush = SelectedBrush;
+      }
       CurrentBaseColor = new ColorHSV(1, ColorHsv.Hue, 1, 1).GetMediaColor;
       UpdateColor();
     }
@@ -463,18 +478,6 @@ namespace AMD.Util.View.WPF.UserControls
       }
     }
     #endregion // EventHandlers
-
-    private void testColorButton_Click(object sender, RoutedEventArgs e)
-    {
-      //CurrentColor = Color.FromRgb(0, 0xFF, 0);
-      SelectedBrush = new SolidColorBrush(Colors.YellowGreen);
-    }
-
-    private void testColorButton1_Click(object sender, RoutedEventArgs e)
-    {
-      //CurrentBaseColor = Colors.Yellow;
-      OriginalBrush = SelectedBrush;
-    }
 
     private void tbHexValue_TextChanged(object sender, TextChangedEventArgs e)
     {

@@ -12,6 +12,7 @@
         WindowStyle="None"
         Height="300"
         Width="465"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         KeyUp="Window_KeyUp">
@@ -23,7 +24,11 @@
       <!--<RowDefinition Height="20" />-->
     </Grid.RowDefinitions>
     <local:TitleBar Title="Color Picker" ButtonType="Apple" WindowStyle="ToolWindow" Exit="TitleBar_Exit" />
-    <local:ColorPicker x:Name="colorPicker" Grid.Row="1" SelectedBrush="{Binding ElementName=ColorPickerDialog1, Path=SelectedBrush, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" OriginalBrush="{Binding OriginalBrush, UpdateSourceTrigger=PropertyChanged}" SelectedBrushChanged="colorPicker_SelectedBrushChanged" />
+    <local:ColorPicker x:Name="colorPicker" 
+                       Grid.Row="1"
+                       SelectedBrush="{Binding ElementName=ColorPickerDialog1, Path=SelectedBrush, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                       OriginalBrush="{Binding OriginalBrush, UpdateSourceTrigger=PropertyChanged}" 
+                       SelectedBrushChanged="colorPicker_SelectedBrushChanged" />
   </Grid>
   </Border>
 </Window>

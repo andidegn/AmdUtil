@@ -35,10 +35,15 @@ namespace WpfUITest
 
     public MainWindow()
     {
+      log = LogWriter.Instance;
       InitializeComponent();
       editRibbon.EditRichTextBox = rtb;
       //InitialiseDDCMonitorTests();
-      InitialiseCompareWindow();
+      //InitialiseCompareWindow();
+      //TouchBackground touchBackground = new TouchBackground();
+      //touchBackground.Show();
+
+      string text = TextInputDialog.Show(this, "Some Text Input Box");
     }
 
     private bool filesSwapped;
@@ -142,28 +147,30 @@ namespace WpfUITest
         int r;
         Random rand = new Random();
 
+        log.QueueSize = 20;
+        log.MaxLogAgeInSeconds = 5;
 
-        Enumerable.Range(0, 10000).ToList().ForEach(x =>
+        Enumerable.Range(0, 1000).ToList().ForEach(x =>
         {
           r = rand.Next(0, 10);
           log.WriteToLog((LogMsgType)r, "LogSniffer test #{0}, {1}", i++, GetRandomLoremIpsum());
-          if (i % 1000 == 0)
-          {
-            Console.WriteLine("progress: {0}", i);
-          }
-          Thread.Sleep(new TimeSpan(0, 0, 0, 0, 0));
+          //if (i % 1000 == 0)
+          //{
+          //  Console.WriteLine("progress: {0}", i);
+          //}
+          Thread.Sleep(new TimeSpan(0, 0, 0, 0, 10));
         });
         //Console.WriteLine("Press key to start");
         //Console.ReadKey();
 
 
-        while (true)
-        {
-          r = rand.Next(0, 10);
-          Console.WriteLine("Printing log type: {0}, value: {1}", Enum.GetName(typeof(LogMsgType), r), i);
-          log.WriteToLog((LogMsgType)r, "LogSniffer test #{0}, {1}", i++, GetRandomLoremIpsum());
-          Thread.Sleep(0);
-        }
+        //while (true)
+        //{
+        //  r = rand.Next(0, 10);
+        //  Console.WriteLine("Printing log type: {0}, value: {1}", Enum.GetName(typeof(LogMsgType), r), i);
+        //  log.WriteToLog((LogMsgType)r, "LogSniffer test #{0}, {1}", i++, GetRandomLoremIpsum());
+        //  Thread.Sleep(0);
+        //}
       };
       bw.RunWorkerAsync();
     }
@@ -241,7 +248,7 @@ namespace WpfUITest
     {
       ColorPickerDialog cpd = new ColorPickerDialog();
       cpd.Background = Brushes.Pink;
-      cpd.SelectedBrush = tvMemory.Background;
+      cpd.SelectedBrush = tvMemory.Background as SolidColorBrush;
       cpd.SelectedBrushChanged += (s, ev) =>
       {
         SolidColorBrush sb = new SolidColorBrush((ev.SelectedBrush as SolidColorBrush).Color);
@@ -256,11 +263,13 @@ namespace WpfUITest
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-      dp = new DebugPanel(this, log, 500);
       StackTrace st = new StackTrace();
       log = LogWriter.Instance;
+      dp = new DebugPanel(this, log, 500);
       log.WriteToLog(LogMsgType.Notification, st.GetFrame(1).GetMethod().Name, "This is a test: {0}", "Test1");
       dp.KeyUp += Window_KeyUp;
+
+      LogWriter.Instance.ParseFromFile(@"C:\Isic\Log\ISIC_SB15_FW_Config\2024-01-24_Application.log");
       //CreateNewTabWindow();
       //ShowAboutModal();
     }
@@ -396,6 +405,12 @@ namespace WpfUITest
     private void BtnCheckCapabilities_Click(object sender, RoutedEventArgs e)
     {
       InitialiseDDCMonitorTests();
+    }
+
+    private void TestAMDMessageBox_Click(object sender, RoutedEventArgs e)
+    {
+      var result = AMDMessageBox.Show(this, "This is some message\nOver multiple lines to see how it copes!!!\n\nLong", "Some Caption", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.No);
+      int res = AMDMessageBox.Show(this, "Some text", "some caption", MessageBoxImage.Warning, "Not OK", "Very OK", "Maybe");
     }
 
     private void btnClearAllTabs_Click(object sender, RoutedEventArgs e)

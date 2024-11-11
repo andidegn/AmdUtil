@@ -483,18 +483,26 @@ namespace AMD.Util.Permissions
             wi.Impersonate(); // discard the returned identity context (which is the context of the application pool)
           }
           else
+          {
             throw new Win32Exception(Marshal.GetLastWin32Error());
+          }
         }
         else
+        {
           throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
       }
       finally
       {
         if (logonToken != IntPtr.Zero)
+        {
           Win32NativeMethods.CloseHandle(logonToken);
+        }
 
         if (logonTokenDuplicate != IntPtr.Zero)
+        {
           Win32NativeMethods.CloseHandle(logonTokenDuplicate);
+        }
       }
     }
 

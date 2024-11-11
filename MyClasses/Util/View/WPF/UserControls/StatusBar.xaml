@@ -4,17 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             xmlns:valueConverters="clr-namespace:AMD.Util.View.WPF.ValueConverters"
              Name="StatusBarMainWindow"
              mc:Ignorable="d" >
   <UserControl.Resources>
     <ResourceDictionary>
+    <valueConverters:OuterBorderCornerRadiusWindowStateConverter x:Key="OuterBorderCornerRadiusWindowStateConverter" />
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../AMDIconsRD.xaml" />
         <ResourceDictionary Source="../AMDStylesRD.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
-  <Border Name="statusBarBorder" Background="{Binding MainBackground}" CornerRadius="0, 0, 5, 5">
+  <Border Name="statusBarBorder" Background="{Binding MainBackground}" CornerRadius="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource OuterBorderCornerRadiusWindowStateConverter}, ConverterParameter={x:Static valueConverters:eCornerRadiusLocation.Bottom}}">
     <Grid Name="statusBar" Background="Transparent" HorizontalAlignment="Stretch" >
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto" />

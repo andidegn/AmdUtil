@@ -202,6 +202,10 @@
                 </BeginStoryboard>
               </Trigger.ExitActions>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value="0.8" />
+              <Setter TargetName="ellipse" Property="Fill" Value="#FFA0A0A0" />
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

@@ -332,8 +332,8 @@
     <Setter Property="SnapsToDevicePixels"  Value="true" />
     <Setter Property="OverridesDefaultStyle" Value="true" />
     <Setter Property="IsSnapToTickEnabled"  Value="true" />
-    <Setter Property="Foreground" Value="{StaticResource BrushSliderThumbCircleGradient}" />
-    <Setter Property="Background" Value="{StaticResource BrushSliderSimpleDecreseBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource BrushSliderThumbCircleGradient}" />
+    <Setter Property="Background" Value="{DynamicResource BrushSliderSimpleDecreseBackground}" />
     <Setter Property="Template"  Value="{StaticResource ctSliderSimpleHorizontal}"/>
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     <Style.Triggers>

@@ -9,25 +9,37 @@ namespace AMD.Util.CLA
 {
   public class CommandHandler
   {
+    public List<string> ErrorMessages { get; private set; }
+
     #region Private variables
     private LogWriter log;
-    private string[] args;
-    private IEnumerable<CommandContainer> commandMap;
+    private List<CommandContainer> commandMap;
     #endregion // Private variables
 
-    public CommandHandler(string[] args, IEnumerable<CommandContainer> commandMap)
+    public CommandHandler(IEnumerable<CommandContainer> commands = null)
     {
       log = LogWriter.Instance;
-      this.args = args;
-      this.commandMap = commandMap;
+      ErrorMessages = new List<string>();
+      commandMap = commands?.ToList() ?? new List<CommandContainer>();
     }
 
-    public bool Execute()
+    public void AddCommand(CommandContainer command)
+    {
+      commandMap.Add(command);
+    }
+
+    public void AddCommandRange(IEnumerable<CommandContainer> commands)
+    {
+      commandMap.AddRange(commands);
+    }
+
+    public bool Execute(string[] args)
     {
       bool retVal = true;
       List<CommandContainer> passedCommands = new List<CommandContainer>();
+      List<CommandContainer> required = commandMap.Where(x => true == x.Required).ToList();
       log.PrintDebug($"Attempting to parse args: \"{string.Join(" ", args)}\"");
-      if (null != args && 1 < args.Length)
+      if (null != args && 0 < args.Length)
       {
         if (retVal)
         {
@@ -66,17 +78,38 @@ namespace AMD.Util.CLA
             }
           }
           passedCommands.Sort();
-          foreach (CommandContainer cmdc in passedCommands)
+
+          foreach (CommandContainer cmdc in required)
           {
-            if (false == (retVal &= cmdc.Execute()))
+            if (!passedCommands.Contains(cmdc))
             {
-              log.PrintDebug($"{cmdc.CmdStr} failed");
-              break;
+              string errMsg = $"--{cmdc.CmdStr} (-{cmdc.CmdStrShort}) is required";
+              log.PrintDebug(errMsg);
+              ErrorMessages.Add(errMsg);
+              retVal &= false;
+            }
+          }
+          if (retVal)
+          {
+            foreach (CommandContainer cmdc in passedCommands)
+            {
+              if (false == (retVal &= cmdc.Execute()))
+              {
+                string errMsg = $"{cmdc.CmdStr} failed. {cmdc.CmdParameter.ErrorMessage}";
+                log.PrintDebug(errMsg);
+                ErrorMessages.Add(errMsg);
+                break;
+              }
             }
           }
 
-          log.WriteToLog(LogMsgType.Debug, $"All args parsed. Args:\n{string.Join(", ", this.args)} Success: {retVal}");
+          log.WriteToLog(LogMsgType.Debug, $"All args parsed. Args:\n{string.Join(", ", args)} Success: {retVal}");
         }
+      }
+      else
+      {
+        ErrorMessages.Add("No arguments given");
+        retVal = false;
       }
       return retVal;
     }

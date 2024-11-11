@@ -39,6 +39,62 @@ namespace AMD.Util.Extensions
       return StringValidater.ValidatePropertyName(s);
     }
 
+    public static string MyPadLeft(this string str, int length, char? pad = null)
+    {
+      return string.Concat(new string(Enumerable.Repeat(pad ?? ' ', length - str.Length).ToArray()), str);
+    }
+
+    private static readonly Regex sWhitespace = new Regex(@"\s+");
+    public static string ReplaceWhitespace(this string input, string replacement)
+    {
+      return sWhitespace.Replace(input, replacement);
+    }
+
+    public static string FastPadLeft(this string str, int length, char? pad = null)
+    {
+      if (pad is null)
+      {
+        pad = ' ';
+      }
+      return MyPadHelper(str, length, pad.Value, true);
+    }
+
+    public static string FastPadRight(this string str, int length, char? pad = null)
+    {
+      if (pad is null)
+      {
+        pad = ' ';
+      }
+      return MyPadHelper(str, length, pad.Value, false);
+    }
+
+    private enum ePadDirection { Left, Right }
+
+    private static string MyPadHelper(string str, int length, char pad, bool isLeftPad)
+    {
+      if (str.Length >= length)
+      {
+        return str;
+      }
+
+      length -= str.Length;
+
+      char[] padding = new char[length];
+      for (int i = 0; i < length; i++)
+      {
+        padding[i] = pad;
+      }
+
+      return isLeftPad ? string.Concat(new string(padding), str) : string.Concat(str, new string(padding));
+    }
+
+    public static string PadBoth(this string str, int length)
+    {
+      int spaces = length - str.Length;
+      int padRight = spaces / 2 + str.Length;
+      return str.FastPadRight(padRight).FastPadLeft(length);
+    }
+
     /// <summary>
     /// Returns a byte array with the char ASCII values of the string letters
     /// </summary>

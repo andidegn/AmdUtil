@@ -350,4 +350,80 @@ namespace AMD.Util.View.WPF.ValueConverters
       throw new NotImplementedException();
     }
   }
+
+  internal class TouchBackgroundScaleX : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value is double d ? d * 0.96875 : 100d;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  internal class TouchBackgroundScaleY : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value is double d ? d * 0.944444 : 100d;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  internal class TouchBackgroundScaleLine : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value is double d ? d * 0.94 : 100d;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public enum eCornerRadiusLocation
+  {
+    All,
+    Top,
+    Bottom
+  }
+
+  public class OuterBorderCornerRadiusWindowStateConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      if (value is WindowState ws && parameter is eCornerRadiusLocation crl)
+      {
+        if (WindowState.Normal != ws)
+        {
+          return new CornerRadius(0);
+        }
+        switch (crl)
+        {
+          case eCornerRadiusLocation.All:
+            return new CornerRadius(5);
+          case eCornerRadiusLocation.Top:
+            return new CornerRadius(5, 5, 0, 0);
+          case eCornerRadiusLocation.Bottom:
+            return new CornerRadius(0, 0, 5, 5);
+        }
+      }
+      return new CornerRadius(0);
+      //throw new ArgumentException("Invalid arguments. value has to be of type WindowState and parameter has to be of type eCornerRadiusLocation");
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
 }

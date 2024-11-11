@@ -69,6 +69,11 @@ namespace AMD.Util.Display
       //return friendlyName;
     }
 
+    public static IEnumerable<string> GetDisplayNames()
+    {
+      return new List<string>(Screen.AllScreens.Select(x => x.DeviceName).ToArray());
+    }
+
     public static bool IsWithinScreenArea(double left, double top)
     {
       bool retVal = false;
@@ -117,6 +122,46 @@ namespace AMD.Util.Display
     public static Screen GetContainedScreen(Rectangle rectangle)
     {
       return GetContainedScreen(rectangle.Left, rectangle.Top);
+    }
+
+    public static double GetContainedScreenHeight(double left, double top)
+    {
+      return GetContainedScreen(left, top).Bounds.Height;
+    }
+
+    public static double GetContainedScreenHeight(Rectangle rectangle)
+    {
+      return GetContainedScreen(rectangle).Bounds.Height;
+    }
+
+    public static double GetContainedScreenWidth(double left, double top)
+    {
+      return GetContainedScreen(left, top).Bounds.Width;
+    }
+
+    public static double GetContainedScreenWidth(Rectangle rectangle)
+    {
+      return GetContainedScreen(rectangle).Bounds.Width;
+    }
+
+    public static double GetContainedScreenTop(double left, double top)
+    {
+      return GetContainedScreen(left, top).Bounds.Top;
+    }
+
+    public static double GetContainedScreenTop(Rectangle rectangle)
+    {
+      return GetContainedScreen(rectangle).Bounds.Top;
+    }
+
+    public static double GetContainedScreenLeft(double left, double top)
+    {
+      return GetContainedScreen(left, top).Bounds.Left;
+    }
+
+    public static double GetContainedScreenLeft(Rectangle rectangle)
+    {
+      return GetContainedScreen(rectangle).Bounds.Left;
     }
 
     /// <summary>

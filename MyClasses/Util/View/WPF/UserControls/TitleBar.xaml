@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
+             xmlns:valueConverters="clr-namespace:AMD.Util.View.WPF.ValueConverters"
              mc:Ignorable="d"
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded"
@@ -11,6 +12,7 @@
              d:DesignHeight="20" d:DesignWidth="300">
   <UserControl.Resources>
     <ResourceDictionary>
+      <valueConverters:OuterBorderCornerRadiusWindowStateConverter x:Key="OuterBorderCornerRadiusWindowStateConverter" />
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../AMDIconsRD.xaml" />
         <ResourceDictionary Source="../AMDStylesRD.xaml" />
@@ -20,7 +22,7 @@
   <Grid>
     <!--<Control Template="{StaticResource ctRInRedCircle}" />-->
     <!--<Control Template="{StaticResource ctYellowNoteIcon}" />-->
-    <Border Name="titleBar" BorderThickness="0" Grid.Row="0" Background="{DynamicResource TitleBarBackground}" CornerRadius="5, 5, 0, 0">
+    <Border Name="titleBar" BorderThickness="0" Grid.Row="0" Background="{DynamicResource TitleBarBackground}" CornerRadius="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Converter={StaticResource OuterBorderCornerRadiusWindowStateConverter}, ConverterParameter={x:Static valueConverters:eCornerRadiusLocation.Top}}">
       <Grid Name="gridTitleBar" Background="Transparent" MouseLeftButtonDown="titleBar_MouseLeftButtonDown" MouseLeftButtonUp="gridTitleBar_MouseLeftButtonUp">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="5" />
@@ -34,7 +36,7 @@
       </Grid>
     </Border>
     <!--Exit button-->
-    <Grid Name="gridAmdBtnExit" Style="{StaticResource ButtonExit}" Width="0" Height="0" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="10" >
+    <Grid Name="gridAmdBtnExit" Style="{StaticResource ButtonExit}" Width="0" Height="0" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="10" d:Visibility="Collapsed" >
       <Canvas Name="btnExit" Background="{StaticResource ExitButtonBackground}" HorizontalAlignment="Right" VerticalAlignment="Top" MouseLeftButtonDown="Exit_EventHandler">
         <!-- Data="M0,0 l0,11 l-11,-11 l10,0" /-->
         <Canvas.Triggers>
@@ -67,6 +69,13 @@
         <Button Name="btnAppleLeftExit" Style="{StaticResource CloseRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Exit_EventHandler" />
         <Button Name="btnAppleLeftMinimize" Style="{StaticResource MinimizeRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Minimize_EventHandler" />
         <Button Name="btnAppleLeftMaximize" Style="{StaticResource MaximizeRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Maximize_EventHandler" />
+      </StackPanel>
+    </Grid>
+    <Grid Name="gridMSBtnExit" Style="{StaticResource ButtonExit}" HorizontalAlignment="Right" VerticalAlignment="Center" Panel.ZIndex="10" Visibility="Hidden" d:Visibility="Visible" >
+      <StackPanel Orientation="Horizontal" >
+        <Button Name="btnMSExit" Style="{StaticResource CloseRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Exit_EventHandler" />
+        <Button Name="btnMSMinimize" Style="{StaticResource MinimizeRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Minimize_EventHandler" />
+        <Button Name="btnMSMaximize" Style="{StaticResource MaximizeRadialButton}" Focusable="False" Margin="5, 0, 0, 0" Click="Maximize_EventHandler" />
       </StackPanel>
     </Grid>
   </Grid>

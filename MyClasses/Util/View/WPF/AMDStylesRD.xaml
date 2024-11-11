@@ -7,11 +7,13 @@
     <ResourceDictionary Source="AMDCommonBrushesRD.xaml" />
     <ResourceDictionary Source="MacStyledTitleBarButtons.xaml" />
     <ResourceDictionary Source="AMDIconsRD.xaml" />
+    <ResourceDictionary Source="AMDBrandIconsRD.xaml" />
     <ResourceDictionary Source="AMDTearableTabRD.xaml" />
     <ResourceDictionary Source="AMDSlidersRD.xaml" />
     <ResourceDictionary Source="AMDButtonsRD.xaml" />
     <ResourceDictionary Source="AMDComboBoxesRD.xaml" />
     <ResourceDictionary Source="AMDToggleButtonsRD.xaml" />
+    <ResourceDictionary Source="AMDTouchSliderSnapSideRD.xaml" />
     <ResourceDictionary Source="AMDNumericUpDown.xaml" />
     <ResourceDictionary Source="UserControls/MultiTouchSliderRD.xaml" />
     <ResourceDictionary Source="UserControls/WatermarkTextBoxRD.xaml" />
@@ -289,7 +291,7 @@
 
 						<Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="false">
 							<Track.Thumb>
-								<Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollThumbs}" />
+								<Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollThumbs}" Opacity="0.8" />
 							</Track.Thumb>
 							<Track.IncreaseRepeatButton>
 								<RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
@@ -302,10 +304,12 @@
 
           <ControlTemplate.Triggers>
 						<Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-							<Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
+              <Setter TargetName="Thumb" Property="Opacity" Value="1" />
+              <!--<Setter Value="Green" TargetName="Thumb" Property="Background" />-->
 						</Trigger>
-						<Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-              <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
+            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+              <Setter TargetName="Thumb" Property="Opacity" Value="0.5" />
+              <!--<Setter Value="Red" TargetName="Thumb" Property="Background" />-->
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="false">
@@ -417,24 +421,31 @@
 	<Style x:Key="TabItemBorderBase" TargetType="Border">
     <Setter Property="Height" Value="25" />
     <Setter Property="Margin" Value="2, 0" />
-		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="CornerRadius" Value="10, 5, 0, 0" />
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Bottom" />
     <Setter Property="Background" Value="{DynamicResource TabActiveBackground}" />
     <Setter Property="BorderBrush" Value="{DynamicResource TabActiveBorderBrush}" />
-    <Setter Property="BorderThickness" Value="1, 6, 1, 0" />
   </Style>
 
-	<ControlTemplate x:Key="TabItemBase" TargetType="{x:Type TabItem}">
+  <Style TargetType="{x:Type ContentPresenter}" x:Key="TabItemPresenterBaseSquare">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Margin" Value="12,2,12,2" />
+    <Setter Property="RecognizesAccessKey" Value="True" />
+  </Style>
+
+  <SolidColorBrush x:Key="MainForeground">Black</SolidColorBrush>
+  <ControlTemplate x:Key="TabItemBase" TargetType="{x:Type TabItem}">
 		<Grid>
       <Border Name="Border" 
               Style="{StaticResource TabItemBorderBase}" 
-              Background="{DynamicResource TabActiveBackground}" 
-              BorderBrush="{DynamicResource TabActiveBorderBrush}">
+              Background="{TemplateBinding Background}" 
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}">
         <ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBase}">
           <ContentPresenter.Content>
-            <TextBlock Name="ContentHeader" FontSize="12" FontWeight="Bold" Text="{TemplateBinding Header}" Foreground="{DynamicResource MainForeground}"/>
+            <TextBlock Name="ContentHeader" FontSize="12" FontWeight="Bold" Text="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}"/>
           </ContentPresenter.Content>
           <ContentPresenter.LayoutTransform>
 						<RotateTransform Angle="0" />
@@ -459,38 +470,16 @@
 			</Trigger>
 		</ControlTemplate.Triggers>
   </ControlTemplate>
-  <Style TargetType="TabItem" x:Key="TabItemBaseStyleSquare">
-    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
-    <Setter Property="IsTabStop" Value="False" />
-  </Style>
-  <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
-    <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
-    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
-  </Style>
-	<Style x:Key="TabItemBaseStyle" TargetType="TabItem">
-		<Setter Property="Template" Value="{StaticResource TabItemBase}" />
-		<Setter Property="IsTabStop" Value="False" />
-	</Style>
-
-  <Style TargetType="ContentPresenter" x:Key="TabItemPresenterBaseSquare">
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="Margin" Value="12,2,12,2" />
-		<Setter Property="RecognizesAccessKey" Value="True" />
-  </Style>
-	<Style x:Key="TabItemBorderBaseSquare" TargetType="Border">
-    <Setter Property="HorizontalAlignment" Value="Stretch" />
-  </Style>
   <ControlTemplate x:Key="TabItemBaseSquare" TargetType="{x:Type TabItem}">
-		<Grid>
-      <Border Name="Border" Style="{StaticResource TabItemBorderBaseSquare}">
+    <Grid>
+      <Border Name="Border" HorizontalAlignment="Stretch">
         <ContentPresenter Name="ContentSite" ContentSource="Header" Style="{StaticResource TabItemPresenterBaseSquare}">
-					<ContentPresenter.LayoutTransform>
-						<RotateTransform Angle="0" />
-					</ContentPresenter.LayoutTransform>
-				</ContentPresenter>
-			</Border>
-		</Grid>
+          <ContentPresenter.LayoutTransform>
+            <RotateTransform Angle="0" />
+          </ContentPresenter.LayoutTransform>
+        </ContentPresenter>
+      </Border>
+    </Grid>
     <ControlTemplate.Triggers>
       <!--<Trigger Property="IsMouseOver" Value="True">
         <Setter TargetName="Border" Property="Background" Value="{DynamicResource TabSquareActiveBackground}" />
@@ -500,21 +489,35 @@
       <Trigger Property="IsSelected" Value="True">
         <Setter TargetName="Border" Property="Background" Value="White" />
         <Setter TargetName="Border" Property="BorderBrush" Value="LightGray" />
-				<Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
+        <Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
       </Trigger>
-			<Trigger Property="IsSelected" Value="False">
+      <Trigger Property="IsSelected" Value="False">
         <Setter TargetName="Border" Property="Background" Value="{DynamicResource TabSquareNotActiveBackground}" />
         <Setter TargetName="Border" Property="BorderBrush" Value="Transparent" />
         <Setter TargetName="Border" Property="BorderThickness" Value="1, 1, 1, 0" />
       </Trigger>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter TargetName="Border" Property="Background" Value="DarkGray" />
-				<Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+        <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
         <Setter Property="Foreground" Value="DarkGray" />
         <!--<Setter TargetName="Border" Property="Effect" Value="{TemplateBinding}" />-->
       </Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+  <Style x:Key="TabItemBaseStyleSquare" TargetType="TabItem">
+    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
+    <Setter Property="IsTabStop" Value="False" />
+  </Style>
+  <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
+    <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
+    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
+  </Style>
+	<Style x:Key="TabItemBaseStyle" TargetType="TabItem">
+		<Setter Property="Template" Value="{StaticResource TabItemBase}" />
+    <Setter Property="Background" Value="{DynamicResource TabActiveBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource TabActiveBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1, 5, 1, 0" />
+  </Style>
 
 	<!--TextBox-->
 	<ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="TextBoxBase">
@@ -563,9 +566,7 @@
 		</ControlTemplate>-->
 	<Style TargetType="TextBox" x:Key="StyleTextBoxBase" x:Name="StyleTextBoxBase" >
 		<!--<Setter Property="Foreground" Value="{Binding ElementName=ColorPlaceHolder, Path=Foreground, Mode=OneWay}" />-->
-		<Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
 		<Setter Property="BorderThickness" Value="1, 0, 1, 0" />
-		<Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}" />
 		<Setter Property="Height" Value="22" />
 		<Setter Property="TextWrapping" Value="NoWrap" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -575,6 +576,8 @@
 		<Setter Property="Padding" Value="3, 4, 3, 0" />
 		<Setter Property="Margin" Value="0,0,0,0" />
 		<Setter Property="TextAlignment" Value="Right" />
+		<Setter Property="Background" Value="{StaticResource TextBoxBackground}" />
+		<Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}" />
 		<Setter Property="Template" Value="{StaticResource TextBoxBaseControlTemplate}" />
 	</Style>
 

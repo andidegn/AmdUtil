@@ -2401,7 +2401,24 @@
             representation of the supplied <see cref="T:System.Numerics.BigInteger"/>.
             </returns>
         </member>
+        <member name="M:AMD.Util.Extensions.ExtensionByte.GetHexString(System.Byte[])">
+            <summary>
+            Returns a string with bytes formatted as hex
+            </summary>
+            <param name="bArr">The data</param>
+            <returns></returns>
+        </member>
         <member name="M:AMD.Util.Extensions.ExtensionByte.GetHexString(System.Byte[],System.Char,System.String,System.Int64)">
+            <summary>
+            Returns a string with bytes formatted as hex
+            </summary>
+            <param name="bArr">The data</param>
+            <param name="separator">The separator</param>
+            <param name="prefix">The prefix before the byte. ex. 0x</param>
+            <param name="newLineAfter">Insert new line after how many bytes</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Extensions.ExtensionByte.GetHexString(System.Byte[],System.String,System.String,System.Int64)">
             <summary>
             Returns a string with bytes formatted as hex
             </summary>
@@ -2604,6 +2621,16 @@
         <member name="M:AMD.Util.Sort.MergeSort`1.Sort(`0[])">
             Object array
         </member>
+        <member name="T:AMD.Util.View.WPF.AMDTouchSliderSnapSideRD">
+            <summary>
+            AMDTouchSliderSnapSideRD
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.AMDTouchSliderSnapSideRD.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="F:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.ValueProperty">
             <summary>
             Identifies the <see cref="P:AMD.Util.View.WPF.Helper.PropertyChangedNotifier.Value"/> dependency property
@@ -2646,6 +2673,34 @@
             <param name="startObject"></param>
             <param name="name"></param>
             <returns></returns>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.AmdChart">
+            <summary>
+            Interaction logic for Plot.xaml
+            </summary>
+            <summary>
+            AmdChart
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.AmdChart.HorizontalScrollBarVisibility">
+            <summary>
+            Note: No not use Auto as the dynamic height is not handled and will yield an incorrect height of the data
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.AmdChart.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.AMDMessageBox">
+            <summary>
+            AMDMessageBox
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.AMDMessageBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
         </member>
         <member name="T:AMD.Util.View.WPF.UserControls.PdfViewerImage">
             <summary>
@@ -3457,6 +3512,11 @@
         <member name="P:AMD.Util.Log.LogEntry.LogEntryDateTime">
             <summary>
             The complete DateTime of the log entry
+            </summary>
+        </member>
+        <member name="P:AMD.Util.Log.LogEntry.Caller">
+            <summary>
+            The calling method of the log message
             </summary>
         </member>
         <member name="P:AMD.Util.Log.LogEntry.LogTime">

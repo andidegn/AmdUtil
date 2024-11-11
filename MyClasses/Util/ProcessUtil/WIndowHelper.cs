@@ -93,5 +93,30 @@ namespace AMD.Util.ProcessUtil
       }
       return retVal;
     }
+
+
+
+
+
+    private static IntPtr redirectPtr = IntPtr.Zero;
+    public static bool DisableWow64FSRedirection()
+    {
+      return DisableWow64FSRedirection(ref redirectPtr);
+    }
+
+    public static bool RevertWow64FSRedirection()
+    {
+      bool retVal = Wow64RevertWow64FsRedirection(redirectPtr);
+      redirectPtr = IntPtr.Zero;
+      return retVal;
+    }
+
+    const string Kernel32dll = "Kernel32.Dll";
+
+    [DllImport(Kernel32dll, EntryPoint = "Wow64DisableWow64FsRedirection")]
+    private static extern bool DisableWow64FSRedirection(ref IntPtr ptr);
+
+    [DllImport(Kernel32dll, EntryPoint = "Wow64RevertWow64FsRedirection")]
+    private static extern bool Wow64RevertWow64FsRedirection(IntPtr ptr);
   }
 }

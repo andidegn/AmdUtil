@@ -11,9 +11,16 @@ namespace AMD.Util.Extensions
   {
     public static TAttribute GetAttribute<TAttribute>(this Enum value) where TAttribute : Attribute
     {
-      var enumType = value.GetType();
-      var name = Enum.GetName(enumType, value);
-      return enumType.GetField(name).GetCustomAttributes(false).OfType<TAttribute>().SingleOrDefault();
+      Type enumType = value.GetType();
+      string name = Enum.GetName(enumType, value);
+      return enumType.GetField(name)?.GetCustomAttributes(false)?.OfType<TAttribute>()?.SingleOrDefault();
+    }
+
+    public static TAttribute GetAttribute<TAttribute>(this Action value) where TAttribute : Attribute
+    {
+      Type type = value.GetType();
+      string name = Enum.GetName(type, value);
+      return type.GetField(name)?.GetCustomAttributes(false)?.OfType<TAttribute>()?.SingleOrDefault();
     }
   }
 }
