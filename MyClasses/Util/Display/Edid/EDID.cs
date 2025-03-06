@@ -317,7 +317,7 @@ namespace AMD.Util.Display.Edid
     }
 
     internal static int leftPad = 12;
-    internal static int descriptionWidth = 36;
+    internal static int descriptionWidth = 38;
     internal static int firstLevelIndent = 20;
     internal static int firstLevelDescriptionWidth = 28;
     internal static int secondLevelIndent = 24;
@@ -329,17 +329,18 @@ namespace AMD.Util.Display.Edid
       bool? useByteFormat = true;
       StringBuilder sb = new StringBuilder();
       string rawEdidFormattedString = string.Empty;
+      string warningHeader = ">------------------ WARNING -------------------<";
 
 
       if (0 < ParsingErrors.Count)
       {
-        sb.AppendLine(">------------------ WARNING -------------------<");
+        sb.AppendLine(warningHeader);
         sb.AppendLine($"The following {(1 < ParsingErrors.Count ? "errors were" : "error was")} found during parsing of the EDID file");
         foreach (string err in ParsingErrors)
         {
           sb.AppendLine(err);
         }
-        sb.AppendLine(">------------------ WARNING -------------------<");
+        sb.AppendLine(warningHeader);
         sb.AppendLine();
         sb.AppendLine();
       }
@@ -362,22 +363,23 @@ namespace AMD.Util.Display.Edid
       }
       sb.AppendLine();
 
-      sb.AppendLine($"{"(  8-9  )".PadRight(leftPad)}{"ID Manufacture Name".PadRight(descriptionWidth)} : {ManufacturerCode}");
-      sb.AppendLine($"{"( 10-11 )".PadRight(leftPad)}{"ID Product Code".PadRight(descriptionWidth)} : {ProductCode:X2}");
-      sb.AppendLine($"{"( 12-15 )".PadRight(leftPad)}{"ID Serial Number".PadRight(descriptionWidth)} : {SerialNumber:X8}");
-      sb.AppendLine($"{"(   16  )".PadRight(leftPad)}{"Week of Manufacturer".PadRight(descriptionWidth)} : {ManufactureWeek}");
-      sb.AppendLine($"{"(   17  )".PadRight(leftPad)}{"Year of Manufacturer".PadRight(descriptionWidth)} : {ManufactureYear}");
+      sb.AppendLine($"{"(  8h-9h  )".PadRight(leftPad)}{"ID Manufacture Name".PadRight(descriptionWidth)} : {ManufacturerCode}");
+      sb.AppendLine($"{"( 0Ah-0Bh )".PadRight(leftPad)}{"ID Product Code".PadRight(descriptionWidth)} : {ProductCode:X2}");
+      sb.AppendLine($"{"( 0Ch-0Fh )".PadRight(leftPad)}{"ID Serial Number".PadRight(descriptionWidth)} : {SerialNumber:X8}");
+      sb.AppendLine($"{"(   10h   )".PadRight(leftPad)}{"Week of Manufacturer".PadRight(descriptionWidth)} : {ManufactureWeek}");
+      sb.AppendLine($"{"(   11h   )".PadRight(leftPad)}{"Year of Manufacturer".PadRight(descriptionWidth)} : {ManufactureYear}");
       sb.AppendLine();
-      sb.AppendLine($"{"( 18-19 )".PadRight(leftPad)}{"EDID Version".PadRight(descriptionWidth)} : {EDIDVersion}");
+      sb.AppendLine($"{"( 12h-13h )".PadRight(leftPad)}{"EDID Version".PadRight(descriptionWidth)} : {EDIDVersion}");
       sb.AppendLine();
       if (DisplayParameters.IsDigital)
       {
-        sb.AppendLine($"{"(   20  )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Digital");
-        sb.AppendLine($"{new string(' ', leftPad)}{"Is DFP 1.x Compatible".PadRight(descriptionWidth)} : {(DisplayParameters.IsDFPTMDSCompatible ? "Yes" : "No")}");
+        sb.AppendLine($"{"(   14h   )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Digital");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Color Depth".PadRight(descriptionWidth)} : {DisplayParameters.ColorBitDepth.GetAttribute<DescriptionAttribute>().Description}");
+        sb.AppendLine($"{new string(' ', leftPad)}{"Video Interface".PadRight(descriptionWidth)} : {DisplayParameters.DigitalVideoInterfaceStandardSupported.GetAttribute<DescriptionAttribute>().Description}");
       }
       else
       {
-        sb.AppendLine($"{"(   20  )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Analog");
+        sb.AppendLine($"{"(   14h   )".PadRight(leftPad)}{"Video Input Definition".PadRight(descriptionWidth)} : Analog");
         sb.AppendLine($"{new string(' ', leftPad)}{"Serration of Vsync".PadRight(descriptionWidth)} : {(DisplayParameters.IsVSyncSerratedOnComposite ? "Yes" : "No")}");
         sb.AppendLine($"{new string(' ', leftPad)}{"Sync on Green Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsSyncOnGreenSupported ? "Yes" : "No")}");
         sb.AppendLine($"{new string(' ', leftPad)}{"Composite Sync Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsCompositeSyncSupported ? "Yes" : "No")}");
@@ -388,7 +390,7 @@ namespace AMD.Util.Display.Edid
       sb.AppendLine();
 
 
-      sb.AppendLine($"{"( 21-22 )".PadRight(leftPad)}{"Is Projector".PadRight(descriptionWidth)} : {DisplayParameters.IsProjector}");
+      sb.AppendLine($"{"( 15h-16h )".PadRight(leftPad)}{"Is Projector".PadRight(descriptionWidth)} : {DisplayParameters.IsProjector}");
       if (!DisplayParameters.IsProjector)
       {
         sb.AppendLine($"{new string(' ', leftPad)}{"Display Size".PadRight(descriptionWidth)} : {DisplayParameters.DisplaySizeInInch} \"");
@@ -397,11 +399,19 @@ namespace AMD.Util.Display.Edid
       }
       sb.AppendLine();
 
-      sb.AppendLine($"{"(   23  )".PadRight(leftPad)}{"Display Gamma".PadRight(descriptionWidth)} : {DisplayParameters.DisplayGamma}");
+      double gamma = DisplayParameters.DisplayGamma;
+      if (double.IsNaN(gamma))
+      {
+        sb.AppendLine($"{"(   17h   )".PadRight(leftPad)}{">-- WARNING --< Display Gamma is not defined here and must be defined in an extension block!".PadRight(descriptionWidth)}");
+      }
+      else
+      {
+        sb.AppendLine($"{"(   17h   )".PadRight(leftPad)}{"Display Gamma".PadRight(descriptionWidth)} : {DisplayParameters.DisplayGamma}");
+      }
       sb.AppendLine();
 
-      sb.AppendLine($"{"(   24  )".PadRight(leftPad)}{"Default GTF Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsDefaultGTFSupported ? "Yes" : "No")}");
-      sb.AppendLine($"{new string(' ', leftPad)}{"Is Prefered Timing Mode Available".PadRight(descriptionWidth)} : {(DisplayParameters.IsPreferredTimingModeAvailable ? "Yes" : "No")}");
+      sb.AppendLine($"{"(   18h   )".PadRight(leftPad)}{"Default GTF Supported".PadRight(descriptionWidth)} : {(DisplayParameters.IsDefaultGTFSupported ? "Yes" : "No")}");
+      sb.AppendLine($"{new string(' ', leftPad)}{"PTM has pixel format and refresh rate".PadRight(descriptionWidth)} : {(DisplayParameters.PTMIncludesPIxelAndRefresh ? "Yes" : "No")}");
       sb.AppendLine($"{new string(' ', leftPad)}{"Is Standard Default Color Space sRGB".PadRight(descriptionWidth)} : {(DisplayParameters.IsStandardSRGBColorSpace? "Yes" : "No")}");
       if (DisplayParameters.IsDigital)
       {
@@ -419,7 +429,7 @@ namespace AMD.Util.Display.Edid
       sb.AppendLine($"{new string(' ', firstLevelIndent)}{"Standby".PadRight(firstLevelDescriptionWidth)} : {(DisplayParameters.IsStandbySupported ? "Yes" : "No")}");
       sb.AppendLine();
 
-      sb.AppendLine($"{"( 25-34 )".PadRight(leftPad)}Color Characteristics");
+      sb.AppendLine($"{"( 19h-22h )".PadRight(leftPad)}Color Characteristics");
       sb.AppendLine();
       foreach (string chro in DisplayParameters.ChromaticityCoordinates.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
       {
@@ -444,12 +454,12 @@ namespace AMD.Util.Display.Edid
             break;
         }
       }
-      sb.AppendLine($"{"( 35-37 )".PadRight(leftPad)}Established Timings I/II and MF");
+      sb.AppendLine($"{"( 23h-25h )".PadRight(leftPad)}Established Timings I/II and MF");
       sb.AppendLine();
       sb.Append(sbEt.ToString());
       sb.AppendLine();
 
-      sb.AppendLine($"{"( 38-53 )".PadRight(leftPad)}Standard Timings");
+      sb.AppendLine($"{"( 26h-35h )".PadRight(leftPad)}Standard Timings");
       sb.AppendLine();
       sb.Append(sbSt.ToString());
       sb.AppendLine();
@@ -460,7 +470,7 @@ namespace AMD.Util.Display.Edid
       foreach (EDIDDescriptor descriptor in Descriptors)
       {
         idxEnd = idxStart + 17;
-        sb.AppendLine($"{$"({idxStart.ToString().PadLeft(3)}-{idxEnd.ToString().PadRight(3)})".PadRight(leftPad)}Descriptor #{ctr++}: {descriptor.HeaderName}");
+        sb.AppendLine($"{$"({idxStart,3:2X}h-{idxEnd,-3:2X})".PadRight(leftPad)}Descriptor #{ctr++}: {descriptor.HeaderName}");
         sb.AppendLine();
         sb.AppendLine(descriptor.ToString());
         idxStart += 18;

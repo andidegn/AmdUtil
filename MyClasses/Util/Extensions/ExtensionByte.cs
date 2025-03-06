@@ -178,5 +178,10 @@ namespace AMD.Util.Extensions
       }
       return b;
     }
+
+    public static byte ToPercentage(this byte value)
+    {
+      return (byte)((value / 2.55) + 0.5);
+    }
   }
 }

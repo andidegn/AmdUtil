@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AmdChartTest"
         xmlns:amdUsercontrols="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
+        xmlns:amdChart="clr-namespace:AMD.Util.View.WPF.UserControls;assembly=AMDUtil"
+        xmlns:amdPlotOld="clr-namespace:AMD.Util.View.WPF.UserControls.old;assembly=AMDUtil"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:properties="clr-namespace:AmdChartTest.Properties"
         mc:Ignorable="d"
         Name="ThisWindow"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         KeyUp="Window_KeyUp"
         Closing="Window_Closing"
-        Title="MainWindow" Height="600" Width="1200">
+        Background="{Binding SelectedBrush, ElementName=cpBackground}"
+        Foreground="{Binding SelectedBrush, ElementName=cpForeground}"
+        Title="MainWindow" Height="600" Width="1300">
   <Window.Resources>
     <ResourceDictionary>
       <local:BoolToScrollBarVisibility x:Key="BoolToScrollBarVisibility" />
@@ -28,31 +33,55 @@
       <RowDefinition />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <amdUsercontrols:AmdChart x:Name="chart" 
-                              Grid.Row="0" 
-                              ItemsSource="{Binding BarChartStatisticsList, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ContentControl}}}"
-                              HorizontalScrollBarVisibility="{Binding IsChecked, ElementName=chkHorizontalZoom, Converter={StaticResource BoolToScrollBarVisibility}, Mode=TwoWay}"
-                              ShowHorizontalGridLines="{Binding IsChecked, ElementName=chkShowGrid}"
-                              ShowVerticalGridLines="{Binding IsChecked, ElementName=chkShowGrid}"
-                              ShowTrendline="{Binding IsChecked, ElementName=chkTrendline}"
-                              Background="{Binding SelectedBrush, ElementName=cpBackground}"
-                              Foreground="{Binding SelectedBrush, ElementName=cpForeground}"
-                              ValueFill="{Binding SelectedBrush, ElementName=cpBarColor}"
-                              AutoIncrementXIndex="False"
-                              XAxisName="{Binding XAxisName, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ContentControl}}}" 
-                              YAxisName="Percentage" 
-                              YAxisPostfix=" %"
-                              YAxisInterval="{Binding Value, ElementName=nudYAxisInterval}">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <oxy:PlotView Name="plot" 
+                  Grid.Column="1" 
+                  Grid.Row="0" 
+                  Margin="5"
+                  />
+    <amdChart:AmdChart x:Name="chart" 
+                       Grid.Column="0"
+                       Grid.Row="0" 
+                       Visibility="Visible"
+                       Margin="10"
+                       FontFamily="Lucida Cnosole"
+                       FontWeight="Thin"
+                       FontSize="12"
+                       HeaderFontFamily="Helvetica"
+                       HeaderFontSize="18"
+                       HeaderFontWeight="Bold"
+                       ValueBorderBrush="Orange"
+                       ValueBorderThickness="1.5, 5, 5, 5"
+                       ValueCornerRadius="0, 0, 0, 0"
+                       ShowCursor="True"
+                       RotateXAxisValues="False"
+                       ItemsSource="{Binding BarChartStatisticsList, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ContentControl}}}"
+                       ScrollBarVisibility="{Binding IsChecked, ElementName=chkHorizontalZoom, Converter={StaticResource BoolToScrollBarVisibility}, Mode=TwoWay}"
+                       ShowHorizontalGridLines="{Binding IsChecked, ElementName=chkShowGrid}"
+                       ShowVerticalGridLines="{Binding IsChecked, ElementName=chkShowGrid}"
+                       GridOpacity="{Binding Value, ElementName=slGridOpacity}"
+                       ShowTrendline="{Binding IsChecked, ElementName=chkTrendline}"
+                       Background="{Binding SelectedBrush, ElementName=cpBackground}"
+                       Foreground="{Binding SelectedBrush, ElementName=cpForeground}"
+                       ValueFill="{Binding SelectedBrush, ElementName=cpBarColor}"
+                       AutoIncrementXIndex="False"
+                       XAxisName="{Binding XAxisName, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type ContentControl}}}" 
+                       YAxisName="Percentage" 
+                       YAxisPostfix=" %"
+                       YAxisInterval="{Binding Value, ElementName=nudYAxisInterval}">
 
-      <amdUsercontrols:AmdChart.YAxisMax>
+      <amdChart:AmdChart.YAxisMax>
         <MultiBinding Converter="{StaticResource FixedYAxisScaleConverter}">
           <Binding Path="IsChecked" ElementName="chkFixedYAxisScale" />
           <Binding Path="Value" ElementName="nudFixedYAxisScale" />
         </MultiBinding>
-      </amdUsercontrols:AmdChart.YAxisMax>
-    </amdUsercontrols:AmdChart>
+      </amdChart:AmdChart.YAxisMax>
+    </amdChart:AmdChart>
 
-    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5, 0, 0">
+    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5, 0, 0">
       <StackPanel.Resources>
         <Style TargetType="{x:Type TextBlock}">
           <Setter Property="Margin" Value="10, 0" />
@@ -76,14 +105,17 @@
         <!-- To remove local grid style -->
       </StackPanel.Resources>
       <TextBlock Text="Show Grid" />
-      <ToggleButton Name="chkShowGrid" Style="{StaticResource ToggleSwitchStyleNoTextDark}" />
+      <ToggleButton Name="chkShowGrid" Style="{StaticResource ToggleSwitchStyleNoTextDark}" IsChecked="{Binding ShowGrid, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
+      <Slider Name="slGridOpacity"  Orientation="Horizontal" Width="100" Minimum="0.01" Maximum="1" Value="{Binding GridOpacity, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
+      <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5" />
       <TextBlock Text="Fixed Scale" />
       <ToggleButton Name="chkFixedYAxisScale" Style="{StaticResource ToggleSwitchStyleNoTextDark}" />
       <amdUsercontrols:NumericUpDown Name="nudFixedYAxisScale" Value="{Binding Scale, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" MinValue="1" Width="60" IsEnabled="{Binding IsChecked, ElementName=chkFixedYAxisScale}" />
+      <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5" />
       <TextBlock Text="Y Axis Interval" />
-      <amdUsercontrols:NumericUpDown Name="nudYAxisInterval" Value="{Binding Interval, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" MinValue="0.1" DecimalPlaces="1" Width="50" />
-      <Slider Orientation="Horizontal" Width="100" Minimum="0.2" Maximum="100" Value="{Binding StrokeThickness, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
-      <Slider Orientation="Horizontal" Width="100" Minimum="1" Maximum="100" Value="{Binding DotSize, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
+      <amdUsercontrols:NumericUpDown Name="nudYAxisInterval" Value="{Binding Interval, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" MinValue="0.05" DecimalPlaces="2" Width="Auto" />
+      <Slider Name="slStrokeThickness" Orientation="Horizontal" Width="100" Minimum="0.2" Maximum="10" Value="{Binding StrokeThickness, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" ValueChanged="slStrokeThickness_ValueChanged" />
+      <Slider Name="slDotSize"  Orientation="Horizontal" Width="100" Minimum="{Binding Value, ElementName=slStrokeThickness}" Maximum="20" Value="{Binding DotSize, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
       <TextBlock Text="Horizontal Zoom" />
       <ToggleButton Name="chkHorizontalZoom" Style="{StaticResource ToggleSwitchStyleNoTextDark}" IsChecked="{Binding HorizontalScrollEnabled, Source={x:Static properties:Settings.Default}, Mode=TwoWay}" />
       <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5" />

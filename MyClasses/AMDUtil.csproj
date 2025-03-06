@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
@@ -164,6 +165,8 @@
     <Compile Include="Util\Display\Edid\EDID.cs" />
     <Compile Include="Util\Display\Edid\EDIDDescriptor.cs" />
     <Compile Include="Util\Display\Edid\EDIDExtention.cs" />
+    <Compile Include="Util\Display\Edid\Enums\ColorBitDepth.cs" />
+    <Compile Include="Util\Display\Edid\Enums\DigitalVideoInputStandard.cs" />
     <Compile Include="Util\Display\Edid\Util\EdidUtil.cs" />
     <Compile Include="Util\Display\Edid\Enums\AnalogDisplayType.cs" />
     <Compile Include="Util\Display\Edid\Enums\AnalogVideoWhiteLevel.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="Util\Extensions\ExtensionArray.cs" />
     <Compile Include="Util\Extensions\ExtensionAttribute.cs" />
     <Compile Include="Util\Extensions\ExtensionBigInteger.cs" />
+    <Compile Include="Util\Extensions\ExtensionBitmap.cs" />
     <Compile Include="Util\Extensions\ExtensionByte.cs" />
     <Compile Include="Util\Extensions\ExtensionChar.cs" />
     <Compile Include="Util\Extensions\ExtensionDateTime.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="Util\Extensions\ExtensionObservableCollection.cs" />
     <Compile Include="Util\Extensions\ExtensionUShort.cs" />
     <Compile Include="Util\Extensions\WinForms\ExtensionScreen.cs" />
+    <Compile Include="Util\Extensions\WPF\ExtensionListView.cs" />
     <Compile Include="Util\Extensions\WPF\ExtensionTextBox.cs" />
     <Compile Include="Util\Extensions\WPF\IEnumerable.cs" />
     <Compile Include="Util\Files\FileCompare.cs" />
@@ -228,6 +233,13 @@
     <Compile Include="Util\View\WPF\UserControls\AmdChart.xaml.cs">
       <DependentUpon>AmdChart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\AmdChartOld.xaml.cs">
+      <DependentUpon>AmdChartOld.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\Chart\AmdChart.xaml.cs">
+      <DependentUpon>AmdChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\View\WPF\UserControls\Chart\LineCanvas.cs" />
     <Compile Include="Util\View\WPF\UserControls\LogFilterCollection.cs" />
     <Compile Include="Util\View\WPF\UserControls\AMDMessageBox.xaml.cs">
       <DependentUpon>AMDMessageBox.xaml</DependentUpon>
@@ -408,10 +420,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Util\View\WPF\UserControls\AmdChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\AmdChartOld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Util\View\WPF\UserControls\AMDMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\Chart\AmdChart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

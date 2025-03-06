@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls.TearableTabs"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <Grid Name="gridContentHorizontal" Background="Blue">
+  <Grid Name="gridContentHorizontal" Background="#800000FF">
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition Height="5" />

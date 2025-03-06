@@ -5,15 +5,15 @@ using System.Text;
 
 namespace AMD.Util.Display.DDCCI.Util
 {
-  class NativeMethods
+  public class NativeMethods
   {
     public delegate bool MonitorEnumDelegate(IntPtr hMonitor, IntPtr hdcMonitor, ref Rectangle lprcMonitor, IntPtr dwData);
 
     [DllImport("user32.dll", EntryPoint = "EnumDisplayMonitors", SetLastError = true)]
     public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, MonitorEnumDelegate lpfnEnum, IntPtr dwData);
 
-    [DllImport("user32.dll", EntryPoint = "EnumDisplayMonitors", SetLastError = true)]
-    public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, /*[In, Out]*/ ref NativeStructures.DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+    [DllImport("User32.dll", EntryPoint = "EnumDisplayDevices", CharSet = CharSet.Unicode, SetLastError = true)]
+    public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, [In, Out] ref NativeStructures.DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
 
     //[DllImport("user32.dll")]
     //public static extern bool GetMonitorInfo(IntPtr hmon, [In, Out]NativeStructures.MonitorInfoEx mi);
@@ -238,7 +238,24 @@ namespace AMD.Util.Display.DDCCI.Util
       MC_SET_PARAMETER
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct DISPLAY_DEVICE1
+    {
+      [MarshalAs(UnmanagedType.U4)]
+      public int cb;
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+      public string DeviceName;
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+      public string DeviceString;
+      [MarshalAs(UnmanagedType.U4)]
+      public DisplayDeviceStateFlags StateFlags;
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+      public string DeviceID;
+      [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+      public string DeviceKey;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct DISPLAY_DEVICE
     {
       [MarshalAs(UnmanagedType.U4)]

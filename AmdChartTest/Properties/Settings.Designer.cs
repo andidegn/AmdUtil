@@ -193,5 +193,29 @@ namespace AmdChartTest.Properties {
                 this["StrokeThickness"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.3")]
+        public double GridOpacity {
+            get {
+                return ((double)(this["GridOpacity"]));
+            }
+            set {
+                this["GridOpacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowGrid {
+            get {
+                return ((bool)(this["ShowGrid"]));
+            }
+            set {
+                this["ShowGrid"] = value;
+            }
+        }
     }
 }

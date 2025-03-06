@@ -39,7 +39,7 @@ namespace WpfUITest
       InitializeComponent();
       editRibbon.EditRichTextBox = rtb;
       //InitialiseDDCMonitorTests();
-      //InitialiseCompareWindow();
+      InitialiseCompareWindow();
       //TouchBackground touchBackground = new TouchBackground();
       //touchBackground.Show();
 
@@ -50,8 +50,8 @@ namespace WpfUITest
     private void InitialiseCompareWindow()
     {
 
-      compareView.Compare(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), Brushes.Black, Brushes.Red, new SolidColorBrush(Color.FromArgb(0x20, 0xFF, 0, 0)), Brushes.Orange, 15);
-      CompareWindow cw = new CompareWindow(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), 15);
+      compareView.Compare(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), 15);
+      CompareWindow cw = new CompareWindow(File.ReadAllText(@"c:\isic\comparetestleft.txt"), File.ReadAllText(@"c:\isic\comparetestright.txt"), 50, 8);
       cw.MissingLine = Brushes.Orange;
       Window w = new Window()
       {
@@ -309,6 +309,15 @@ namespace WpfUITest
             }
             break;
           default:
+            break;
+        }
+      }
+      else
+      {
+        switch(e.Key)
+        {
+          case Key.F5:
+            InitialiseCompareWindow();
             break;
         }
       }

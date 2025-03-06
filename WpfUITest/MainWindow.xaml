@@ -25,6 +25,8 @@
     </LinearGradientBrush>
     <SolidColorBrush x:Key="brush" Color="#FF4D75FF"></SolidColorBrush>
 
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarAppleStyle}" />
+
     <Style TargetType="usercontrols:TearableTabItem" BasedOn="{StaticResource StyleTearableTabItemBase}">
       <Setter Property="Closeable" Value="{Binding ElementName=tbCloseableTabs, Path=IsChecked}" />
     </Style>
@@ -245,8 +247,17 @@
             <Button Name="btnCheckCapabilities" Grid.Row="1" Height="20" Width="40" Content="scan" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnCheckCapabilities_Click" />
           </Grid>
         </usercontrols:TearableTabItem>
-        <usercontrols:TearableTabItem>
-          <usercontrols:CompareView x:Name="compareView" Background="GhostWhite" CompareMapVisibility="Visible" />
+        <usercontrols:TearableTabItem Header="Compare">
+          <usercontrols:CompareView x:Name="compareView" 
+                                    CompareMapVisibility="Visible" 
+                                    Background="#404040" 
+                                    LineNumberVisibility="Collapsed"
+                                    CompareMapBackground="#202020" 
+                                    CompareMapThumbBorderBrush="#EEE"
+                                    LineNumberBackground="{Binding Background, RelativeSource={RelativeSource Self}}" 
+                                    ControlBackground="{Binding CompareMapBackground, RelativeSource={RelativeSource Self}}" 
+                                    Foreground="White" 
+                                    />
         </usercontrols:TearableTabItem>
         <usercontrols:TearableTabItem>
           <Button x:Name="btnDesignTest" Content="Looks" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />

@@ -4,10 +4,12 @@ using AMD.Util.Log;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Windows.ApplicationModel.DataTransfer.DragDrop;
 
 namespace AMD.Util.View.WPF.UserControls
 {
@@ -21,29 +23,64 @@ namespace AMD.Util.View.WPF.UserControls
       AMD,
       Apple
     }
-
+    private enum WindowsKeyDirection
+    {
+      Up,
+      Down,
+      Left,
+      Right
+    }
 
     public string Title
     {
-      get
-      {
-        return lblTitle.Text;
-      }
-      set
-      {
-        lblTitle.Text = value;
-      }
+      get { return (string)GetValue(TitleProperty); }
+      set { SetValue(TitleProperty, value); }
     }
 
-    //public string Title
+    // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty TitleProperty =
+        DependencyProperty.Register("Title", typeof(string), typeof(TitleBar), new PropertyMetadata("Title"));
+
+    public bool CanSnapToEdge
+    {
+      get { return (bool)GetValue(CanSnapToEdgeProperty); }
+      set { SetValue(CanSnapToEdgeProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for CanSnapToEdge.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CanSnapToEdgeProperty =
+        DependencyProperty.Register("CanSnapToEdge", typeof(bool), typeof(TitleBar), new PropertyMetadata(false));
+
+    public double SnapThreshold
+    {
+      get { return (double)GetValue(SnapThresholdProperty); }
+      set { SetValue(SnapThresholdProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for SnapThreshold.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty SnapThresholdProperty =
+        DependencyProperty.Register("SnapThreshold", typeof(double), typeof(TitleBar), new PropertyMetadata(20d));
+
+    public Brush Background
+    {
+      get { return (Brush)GetValue(BackgroundProperty); }
+      set { SetValue(BackgroundProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty BackgroundProperty =
+        DependencyProperty.Register("Background", typeof(Brush), typeof(TitleBar), new PropertyMetadata(null));
+
+
+    //public System.Drawing.Rectangle? orgBounds
     //{
-    //  get { return (string)GetValue(TitleProperty); }
-    //  set { SetValue(TitleProperty, value); }
+    //  get { return (System.Drawing.Rectangle?)GetValue(orgBoundsProperty); }
+    //  set { SetValue(orgBoundsProperty, value); }
     //}
 
-    //// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-    //public static readonly DependencyProperty TitleProperty =
-    //    DependencyProperty.Register("Title", typeof(string), typeof(TitleBar), new PropertyMetadata(default(string)));
+    //// Using a DependencyProperty as the backing store for orgBounds.  This enables animation, styling, binding, etc...
+    //public static readonly DependencyProperty orgBoundsProperty =
+    //    DependencyProperty.Register("orgBounds", typeof(System.Drawing.Rectangle?), typeof(TitleBar), new PropertyMetadata(null));
 
 
     public ImageSource Icon
@@ -152,6 +189,7 @@ namespace AMD.Util.View.WPF.UserControls
     private bool moving;
     private System.Windows.Forms.Screen currentScreen;
     private System.Drawing.Rectangle? orgBounds;
+    private Point dragStartPoint;
     #endregion // Private Variables
 
     public TitleBar()
@@ -159,6 +197,75 @@ namespace AMD.Util.View.WPF.UserControls
       InitializeComponent();
       parentWindow = null;
     }
+
+    private void SnapToEdge(double newLeft, double newTop, double snapThreshold)
+    {
+      if (currentScreen is null)
+      {
+        return;
+      }
+
+      double screenZeroLeft = currentScreen.WorkingArea.X;
+      double screenZeroTop = currentScreen.WorkingArea.Y;
+      double screenWidth = currentScreen.WorkingArea.Width;
+      double screenHeight = currentScreen.WorkingArea.Height;
+
+      if (Math.Abs(newLeft - screenZeroLeft) < snapThreshold)
+      {
+        parentWindow.Left = screenZeroLeft;
+      }
+      else if (Math.Abs((newLeft - screenZeroLeft) + parentWindow.Width - screenWidth) < snapThreshold)
+      {
+        parentWindow.Left = screenWidth - parentWindow.Width + screenZeroLeft;
+      }
+      else
+      {
+        parentWindow.Left = newLeft;
+      }
+
+      if (Math.Abs(newTop - screenZeroTop) < snapThreshold)
+      {
+        parentWindow.Top = screenZeroTop;
+      }
+      else if (Math.Abs((newTop - screenZeroTop) + parentWindow.Height - screenHeight) < snapThreshold)
+      {
+        parentWindow.Top = screenHeight - parentWindow.Height + screenZeroTop;
+      }
+      else
+      {
+        parentWindow.Top = newTop;
+      }
+    }
+
+    #region WindowStates
+    private void SetWindowStateMaximized()
+    {
+      if (parentWindow?.ResizeMode > ResizeMode.NoResize)
+      {
+        parentWindow.WindowState = WindowState.Maximized;
+      }
+    }
+
+    private void SetWindowStateNormal()
+    {
+      if (null != orgBounds)
+      {
+        parentWindow.Left = orgBounds.Value.Left;
+        parentWindow.Top = orgBounds.Value.Top;
+      }
+      parentWindow.WindowState = WindowState.Normal;
+      parentWindow.Focus();
+      parentWindow.BringIntoView();
+    }
+
+    private void SetWindowStateMinimized()
+    {
+      if (parentWindow?.ResizeMode > ResizeMode.NoResize)
+      {
+        parentWindow.WindowState = WindowState.Minimized;
+      }
+    }
+    #endregion // WindowStates
 
     /// <summary>
     /// Eventhandler for progress information
@@ -259,19 +366,11 @@ namespace AMD.Util.View.WPF.UserControls
       {
         if (parentWindow.WindowState == WindowState.Normal)
         {
-          //defaultResizeMode = parentWindow.ResizeMode;
-          //parentWindow.ResizeMode = ResizeMode.CanMinimize;
-          parentWindow.WindowState = WindowState.Maximized;
+          SetWindowStateMaximized();
         }
         else
         {
-          if (null != orgBounds)
-          {
-            parentWindow.Left = orgBounds.Value.Left;
-            parentWindow.Top = orgBounds.Value.Top;
-          }
-          parentWindow.WindowState = WindowState.Normal;
-          //parentWindow.ResizeMode = defaultResizeMode;
+          SetWindowStateNormal();
         }
       }
     }
@@ -287,11 +386,17 @@ namespace AMD.Util.View.WPF.UserControls
         mousePositionYStart = parentWindow.WindowState == WindowState.Maximized ? MouseUtil.GetMousePosition().Y : double.NaN;
         if (e.ClickCount == 1)
         {
-          if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
+          if (Mouse.LeftButton == MouseButtonState.Pressed)
           {
             try
             {
-              parentWindow.DragMove();
+              if (WindowState.Maximized != parentWindow.WindowState)
+              {
+                orgBounds = new System.Drawing.Rectangle((int)parentWindow.Left, (int)parentWindow.Top, (int)parentWindow.Width, (int)parentWindow.Height);
+              }
+              dragStartPoint = e.GetPosition(null);
+              gridTitleBar.CaptureMouse();
+              moving = true;
             }
             catch (Exception ex)
             {
@@ -316,50 +421,52 @@ namespace AMD.Util.View.WPF.UserControls
       {
         mousePositionYStart = double.NaN;
       }
-      if (moving && parentWindow.WindowState == WindowState.Normal)
+      if (moving && parentWindow.WindowState == WindowState.Normal && null != currentScreen)
       {
         Point mousePosition = MouseUtil.GetMousePosition();
-        //foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
-        //{
-        //  if (mousePosition.X >= screen.Bounds.X && mousePosition.X <= screen.Bounds.X + screen.Bounds.Size.Width &&
-        //    mousePosition.Y <= screen.Bounds.Y + this.ActualHeight / 2)
-        //  {
-        //    parentWindow.WindowState = WindowState.Maximized;
-        //  }
-        //}
-        if (mousePosition.Y <= currentScreen.Bounds.Y + this.ActualHeight / 2)
+        if (mousePosition.Y <= currentScreen.Bounds.Y + this.ActualHeight / 8)
         {
           System.Windows.Forms.Screen containedScreen = ScreenUtil.GetContainedScreen(parentWindow.Left + parentWindow.ActualWidth / 2, parentWindow.Top);
           if (!currentScreen.Equals(containedScreen))
           {
-            orgBounds = new System.Drawing.Rectangle((int)parentWindow.Left, (int)parentWindow.Top, (int)parentWindow.Width, (int)parentWindow.Height);
             parentWindow.Left = currentScreen.Bounds.Left;
             parentWindow.Top = currentScreen.Bounds.Top;
-          }
-          else
-          {
-            orgBounds = null;
           }
           parentWindow.WindowState = WindowState.Maximized;
         }
         moving = false;
       }
+      gridTitleBar.ReleaseMouseCapture();
     }
 
     private void UserControl_MouseMove(object sender, MouseEventArgs e)
     {
-      if (mousePositionYStart != double.NaN &&
-        Mouse.LeftButton == MouseButtonState.Pressed &&
-        parentWindow.WindowState == WindowState.Maximized)
+      if (Mouse.LeftButton == MouseButtonState.Pressed && moving)
       {
         Point mousePosition = MouseUtil.GetMousePosition();
-        double delta = mousePositionYStart - mousePosition.Y;
-        if (delta < -5)
+        double newLeft = mousePosition.X - dragStartPoint.X;
+        double newTop = mousePosition.Y - dragStartPoint.Y;
+
+        if (mousePositionYStart != double.NaN && parentWindow.WindowState == WindowState.Maximized)
         {
-          Maximize_EventHandler(sender, e);
-          parentWindow.Left = mousePosition.X - this.ActualWidth / 2;
-          parentWindow.Top = mousePosition.Y - titleBar.ActualHeight / 2;
-          parentWindow.DragMove();
+          double delta = mousePositionYStart - mousePosition.Y;
+          if (delta < -5)
+          {
+            Maximize_EventHandler(sender, e);
+            parentWindow.Left = mousePosition.X - this.ActualWidth / 2;
+            parentWindow.Top = mousePosition.Y - titleBar.ActualHeight / 2;
+            dragStartPoint = new Point(titleBar.ActualWidth / 2, titleBar.ActualHeight / 2);
+            gridTitleBar.CaptureMouse();
+          }
+        }
+        else if (CanSnapToEdge && null != currentScreen)
+        {
+          SnapToEdge(newLeft, newTop, SnapThreshold);
+        }
+        else
+        {
+          parentWindow.Left = newLeft;
+          parentWindow.Top = newTop;
         }
       }
     }
@@ -370,17 +477,14 @@ namespace AMD.Util.View.WPF.UserControls
 
       if (Mouse.LeftButton == MouseButtonState.Pressed && IsMouseDirectlyOver)
       {
-        moving = true;
         mousePos = MouseUtil.GetMousePosition();
       }
 
       if (null != parentWindow)
       {
-        System.Windows.Forms.Screen screen = null;
-
-
         if (!mousePos.Equals(new Point(0, 0))) // Skipping point 0,0 as this for some reason is the mouse position when mouse is released at the top of screen when dragging window
         {
+          System.Windows.Forms.Screen screen;
           if (moving)
           {
             screen = ScreenUtil.GetContainedScreen(mousePos.X, parentWindow.Top);
@@ -409,7 +513,12 @@ namespace AMD.Util.View.WPF.UserControls
         {
           parentWindow = Window.GetWindow(this);
         }
+        if (Background is null)
+        {
+          Background = parentWindow.TryFindResource("TitleBarBackground") as LinearGradientBrush;
+        }
         parentWindow.LocationChanged += ParentWindow_LocationChanged;
+        parentWindow.StateChanged += ParentWindow_StateChanged;
 
         if (!ScreenUtil.IsWithinScreenArea(parentWindow.Left, parentWindow.Top))
         {
@@ -424,6 +533,36 @@ namespace AMD.Util.View.WPF.UserControls
         }
       }
       catch { }
+    }
+
+    private ResizeMode originalResizeMode;
+    private bool stateChangeInProgress = false;
+    private void ParentWindow_StateChanged(object sender, EventArgs e)
+    {
+      if (!stateChangeInProgress)
+      {
+        stateChangeInProgress = true;
+        switch (parentWindow?.WindowState)
+        {
+          case WindowState.Normal:
+            parentWindow.ResizeMode = originalResizeMode;
+            break;
+
+          case WindowState.Maximized:
+            parentWindow.WindowState = WindowState.Minimized;
+            originalResizeMode = parentWindow.ResizeMode;
+            parentWindow.ResizeMode = ResizeMode.NoResize;
+            parentWindow.WindowState = WindowState.Maximized;
+            break;
+
+          case WindowState.Minimized:
+            break;
+
+          default:
+            break;
+        }
+        stateChangeInProgress = false;
+      }
     }
 
     private void UserControl_Unloaded(object sender, RoutedEventArgs e)

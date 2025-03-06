@@ -39,6 +39,57 @@ namespace AMD.Util.Extensions
       return StringValidater.ValidatePropertyName(s);
     }
 
+    public static bool IsBase64(this string s)
+    {
+      if (string.IsNullOrEmpty(s))
+      {
+        return false;
+      }
+
+      if (s.Length % 4 != 0)
+      {
+        return false;
+      }
+
+      for (int i = 0; i < s.Length; i++)
+      {
+        char c = s[i];
+
+        if (!(
+            (c >= 'A' && c <= 'Z') ||
+            (c >= 'a' && c <= 'z') ||
+            (c >= '0' && c <= '9') ||
+            c == '+' || c == '/' || c == '='
+        ))
+        {
+          return false;
+        }
+      }
+      return true;
+      // This is practically redundant.
+      try
+      {
+        Convert.FromBase64String(s);
+        return true;
+      }
+      catch (FormatException)
+      {
+        return false;
+      }
+    }
+
+    public static string ToBase64String(this string s)
+    {
+      var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(s);
+      return System.Convert.ToBase64String(plainTextBytes);
+    }
+
+    public static string FromBase64String(this string s)
+    {
+      var base64EncodedBytes = System.Convert.FromBase64String(s);
+      return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+    }
+
     public static string MyPadLeft(this string str, int length, char? pad = null)
     {
       return string.Concat(new string(Enumerable.Repeat(pad ?? ' ', length - str.Length).ToArray()), str);

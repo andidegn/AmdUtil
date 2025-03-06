@@ -172,7 +172,7 @@ namespace AMD.Util.Extensions.WPF
     {
       TextPointer caretPos = rtb.CaretPosition;
       TextPointer start = caretPos.GetLineStartPosition(0);
-      TextPointer end = (caretPos.GetLineStartPosition(1) != null ? caretPos.GetLineStartPosition(1) : caretPos.DocumentEnd);
+      TextPointer end = caretPos.GetLineStartPosition(1) ?? caretPos.DocumentEnd;
 
       TextRange tr = new TextRange(start, end);
       return tr.Text;

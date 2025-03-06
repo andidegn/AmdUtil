@@ -508,15 +508,15 @@
     <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
     <Setter Property="IsTabStop" Value="False" />
   </Style>
-  <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
-    <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
-    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
-  </Style>
 	<Style x:Key="TabItemBaseStyle" TargetType="TabItem">
 		<Setter Property="Template" Value="{StaticResource TabItemBase}" />
     <Setter Property="Background" Value="{DynamicResource TabActiveBackground}" />
     <Setter Property="BorderBrush" Value="{DynamicResource TabActiveBorderBrush}" />
     <Setter Property="BorderThickness" Value="1, 5, 1, 0" />
+  </Style>
+  <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyleSquare}">
+    <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
+    <Setter Property="Template" Value="{StaticResource TabItemBaseSquare}" />
   </Style>
 
 	<!--TextBox-->

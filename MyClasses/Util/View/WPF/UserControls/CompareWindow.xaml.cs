@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,8 +83,21 @@ namespace AMD.Util.View.WPF.UserControls
     public static readonly DependencyProperty MissingLineProperty =
         DependencyProperty.Register("MissingLine", typeof(Brush), typeof(CompareWindow), new PropertyMetadata(Brushes.Gray));
 
+    public int LineOffset
+    {
+      get { return (int)GetValue(LineOffsetProperty); }
+      set { SetValue(LineOffsetProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for LineOffset.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty LineOffsetProperty =
+        DependencyProperty.Register("LineOffset", typeof(int), typeof(CompareWindow), new PropertyMetadata(10));
+
+
+
 
     private string strLeft, strRight;
+    private int charsToSearchForOffset;
 
     public CompareWindow()
     {
@@ -97,8 +112,19 @@ namespace AMD.Util.View.WPF.UserControls
 
     public void Compare(string strLeft, string strRight, int charsToSearchForOffset = 5, int lineIndexBeforeLineMatch = 4)
     {
-      CompareView.DataCompare.LineIndexBeforeLineMatch = lineIndexBeforeLineMatch;
-      CompareView.Compare(strLeft, strRight, Foreground, DiffForeground, DiffBackground, MissingLine, charsToSearchForOffset);
+      this.strLeft = strLeft;
+      this.strRight = strRight;
+      this.charsToSearchForOffset = charsToSearchForOffset;
+
+      LineOffset = lineIndexBeforeLineMatch;
+
+      CompareView.Compare(strLeft, strRight, Foreground, DiffForeground, DiffBackground, MissingLine, charsToSearchForOffset, LineOffset);
+    }
+
+    public static bool ValidateInt(int maxValue, string input, TextBox tb)
+    {
+      string completeInput = string.Format("{0}{1}", tb.Text, input);
+      return Regex.IsMatch(input, @"\A\b[0-9]+\b\Z") && (int.Parse(completeInput) < maxValue || tb.SelectedText.Length > 0);
     }
 
     private void Exit()
@@ -116,6 +142,24 @@ namespace AMD.Util.View.WPF.UserControls
       if (Key.Escape == e.Key)
       {
         Exit();
+      }
+    }
+
+    private void tbLineOffset_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+      if (sender is TextBox tb)
+      {
+        e.Handled = !ValidateInt(10000, e.Text, tb);
+      }
+    }
+
+    private void tbLineOffset_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (sender is TextBox tb && Key.Enter == e.Key)
+      {
+        int lineOffset = int.Parse(tb.Text);
+        CompareView.Clear();
+        CompareView.Compare(strLeft, strRight, Foreground, DiffForeground, DiffBackground, MissingLine, charsToSearchForOffset, lineOffset);
       }
     }
 

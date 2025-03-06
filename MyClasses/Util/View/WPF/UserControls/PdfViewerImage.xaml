@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:AMD.Util.View.WPF.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarAppleStyle}" />
+    <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerInvisSquare}" />
+  </UserControl.Resources>
   <ScrollViewer PanningMode="Both"
-                Style="{StaticResource ScrollViewerInvisSquare}"
                 Background="Transparent">
     <ItemsControl x:Name="PagesContainer"/>
   </ScrollViewer>

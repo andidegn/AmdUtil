@@ -98,6 +98,62 @@ namespace AMD.Util.Files
     }
 
     /// <summary>
+    /// Validates whether the given path is valid in terms of its format and characters.
+    /// This works for both local and network (SMB) paths.
+    /// </summary>
+    /// <param name="path">The path to validate.</param>
+    /// <returns>True if the path is valid; otherwise, false.</returns>
+    public static bool IsValidPath(string path)
+    {
+      try
+      {
+        // Check if the path is null, empty, or consists only of whitespace
+        if (string.IsNullOrWhiteSpace(path))
+        {
+          return false;
+        }
+
+        // Check for invalid characters in the path
+        if (path.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+        {
+          return false;
+        }
+
+        // Ensure the path does not exceed the maximum length
+        if (MAX_PATH <= path.Length) // Default MAX_PATH limit
+        {
+          return false;
+        }
+
+        // Handle UNC paths (network shares)
+        if (path.StartsWith(@"\\"))
+        {
+          // UNC paths must have at least two segments after '\\'
+          string[] segments = path.TrimStart('\\').Split('\\');
+          if (segments.Length < 2)
+          {
+            return false; // Must have \\ServerName\ShareName
+          }
+          return true; // Valid UNC path
+        }
+
+        // For non-UNC paths, ensure the path has a valid root (e.g., "C:\")
+        if (string.IsNullOrWhiteSpace(Path.GetPathRoot(path)) || !Path.IsPathRooted(path))
+        {
+          return false;
+        }
+
+        return true; // The path is valid
+      }
+      catch (Exception)
+      {
+        // If an exception occurs, the path is invalid
+        return false;
+      }
+    }
+
+
+    /// <summary>
     /// Checks if a file path contains any illegal characters
     /// </summary>
     /// <param name="filePath"></param>

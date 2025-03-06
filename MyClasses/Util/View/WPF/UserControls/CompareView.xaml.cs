@@ -1,14 +1,13 @@
 ﻿using AMD.Util.Data;
 using AMD.Util.Extensions;
+using AMD.Util.Extensions.WPF;
 using AMD.Util.HID;
 using AMD.Util.Log;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,16 +42,6 @@ namespace AMD.Util.View.WPF.UserControls
     public static readonly DependencyProperty InnerBorderBrushProperty =
         DependencyProperty.Register("InnerBorderBrush", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.Gray));
 
-    public DataCompare DataCompare
-    {
-      get { return (DataCompare)GetValue(DataCompareProperty); }
-      set { SetValue(DataCompareProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for DataCompare.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty DataCompareProperty =
-        DependencyProperty.Register("DataCompare", typeof(DataCompare), typeof(CompareView), new PropertyMetadata(default(DataCompare)));
-
     public Visibility CompareMapVisibility
     {
       get { return (Visibility)GetValue(CompareMapVisibilityProperty); }
@@ -83,8 +72,130 @@ namespace AMD.Util.View.WPF.UserControls
     public static readonly DependencyProperty LineNumberBackgroundProperty =
         DependencyProperty.Register("LineNumberBackground", typeof(Brush), typeof(CompareView), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0x20, 0xFF, 0xAF, 0x00))));
 
+    public Brush ControlBackground
+    {
+      get { return (Brush)GetValue(ControlBackgroundProperty); }
+      set { SetValue(ControlBackgroundProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ControlBackground.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ControlBackgroundProperty =
+        DependencyProperty.Register("ControlBackground", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.White));
+
+    public Brush DiffForeground
+    {
+      get { return (Brush)GetValue(DiffForegroundProperty); }
+      set { SetValue(DiffForegroundProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DiffForeground.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DiffForegroundProperty =
+        DependencyProperty.Register("DiffForeground", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.Red));
+
+    public Brush DiffBackground
+    {
+      get { return (Brush)GetValue(DiffBackgroundProperty); }
+      set { SetValue(DiffBackgroundProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DiffBackground.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DiffBackgroundProperty =
+        DependencyProperty.Register("DiffBackground", typeof(Brush), typeof(CompareView), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0x20, 0xFF, 0x00, 0x00))));
+
+
+    public Brush MissingLine
+    {
+      get { return (Brush)GetValue(MissingLineProperty); }
+      set { SetValue(MissingLineProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for MissingLine.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty MissingLineProperty =
+        DependencyProperty.Register("MissingLine", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.Gray));
+
+    public Brush CompareMapBackground
+    {
+      get { return (Brush)GetValue(CompareMapBackgroundProperty); }
+      set { SetValue(CompareMapBackgroundProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for CompareMapBackground.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CompareMapBackgroundProperty =
+        DependencyProperty.Register("CompareMapBackground", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.White));
+
+    public Brush CompareMapBorderBrush
+    {
+      get { return (Brush)GetValue(CompareMapBorderBrushProperty); }
+      set { SetValue(CompareMapBorderBrushProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for CompareMapBorderBrush.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CompareMapBorderBrushProperty =
+        DependencyProperty.Register("CompareMapBorderBrush", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.DarkGray));
+
+    public Brush CompareMapThumbBorderBrush
+    {
+      get { return (Brush)GetValue(CompareMapThumbBorderBrushProperty); }
+      set { SetValue(CompareMapThumbBorderBrushProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for CompareMapThumbBorderBrush.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CompareMapThumbBorderBrushProperty =
+        DependencyProperty.Register("CompareMapThumbBorderBrush", typeof(Brush), typeof(CompareView), new PropertyMetadata(Brushes.Gray));
+
+
+
+    public string LineUnderMouse
+    {
+      get { return (string)GetValue(LineUnderMouseProperty); }
+      set { SetValue(LineUnderMouseProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for LineUnderMouse.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty LineUnderMouseProperty =
+        DependencyProperty.Register("LineUnderMouse", typeof(string), typeof(CompareView), new PropertyMetadata(string.Empty));
+
+    public DataCompare DataCompare
+    {
+      get { return (DataCompare)GetValue(DataCompareProperty); }
+      set { SetValue(DataCompareProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DataCompare.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DataCompareProperty =
+        DependencyProperty.Register("DataCompare", typeof(DataCompare), typeof(CompareView), new PropertyMetadata(null));
+
+
+
+
+
+
+
+
+
+    public string CurrentLine
+    {
+      get
+      {
+        string retVal = string.Empty;
+        if (rtbLeft.IsKeyboardFocused)
+        {
+          retVal = rtbLeft.GetCurrentLine();
+        }
+        else if (rtbRight.IsKeyboardFocused)
+        {
+          retVal = rtbRight.GetCurrentLine();
+        }
+        return retVal;
+      }
+    }
+
+
 
     private LogWriter log;
+
+    //private DataCompare DataCompare;
+    private DataCompareOptimized dataCompareOptimized;
 
     private FlowDocument fdLeft;
     private FlowDocument fdRight;
@@ -95,6 +206,7 @@ namespace AMD.Util.View.WPF.UserControls
     private Brush blankLine;
 
     private int charsToSearchForOffset;
+    private int lineIndexBeforeLineMatch;
 
     public CompareView()
     {
@@ -102,30 +214,58 @@ namespace AMD.Util.View.WPF.UserControls
       fdLeft = new FlowDocument();
       fdRight = new FlowDocument();
       DataCompare = new DataCompare();
+      dataCompareOptimized = new DataCompareOptimized();
+
       InitializeComponent();
     }
 
-    public void Compare(IEnumerable<byte> dataLeft, IEnumerable<byte> dataRight, bool formatAsMemoryView, Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine, int charsToSearchForOffset = 5)
+    #region Byte Collection Compare
+    public void Compare(IEnumerable<byte> dataLeft, IEnumerable<byte> dataRight, bool formatAsMemoryView, int charsToSearchForOffset = 5, int lineIndexBeforeLineMatch = 4)
+    {
+      Compare(dataLeft, dataRight, formatAsMemoryView, Foreground, DiffForeground, DiffBackground, MissingLine, charsToSearchForOffset, lineIndexBeforeLineMatch);
+    }
+
+    public void Compare(IEnumerable<byte> dataLeft, IEnumerable<byte> dataRight, bool formatAsMemoryView, Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine, int charsToSearchForOffset = 5, int lineIndexBeforeLineMatch = 4)
     {
       Clear();
 
       UpdateBrushes(defaultForeground, diffForeground, diffBackground, blankLine);
       this.charsToSearchForOffset = charsToSearchForOffset;
+      this.lineIndexBeforeLineMatch = lineIndexBeforeLineMatch;
 
-      (fdLeft, fdRight) = DataCompare.CompareBytes(dataLeft, dataRight, formatAsMemoryView, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
+      (fdLeft, fdRight) = DataCompare.CompareBytes(dataLeft, dataRight, formatAsMemoryView, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, lineIndexBeforeLineMatch, rtbLeft.FontSize, log);
       PostCompare(fdLeft.GetRawText(), fdRight.GetRawText());
     }
+    #endregion // Byte Collection Compare
 
-    public void Compare(string strLeft, string strRight, Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine, int charsToSearchForOffset = 5)
+    #region String Compare
+    public void Compare(string strLeft, string strRight, int charsToSearchForOffset = 5, int lineIndexBeforeLineMatch = 4)
+    {
+      Compare(strLeft, strRight, Foreground, DiffForeground, DiffBackground, MissingLine, charsToSearchForOffset, lineIndexBeforeLineMatch);
+    }
+
+    public void Compare(string strLeft, string strRight, Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine, int charsToSearchForOffset = 5, int lineIndexBeforeLineMatch = 4)
     {
       Clear();
 
       UpdateBrushes(defaultForeground, diffForeground, diffBackground, blankLine);
       this.charsToSearchForOffset = charsToSearchForOffset;
+      this.lineIndexBeforeLineMatch = lineIndexBeforeLineMatch;
 
-      (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
+      //Stopwatch sw = new Stopwatch();long t1, t2;
+      //GC.Collect();
+      //sw.Start();
+      (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, lineIndexBeforeLineMatch, rtbLeft.FontSize, log);
+      //sw.Stop();
+      //log.Print(LogMsgType.Measurement, $"DataCompare: {t1 = sw.ElapsedMilliseconds} ms");
+      //GC.Collect();
+      //sw.Start();
+      //(fdLeft, fdRight) = dataCompareOptimized.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, lineIndexBeforeLineMatch, rtbLeft.FontSize, log);
+      //sw.Stop();
+      //log.Print(LogMsgType.Measurement, $"DataCompareOptimized: {t2 = sw.ElapsedMilliseconds} ms");
       PostCompare(strLeft, strRight);
     }
+    #endregion // String Compare
 
     private void UpdateBrushes(Brush defaultForeground, Brush diffForeground, Brush diffBackground, Brush blankLine)
     {
@@ -140,7 +280,7 @@ namespace AMD.Util.View.WPF.UserControls
       string strLeft = rtbRight.Tag.ToString();
       string strRight = rtbLeft.Tag.ToString();
 
-      (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, rtbLeft.FontSize, log);
+      (fdLeft, fdRight) = DataCompare.CompareStrings(strLeft, strRight, defaultForeground, diffForeground, diffBackground, blankLine, charsToSearchForOffset, lineIndexBeforeLineMatch, rtbLeft.FontSize, log);
       PostCompare(strLeft, strRight);
 
       rtbLeft.Tag = strLeft;
@@ -162,8 +302,7 @@ namespace AMD.Util.View.WPF.UserControls
 
     public void Clear()
     {
-      rtbLeft.Document.Blocks.Clear();
-      rtbRight.Document.Blocks.Clear();
+      DataCompare.Clear();
     }
 
     private void SlCompareMap_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -360,13 +499,56 @@ namespace AMD.Util.View.WPF.UserControls
       columnLeft.Width = columnRight.Width = new GridLength(1, GridUnitType.Star);
     }
 
-    private void CvLocal_MouseMove(object sender, MouseEventArgs e1)
-    {
-    }
-
     private void CvLocal_Loaded(object sender, RoutedEventArgs e)
     {
       SetWidths();
+    }
+    private void Rtb_MouseMove(object sender, MouseEventArgs e)
+    {
+      if (sender is RichTextBox rtb)
+      {
+        try
+        {
+          Point mousePosition = e.GetPosition(rtb);
+
+          TextPointer pointer = rtb.GetPositionFromPoint(mousePosition, true);
+
+          if (pointer != null)
+          {
+            TextPointer lineStart = pointer.GetLineStartPosition(0);
+            TextPointer lineEnd = pointer.GetLineStartPosition(1);
+
+            if (lineEnd == null)
+            {
+              lineEnd = rtb.Document.ContentEnd;
+            }
+
+            TextRange textRange = new TextRange(lineStart, lineEnd);
+            string lineText = textRange.Text;
+
+            LineUnderMouse = lineText.Trim();
+          }
+        }
+        catch (Exception ex)
+        {
+
+        }
+      }
+    }
+
+    private void slCompareMap_MouseMove(object sender, MouseEventArgs e)
+    {
+      if (e.LeftButton == MouseButtonState.Pressed && sender is Slider s && true)
+      {
+        // Not working atm. Offset of box not calculated correctly yet
+        Point position = e.GetPosition(s);
+        double halfMax = s.Maximum / 2;
+        double ratio = (halfMax - s.Value) / halfMax;
+        double offset = ratio * (s.MinHeight + 4) / 2;
+        double d = 1.0d / (s.ActualHeight + offset) * position.Y;
+        double p = s.Maximum * d;
+        s.Value = p;
+      }
     }
   }
 }

@@ -571,27 +571,6 @@
       <Path Name="pathPowerSymbolHorizontalLine" Fill="Black" Stretch="Fill" Canvas.Left="140.334" Data="M340,60 C340,60 339.83333,39.5 359.5,39.5 379.16667,39.5 379.50006,59.5 379.50006,59.5 L379.50006,219.5 C379.50006,219.5 378.83339,239.83333 359.16667,239.83333 339.49994,239.83333 339.1666,219.50029 339.1666,219.50029 z" />
     </Canvas>
   </ControlTemplate>
-  <Rectangle x:Key="RectBlankLine" Width="1000" IsEnabled="False" Focusable="False">
-    <Rectangle.Fill>
-      <DrawingBrush Stretch="None" TileMode="Tile" Viewport="0,0,0.007,0.5">
-        <DrawingBrush.Drawing>
-          <GeometryDrawing Brush="Gray">
-            <GeometryDrawing.Geometry>
-              <GeometryGroup>
-                <RectangleGeometry RadiusX="7" RadiusY="7" />
-                <LineGeometry StartPoint="0, 3.5" EndPoint="3.5, 0" />
-                <LineGeometry StartPoint="3.5, 7" EndPoint="7, 3.5" />
-              </GeometryGroup>
-            </GeometryDrawing.Geometry>
-            <GeometryDrawing.Pen>
-              <Pen Brush="Black" Thickness="0.3" EndLineCap="Square" StartLineCap="Square">
-              </Pen>
-            </GeometryDrawing.Pen>
-          </GeometryDrawing>
-        </DrawingBrush.Drawing>
-      </DrawingBrush>
-    </Rectangle.Fill>
-  </Rectangle>
   <ControlTemplate x:Key="ctTouchBackground" TargetType="{x:Type Control}">
     <Grid x:Name="gdOuter">
       <Grid.Resources>

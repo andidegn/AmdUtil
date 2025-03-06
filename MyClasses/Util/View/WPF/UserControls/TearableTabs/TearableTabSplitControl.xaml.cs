@@ -13,6 +13,8 @@ namespace AMD.Util.View.WPF.UserControls
   /// </summary>
   public partial class TearableTabSplitControl : UserControl, ITabControlContainer
   {
+    public string Name { get; set; }
+
     public ITabControlContainer TabParent { get; set; }
     #region Interface
     public bool AddSplitControl(DropLocation location, DropLocation sourceLocation, TearableTabItem ttItem)
@@ -54,7 +56,6 @@ namespace AMD.Util.View.WPF.UserControls
 
     public bool RemoveControl(ITabControlContainer sender, FrameworkElement controlToInsertInPlaceOfRemoved)
     {
-      var v = this.Parent;
       gridContentSplitControl.Children.Remove(itccCenter as UIElement);
       itccCenter = null;
       if (controlToInsertInPlaceOfRemoved is ITabControlContainer)

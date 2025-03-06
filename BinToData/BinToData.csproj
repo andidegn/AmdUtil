@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>binary-code.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=3.3.3.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.3.3\lib\net40\Costura.dll</HintPath>
@@ -59,6 +62,9 @@
       <Project>{b57acfd3-fc24-4441-ba91-b75c15657529}</Project>
       <Name>AMDUtil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="binary-code.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.8.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.2\build\Fody.targets')" />

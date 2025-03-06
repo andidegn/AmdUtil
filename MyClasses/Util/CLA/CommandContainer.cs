@@ -98,11 +98,12 @@ namespace AMD.Util.CLA
 
     public string ToConsoleString(int indent)
     {
-      int stdWidth = 30;
-      string retVal = $"{PrintName.PadRight(stdWidth).PadLeft(stdWidth + indent, ' ')}{Description}";
+      int stdWidth = Required ? 28 : 30;
+      int noteWidth = 30;
+      string retVal = $"{PrintName.PadRight(stdWidth).PadLeft(stdWidth + indent, ' ')}{(Required ? "* " : string.Empty)}{Description}";
       if (!string.IsNullOrWhiteSpace(Note))
       {
-        retVal += $"\n{"".PadLeft(stdWidth + indent - 6, ' ')}{Note}";
+        retVal += $"\n{string.Empty.PadLeft(noteWidth + indent - 6, ' ')}{Note}";
       }
       return retVal;
     }

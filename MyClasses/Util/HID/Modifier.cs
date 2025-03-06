@@ -8,7 +8,7 @@ namespace AMD.Util.HID
 		{
 			get
 			{
-				return Keyboard.IsKeyDown(Key.LeftShift) || System.Windows.Input.Keyboard.IsKeyDown(Key.RightShift);
+				return Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
 			}
 		}
 
@@ -16,7 +16,7 @@ namespace AMD.Util.HID
 		{
 			get
 			{
-				return Keyboard.IsKeyDown(Key.LeftCtrl) || System.Windows.Input.Keyboard.IsKeyDown(Key.RightCtrl);
+				return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
 			}
 		}
 
@@ -24,7 +24,15 @@ namespace AMD.Util.HID
 		{
 			get
 			{
-				return Keyboard.IsKeyDown(Key.LeftAlt) || System.Windows.Input.Keyboard.IsKeyDown(Key.RightAlt);
+				return Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
+			}
+		}
+
+		public static bool IsWindowsDown
+		{
+			get
+			{
+				return Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin);
 			}
 		}
 	}

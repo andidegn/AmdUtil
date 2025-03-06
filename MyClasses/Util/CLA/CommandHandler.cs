@@ -1,9 +1,13 @@
-﻿using AMD.Util.Log;
+﻿using AMD.Util.Data;
+using AMD.Util.Log;
+using AMD.Util.MyConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AMD.Util.CLA
 {
@@ -74,7 +78,9 @@ namespace AMD.Util.CLA
             }
             else
             {
-              log.WriteToLog(LogMsgType.Error, $"Argument: {arg} is not recognised");
+              string errMsg = $"Argument: {arg} is not recognised";
+              log.WriteToLog(LogMsgType.Error, errMsg);
+              ErrorMessages.Add(errMsg);
             }
           }
           passedCommands.Sort();
@@ -112,6 +118,52 @@ namespace AMD.Util.CLA
         retVal = false;
       }
       return retVal;
+    }
+
+    private IEnumerable<string> ValidArguments
+    {
+      get
+      {
+        List<string> args = new List<string>();
+        foreach (CommandContainer cc in commandMap)
+        {
+          args.Add(cc.ToConsoleString(2));
+        }
+        return args;
+      }
+    }
+
+    private string PartNoAndVersion
+    {
+      get
+      {
+        AssemblyName assem = Assembly.GetEntryAssembly().GetName();
+        return $"{assem.Name} v{assem.Version}";
+      }
+    }
+
+    /// <summary>
+    /// Prints the help menu including all valid arguments
+    /// </summary>
+    /// <param name="description">Description of the application</param>
+    /// <param name="totalWidth">The total width the description box should be (-1 = auto detect longest line in argument list)</param>
+    public void PrintHelp(string description, int totalWidth = -1)
+    {
+      IEnumerable<string> argList = ValidArguments;
+
+      if (-1 == totalWidth)
+      {
+        totalWidth = argList.Max(x => 
+        {
+          string[] lines = x.Split(new string[] { Environment.NewLine, "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+          return lines.Max(y => y.Length);
+        });
+      }
+      string headerAndDescription = ConsoleHelper.GetTextBoxWithHeaderCentered(PartNoAndVersion, description, totalWidth);
+
+      string args = string.Join(Environment.NewLine, argList);
+
+      ConsoleHelper.Print($"{headerAndDescription}\n\nValid arguments: (* = Required)\n{StringFormatHelper.Repeat("-", totalWidth)}\n{args}\n");
     }
   }
 }

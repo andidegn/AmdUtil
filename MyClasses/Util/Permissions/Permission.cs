@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.DirectoryServices.AccountManagement;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 
@@ -274,16 +275,16 @@ namespace AMD.Util.Permissions
       return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
-    public static String GetCurrentUserOnMachine
+    public static string GetCurrentUserOnMachine
     {
       get
       {
-        return String.Format("{0}@{1} on {2}", Environment.UserName, Environment.UserDomainName, Environment.MachineName);
+        return string.Format("{0}@{1} on {2}", Environment.UserName, Environment.UserDomainName, Environment.MachineName);
       }
     }
 
     //[PrincipalPermission(SecurityAction.Demand, Role = @"INNOSCAN\Domain Admins")]
-    public static bool HasAccess(String role)
+    public static bool HasAccess(string role)
     {
       AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
 
@@ -294,17 +295,17 @@ namespace AMD.Util.Permissions
 
         //if (debugStr != null)
         //{
-        //	List<String> groups = new List<String>();
+        //	List<string> groups = new List<string>();
         //	StringBuilder sb = new StringBuilder();
         //	foreach (IdentityReference irc in curIdentity.Groups)
         //	{
         //		groups.Add(((NTAccount)irc.Translate(typeof(NTAccount))).Value);
-        //		sb.AppendLine(String.Format("Is in {0} - {1}", ((NTAccount)irc.Translate(typeof(NTAccount))).Value, myPrincipal.IsInRole(((NTAccount)irc.Translate(typeof(NTAccount))).Value)));
+        //		sb.AppendLine(string.Format("Is in {0} - {1}", ((NTAccount)irc.Translate(typeof(NTAccount))).Value, myPrincipal.IsInRole(((NTAccount)irc.Translate(typeof(NTAccount))).Value)));
         //	}
 
         //	sb.AppendFormat("is in {0} - {1}\n", role, myPrincipal.IsInRole(role));
 
-        //	debugStr = String.Format("Name:\t\t{0}\nAuth:\t{1}\nBuiltinAdmin:\t{2}\nGroups:\n\t\t{3}", curIdentity.Name, curIdentity.IsAuthenticated, myPrincipal.IsInRole(role) ? "True" : "False", String.Join(String.Format(",{0}\t\t", Environment.NewLine), groups.ToArray()));
+        //	debugStr = string.Format("Name:\t\t{0}\nAuth:\t{1}\nBuiltinAdmin:\t{2}\nGroups:\n\t\t{3}", curIdentity.Name, curIdentity.IsAuthenticated, myPrincipal.IsInRole(role) ? "True" : "False", string.Join(string.Format(",{0}\t\t", Environment.NewLine), groups.ToArray()));
         //}
         return new FastPrincipal(WindowsIdentity.GetCurrent()).IsInRole(role);
         return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(role);
@@ -312,11 +313,32 @@ namespace AMD.Util.Permissions
       return false;
     }
 
-    public static bool HasAccess(params String[] roles)
+    public static bool HasAccess(params string[] roles)
     {
-      foreach (String role in roles)
+      foreach (string role in roles)
       {
         if (HasAccess(role))
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="domain"></param>
+    /// <returns></returns>
+    public static bool IsMemberOf(string groupName, string domainName)
+    {
+      PrincipalContext ctx = new PrincipalContext(ContextType.Domain, domainName);
+      UserPrincipal user = UserPrincipal.FindByIdentity(ctx, Environment.UserName);
+      GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, groupName);
+
+      if (null != user && null != group)
+      {
+        if (user.IsMemberOf(group))
         {
           return true;
         }
@@ -411,7 +433,7 @@ namespace AMD.Util.Permissions
     /// </summary>
     /// <param name = "userName" > Name of the user.</param>
     /// <param name = "domainName" > Name of the domain.</param>
-    /// <param name = "password" > The password. <see cref = "System.String" /></ param >
+    /// <param name = "password" > The password. <see cref = "System.string" /></ param >
     /// <param name="logonType">Type of the logon.</param>
     /// <param name = "logonProvider" > The logon provider. <see cref = "Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></ param >
     public Impersonator(string userName, string domainName, string password, LogonType logonType, LogonProvider logonProvider)
@@ -424,7 +446,7 @@ namespace AMD.Util.Permissions
     /// </summary>
     /// <param name = "userName" > Name of the user.</param>
     /// <param name = "domainName" > Name of the domain.</param>
-    /// <param name = "password" > The password. <see cref = "System.String" /></ param >
+    /// <param name = "password" > The password. <see cref = "System.string" /></ param >
     public Impersonator(string userName, string domainName, string password)
     {
       Impersonate(userName, domainName, password, LogonType.LOGON32_LOGON_INTERACTIVE, LogonProvider.LOGON32_PROVIDER_DEFAULT);
@@ -449,7 +471,7 @@ namespace AMD.Util.Permissions
     /// </summary>
     /// <param name = "userName" > Name of the user.</param>
     /// <param name = "domainName" > Name of the domain.</param>
-    /// <param name = "password" > The password. <see cref = "System.String" /></ param >
+    /// <param name = "password" > The password. <see cref = "System.string" /></ param >
     public void Impersonate(string userName, string domainName, string password)
     {
       Impersonate(userName, domainName, password, LogonType.LOGON32_LOGON_INTERACTIVE, LogonProvider.LOGON32_PROVIDER_DEFAULT);
@@ -460,7 +482,7 @@ namespace AMD.Util.Permissions
     /// </summary>
     /// <param name = "userName" > Name of the user.</param>
     /// <param name = "domainName" > Name of the domain.</param>
-    /// <param name = "password" > The password. <see cref = "System.String" /></param >
+    /// <param name = "password" > The password. <see cref = "System.string" /></param >
     /// <param name="logonType">Type of the logon.</param>
     /// <param name = "logonProvider" > The logon provider. <see cref = "Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></param >
     public void Impersonate(string userName, string domainName, string password, LogonType logonType, LogonProvider logonProvider)

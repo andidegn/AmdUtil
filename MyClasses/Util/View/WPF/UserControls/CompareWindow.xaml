@@ -27,7 +27,22 @@
       </Grid.RowDefinitions>
       <local:TitleBar x:Name="titlebar" Grid.Row="0" Title="Compare View" ButtonType="Apple" Foreground="{Binding Foreground, ElementName=cpw}" WindowStyle="ToolWindow" Exit="Titlebar_Exit" />
       <Grid Grid.Row="1">
-        <Button Name="btnSwap" Content="Swap Left and Right" Width="200" HorizontalAlignment="Center" Margin="35, 0, 0, 0" Click="btnSwap_Click" />
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+          <TextBlock Text="Line Offset" Margin="10, 0" VerticalAlignment="Center" />
+          <TextBox Name="tbLineOffset" 
+                   Width="40" 
+                   IsReadOnly="False"
+                   AcceptsReturn="False"
+                   Text="{Binding LineOffset, Mode=OneWay}" 
+                   PreviewTextInput="tbLineOffset_PreviewTextInput" 
+                   KeyUp="tbLineOffset_KeyUp" />
+        </StackPanel>
+        <Button Name="btnSwap" Grid.Column="1" Content="Swap Left and Right" Width="200" HorizontalAlignment="Center" Margin="35, 0, 0, 0" Click="btnSwap_Click" />
       </Grid>
       <local:CompareView x:Name="CompareView" 
                          Grid.Row="2" 

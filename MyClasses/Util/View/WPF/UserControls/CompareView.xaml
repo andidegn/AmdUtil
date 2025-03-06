@@ -8,10 +8,9 @@
              mc:Ignorable="d" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              VerticalAlignment="Top"
-             Name="cvLocal"
-             MouseMove="CvLocal_MouseMove"
+             Name="cvLocal" 
              Loaded="CvLocal_Loaded"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -110,57 +109,62 @@
       <Grid.Resources>
         <Style TargetType="{x:Type Slider}">
           <Setter Property="Template" Value="{DynamicResource ctSliderCompareMapVertical}" />
+          <Setter Property="BorderBrush" Value="{Binding CompareMapThumbBorderBrush}" />
           <Setter Property="Orientation" Value="Vertical" />
+          <Setter Property="IsHitTestVisible" Value="True" />
           <Setter Property="IsDirectionReversed" Value="True" />
           <Setter Property="IsMoveToPointEnabled" Value="True" />
-          <Setter Property="BorderThickness" Value="2" />
-          <Setter Property="Margin" Value="0, 0, 0, 0" />
-          <Setter Property="Background" Value="{Binding Background}" />
+          <Setter Property="BorderThickness" Value="1" />
+          <Setter Property="Background" Value="#01808080" />
           <Setter Property="Maximum" Value="{Binding ScrollableHeight, ElementName=svLeft}" />
           <Setter Property="MinWidth" Value="{Binding DataCompare.OverviewWidth}" />
           <Setter Property="Visibility" Value="{Binding ElementName=svLeft, Path=ScrollableHeight, Converter={StaticResource valueZeroToVisibility}}" />
           <EventSetter Event="ValueChanged" Handler="SlCompareMap_ValueChanged" />
         </Style>
       </Grid.Resources>
-      <Grid Grid.Column="0" Margin="5, 2, 5, 2" Visibility="{Binding CompareMapVisibility}" VerticalAlignment="Top">
-        <Viewbox Name="vbCompareMap" 
-                 Grid.Column="0" 
-                 Stretch="Fill" 
-                 StretchDirection="DownOnly"
-                 VerticalAlignment="Top"
-                 Width="{Binding ActualWidth, ElementName=icCompareMap}">
-          <ItemsControl Name="icCompareMap"
-                        ItemsSource="{Binding DataCompare.Lines}"
-                        Height="{Binding DataCompare.LineCount}" 
-                        Width="{Binding DataCompare.OverviewWidth}"
-                        Padding="0, 0.5, 0, 0">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <Canvas />
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
+      <Border Grid.Column="0" Margin="5, 2" BorderBrush="{Binding CompareMapBorderBrush}" Background="#10000000" BorderThickness="1" VerticalAlignment="Top" Height="Auto" >
+        <Grid Name="gridCompareMap" Grid.Column="0" Margin="3, 0" Visibility="{Binding CompareMapVisibility}" VerticalAlignment="Top" Background="{Binding CompareMapBackground}">
+          <Viewbox Name="vbCompareMap" 
+                   Stretch="Fill"
+                   StretchDirection="DownOnly"
+                   VerticalAlignment="Top"
+                   DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                   Width="{Binding ActualWidth, ElementName=icCompareMap}">
+            <ItemsControl Name="icCompareMap"
+                          ItemsSource="{Binding DataCompare.Lines}"
+                          Height="{Binding DataCompare.LineCount}" 
+                          Width="{Binding DataCompare.OverviewWidth}"
+                          Padding="0, 0.5, 0, 0">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <Canvas />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
                       X2="{Binding To.X}" Y2="{Binding To.Y}"
                       Stroke="Red"
                       StrokeThickness="2"/>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-        </Viewbox>
-        <Slider Name="slCompareMap" BorderBrush="Gray" VerticalAlignment="Stretch"/>
-      </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </Viewbox>
+          <Slider Name="slCompareMap" VerticalAlignment="Stretch" RenderOptions.EdgeMode="Aliased" />
+        </Grid>
+      </Border>
       <Border Grid.Column="1" Style="{StaticResource StyleRegularBorder}" BorderThickness="0, 0, 1, 0">
         <DockPanel>
-          <ScrollViewer Name="svLeftln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}" Width="{Binding ElementName=lblLeftLineNumbers, Path=ActualWidth}">
+          <ScrollViewer Name="svLeftln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}">
             <TextBlock Name="lblLeftLineNumbers" Style="{StaticResource StyleLineNumberTextBlock}" />
           </ScrollViewer>
           <ScrollViewer Name="svLeft" DockPanel.Dock="Right" Style="{StaticResource StyleScrollViewerRtb}">
             <RichTextBox Name="rtbLeft" 
                          Style="{StaticResource StyleRichTextBoxDataViewLocal}"
+                         Background="{Binding ControlBackground}"
                          Width="{Binding ElementName=svLeft, Path=ActualWidth}" 
-                         AutoWordSelection="False">
+                         AutoWordSelection="False"
+                         MouseMove="Rtb_MouseMove">
               <RichTextBox.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Copy" Executed="CommandBinding_Copy" />
               </RichTextBox.CommandBindings>
@@ -171,13 +175,16 @@
       <GridSplitter Grid.Column="2" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Style="{StaticResource GridSplitterVerticalStyle}" MouseDoubleClick="GridSplitter_MouseDoubleClick" />
       <Border Grid.Column="3" Style="{StaticResource StyleRegularBorder}" BorderThickness="1, 0, 0, 0">
         <DockPanel>
-          <ScrollViewer Name="svRightln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}" Width="{Binding ElementName=lblRightLineNumbers, Path=ActualWidth}">
+          <ScrollViewer Name="svRightln" DockPanel.Dock="Left" Style="{StaticResource StyleScrollViewerLn}">
             <TextBlock Name="lblRightLineNumbers" Style="{StaticResource StyleLineNumberTextBlock}" />
           </ScrollViewer>
           <ScrollViewer Name="svRight" DockPanel.Dock="Right" Style="{StaticResource StyleScrollViewerRtb}">
             <RichTextBox Name="rtbRight" 
                          Style="{StaticResource StyleRichTextBoxDataViewLocal}" 
-                         Width="{Binding ElementName=svRight, Path=ActualWidth}">
+                         Background="{Binding ControlBackground}"
+                         Width="{Binding ElementName=svRight, Path=ActualWidth}"
+                         AutoWordSelection="False"
+                         MouseMove="Rtb_MouseMove">
               <RichTextBox.CommandBindings>
                 <CommandBinding Command="ApplicationCommands.Copy" Executed="CommandBinding_Copy" />
               </RichTextBox.CommandBindings>

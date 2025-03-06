@@ -24,12 +24,12 @@ namespace AMD.Util.Display.Edid.Enums
     ///     RGB 4:4:4 + YCrCb 4:2:2
     /// </summary>
     [Description("RGB 4:4:4 + YCrCb 4:2:2")]
-    RGB444CrCb422 = 3,
+    RGB444CrCb422 = 2,
 
     /// <summary>
     ///     RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2
     /// </summary>
     [Description("RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2")]
-    RGB444YCrCb444YCrCb422 = 4
+    RGB444YCrCb444YCrCb422 = 3
   }
 }

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BinToData")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Converts the binary data to hex text in various formats")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("andidegn.dk")]
 [assembly: AssemblyProduct("BinToData")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]

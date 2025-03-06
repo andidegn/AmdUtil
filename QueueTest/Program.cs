@@ -12,6 +12,8 @@ using System.Data.SqlTypes;
 using System.Reflection;
 using System.Diagnostics;
 using AMD.Util.MyConsole;
+using System.Text;
+using AMD.Util.Extensions;
 
 namespace QueueTest
 {

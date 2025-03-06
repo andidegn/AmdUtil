@@ -18,20 +18,25 @@ namespace BinToData
     {
       LogWriter.Instance.Enable = false;
 
+      CommandHandler ch = new CommandHandler(CommandStatic.CommandMap);
+
       if (CommandStatic.IsHelpCommand(args))
       {
-        PrintHelp();
+        PrintHelp(ch);
         return;
       }
 
-      CommandHandler ch = new CommandHandler(CommandStatic.CommandMap);
       if (ch.Execute(args))
       {
+        foreach (string errMsg in ch.ErrorMessages)
+        {
+          Out.Error(errMsg);
+        }
         GenerateData();
       }
       else
       {
-        PrintHelp();
+        PrintHelp(ch);
         var formattedArgs = args.Select(arg => arg.Contains(" ") ? $"\"{arg}\"" : arg);
         Out.Error($"Error parsing CLA: \"{string.Join(" ", formattedArgs)}\"");
         foreach (string errMsg in ch.ErrorMessages)
@@ -70,9 +75,24 @@ namespace BinToData
           break;
       }
 
-      Out.Print(formattedData);
+      if (ip.Output.HasFlag(eOutput.File))
+      {
+        try
+        {
+          string dirPath = Path.GetDirectoryName(ip.OutputPath);
+          if (!Directory.Exists(dirPath))
+          {
+            Directory.CreateDirectory(dirPath);
+          }
+          File.WriteAllText(ip.OutputPath, formattedData);
+        }
+        catch (Exception ex)
+        {
+          Out.Error($"Error writing to file: {ex.Message}");
+        }
+      }
 
-      if (ip.CopyToClipboard)
+      if (ip.Output.HasFlag(eOutput.Clipboard))
       {
         try
         {
@@ -87,16 +107,21 @@ namespace BinToData
           throw;
         }
       }
+
+      if (ip.Output.HasFlag(eOutput.Console))
+      {
+        Out.Print(formattedData);
+      }
     }
 
     private static string GetCSharpStyleArray(string arrayName, string formattedData, int tabSize)
     {
-      return $"byte[] {(arrayName ?? "[NAME]")} = new byte[]\n{GetArrayBody(formattedData, tabSize)}";
+      return $"byte[] {(arrayName ?? "<NAME>")} = new byte[]\n{GetArrayBody(formattedData, tabSize)}";
     }
 
     private static string GetCStyleArray(string arrayName, string formattedData, int tabSize)
     {
-      return $"uint8_t {(arrayName ?? "[NAME]")}[] = \n{GetArrayBody(formattedData, tabSize)}";
+      return $"uint8_t {(arrayName ?? "<NAME>")}[] = \n{GetArrayBody(formattedData, tabSize)}";
     }
 
     private static string GetArrayBody(string formattedData, int tabSize)
@@ -112,10 +137,10 @@ namespace BinToData
       return sb.ToString();
     }
 
-    private static void PrintHelp()
+    private static void PrintHelp(CommandHandler ch)
     {
-      ConsoleHelper.Print(CommandStatic.PrintNameBanner(70), ConsoleColor.Blue);
-      ConsoleHelper.Print(CommandStatic.Help);
+      ConsoleHelper.Print(CommandStatic.Banner, ConsoleColor.Blue);
+      ch.PrintHelp(CommandStatic.Description);
     }
   }
 }

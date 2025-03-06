@@ -39,6 +39,13 @@
             </summary>
             <param name="iIndex"></param>
         </member>
+        <member name="M:AMD.Util.CLA.CommandHandler.PrintHelp(System.String,System.Int32)">
+            <summary>
+            Prints the help menu including all valid arguments
+            </summary>
+            <param name="description">Description of the application</param>
+            <param name="totalWidth">The total width the description box should be (-1 = auto detect longest line in argument list)</param>
+        </member>
         <member name="F:AMD.Util.Collections.ArrayStack.ArrayDropOutStack`1.DEFAULT_CAPACITY">
             constant to represent the default capacity of the array
         </member>
@@ -877,12 +884,24 @@
             <param name="sender">The object who called the Handler</param>
             <param name="args">The arguments</param>
         </member>
-        <member name="P:AMD.Util.Data.DataCompare.LineIndexBeforeLineMatch">
+        <member name="M:AMD.Util.Data.DataCompare.CompareBytes(System.Collections.Generic.IEnumerable{System.Byte},System.Collections.Generic.IEnumerable{System.Byte},System.Boolean,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Int32,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
             <summary>
-            The index of the line character before trying to match with another line for equality (default = 4)
+            Compares two strings and returns left and right documents, which can be loaded into RichTextBox
             </summary>
+            <param name="leftData"></param>
+            <param name="rightData"></param>
+            <param name="formatAsMemoryView"></param>
+            <param name="brushDefaultForeground"></param>
+            <param name="brushDiffForeground"></param>
+            <param name="brushDiffBackground"></param>
+            <param name="brushBlankLine"></param>
+            <param name="charsToSearchForOffset">The number of characters to search into a row in order to determine if they are comparable</param>
+            <param name="lineIndexBeforeLineMatch">The number of rows to search for a matching row before detecting it as a difference</param>
+            <param name="fontSize">The size of the font used in the destination control. Ex RichTextBox.FontSize</param>
+            <param name="log"></param>
+            <returns></returns>
         </member>
-        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
+        <member name="M:AMD.Util.Data.DataCompare.CompareStrings(System.String,System.String,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Windows.Media.Brush,System.Int32,System.Int32,System.Double,AMD.Util.Log.LogWriter)">
             <summary>
             Compares two strings and returns left and right documents, which can be loaded into RichTextBox
             </summary>
@@ -891,7 +910,9 @@
             <param name="brushDefaultForeground"></param>
             <param name="brushDiffForeground"></param>
             <param name="brushDiffBackground"></param>
+            <param name="brushBlankLine"></param>
             <param name="charsToSearchForOffset">The number of characters to search into a line in order to determine if they are comparable</param>
+            <param name="lineIndexBeforeLineMatch">The number of lines to search for a matching line before detecting it as a difference</param>
             <param name="fontSize">The size of the font used in the destination control. Ex RichTextBox.FontSize</param>
             <param name="log"></param>
             <returns></returns>
@@ -1601,9 +1622,8 @@
         </member>
         <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplayGamma">
             <summary>
-                Gets the display gamma value (1.00 – 3.54)
+                Gets the display gamma value (1.00 – 3.54). 0xFF means the gamma information must be storred in an extension block (ex. DI-EXT)
             </summary>
-            <exception cref="T:AMD.Util.Display.Edid.Exceptions.GammaValueNotAvailableException">There is no information about the gamma property of the display.</exception>
         </member>
         <member name="P:AMD.Util.Display.Edid.DisplayParameters.DisplaySizeInInch">
             <summary>
@@ -1631,10 +1651,15 @@
                 Gets a boolean value indicating if the display supports GTF with default parameter values
             </summary>
         </member>
-        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsDFPTMDSCompatible">
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.DigitalVideoInterfaceStandardSupported">
             <summary>
-                Gets a boolean value indicating if the signal is compatible with VESA DFP 1.x TMDS CRGB, 1 pixel per clock, up to 8
-                bits per color, MSB aligned
+                Gets the supported input type
+            </summary>
+            <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
+        </member>
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.ColorBitDepth">
+            <summary>
+                Gets the supported color bit depth
             </summary>
             <exception cref="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">The device is not digital.</exception>
         </member>
@@ -1643,7 +1668,7 @@
                 Gets a boolean value indicating if the device uses the digital signal for communication
             </summary>
         </member>
-        <member name="P:AMD.Util.Display.Edid.DisplayParameters.IsPreferredTimingModeAvailable">
+        <member name="P:AMD.Util.Display.Edid.DisplayParameters.PTMIncludesPIxelAndRefresh">
             <summary>
                 Gets a boolean value indicating if the preferred timing mode specified in descriptor block 1. For EDID 1.3+ the
                 preferred timing mode is always in the first Detailed Timing Descriptor
@@ -1885,19 +1910,6 @@
         </member>
         <member name="M:AMD.Util.Display.Edid.EDIDExtension.GetHashCode">
             <inheritdoc />
-        </member>
-        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetRegEdidFromNameInEdid(System.String)">
-            <summary>
-            Gets the Edid stored in Windows Registry by searching for DeviceFriendlyName in the Edid VESA descripter blocks
-            </summary>
-            <param name="deviceFriendlyName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetAllRegEdid">
-            <summary>
-            Gets all Edids stored in Windows Registry
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:AMD.Util.Display.Edid.Enums.AnalogDisplayType">
             <summary>
@@ -2244,6 +2256,19 @@
                 Digital display separate sync
             </summary>
         </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetRegEdidFromNameInEdid(System.String)">
+            <summary>
+            Gets the Edid stored in Windows Registry by searching for DeviceFriendlyName in the Edid VESA descripter blocks
+            </summary>
+            <param name="deviceFriendlyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMD.Util.Display.Edid.Util.EdidUtil.GetAllRegEdid">
+            <summary>
+            Gets all Edids stored in Windows Registry
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AMD.Util.Display.Edid.Exceptions.AnalogDisplayException">
             <summary>
                 Represents errors that occurs because of display being an analog display
@@ -2516,6 +2541,14 @@
             <param name="filePath"></param>
             <returns></returns>
         </member>
+        <member name="M:AMD.Util.Files.FileHelper.IsValidPath(System.String)">
+            <summary>
+            Validates whether the given path is valid in terms of its format and characters.
+            This works for both local and network (SMB) paths.
+            </summary>
+            <param name="path">The path to validate.</param>
+            <returns>True if the path is valid; otherwise, false.</returns>
+        </member>
         <member name="M:AMD.Util.Files.FileHelper.IsFilePathLegal(System.String)">
             <summary>
             Checks if a file path contains any illegal characters
@@ -2682,12 +2715,53 @@
             AmdChart
             </summary>
         </member>
-        <member name="P:AMD.Util.View.WPF.UserControls.AmdChart.HorizontalScrollBarVisibility">
+        <member name="P:AMD.Util.View.WPF.UserControls.AmdChart.ScrollBarVisibility">
             <summary>
             Note: No not use Auto as the dynamic height is not handled and will yield an incorrect height of the data
             </summary>
         </member>
         <member name="M:AMD.Util.View.WPF.UserControls.AmdChart.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.old.AmdChart">
+            <summary>
+            Interaction logic for Plot.xaml
+            </summary>
+            <summary>
+            AmdChart
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.old.AmdChart.HorizontalScrollBarVisibility">
+            <summary>
+            Note: No not use Auto as the dynamic height is not handled and will yield an incorrect height of the data
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.old.AmdChart.XAxisNameTextSkip">
+            <summary>
+            The ammount of X Axis names to skip between measurements
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.old.AmdChart.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.Chart.AmdChart">
+            <summary>
+            Interaction logic for Plot.xaml
+            </summary>
+            <summary>
+            AmdChart
+            </summary>
+        </member>
+        <member name="P:AMD.Util.View.WPF.UserControls.Chart.AmdChart.ScrollBarVisibility">
+            <summary>
+            Note: No not use Auto as the dynamic height is not handled and will yield an incorrect height of the data
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.Chart.AmdChart.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -3841,6 +3915,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:AMD.Util.Permissions.Permission.IsMemberOf(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="domain"></param>
+            <returns></returns>
+        </member>
         <member name="T:AMD.Util.Permissions.Impersonator">
              <summary>
              Allows code to be executed under the security context of a specified user account.
@@ -3890,7 +3971,7 @@
             </summary>
             <param name = "userName" > Name of the user.</param>
             <param name = "domainName" > Name of the domain.</param>
-            <param name = "password" > The password. <see cref = "T:System.String" /></param >
+            <param name = "password" > The password. <see cref = "!:System.string" /></param >
             <param name="logonType">Type of the logon.</param>
             <param name = "logonProvider" > The logon provider. <see cref = "!:Mit.Sharepoint.WebParts.EventLogQuery.Network.LogonProvider" /></param >
         </member>

@@ -564,18 +564,21 @@ namespace AMD.Util.Display
     }
     #endregion // Set
 
-
-    public void CheckCapabilities()
+    public void CheckCapabilities(bool readoutValues = true)
     {
-      Report("Checking high level capabilities", 25);
-      log.WriteToLog(LogMsgType.Notification, "Checking high level capabilities");
-      CheckHighLevelCapabilities();
+      // ToDo: Needs fixing
+      //Report("Checking high level capabilities", 25);
+      //log.WriteToLog(LogMsgType.Notification, "Checking high level capabilities");
+      //CheckHighLevelCapabilities();
       Report("Checking low level capabilities", 50);
       log.WriteToLog(LogMsgType.Notification, "Checking low level capabilities");
       CheckLowLevelCapabilities();
       Report("Querying VCP codes", 75);
-      log.WriteToLog(LogMsgType.Notification, "Querying VCP codes");
-      GetVCPCodeValues(VCPCodes, true);
+      if (readoutValues)
+      {
+        log.WriteToLog(LogMsgType.Notification, "Querying VCP codes");
+        GetVCPCodeValues(VCPCodes, true);
+      }
     }
 
     public void CheckLowLevelCapabilities()

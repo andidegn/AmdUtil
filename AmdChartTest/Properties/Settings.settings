@@ -47,5 +47,11 @@
     <Setting Name="StrokeThickness" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="GridOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
+    </Setting>
+    <Setting Name="ShowGrid" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
