@@ -36,7 +36,13 @@ namespace AMD.Util.Versioning
       get
       {
         Version version;
-        if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+        bool isNetworkDeployed = false;
+        try
+        {
+          isNetworkDeployed = System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed;
+        }
+        catch (Exception) { }
+        if (isNetworkDeployed)
         {
           version = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion;
         }

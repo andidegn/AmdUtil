@@ -418,8 +418,10 @@ namespace WpfUITest
 
     private void TestAMDMessageBox_Click(object sender, RoutedEventArgs e)
     {
-      var result = AMDMessageBox.Show(this, "This is some message\nOver multiple lines to see how it copes!!!\n\nLong", "Some Caption", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.No);
-      int res = AMDMessageBox.Show(this, "Some text", "some caption", MessageBoxImage.Warning, "Not OK", "Very OK", "Maybe");
+      AMDMessageBoxX.Background = Brushes.Blue;
+      AMDMessageBoxX.Foreground = Brushes.Yellow;
+      var result = AMDMessageBoxX.Show(this, "This is some message\nOver multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!Over multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\nOver multiple lines to see how it copes!!!\n\nLong", "Some Caption", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.No);
+      int res = AMDMessageBoxX.Show(this, "Some text", "some caption", MessageBoxImage.Warning, "Not OK", "Very OK", "Maybe");
     }
 
     private void btnClearAllTabs_Click(object sender, RoutedEventArgs e)

@@ -236,6 +236,9 @@
     <Compile Include="Util\View\WPF\UserControls\AmdChartOld.xaml.cs">
       <DependentUpon>AmdChartOld.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\View\WPF\UserControls\AMDMessageBoxX.xaml.cs">
+      <DependentUpon>AMDMessageBoxX.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\View\WPF\UserControls\Chart\AmdChart.xaml.cs">
       <DependentUpon>AmdChart.xaml</DependentUpon>
     </Compile>
@@ -426,6 +429,10 @@
     <Page Include="Util\View\WPF\UserControls\AmdChartOld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\View\WPF\UserControls\AMDMessageBoxX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Util\View\WPF\UserControls\AMDMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>

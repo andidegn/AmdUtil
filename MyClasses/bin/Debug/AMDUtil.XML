@@ -2748,6 +2748,16 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:AMD.Util.View.WPF.UserControls.AMDMessageBoxX">
+            <summary>
+            AMDMessageBoxX
+            </summary>
+        </member>
+        <member name="M:AMD.Util.View.WPF.UserControls.AMDMessageBoxX.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:AMD.Util.View.WPF.UserControls.Chart.AmdChart">
             <summary>
             Interaction logic for Plot.xaml

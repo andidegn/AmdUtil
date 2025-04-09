@@ -158,7 +158,7 @@ namespace AMD.Util.Collections.Dictionary
 			{
 				if (keySerializer == null)
 				{
-					keySerializer = new XmlSerializer(typeof(TKey));
+          keySerializer = new XmlSerializer(typeof(TKey));
 				}
 				return keySerializer;
 			}
